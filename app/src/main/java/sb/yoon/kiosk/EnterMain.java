@@ -8,6 +8,6 @@ public class EnterMain extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.enter_main);
+        setContentView(R.layout.activity_enter_main);
     }
 }
