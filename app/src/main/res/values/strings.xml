@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">kiosk</string>
+    <string name="app_name">도서관</string>
+    <string name="enter_button">진입 버튼</string>
+    <string name="enter_background">초입 이미지 전경</string>
 </resources>
