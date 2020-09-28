@@ -23,7 +23,7 @@ public class KioskMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiosk_main);
 
-        String[] strings = {"소설", "교양", "수필", "IT"};
+        String[] strings = {"소설", "교양", "수필", "IT", "TEST", "AAAAA"};
         categories.addAll(Arrays.asList(strings));
 
         LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
