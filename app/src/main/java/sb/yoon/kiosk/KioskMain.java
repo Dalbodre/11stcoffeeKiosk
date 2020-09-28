@@ -48,7 +48,7 @@ public class KioskMain extends AppCompatActivity {
         public void onClick(View view) {
             String text = ((Button)view).getText().toString();
             try {
-                itemList = ItemList.newInstance(text, text + "1111144");
+                itemList = new ItemList();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.list_fragment, itemList).commitAllowingStateLoss();
             } catch (Exception e) {

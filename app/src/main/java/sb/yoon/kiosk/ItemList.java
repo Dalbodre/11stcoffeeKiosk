@@ -1,57 +1,44 @@
 package sb.yoon.kiosk;
 
+import android.app.Application;
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.ListFragment;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ItemList#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class ItemList extends Fragment {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class ItemList extends ListFragment {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public ItemList() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ItemList.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ItemList newInstance(String param1, String param2) {
-        ItemList fragment = new ItemList();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    Data[] INDEX_DATA;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
+        INDEX_DATA = new Data[]{
+                new Data("list1", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                new Data("list2", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                new Data("list3", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+        };
+
+        // 인덱스 데이터를 리스트에 추가
+        List<Data> list = new ArrayList<>();
+        Collections.addAll(list, INDEX_DATA);
+
+        // 인덱스 표시 어댑터 설정
+        CustomAdapter adapter = new CustomAdapter(getActivity().getApplicationContext(), 0, list);
+
+        // 어댑터를 설정
+        setListAdapter(adapter);
     }
 
     @Override
@@ -60,8 +47,6 @@ public class ItemList extends Fragment {
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_item_list, container, false);
-        ((TextView)view.findViewById(R.id.text1)).setText(mParam1);
-        ((TextView)view.findViewById(R.id.text2)).setText(mParam2);
         return view;
     }
 }
