@@ -1,6 +1,7 @@
 package sb.yoon.kiosk;
 
 import android.os.Bundle;
+import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,7 +57,11 @@ public class ItemList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        ((TextView)view.findViewById(R.id.text1)).setText(mParam1);
+        ((TextView)view.findViewById(R.id.text2)).setText(mParam2);
+        return view;
     }
 }

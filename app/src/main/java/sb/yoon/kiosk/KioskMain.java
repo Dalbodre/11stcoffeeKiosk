@@ -23,7 +23,7 @@ public class KioskMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiosk_main);
 
-        String[] strings = {"1", "2", "3", "4"};
+        String[] strings = {"소설", "교양", "수필", "IT"};
         categories.addAll(Arrays.asList(strings));
 
         LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
@@ -46,8 +46,9 @@ public class KioskMain extends AppCompatActivity {
     class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            String text = ((Button)view).getText().toString();
             try {
-                itemList = ItemList.newInstance("111111", "2222222");
+                itemList = ItemList.newInstance(text, text + "1111144");
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.list_fragment, itemList).commitAllowingStateLoss();
             } catch (Exception e) {
