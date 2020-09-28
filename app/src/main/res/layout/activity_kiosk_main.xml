@@ -23,10 +23,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/categories_buttons_group"
                 android:orientation="horizontal"
-                >
-
-        </LinearLayout>
+                />
     </HorizontalScrollView>
+
+    <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:background="#544842"
+            />
 
     <FrameLayout
             android:layout_width="match_parent"

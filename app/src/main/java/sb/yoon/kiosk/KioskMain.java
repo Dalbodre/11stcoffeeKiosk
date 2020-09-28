@@ -1,5 +1,7 @@
 package sb.yoon.kiosk;
 
+import android.graphics.Color;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,7 +32,10 @@ public class KioskMain extends AppCompatActivity {
 
         for (String category: categories) {
             Button button = new Button(this);
+            button.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 33);
             button.setText(category);
+            button.setTextColor(Color.parseColor("#544842"));
+            button.setBackgroundColor(Color.parseColor("#fbe49e"));
             button.setOnClickListener(new ButtonClickListener());
             categoryButtonsGroup.addView(button);
         }
