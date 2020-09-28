@@ -13,8 +13,8 @@ import java.util.List;
 
 // 데이터 클래스
 class Data {
-    private Drawable icon ;
-    private String text ;
+    private Drawable icon;
+    private String text;
 
     Data(String text, Drawable icon){
         this.icon = icon;
