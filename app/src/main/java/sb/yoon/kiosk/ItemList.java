@@ -1,12 +1,7 @@
 package sb.yoon.kiosk;
 
-import android.app.Application;
-import android.content.Context;
 import android.os.Bundle;
-import android.widget.TextView;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,21 +13,48 @@ import java.util.List;
 
 public class ItemList extends ListFragment {
 
-    Data[] INDEX_DATA;
+    Menu[] INDEX_MENU;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        INDEX_DATA = new Data[]{
-                new Data("list1", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                new Data("list2", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                new Data("list3", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+        // 메뉴 인덱스 구성
+        INDEX_MENU = new Menu[]{
+                new Menu("아메리카노",
+                        ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null),
+                        new int[]{1000, 2000},
+                        new Ingredient[]{
+                                new Ingredient("커피", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                                new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                                new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                                new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                                new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                                new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                        }),
+                new Menu("라떼",
+                    ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null),
+                    new int[]{1000, 2000},
+                    new Ingredient[]{
+                            new Ingredient("커피", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                            new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                            new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                            new Ingredient("sss", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                            new Ingredient("zzz", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                            new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                    }),
+                new Menu("카푸치노",
+                        ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null),
+                        new int[]{1000, 2000},
+                        new Ingredient[]{
+                                new Ingredient("커피", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
+                                new Ingredient("우유", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null))
+                        }),
         };
 
         // 인덱스 데이터를 리스트에 추가
-        List<Data> list = new ArrayList<>();
-        Collections.addAll(list, INDEX_DATA);
+        List<Menu> list = new ArrayList<>();
+        Collections.addAll(list, INDEX_MENU);
 
         // 인덱스 표시 어댑터 설정
         CustomAdapter adapter = new CustomAdapter(getActivity().getApplicationContext(), 0, list);

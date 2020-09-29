@@ -25,29 +25,31 @@ public class KioskMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiosk_main);
 
-        String[] strings = {"소설", "교양", "수필", "IT", "TEST", "AAAAA"};
+        // 카테고리 더미
+        String[] strings = {"소설", "교양", "수필", "IT", "TEST", "AAAAA", "XXXX", "YYYYYY", "ZZZZZZZZ"};
         categories.addAll(Arrays.asList(strings));
 
+        // 카테고리 버튼들 생성
         LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
-
         for (String category: categories) {
             Button button = new Button(this);
             button.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 33);
             button.setText(category);
-            button.setTextColor(Color.parseColor("#fbe49e"));
-            button.setBackgroundColor(Color.parseColor("#544842"));
+            button.setTextColor(Color.parseColor("#544842"));
+            //button.setBackgroundColor(Color.parseColor("#544842"));
             button.setOnClickListener(new ButtonClickListener());
             categoryButtonsGroup.addView(button);
         }
 
+        // 기본으로 보여줄 플래그먼트 표시
         fragmentManager = getSupportFragmentManager();
-
         itemList = new ItemList();
-
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.list_fragment, itemList).commitAllowingStateLoss();
     }
 
+    // 버튼 누르면 버튼의 텍스트를 확인하고 플래그먼트에 삽입
+    //
     class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
