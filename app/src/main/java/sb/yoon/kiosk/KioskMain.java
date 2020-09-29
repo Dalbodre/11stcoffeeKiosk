@@ -34,8 +34,8 @@ public class KioskMain extends AppCompatActivity {
             Button button = new Button(this);
             button.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 33);
             button.setText(category);
-            button.setTextColor(Color.parseColor("#544842"));
-            button.setBackgroundColor(Color.parseColor("#fbe49e"));
+            button.setTextColor(Color.parseColor("#fbe49e"));
+            button.setBackgroundColor(Color.parseColor("#544842"));
             button.setOnClickListener(new ButtonClickListener());
             categoryButtonsGroup.addView(button);
         }
