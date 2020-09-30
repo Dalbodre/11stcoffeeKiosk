@@ -1,16 +1,15 @@
 package sb.yoon.kiosk;
 
 import android.os.Bundle;
-import androidx.core.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.ListFragment;
+import sb.yoon.kiosk.model.Menu;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class ItemList extends ListFragment {
 

@@ -1,80 +1,13 @@
 package sb.yoon.kiosk;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import sb.yoon.kiosk.model.Menu;
 
 import java.util.List;
-
-// 데이터 클래스
-class Menu {
-    private Drawable icon;
-    private String text;
-    private Ingredient[] ingredients;
-    private int[] prices;
-
-    Menu(String text, Drawable icon, int[] prices, Ingredient[] ingredients){
-        this.icon = icon;
-        this.text = text;
-        this.prices = prices;
-        this.ingredients = ingredients;
-    }
-
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
-    }
-    public void setText(String text) {
-        this.text = text;
-    }
-    public void setPrices(int[] prices) {
-        this.prices = prices;
-    }
-    public void setIngredients(Ingredient[] ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public Drawable getIcon() {
-        return this.icon;
-    }
-    public String getText() {
-        return this.text;
-    }
-    public Ingredient[] getIngredients() {
-        return ingredients;
-    }
-    public int[] getPrices() {
-        return prices;
-    }
-}
-
-class Ingredient {
-    private Drawable icon;
-    private String text;
-
-    public Ingredient(String text, Drawable icon) {
-        this.icon = icon;
-        this.text = text;
-    }
-
-    public Drawable getIcon() {
-        return icon;
-    }
-
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-}
 
 // 어뎁터 클래스
 public class CustomAdapter extends ArrayAdapter<Menu> {
