@@ -29,8 +29,8 @@ public class KioskMain extends AppCompatActivity {
         setContentView(R.layout.activity_kiosk_main);
 
         // 카테고리 더미
-        String[] strings = {"커피", "차", "빵", "케이크", "쿠키", "아이스크림"};
-        categories.addAll(Arrays.asList(strings));
+        // TODO Firebase 기반으로 카테고리들 뽑아와야함
+        categories.addAll(Arrays.asList("커피", "차", "빵", "케이크", "쿠키", "아이스크림"));
 
         // 카테고리 버튼들 생성
         LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
@@ -49,9 +49,9 @@ public class KioskMain extends AppCompatActivity {
             categoryButtonsGroup.addView(button, params);
         }
 
-        // 기본으로 보여줄 플래그먼트 표시
+        // 기본으로 보여줄 플래그먼트 (첫번째 카테고리)
         fragmentManager = getSupportFragmentManager();
-        itemList = new ItemList(getMenuList(strings[0]));
+        itemList = new ItemList(getMenuList(categories.get(0)));
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.list_fragment, itemList).commitAllowingStateLoss();
     }
@@ -72,6 +72,8 @@ public class KioskMain extends AppCompatActivity {
         }
     }
 
+    // 카테고리 별 메뉴 리스트를 뽑아옴
+    // TODO firebase 기반으로 전환해야함
     Menu[] getMenuList(String categoryName) {
         Menu[] INDEX_MENU = new Menu[0];
 
