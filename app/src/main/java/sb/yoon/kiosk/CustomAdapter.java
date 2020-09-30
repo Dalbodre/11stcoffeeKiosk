@@ -108,8 +108,8 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
         for (int i = 0; i< menu.getIngredients().length; i++) {
             ImageView ingredIcon = new ImageView(getContext());
             ingredIcon.setImageDrawable(menu.getIngredients()[i].getIcon());
-            ingredIcon.setMaxWidth(100);
-            ingredIcon.setMaxHeight(100);
+            ingredIcon.setMaxWidth(150);
+            ingredIcon.setMaxHeight(150);
             holder.addView(ingredIcon);
         }
 

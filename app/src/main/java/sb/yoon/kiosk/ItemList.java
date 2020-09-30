@@ -15,42 +15,13 @@ public class ItemList extends ListFragment {
 
     Menu[] INDEX_MENU;
 
+    public ItemList(Menu[] INDEX_MENU) {
+        this.INDEX_MENU = INDEX_MENU;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // 메뉴 인덱스 구성
-        INDEX_MENU = new Menu[]{
-                new Menu("아메리카노",
-                        ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null),
-                        new int[]{1000, 2000},
-                        new Ingredient[]{
-                                new Ingredient("커피", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                                new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                                new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                                new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                                new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                                new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                        }),
-                new Menu("라떼",
-                    ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null),
-                    new int[]{1000, 2000},
-                    new Ingredient[]{
-                            new Ingredient("커피", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                            new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                            new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                            new Ingredient("sss", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                            new Ingredient("zzz", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                            new Ingredient("물", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                    }),
-                new Menu("카푸치노",
-                        ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null),
-                        new int[]{1000, 2000},
-                        new Ingredient[]{
-                                new Ingredient("커피", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null)),
-                                new Ingredient("우유", ResourcesCompat.getDrawable(getResources(), R.drawable.apollo1, null))
-                        }),
-        };
 
         // 인덱스 데이터를 리스트에 추가
         List<Menu> list = new ArrayList<>();
