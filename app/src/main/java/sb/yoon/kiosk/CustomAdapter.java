@@ -5,17 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
+import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.Menu;
 
 import java.util.List;
 
 // 어뎁터 클래스
 public class CustomAdapter extends ArrayAdapter<Menu> {
-    private LayoutInflater layoutInflater;
+    private final LayoutInflater layoutInflater;
 
     public CustomAdapter(Context context, int textViewResourceId, List<Menu> objects){
         super(context, textViewResourceId, objects);
-        layoutInflater = (LayoutInflater)context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -29,21 +32,21 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
         }
 
         // View의 각 Widget에 데이터 저장
-        ImageView imageView;
-        imageView = (ImageView)convertView.findViewById(R.id.img);
-        imageView.setImageDrawable(menu.getIcon());
+        ItemElement view = convertView.findViewById(R.id.menu_element);
+        view.setImage(getContext().getDrawable(R.drawable.apollo1));
+        view.setText("TTTTT");
 
         TextView textView;
         textView = (TextView)convertView.findViewById(R.id.text);
         textView.setText(menu.getText());
 
+        // 재료들 추가
         LinearLayout holder = convertView.findViewById(R.id.ingredientsHolder);
         for (int i = 0; i< menu.getIngredients().length; i++) {
-            ImageView ingredIcon = new ImageView(getContext());
-            ingredIcon.setImageDrawable(menu.getIngredients()[i].getIcon());
-            ingredIcon.setMaxWidth(150);
-            ingredIcon.setMaxHeight(150);
-            holder.addView(ingredIcon);
+            // 메뉴 아이템 (이미지 + 텍스트) 삽입
+            ItemElement element = new ItemElement(getContext(), menu.getIngredients()[i].getIcon(), "Test");
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(150, 150);
+            holder.addView(element, params);
         }
 
         return convertView;
