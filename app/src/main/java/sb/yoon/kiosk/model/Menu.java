@@ -2,14 +2,16 @@ package sb.yoon.kiosk.model;
 
 import android.graphics.drawable.Drawable;
 
+import java.util.ArrayList;
+
 // 데이터 클래스
 public class Menu {
     private Drawable icon;
     private String text;
-    private Ingredient[] ingredients;
-    private int[] prices;
+    private ArrayList<Ingredient> ingredients;
+    private String[] prices;
 
-    public Menu(String text, Drawable icon, int[] prices, Ingredient[] ingredients) {
+    public Menu(String text, Drawable icon, String[] prices, ArrayList<Ingredient> ingredients) {
         this.icon = icon;
         this.text = text;
         this.prices = prices;
@@ -24,11 +26,11 @@ public class Menu {
         this.text = text;
     }
 
-    public void setPrices(int[] prices) {
+    public void setPrices(String[] prices) {
         this.prices = prices;
     }
 
-    public void setIngredients(Ingredient[] ingredients) {
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -40,11 +42,11 @@ public class Menu {
         return this.text;
     }
 
-    public Ingredient[] getIngredients() {
+    public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public int[] getPrices() {
+    public String[] getPrices() {
         return prices;
     }
 }

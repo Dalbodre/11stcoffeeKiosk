@@ -5,30 +5,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.fragment.app.ListFragment;
+import sb.yoon.kiosk.controller.KioskListAdapter;
 import sb.yoon.kiosk.model.Menu;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class ItemList extends ListFragment {
 
-    Menu[] INDEX_MENU;
+    ArrayList<Menu> menuList;
 
-    public ItemList(Menu[] INDEX_MENU) {
-        this.INDEX_MENU = INDEX_MENU;
+    public ItemList(ArrayList<Menu> menuList) {
+        this.menuList = menuList;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 인덱스 데이터를 리스트에 추가
-        List<Menu> list = new ArrayList<>();
-        Collections.addAll(list, INDEX_MENU);
-
         // 인덱스 표시 어댑터 설정
-        CustomAdapter adapter = new CustomAdapter(requireActivity().getApplicationContext(), 0, list);
+        KioskListAdapter adapter = new KioskListAdapter(requireActivity().getApplicationContext(), 0, menuList);
 
         // 어댑터를 설정
         setListAdapter(adapter);

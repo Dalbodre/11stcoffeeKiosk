@@ -1,22 +1,25 @@
-package sb.yoon.kiosk;
+package sb.yoon.kiosk.controller;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
+import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.Menu;
 
 import java.util.List;
 
 // 어뎁터 클래스
-public class CustomAdapter extends ArrayAdapter<Menu> {
+public class KioskListAdapter extends ArrayAdapter<Menu> {
     private final LayoutInflater layoutInflater;
 
-    public CustomAdapter(Context context, int textViewResourceId, List<Menu> objects){
+    public KioskListAdapter(Context context, int textViewResourceId, List<Menu> objects){
         super(context, textViewResourceId, objects);
         layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -34,18 +37,23 @@ public class CustomAdapter extends ArrayAdapter<Menu> {
         // View의 각 Widget에 데이터 저장
         ItemElement view = convertView.findViewById(R.id.menu_element);
         view.setImage(getContext().getDrawable(R.drawable.apollo1));
-        view.setText("TTTTT");
+        view.setText(menu.getText());
 
-        TextView textView;
-        textView = (TextView)convertView.findViewById(R.id.text);
-        textView.setText(menu.getText());
+        TextView price1 = (TextView)convertView.findViewById(R.id.price1);
+        price1.setText(menu.getPrices()[0]);
+        TextView price2 = (TextView)convertView.findViewById(R.id.price2);
+        price2.setText(menu.getPrices()[1]);
 
         // 재료들 추가
         LinearLayout holder = convertView.findViewById(R.id.ingredientsHolder);
-        for (int i = 0; i< menu.getIngredients().length; i++) {
+        for (Ingredient ingredient : menu.getIngredients()) {
+            System.out.println(menu.getText() + ingredient.getText());
             // 메뉴 아이템 (이미지 + 텍스트) 삽입
-            ItemElement element = new ItemElement(getContext(), menu.getIngredients()[i].getIcon(), "Test");
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(150, 150);
+            ItemElement element = new ItemElement(getContext(), ingredient.getIcon(), ingredient.getText());
+            // DP 단위로 변환
+            final int width = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getContext().getResources().getDisplayMetrics());
+            final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getContext().getResources().getDisplayMetrics());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
             holder.addView(element, params);
         }
 

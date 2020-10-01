@@ -10,7 +10,9 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/apollo1"
             android:id="@+id/element_image"
-            android:layout_weight="4"/>
+            android:scaleType="centerCrop"
+            android:layout_weight="7"
+            android:contentDescription="Image of Element"/>
 
     <TextView
             android:text="TextView"
@@ -20,5 +22,7 @@
             android:layout_weight="1"
             android:textSize="20sp"
             android:textAlignment="center"
-            android:gravity="center_horizontal"/>
+            android:gravity="center"
+            android:background="#544842"
+            android:textColor="#FFFFFF"/>
 </LinearLayout>
