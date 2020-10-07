@@ -1,32 +1,39 @@
 package sb.yoon.kiosk.model;
 
 import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.List;
 
 // 데이터 클래스
 public class Menu {
-    private Drawable icon;
-    private String text;
-    private ArrayList<Ingredient> ingredients;
-    private String[] prices;
+    private StorageReference imageRef = null;
+    private String name = "";
+    private ArrayList<Ingredient> ingredients = null;
+    private List<String> prices = null;
 
-    public Menu(String text, Drawable icon, String[] prices, ArrayList<Ingredient> ingredients) {
-        this.icon = icon;
-        this.text = text;
+    public Menu(String name, StorageReference imageRef, List<String> prices, ArrayList<Ingredient> ingredients) {
+        this.imageRef = imageRef;
+        this.name = name;
         this.prices = prices;
         this.ingredients = ingredients;
     }
 
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
+    public Menu() {
+
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setImage(StorageReference image) {
+        this.imageRef = image;
     }
 
-    public void setPrices(String[] prices) {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrices(List<String> prices) {
         this.prices = prices;
     }
 
@@ -34,19 +41,19 @@ public class Menu {
         this.ingredients = ingredients;
     }
 
-    public Drawable getIcon() {
-        return this.icon;
+    public StorageReference getImage() {
+        return this.imageRef;
     }
 
-    public String getText() {
-        return this.text;
+    public String getName() {
+        return this.name;
     }
 
     public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public String[] getPrices() {
+    public List<String> getPrices() {
         return prices;
     }
 }

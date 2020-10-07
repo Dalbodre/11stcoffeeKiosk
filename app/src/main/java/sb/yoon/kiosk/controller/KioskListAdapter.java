@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.res.ResourcesCompat;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.Ingredient;
@@ -37,17 +35,17 @@ public class KioskListAdapter extends ArrayAdapter<Menu> {
         // View의 각 Widget에 데이터 저장
         ItemElement view = convertView.findViewById(R.id.menu_element);
         view.setImage(getContext().getDrawable(R.drawable.apollo1));
-        view.setText(menu.getText());
+        view.setText(menu.getName());
 
         TextView price1 = (TextView)convertView.findViewById(R.id.price1);
-        price1.setText(menu.getPrices()[0]);
+        price1.setText(menu.getPrices().get(0));
         TextView price2 = (TextView)convertView.findViewById(R.id.price2);
-        price2.setText(menu.getPrices()[1]);
+        price2.setText(menu.getPrices().get(1));
 
         // 재료들 추가
         LinearLayout holder = convertView.findViewById(R.id.ingredientsHolder);
         for (Ingredient ingredient : menu.getIngredients()) {
-            System.out.println(menu.getText() + ingredient.getText());
+            System.out.println(menu.getName() + ingredient.getText());
             // 메뉴 아이템 (이미지 + 텍스트) 삽입
             ItemElement element = new ItemElement(getContext(), ingredient.getIcon(), ingredient.getText());
             // DP 단위로 변환

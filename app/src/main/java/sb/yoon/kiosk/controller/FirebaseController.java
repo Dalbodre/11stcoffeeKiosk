@@ -50,10 +50,16 @@ public class FirebaseController {
                 menuList = queryDocumentSnapshots.getDocuments();
                 for (DocumentSnapshot menu : menuList) {
                     String name = menu.getString("name");
+                    String image = menu.getString("image");
 
-                    ArrayList<String> prices = (ArrayList<String>) menu.get("prices");
-                    ArrayList<DocumentReference> ingredients = (ArrayList<DocumentReference>) menu.get("ingredients");
-                    //menus.add(new Menu(menu.getString("name"), null, prices.toArray(new String[2]), ingredients));
+                    List<String> prices = (List<String>) menu.get("prices");
+                    if (image == null) {
+                        image = "gs://android-term-kiosk.appspot.com/cafe/items/americano.png";
+                    }
+
+                    List<String> ingredientsName = (List<String>) menu.get("ingredients");
+
+                    //Menu(name, storage.getReferenceFromUrl(image), prices,
                 }
             }
         });

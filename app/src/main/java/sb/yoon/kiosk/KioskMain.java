@@ -54,7 +54,7 @@ public class KioskMain extends AppCompatActivity {
 
         // 기본으로 보여줄 플래그먼트 (첫번째 카테고리)
         fragmentManager = getSupportFragmentManager();
-        itemList = new ItemList(firebaseController.getMenuList(categories.get("coffee")));
+        itemList = new ItemList(firebaseController.getMenuList("coffee"));
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.list_fragment, itemList).commitAllowingStateLoss();
     }
