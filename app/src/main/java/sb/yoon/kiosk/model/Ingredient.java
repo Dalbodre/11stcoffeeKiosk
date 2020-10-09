@@ -11,6 +11,12 @@ public class Ingredient {
         this.text = text;
     }
 
+    public Ingredient(String text, String iconPath) {
+        this.text = text;
+
+
+    }
+
     public Drawable getIcon() {
         return icon;
     }

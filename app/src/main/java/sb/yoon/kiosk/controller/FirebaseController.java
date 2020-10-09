@@ -59,10 +59,30 @@ public class FirebaseController {
 
                     List<String> ingredientsName = (List<String>) menu.get("ingredients");
 
-                    //Menu(name, storage.getReferenceFromUrl(image), prices,
+                    menus.add(new Menu(name, storage.getReferenceFromUrl(image), prices, ingredientsName));
                 }
             }
         });
+        System.out.println(menus);
         return menus;
+    }
+
+    public List<Ingredient> getIngredients(List<String> ingredientsString) {
+        final List<Ingredient> ingredients = new ArrayList<>();
+
+        for (String ingredientName :
+                ingredientsString) {
+            db.collection("ingredients").document(ingredientName).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    String name = documentSnapshot.getString("name");
+                    String iconPath = documentSnapshot.getString("image");
+
+                    ingredients.add(new Ingredient(name, iconPath));
+                }
+            });
+        }
+
+        return ingredients;
     }
 }

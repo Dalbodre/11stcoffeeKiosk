@@ -11,13 +11,18 @@ import java.util.List;
 public class Menu {
     private StorageReference imageRef = null;
     private String name = "";
-    private ArrayList<Ingredient> ingredients = null;
+    private List<Ingredient> ingredients = null;
     private List<String> prices = null;
 
-    public Menu(String name, StorageReference imageRef, List<String> prices, ArrayList<Ingredient> ingredients) {
+    public Menu(String name, StorageReference imageRef, List<String> prices, List<String> ingredients) {
         this.imageRef = imageRef;
         this.name = name;
         this.prices = prices;
+
+        for (String ingredientName :
+                ingredients) {
+            getIngredients()
+        }
         this.ingredients = ingredients;
     }
 
