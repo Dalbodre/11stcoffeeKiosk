@@ -11,10 +11,10 @@ public class Ingredient {
         this.text = text;
     }
 
+    // @todo iconPath 받아서 스토리지에 있는 이미지의 Drawable 필드에 할당하기
+    // @todo 혹은 다른 방법으로도 리팩토링 가능
     public Ingredient(String text, String iconPath) {
         this.text = text;
-
-
     }
 
     public Drawable getIcon() {

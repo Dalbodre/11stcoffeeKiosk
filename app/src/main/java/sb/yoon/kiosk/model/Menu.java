@@ -3,6 +3,7 @@ package sb.yoon.kiosk.model;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import com.google.firebase.storage.StorageReference;
+import sb.yoon.kiosk.controller.FirebaseController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,8 @@ public class Menu {
         this.name = name;
         this.prices = prices;
 
-        for (String ingredientName :
-                ingredients) {
-            getIngredients()
-        }
-        this.ingredients = ingredients;
+        FirebaseController fc = new FirebaseController();
+        this.ingredients = fc.getIngredients(ingredients);
     }
 
     public Menu() {
@@ -54,7 +52,7 @@ public class Menu {
         return this.name;
     }
 
-    public ArrayList<Ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
