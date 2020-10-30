@@ -35,7 +35,7 @@ public class Init {
         menusPath = Paths.get(unzipPath, "menupan", "menus").toString();
         ingredientsPath = Paths.get(unzipPath, "menupan", "ingredients").toString();
 
-        categoriesDao = daoSession.getCategoriesDao();
+        //categoriesDao = daoSession.getCategoriesDao();
         menuDao = daoSession.getMenuDao();
         ingredientDao = daoSession.getIngredientDao();
         ingredientsAndMenuJoinerDao = daoSession.getIngredientsAndMenuJoinerDao();

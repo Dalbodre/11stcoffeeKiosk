@@ -19,6 +19,7 @@ import org.greenrobot.greendao.query.Query;
 import sb.yoon.kiosk.controller.Init;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.CategoriesDao;
+import sb.yoon.kiosk.model.CategoryDao;
 import sb.yoon.kiosk.model.DaoSession;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class KioskMain extends AppCompatActivity {
     private ItemList itemList;
     private List<Category> categories;
 
-    private CategoriesDao categoriesDao;
+    private CategoryDao categoriesDao;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -49,7 +50,7 @@ public class KioskMain extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        categoriesDao = daoSession.getCategoriesDao();
+        categoriesDao = daoSession.getCategoryDao();
         categories = categoriesDao.queryBuilder().orderAsc(CategoriesDao.Properties.Id).list();
 
         // 카테고리 버튼들 생성
