@@ -35,22 +35,26 @@ public class KioskListAdapter extends ArrayAdapter<Menu> {
 
         // View의 각 Widget에 데이터 저장
         ItemElement view = convertView.findViewById(R.id.menu_element);
-        Drawable drawable = getResources().getDrawable(getResources()
-                .getIdentifier($name_of_the_image, "drawable", getPackageName()));
-        view.setImage(getContext().getDrawable(R.drawable.apollo1));
+        Drawable drawable = getContext().getDrawable(getContext().getResources()
+                .getIdentifier(menu.getIconPath(), "drawable", getContext().getPackageName()));
+        view.setImageDrawable(drawable);
         view.setText(menu.getName());
 
         TextView price1 = (TextView)convertView.findViewById(R.id.price1);
-        price1.setText(menu.getPrices().get(0));
+        price1.setText(menu.getPrice());
         TextView price2 = (TextView)convertView.findViewById(R.id.price2);
-        price2.setText(menu.getPrices().get(1));
+        price2.setText(menu.getPrice());
 
         // 재료들 추가
         LinearLayout holder = convertView.findViewById(R.id.ingredientsHolder);
-        for (Ingredient ingredient : menu.getIngredients()) {
-            System.out.println(menu.getName() + ingredient.getText());
+        for (Ingredient ingredient : menu.getIngredientList()) {
+            System.out.println(menu.getName() + ingredient.getName());
+
+            Drawable ingredientDrawable = getContext().getDrawable(getContext().getResources()
+                    .getIdentifier(ingredient.getIconPath(), "drawable", getContext().getPackageName()));
+
             // 메뉴 아이템 (이미지 + 텍스트) 삽입
-            ItemElement element = new ItemElement(getContext(), ingredient.getIcon(), ingredient.getText());
+            ItemElement element = new ItemElement(getContext(), ingredientDrawable, ingredient.getName());
             // DP 단위로 변환
             final int width = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getContext().getResources().getDisplayMetrics());
             final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 150, getContext().getResources().getDisplayMetrics());

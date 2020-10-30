@@ -19,8 +19,8 @@ public class ItemElement extends LinearLayout {
         return image;
     }
 
-    public void setImage(Drawable image) {
-        replaceImage(image);
+    public void setImageDrawable(Drawable image) {
+        replaceImageDrawable(image);
         this.image = image;
     }
 
@@ -47,11 +47,11 @@ public class ItemElement extends LinearLayout {
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.element_item_layout,this,true);
-        replaceImage(this.image);
+        replaceImageDrawable(this.image);
         replaceText(this.text);
     }
 
-    private void replaceImage(Drawable image) {
+    private void replaceImageDrawable(Drawable image) {
         ImageView elementImage = view.findViewById(R.id.element_image);
         elementImage.setImageDrawable(image);
     }

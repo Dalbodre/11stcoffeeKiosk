@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 
 import sb.yoon.kiosk.model.Category;
-import sb.yoon.kiosk.model.CategoriesDao;
+import sb.yoon.kiosk.model.CategoryDao;
 import sb.yoon.kiosk.model.DaoSession;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.IngredientDao;
@@ -19,7 +19,7 @@ import sb.yoon.kiosk.model.MenuDao;
 import sb.yoon.kiosk.tools.Decompress;
 
 public class Init {
-    private CategoriesDao categoriesDao;
+    private CategoryDao categoriesDao;
     private MenuDao menuDao;
     private IngredientDao ingredientDao;
     private IngredientsAndMenuJoinerDao ingredientsAndMenuJoinerDao;
