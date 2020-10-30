@@ -1,35 +1,46 @@
 package sb.yoon.kiosk.model;
 
-import android.graphics.drawable.Drawable;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
+import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Generated;
 
+@Entity(indexes = {
+        @Index(value = "name DESC", unique = true)
+})
 public class Ingredient {
-    private Drawable icon;
-    private String text;
+    @Id(autoincrement = true)
+    private Long id;
 
-    public Ingredient(String text, Drawable icon) {
-        this.icon = icon;
-        this.text = text;
-    }
-
-    // @todo iconPath 받아서 스토리지에 있는 이미지의 Drawable 필드에 할당하기
-    // @todo 혹은 다른 방법으로도 리팩토링 가능
-    public Ingredient(String text, String iconPath) {
-        this.text = text;
-    }
-
-    public Drawable getIcon() {
-        return icon;
-    }
-
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
+    @NotNull
+    private String iconPath;
+    private String name;
+@Generated(hash = 1478783078)
+public Ingredient(Long id, @NotNull String iconPath, String name) {
+    this.id = id;
+    this.iconPath = iconPath;
+    this.name = name;
+}
+@Generated(hash = 1584798654)
+public Ingredient() {
+}
+public Long getId() {
+    return this.id;
+}
+public void setId(Long id) {
+    this.id = id;
+}
+public String getIconPath() {
+    return this.iconPath;
+}
+public void setIconPath(String iconPath) {
+    this.iconPath = iconPath;
+}
+public String getName() {
+    return this.name;
+}
+public void setName(String name) {
+    this.name = name;
+}
 }

@@ -10,9 +10,13 @@ import android.os.Bundle;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import sb.yoon.kiosk.controller.FirebaseController;
+
+import sb.yoon.kiosk.model.Categories;
+import sb.yoon.kiosk.model.CategoriesDao;
+import sb.yoon.kiosk.model.DaoSession;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.Menu;
+import sb.yoon.kiosk.model.MenuDao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,17 +28,21 @@ public class KioskMain extends AppCompatActivity {
     private ItemList itemList;
     private HashMap<String, String> categories;
 
-    // 파이어베이스 등록 후 cafe 쿼리
-    FirebaseController firebaseController = new FirebaseController();
+    private CategoriesDao categoriesDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiosk_main);
 
-        // 카테고리 이름들 받아오기
-        categories = firebaseController.fetchCategoryNames();
+        // get the note DAO
+        DaoSession daoSession = ((KioskApplication) getApplication()).getDaoSession();
+        categoriesDao = daoSession.getCategoriesDao();
 
+
+        // 카테고리 이름들 받아오기
+        categories = categoriesDao.
+/*
         // 카테고리 버튼들 생성
         LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -57,27 +65,28 @@ public class KioskMain extends AppCompatActivity {
         itemList = new ItemList(firebaseController.getMenuList("coffee"));
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.list_fragment, itemList).commitAllowingStateLoss();
+         */
     }
 
     // 버튼 누르면 버튼의 텍스트를 확인하고 플래그먼트에 삽입
-    class ButtonClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            String text = ((Button)view).getText().toString();
-            String key_text;
-            switch (text) {
-                case "에이드": key_text = "ade"; break;
-                case "주스": key_text = "juices"; break;
-                case "아이스티": key_text = "ice_tea"; break;
-                default: key_text = "coffee";
-            }
-            try {
-                itemList = new ItemList(firebaseController.getMenuList(key_text));
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.list_fragment, itemList).commitAllowingStateLoss();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    class ButtonClickListener implements View.OnClickListener {
+//        @Override
+//        public void onClick(View view) {
+//            String text = ((Button)view).getText().toString();
+//            String key_text;
+//            switch (text) {
+//                case "에이드": key_text = "ade"; break;
+//                case "주스": key_text = "juices"; break;
+//                case "아이스티": key_text = "ice_tea"; break;
+//                default: key_text = "coffee";
+//            }
+//            try {
+//                itemList = new ItemList(firebaseController.getMenuList(key_text));
+//                fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.list_fragment, itemList).commitAllowingStateLoss();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

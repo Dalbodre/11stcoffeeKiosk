@@ -1,9 +1,14 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'org.greenrobot.greendao'
+
+greendao {
+    schemaVersion 3
+    // daoPackage "com.example.model" // set package of generated classes
+}
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "30.0.1"
+    buildToolsVersion '30.0.2'
 
     defaultConfig {
         applicationId "sb.yoon.kiosk"
@@ -27,10 +32,10 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.navigation:navigation-fragment:2.3.0'
-    implementation 'androidx.navigation:navigation-ui:2.3.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.1'
+    implementation 'androidx.navigation:navigation-ui:2.3.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'org.jetbrains:annotations-java5:19.0.0'
     testImplementation 'junit:junit:4.12'
@@ -39,7 +44,6 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-    implementation 'com.google.firebase:firebase-firestore:21.7.0'
-    implementation 'com.google.firebase:firebase-storage:19.2.0'
-    implementation 'com.firebaseui:firebase-ui-storage:6.2.0'
+
+    implementation 'org.greenrobot:greendao:3.3.0' // add library
 }
