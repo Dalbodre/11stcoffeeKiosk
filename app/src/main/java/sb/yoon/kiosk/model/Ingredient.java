@@ -14,33 +14,44 @@ public class Ingredient {
     private Long id;
 
     @NotNull
-    private String iconPath;
     private String name;
-@Generated(hash = 1478783078)
-public Ingredient(Long id, @NotNull String iconPath, String name) {
+
+    @NotNull
+    private String iconPath;
+
+@Generated(hash = 1936183127)
+public Ingredient(Long id, @NotNull String name, @NotNull String iconPath) {
     this.id = id;
-    this.iconPath = iconPath;
     this.name = name;
+    this.iconPath = iconPath;
 }
+
 @Generated(hash = 1584798654)
 public Ingredient() {
 }
+
 public Long getId() {
     return this.id;
 }
+
 public void setId(Long id) {
     this.id = id;
 }
-public String getIconPath() {
-    return this.iconPath;
-}
-public void setIconPath(String iconPath) {
-    this.iconPath = iconPath;
-}
+
 public String getName() {
     return this.name;
 }
+
 public void setName(String name) {
     this.name = name;
 }
+
+public String getIconPath() {
+    return this.iconPath;
+}
+
+public void setIconPath(String iconPath) {
+    this.iconPath = iconPath;
+}
+
 }

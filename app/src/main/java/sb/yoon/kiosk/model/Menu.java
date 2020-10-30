@@ -20,8 +20,13 @@ public class Menu {
 
     @NotNull
     private String name;
-    //private String category;
+
+    @NotNull
+    private Long categoryId;
+
+    @NotNull
     private int price;
+    @NotNull
     private String iconPath;
 
     @ToMany
@@ -42,11 +47,12 @@ private transient DaoSession daoSession;
 @Generated(hash = 1372547067)
 private transient MenuDao myDao;
 
-@Generated(hash = 755076040)
-public Menu(Long id, @NotNull String name, int price, String iconPath,
-        Boolean isHot) {
+@Generated(hash = 2114746110)
+public Menu(Long id, @NotNull String name, @NotNull Long categoryId, int price,
+        @NotNull String iconPath, Boolean isHot) {
     this.id = id;
     this.name = name;
+    this.categoryId = categoryId;
     this.price = price;
     this.iconPath = iconPath;
     this.isHot = isHot;
@@ -159,6 +165,14 @@ public void update() {
         throw new DaoException("Entity is detached from DAO context");
     }
     myDao.update(this);
+}
+
+public Long getCategoryId() {
+    return this.categoryId;
+}
+
+public void setCategoryId(Long categoryId) {
+    this.categoryId = categoryId;
 }
 
 /** called by internal mechanisms, do not call yourself. */

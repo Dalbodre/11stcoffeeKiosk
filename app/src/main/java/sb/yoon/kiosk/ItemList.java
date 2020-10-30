@@ -9,12 +9,13 @@ import sb.yoon.kiosk.controller.KioskListAdapter;
 import sb.yoon.kiosk.model.Menu;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemList extends ListFragment {
 
-    ArrayList<Menu> menuList;
+    List<Menu> menuList;
 
-    public ItemList(ArrayList<Menu> menuList) {
+    public ItemList(List<Menu> menuList) {
         this.menuList = menuList;
     }
 

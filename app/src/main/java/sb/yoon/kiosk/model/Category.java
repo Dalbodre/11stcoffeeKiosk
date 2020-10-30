@@ -13,14 +13,14 @@ import org.greenrobot.greendao.DaoException;
 @Entity(indexes = {
         @Index(value = "name ASC", unique = true)
 })
-public class Categories {
+public class Category {
     @Id(autoincrement = true)
     private Long id;
 
     @NotNull
     private String name;
 
-    @ToMany(referencedJoinProperty = "id")
+    @ToMany(referencedJoinProperty = "categoryId")
     private List<Menu> menuList;
 
     /** Used to resolve relations */
@@ -32,13 +32,13 @@ public class Categories {
     private transient CategoriesDao myDao;
 
     @Generated(hash = 642748467)
-    public Categories(Long id, @NotNull String name) {
+    public Category(Long id, @NotNull String name) {
         this.id = id;
         this.name = name;
     }
 
     @Generated(hash = 267348489)
-    public Categories() {
+    public Category() {
     }
 
     public Long getId() {
