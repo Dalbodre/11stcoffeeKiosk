@@ -2,11 +2,16 @@ package sb.yoon.kiosk.controller;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
+
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.Ingredient;
@@ -35,23 +40,22 @@ public class KioskListAdapter extends ArrayAdapter<Menu> {
 
         // View의 각 Widget에 데이터 저장
         ItemElement view = convertView.findViewById(R.id.menu_element);
-        Drawable drawable = getContext().getDrawable(getContext().getResources()
+        Drawable drawable = ContextCompat.getDrawable(getContext(), getContext().getResources()
                 .getIdentifier(menu.getIconPath(), "drawable", getContext().getPackageName()));
         view.setImageDrawable(drawable);
         view.setText(menu.getName());
 
         TextView price1 = (TextView)convertView.findViewById(R.id.price1);
-        price1.setText(menu.getPrice());
+        price1.setText(Integer.toString(menu.getPrice()));
         TextView price2 = (TextView)convertView.findViewById(R.id.price2);
-        price2.setText(menu.getPrice());
+        price2.setText(Integer.toString(menu.getPrice()));
 
         // 재료들 추가
         LinearLayout holder = convertView.findViewById(R.id.ingredientsHolder);
         for (Ingredient ingredient : menu.getIngredientList()) {
             System.out.println(menu.getName() + ingredient.getName());
 
-            Drawable ingredientDrawable = getContext().getDrawable(getContext().getResources()
-                    .getIdentifier(ingredient.getIconPath(), "drawable", getContext().getPackageName()));
+            Drawable ingredientDrawable = ContextCompat.getDrawable(getContext(), getContext().getResources().getIdentifier(ingredient.getIconPath(), "drawable", getContext().getPackageName()));
 
             // 메뉴 아이템 (이미지 + 텍스트) 삽입
             ItemElement element = new ItemElement(getContext(), ingredientDrawable, ingredient.getName());
