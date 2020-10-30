@@ -45,9 +45,9 @@ public class KioskMain extends AppCompatActivity {
 
         AssetManager assetManager = getResources().getAssets();
         try {
-            InputStream fileInputStream = assetManager.open("menupan.zip");
-            new Init(daoSession, fileInputStream, getFilesDir().toString() + "/");
-        } catch (IOException e) {
+            //InputStream fileInputStream = assetManager.open("menupan.zip");
+            new Init(daoSession); //, fileInputStream, getFilesDir().toString() + "/");
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

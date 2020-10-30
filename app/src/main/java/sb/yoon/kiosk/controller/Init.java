@@ -27,7 +27,7 @@ public class Init {
 
     // @todo 만약 세팅되있지 않은 경우 sqlite에 기본 카테고리, 메뉴, 재료 등 삽입 수행
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Init(DaoSession daoSession, InputStream zipFileStream, String unzipPath) {
+    public Init(DaoSession daoSession) { //, InputStream zipFileStream, String unzipPath) {
 
 //        (new Decompress(zipFileStream, unzipPath)).unzip();
 //        menusPath = Paths.get(unzipPath, "menupan", "menus").toString();
