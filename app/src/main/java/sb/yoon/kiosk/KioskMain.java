@@ -15,22 +15,17 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import org.greenrobot.greendao.query.Query;
-
 import sb.yoon.kiosk.controller.Init;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.CategoryDao;
-import sb.yoon.kiosk.model.CategoryDao;
 import sb.yoon.kiosk.model.DaoSession;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
 public class KioskMain extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private ItemList itemList;
+    private ItemListFragment itemListFragment;
     private List<Category> categories;
 
     private CategoryDao categoriesDao;
@@ -77,9 +72,9 @@ public class KioskMain extends AppCompatActivity {
 
         // 기본으로 보여줄 플래그먼트 (첫번째 카테고리)
         fragmentManager = getSupportFragmentManager();
-        itemList = new ItemList(categories.get(0).getMenuList());
+        itemListFragment = new ItemListFragment(categories.get(0).getMenuList());
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.list_fragment, itemList).commitAllowingStateLoss();
+        fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
 
     }
 
@@ -89,9 +84,9 @@ public class KioskMain extends AppCompatActivity {
         public void onClick(View view) {
             int tagNum = (int) view.getTag();
             try {
-                itemList = new ItemList(categories.get(tagNum).getMenuList());
+                itemListFragment = new ItemListFragment(categories.get(tagNum).getMenuList());
                 fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.list_fragment, itemList).commitAllowingStateLoss();
+                fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
             } catch (Exception e) {
                 e.printStackTrace();
             }

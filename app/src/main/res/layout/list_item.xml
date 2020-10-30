@@ -1,60 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fef1d1">
 
     <sb.yoon.kiosk.layout.ItemElement
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:id="@+id/menu_element"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:orientation="vertical"/>
+        android:id="@+id/menu_element"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-            android:text="20000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/price1"
-            android:layout_marginLeft="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toEndOf="@+id/menu_element"
-            app:layout_constraintTop_toTopOf="parent"
-            android:textSize="21sp"
-            android:textColor="@android:color/black"
-            android:width="130dp"
-            android:textAlignment="center"
-            android:gravity="center_horizontal"/>
+        android:id="@+id/price1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="3dp"
+        android:width="130dp"
+        android:gravity="center_horizontal"
+        android:text="20000"
+        android:textAlignment="center"
+        android:textColor="#3F51B5"
+        android:textSize="21sp"
+        app:drawableLeftCompat="@drawable/textview_drawable_left_ice"
+        app:layout_constraintBottom_toTopOf="@+id/price2"
+        app:layout_constraintStart_toEndOf="@+id/menu_element"
+        app:layout_constraintTop_toTopOf="parent"
+        app:drawableStartCompat="@drawable/textview_drawable_left_ice" />
 
     <TextView
-            android:text="16000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/price2"
-            app:layout_constraintStart_toStartOf="@+id/price1"
-            app:layout_constraintTop_toBottomOf="@id/price1"
-            android:textSize="21sp"
-            android:textColor="@android:color/black"
-            android:width="130dp"
-            android:textAlignment="center"
-            android:gravity="center_horizontal"/>
+        android:id="@+id/price2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="10dp"
+        android:width="130dp"
+        android:gravity="center_horizontal"
+        android:text="16000"
+        android:textAlignment="center"
+        android:textColor="#E91E63"
+        android:textSize="21sp"
+        app:drawableLeftCompat="@drawable/textview_drawable_left_hot"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/price1"
+        app:layout_constraintTop_toBottomOf="@id/price1"
+        app:drawableStartCompat="@drawable/textview_drawable_left_hot" />
 
     <HorizontalScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="150dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginStart="24dp"
-            app:layout_constraintStart_toEndOf="@id/price1"
-            app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        app:layout_constraintStart_toEndOf="@id/price1"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/ingredientsHolder"
-                android:orientation="horizontal"/>
+            android:id="@+id/ingredientsHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
     </HorizontalScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

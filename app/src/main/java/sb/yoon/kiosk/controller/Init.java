@@ -58,13 +58,25 @@ public class Init {
 
     private void initMenus() {
         menuDao.insertOrReplace(new Menu(1L, "아메리카노", 1L, 1100, "americano", true));
+        menuDao.insertOrReplace(new Menu(2L, "카페라떼", 1L, 1800, "caffe_latte", true));
+        menuDao.insertOrReplace(new Menu(3L, "카푸치노", 1L, 2100, "capuccino", true));
     }
 
     private void initIngredients() {
         ingredientDao.insertOrReplace(new Ingredient(1L, "커피콩",  "coffee"));
+        ingredientDao.insertOrReplace(new Ingredient(2L, "물",  "water"));
+        ingredientDao.insertOrReplace(new Ingredient(3L, "우유",  "milk"));
+
     }
 
     private void initIngredAndMenuJoiners() {
-        ingredientsAndMenuJoinerDao.insert(new IngredientsAndMenuJoiner(null, 1L, 1L));
+        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(1L, 1L, 1L));
+        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(2L, 1L, 2L));
+
+        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(3L, 2L, 1L));
+        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(4L, 2L, 3L));
+
+        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(5L, 3L, 1L));
+        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(6L, 3L, 3L));
     }
 }
