@@ -38,14 +38,14 @@ public class KioskMain extends AppCompatActivity {
 
         DaoSession daoSession = ((KioskApplication) getApplication()).getDaoSession();
 
-        AssetManager assetManager = getResources().getAssets();
         try {
-            //InputStream fileInputStream = assetManager.open("menupan.zip");
-            new Init(daoSession); //, fileInputStream, getFilesDir().toString() + "/");
+            // 키오스크 초기 설정값들 넣어주기
+            new Init(daoSession);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        // 카테고리 리스트 불러오기
         categoriesDao = daoSession.getCategoryDao();
         categories = categoriesDao.queryBuilder().orderAsc(CategoryDao.Properties.Id).list();
 
@@ -54,7 +54,7 @@ public class KioskMain extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(10, 0, 10, 0);
-
+        // 버튼 순서 태그로 지정
         int tagNum = 0;
         for (Category category: categories) {
             Button button = new Button(this);
@@ -78,7 +78,7 @@ public class KioskMain extends AppCompatActivity {
 
     }
 
-    // 버튼 누르면 버튼의 텍스트를 확인하고 플래그먼트에 삽입
+    // 버튼 누르면 버튼의 순서를 확인하고 플래그먼트에 삽입
     class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
