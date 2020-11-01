@@ -42,7 +42,17 @@ public class KioskListAdapter extends BaseAdapter {
     }
 
     @Override
-    public synchronized View getView(int position, View convertView, ViewGroup parent){
+    public int getViewTypeCount() {
+        return getCount();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent){
         final int pos = position;
         final Context context = parent.getContext();
         // 특정 행의 데이터 구함
