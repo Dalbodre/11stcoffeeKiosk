@@ -27,11 +27,7 @@ public class Init {
 
     // @todo 만약 세팅되있지 않은 경우 sqlite에 기본 카테고리, 메뉴, 재료 등 삽입 수행
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Init(DaoSession daoSession) { //, InputStream zipFileStream, String unzipPath) {
-
-//        (new Decompress(zipFileStream, unzipPath)).unzip();
-//        menusPath = Paths.get(unzipPath, "menupan", "menus").toString();
-//        ingredientsPath = Paths.get(unzipPath, "menupan", "ingredients").toString();
+    public Init(DaoSession daoSession) {
 
         categoryDao = daoSession.getCategoryDao();
         menuDao = daoSession.getMenuDao();
@@ -60,6 +56,14 @@ public class Init {
         menuDao.insertOrReplace(new Menu(1L, "아메리카노", 1L, 1100, "americano", true));
         menuDao.insertOrReplace(new Menu(2L, "카페라떼", 1L, 1800, "caffe_latte", true));
         menuDao.insertOrReplace(new Menu(3L, "카푸치노", 1L, 2100, "capuccino", true));
+
+        menuDao.insertOrReplace(new Menu(4L, "T아메리카노", 1L, 1100, "americano", true));
+        menuDao.insertOrReplace(new Menu(5L, "T카페라떼", 1L, 1800, "caffe_latte", true));
+        menuDao.insertOrReplace(new Menu(6L, "T카푸치노", 1L, 2100, "capuccino", true));
+
+        menuDao.insertOrReplace(new Menu(7L, "E아메리카노", 1L, 1100, "americano", true));
+        menuDao.insertOrReplace(new Menu(8L, "E카페라떼", 1L, 1800, "caffe_latte", true));
+        menuDao.insertOrReplace(new Menu(9L, "E카푸치노", 1L, 2100, "capuccino", true));
     }
 
     private void initIngredients() {
@@ -75,8 +79,10 @@ public class Init {
 
         ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(3L, 2L, 1L));
         ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(4L, 2L, 3L));
+        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(5L, 2L, 2L));
+        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(6L, 2L, 3L));
 
-        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(5L, 3L, 1L));
-        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(6L, 3L, 3L));
+        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(7L, 3L, 1L));
+        ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(8L, 3L, 3L));
     }
 }

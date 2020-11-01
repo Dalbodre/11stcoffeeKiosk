@@ -52,7 +52,7 @@ public class CartListAdapter extends BaseAdapter {
         // View는 재사용되기 때문에 처음에만 리스트 아이템 표시용 레이아웃을 읽어와서 생성함
         if(convertView == null){
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_item, parent, false);
+            convertView = layoutInflater.inflate(R.layout.cart_item, parent, false);
         }
 
         // View의 각 Widget에 데이터 저장

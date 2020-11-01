@@ -42,7 +42,7 @@ public class KioskListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public synchronized View getView(int position, View convertView, ViewGroup parent){
         final int pos = position;
         final Context context = parent.getContext();
         // 특정 행의 데이터 구함
@@ -69,19 +69,37 @@ public class KioskListAdapter extends BaseAdapter {
         // 재료들 추가
         List<Ingredient> ingredients = menu.getIngredientList();
         LinearLayout holder = null;
+        int index = 0;
         for (Ingredient ingredient : ingredients) {
-            holder = convertView.findViewById(R.id.ingredientsHolder);
+            holder = (LinearLayout) convertView.findViewById(R.id.ingredientsHolder);
 
             Drawable ingredientDrawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(ingredient.getIconPath(), "drawable", context.getPackageName()));
 
             // 메뉴 아이템 (이미지 + 텍스트) 삽입
-            ItemElement element = new ItemElement(context, ingredientDrawable, ingredient.getName());
+            // 수 지정 안해주면 (아마도) 다중스레드 때문에 랜덤으로 추가되어버리는 버그 있음
+            // @todo 버그 제대로 픽스
+            ItemElement ingredientElement = null;
+            switch(index) {
+                case 0: ingredientElement = holder.findViewById(R.id.ingredient1); break;
+                case 1: ingredientElement = holder.findViewById(R.id.ingredient2); break;
+                case 2: ingredientElement = holder.findViewById(R.id.ingredient3); break;
+                case 3: ingredientElement = holder.findViewById(R.id.ingredient4); break;
+                default:
+                    throw new IllegalStateException("재료가 너무 많습니다: " + index);
+            }
+            if (ingredientElement != null) {
+                ingredientElement.setImageDrawable(ingredientDrawable);
+                ingredientElement.setText(ingredient.getName());
+                ingredientElement.setVisibility(View.VISIBLE);
+            }
 
             // DP 단위로 변환
-            final int width = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, context.getResources().getDisplayMetrics());
-            final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, context.getResources().getDisplayMetrics());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
-            holder.addView(element, params);
+            //final int width = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, context.getResources().getDisplayMetrics());
+            //final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, context.getResources().getDisplayMetrics());
+            //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
+            //holder.addView(element, params);
+
+            index += 1;
         }
 
         return convertView;

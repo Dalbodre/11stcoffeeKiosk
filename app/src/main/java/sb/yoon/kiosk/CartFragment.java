@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sb.yoon.kiosk.controller.CartListAdapter;
@@ -20,6 +21,8 @@ public class CartFragment extends ListFragment {
 
     private List<CartMenu> cartMenuList;
     private CartListAdapter adapter;
+
+    public CartFragment() { cartMenuList = new ArrayList<>(); cartMenuList.add(new CartMenu(null, "test")); }
 
     public CartFragment(List<CartMenu> menuList) {
         this.cartMenuList = menuList;
