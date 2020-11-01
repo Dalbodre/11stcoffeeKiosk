@@ -53,14 +53,16 @@
         app:drawableStartCompat="@drawable/textview_drawable_left_hot" />
 
     <HorizontalScrollView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="100dp"
-        app:layout_constraintStart_toEndOf="@id/price1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/price1"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/ingredientsHolder"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
@@ -68,27 +70,25 @@
                 android:id="@+id/ingredient1"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:visibility="gone">
-            </sb.yoon.kiosk.layout.ItemElement>
+                android:visibility="gone" />
 
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient2"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:visibility="gone">
-            </sb.yoon.kiosk.layout.ItemElement>
+                android:visibility="gone" />
 
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient3"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient4"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </LinearLayout>
     </HorizontalScrollView>
