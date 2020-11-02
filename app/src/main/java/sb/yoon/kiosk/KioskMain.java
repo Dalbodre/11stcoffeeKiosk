@@ -1,6 +1,5 @@
 package sb.yoon.kiosk;
 
-import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.TypedValue;
@@ -16,10 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import sb.yoon.kiosk.controller.DbQueryController;
-import sb.yoon.kiosk.controller.Init;
 import sb.yoon.kiosk.model.Category;
-import sb.yoon.kiosk.model.CategoryDao;
-import sb.yoon.kiosk.model.DaoSession;
 
 import java.util.List;
 
