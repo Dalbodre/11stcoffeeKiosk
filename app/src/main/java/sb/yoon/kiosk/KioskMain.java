@@ -86,9 +86,4 @@ public class KioskMain extends AppCompatActivity {
             }
         }
     }
-
-    // 나중에 어디서든 메서드 모음 클래스 얻을 수 있도록 (getActivity()... 등으로)
-    public DbQueryController getDbQueryController() {
-        return this.dbQueryController;
-    }
 }
