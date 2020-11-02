@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
+
+import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.layout.ItemElement;
 
 public class EnterMain extends AppCompatActivity {
@@ -16,9 +18,6 @@ public class EnterMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_main);
-
-        System.out.println("Test");
-        //System.out.println("카테고리 :: " + new FirebaseController().fetchCategoryNames());
     }
 
     public void buttonClicked(View view) {

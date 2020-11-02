@@ -29,6 +29,9 @@ public class KioskMain extends AppCompatActivity {
     private ItemListFragment itemListFragment;
     private List<Category> categories;
 
+    // 프론트에서 쓰기 편하게 DB 관련 메서드들 제공
+    private DbQueryController dbQueryController;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,7 @@ public class KioskMain extends AppCompatActivity {
         setContentView(R.layout.activity_kiosk_main);
 
         // DB 컨트롤러 (프론트에서 쓸 메서드들 모음)
-        DbQueryController dbQueryController = new DbQueryController(this);
+        dbQueryController = new DbQueryController(this);
 
         // DB 초기화
         dbQueryController.initDB();
@@ -67,7 +70,7 @@ public class KioskMain extends AppCompatActivity {
 
         // 기본으로 보여줄 플래그먼트 (첫번째 카테고리)
         fragmentManager = getSupportFragmentManager();
-        itemListFragment = new ItemListFragment(categories.get(0).getMenuList());
+        itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(0)));
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
 
@@ -79,12 +82,17 @@ public class KioskMain extends AppCompatActivity {
         public void onClick(View view) {
             int tagNum = (int) view.getTag();
             try {
-                itemListFragment = new ItemListFragment(categories.get(tagNum).getMenuList());
+                itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNum)));
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    // 나중에 어디서든 메서드 모음 클래스 얻을 수 있도록 (getActivity()... 등으로)
+    public DbQueryController getDbQueryController() {
+        return this.dbQueryController;
     }
 }

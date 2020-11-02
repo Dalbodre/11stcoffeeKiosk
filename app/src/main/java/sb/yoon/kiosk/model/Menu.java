@@ -37,6 +37,14 @@ public class Menu {
     )
     private List<Ingredient> ingredientList;
 
+    @ToMany
+    @JoinEntity(
+            entity = OptionsAndMenuJoiner.class,
+            sourceProperty = "menuId",
+            targetProperty = "optionId"
+    )
+    private List<Option> optionList;
+
     private Boolean isHot;
 
 /** Used to resolve relations */
@@ -173,6 +181,34 @@ public Long getCategoryId() {
 
 public void setCategoryId(Long categoryId) {
     this.categoryId = categoryId;
+}
+
+/**
+ * To-many relationship, resolved on first access (and after reset).
+ * Changes to to-many relations are not persisted, make changes to the target entity.
+ */
+@Generated(hash = 1446926842)
+public List<Option> getOptionList() {
+    if (optionList == null) {
+        final DaoSession daoSession = this.daoSession;
+        if (daoSession == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        OptionDao targetDao = daoSession.getOptionDao();
+        List<Option> optionListNew = targetDao._queryMenu_OptionList(id);
+        synchronized (this) {
+            if (optionList == null) {
+                optionList = optionListNew;
+            }
+        }
+    }
+    return optionList;
+}
+
+/** Resets a to-many relationship, making the next get call to query for a fresh result. */
+@Generated(hash = 1801972530)
+public synchronized void resetOptionList() {
+    optionList = null;
 }
 
 /** called by internal mechanisms, do not call yourself. */
