@@ -28,8 +28,8 @@ public class DbQueryController {
     private OptionDao optionDao;
     private OptionsAndMenuJoinerDao optionsAndMenuJoinerDao;
 
-    public DbQueryController(Activity context) {
-        this.daoSession = ((KioskApplication)context.getApplication()).getDaoSession();
+    public DbQueryController(DaoSession daoSession) {
+        this.daoSession = daoSession;
         this.categoryDao = daoSession.getCategoryDao();
         this.menuDao = daoSession.getMenuDao();
         this.ingredientDao = daoSession.getIngredientDao();

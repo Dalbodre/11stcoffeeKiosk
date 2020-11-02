@@ -39,7 +39,7 @@ public class KioskMain extends AppCompatActivity {
         setContentView(R.layout.activity_kiosk_main);
 
         // DB 컨트롤러 (프론트에서 쓸 메서드들 모음)
-        dbQueryController = new DbQueryController(this);
+        dbQueryController = ((KioskApplication)getApplication()).getDbQueryController();
 
         // DB 초기화
         dbQueryController.initDB();

@@ -4,11 +4,13 @@ import android.app.Application;
 
 import org.greenrobot.greendao.database.Database;
 
+import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.model.DaoMaster;
 import sb.yoon.kiosk.model.DaoSession;
 
 public class KioskApplication extends Application {
     private DaoSession daoSession;
+    private DbQueryController dbQueryController;
 
     @Override
     public void onCreate() {
@@ -24,9 +26,14 @@ public class KioskApplication extends Application {
         // Database db = helper.getEncryptedWritableDb("encryption-key");
 
         daoSession = new DaoMaster(db).newSession();
+        dbQueryController = new DbQueryController(daoSession);
     }
 
     public DaoSession getDaoSession() {
         return daoSession;
+    }
+
+    public DbQueryController getDbQueryController() {
+        return dbQueryController;
     }
 }
