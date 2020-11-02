@@ -22,11 +22,7 @@ public class Init {
     private IngredientDao ingredientDao;
     private IngredientsAndMenuJoinerDao ingredientsAndMenuJoinerDao;
 
-//    private String menusPath;
-//    private String ingredientsPath;
-
     // @todo 만약 세팅되있지 않은 경우 sqlite에 기본 카테고리, 메뉴, 재료 등 삽입 수행
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public Init(DaoSession daoSession) {
 
         categoryDao = daoSession.getCategoryDao();

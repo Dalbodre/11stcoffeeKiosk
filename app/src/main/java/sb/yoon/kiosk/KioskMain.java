@@ -15,6 +15,7 @@ import android.os.Bundle;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.controller.Init;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.CategoryDao;
@@ -28,26 +29,20 @@ public class KioskMain extends AppCompatActivity {
     private ItemListFragment itemListFragment;
     private List<Category> categories;
 
-    private CategoryDao categoriesDao;
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiosk_main);
 
-        DaoSession daoSession = ((KioskApplication) getApplication()).getDaoSession();
+        // DB 컨트롤러 (프론트에서 쓸 메서드들 모음)
+        DbQueryController dbQueryController = new DbQueryController(this);
 
-        try {
-            // 키오스크 초기 설정값들 넣어주기
-            new Init(daoSession);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // DB 초기화
+        dbQueryController.initDB();
 
         // 카테고리 리스트 불러오기
-        categoriesDao = daoSession.getCategoryDao();
-        categories = categoriesDao.queryBuilder().orderAsc(CategoryDao.Properties.Id).list();
+        categories = dbQueryController.getCategoriesList();
 
         // 카테고리 버튼들 생성
         LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
