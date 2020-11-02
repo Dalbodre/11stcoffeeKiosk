@@ -23,12 +23,12 @@ public class Init {
     private IngredientsAndMenuJoinerDao ingredientsAndMenuJoinerDao;
 
     // @todo 만약 세팅되있지 않은 경우 sqlite에 기본 카테고리, 메뉴, 재료 등 삽입 수행
-    public Init(DaoSession daoSession) {
+    public Init(CategoryDao categoryDao, MenuDao menuDao, IngredientDao ingredientDao, IngredientsAndMenuJoinerDao ingredientsAndMenuJoinerDao) {
 
-        categoryDao = daoSession.getCategoryDao();
-        menuDao = daoSession.getMenuDao();
-        ingredientDao = daoSession.getIngredientDao();
-        ingredientsAndMenuJoinerDao = daoSession.getIngredientsAndMenuJoinerDao();
+        this.categoryDao = categoryDao;
+        this.menuDao = menuDao;
+        this.ingredientDao = ingredientDao;
+        this.ingredientsAndMenuJoinerDao = ingredientsAndMenuJoinerDao;
 
         try {
             initCategories();
