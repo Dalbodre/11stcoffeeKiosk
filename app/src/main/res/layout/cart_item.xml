@@ -63,7 +63,7 @@
         android:id="@+id/delete"
         android:layout_width="83dp"
         android:layout_height="100dp"
-        android:background="#544842"
+        android:background="@color/coffeeBrown"
         android:text="X"
         android:textColor="#FFFFFF"
         android:textSize="24sp"

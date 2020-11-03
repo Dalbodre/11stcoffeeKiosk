@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#544842"
+            android:background="@color/coffeeBrown"
             android:text="열기/닫기"
             android:textColor="@android:color/white"
             android:textSize="24sp"
@@ -29,7 +29,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="13033"
-            android:textColor="#544842"
+            android:textColor="@color/coffeeBrown"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="#544842"
+            android:background="@color/coffeeBrown"
             android:text="계산"
             android:textColor="@android:color/white"
             android:textSize="24sp"

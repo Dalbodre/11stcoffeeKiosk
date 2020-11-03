@@ -1,6 +1,8 @@
 package sb.yoon.kiosk;
 
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.TypedValue;
 import android.view.View;
@@ -11,10 +13,12 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import sb.yoon.kiosk.controller.DbQueryController;
+import sb.yoon.kiosk.layout.CategoryButton;
 import sb.yoon.kiosk.model.Category;
 
 import java.util.List;
@@ -44,25 +48,7 @@ public class KioskMain extends AppCompatActivity {
         categories = dbQueryController.getCategoriesList();
 
         // 카테고리 버튼들 생성
-        LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(10, 0, 10, 0);
-        // 버튼 순서 태그로 지정
-        int tagNum = 0;
-        for (Category category: categories) {
-            Button button = new Button(this);
-            button.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 33);
-            button.setText(category.getName());
-            button.setTextColor(Color.parseColor("#fef1d1"));
-            button.setBackgroundColor(Color.parseColor("#544842"));
-            button.setOnClickListener(new ButtonClickListener());
-            button.setPadding(20,20,20,20);
-            button.setTag(tagNum);
-            tagNum += 1;
-
-            categoryButtonsGroup.addView(button, params);
-        }
+        this.createCategoryButtons();
 
         // 기본으로 보여줄 플래그먼트 (첫번째 카테고리)
         fragmentManager = getSupportFragmentManager();
@@ -70,6 +56,34 @@ public class KioskMain extends AppCompatActivity {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
 
+    }
+
+    private void createCategoryButtons() {
+        LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(10, 0, 10, 0);
+
+        // 검색버튼 삽입
+        CategoryButton searchButton = new CategoryButton(this);
+        Drawable searchIcon = ContextCompat.getDrawable(this, R.drawable.search_icon);
+        // 검색 아이콘 삽입 (Drawable Left)
+        searchIcon.setBounds(0, 0, 80, 80);
+        searchButton.setCompoundDrawables(searchIcon, null, null, null);
+        searchButton.setText("검색");
+        categoryButtonsGroup.addView(searchButton, params);
+
+        // 버튼 순서 태그로 지정
+        int tagNum = 0;
+        for (Category category: categories) {
+            CategoryButton button = new CategoryButton(this);
+            button.setText(category.getName());
+            button.setOnClickListener(new ButtonClickListener());
+            button.setTag(tagNum);
+            tagNum += 1;
+
+            categoryButtonsGroup.addView(button, params);
+        }
     }
 
     // 버튼 누르면 버튼의 순서를 확인하고 플래그먼트에 삽입

@@ -15,14 +15,14 @@
             android:contentDescription="Image of Element"/>
 
     <TextView
-            android:text="TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/element_text"
-            android:layout_weight="1"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="#544842"
-            android:textColor="#FFFFFF"/>
+        android:id="@+id/element_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/coffeeBrown"
+        android:gravity="center"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
 </LinearLayout>
