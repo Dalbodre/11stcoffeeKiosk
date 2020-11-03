@@ -130,10 +130,11 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         return convertView;
     }
 
+    // 메뉴 아이콘 눌렸을 때
     @Override
     public void onClick(View view) {
-        System.out.println("클릭했음" + view.toString());
         int position = (int) view.getTag();
         cartFragment.addCartMenuList(menuList.get(position));
+        cartFragment.setListWrapperVisibility(true);
     }
 }

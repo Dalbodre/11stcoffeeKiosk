@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,9 +13,8 @@
         android:id="@+id/categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/categories_buttons_group"
@@ -23,23 +23,24 @@
             android:orientation="horizontal" />
     </HorizontalScrollView>
 
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="7dp"
-        android:background="#544842" />
-
     <FrameLayout
         android:id="@+id/list_fragment"
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/cart_fragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/categories">
 
     </FrameLayout>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/cart_fragment"
         android:name="sb.yoon.kiosk.CartFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight_max="300dp"
+        app:layout_constrainedHeight="true"/>
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

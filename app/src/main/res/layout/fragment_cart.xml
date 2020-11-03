@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="#544842"
-            android:text="숨기기"
+            android:text="열기/닫기"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             android:textStyle="bold" />

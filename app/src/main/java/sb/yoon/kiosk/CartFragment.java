@@ -27,6 +27,7 @@ public class CartFragment extends ListFragment {
 
     private List<CartMenu> cartMenuList = new ArrayList<>();
     private CartListAdapter adapter;
+    private View view;
 
     public CartFragment() {
         this.setAdapter();
@@ -46,21 +47,27 @@ public class CartFragment extends ListFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //View view = super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.fragment_cart, container, false);
+        view = inflater.inflate(R.layout.fragment_cart, container, false);
 
         Button button = view.findViewById(R.id.hideshow_button);
-        final LinearLayout listWrapper = view.findViewById(R.id.list_wrapper);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (listWrapper.getVisibility() == View.GONE)
-                    listWrapper.setVisibility(View.VISIBLE);
-                else
-                    listWrapper.setVisibility(View.GONE);
+                setListWrapperVisibility(!getListWrapperVisibility());
             }
         });
 
         return view;
+    }
+
+    public void setListWrapperVisibility(boolean visibility) {
+        LinearLayout listWrapper = view.findViewById(R.id.list_wrapper);
+        listWrapper.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
+    public boolean getListWrapperVisibility() {
+        LinearLayout listWrapper = view.findViewById(R.id.list_wrapper);
+        return listWrapper.getVisibility() == View.VISIBLE;
     }
 
     public void delCartMenuList(int position) {
