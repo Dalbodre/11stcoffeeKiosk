@@ -9,16 +9,28 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.ListFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import sb.yoon.kiosk.controller.CartListAdapter;
+import sb.yoon.kiosk.controller.HttpNetworkController;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.Menu;
 
@@ -49,11 +61,35 @@ public class CartFragment extends ListFragment {
         //View view = super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_cart, container, false);
 
-        Button button = view.findViewById(R.id.hideshow_button);
-        button.setOnClickListener(new View.OnClickListener() {
+        // 숨김/보이기 버튼 리스너
+        Button hideOrShowButton = view.findViewById(R.id.hideshow_button);
+        hideOrShowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setListWrapperVisibility(!getListWrapperVisibility());
+            }
+        });
+
+        // 결제 버튼 리스너
+        final Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+        final TextView totalPriceView = view.findViewById(R.id.total_price);
+        Button purchaseButton = view.findViewById(R.id.purchase_button);
+        purchaseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    jsonObject.put("결제가격", totalPriceView.getText());
+                    jsonObject.put("메뉴", new JSONArray(gson.toJson(cartMenuList,
+                            new TypeToken<List<CartMenu>>(){}.getType())));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Log.d("결제 데이터", jsonObject.toString());
+                HttpNetworkController httpController = new HttpNetworkController(getContext(), "https://reqres.in/api/users");
+                httpController.postJson(jsonObject);
             }
         });
 
@@ -87,8 +123,9 @@ public class CartFragment extends ListFragment {
 
         // @todo 옵션에 따른 추가요금 적용
         int extraPrice = 0;
+        String option = "옵션 추가해야함";
 
-        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), extraPrice);
+        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), extraPrice, option);
         this.cartMenuList.add(cartMenu);
         adapter.notifyDataSetChanged();
     }

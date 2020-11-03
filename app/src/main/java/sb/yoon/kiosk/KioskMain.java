@@ -1,6 +1,7 @@
 package sb.yoon.kiosk;
 
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
@@ -69,6 +70,7 @@ public class KioskMain extends AppCompatActivity {
         Drawable searchIcon = ContextCompat.getDrawable(this, R.drawable.search_icon);
         // 검색 아이콘 삽입 (Drawable Left)
         searchIcon.setBounds(0, 0, 80, 80);
+        //searchIcon.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.MULTIPLY);
         searchButton.setCompoundDrawables(searchIcon, null, null, null);
         searchButton.setText("검색");
         categoryButtonsGroup.addView(searchButton, params);
