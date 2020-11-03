@@ -1,10 +1,12 @@
 package sb.yoon.kiosk;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class ItemListFragment extends ListFragment {
 
-    List<Menu> menuList;
+    private List<Menu> menuList;
 
     public ItemListFragment(List<Menu> menuList) {
         this.menuList = menuList;
@@ -26,9 +28,10 @@ public class ItemListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CartFragment cartFragment = (CartFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.cart_fragment);
 
         // 인덱스 표시 어댑터 설정
-        KioskListAdapter adapter = new KioskListAdapter(menuList);
+        KioskListAdapter adapter = new KioskListAdapter(menuList, cartFragment);
         // 어댑터를 설정
         setListAdapter(adapter);
     }

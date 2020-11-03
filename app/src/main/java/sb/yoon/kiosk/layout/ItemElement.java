@@ -8,9 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+
 import sb.yoon.kiosk.R;
 
-public class ItemElement extends LinearLayout {
+public class ItemElement extends LinearLayout{
     private Drawable image;
     private String text;
     private View view;
@@ -38,17 +42,6 @@ public class ItemElement extends LinearLayout {
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         view = inflater.inflate(R.layout.element_item_layout,this,true);
-    }
-
-    public ItemElement(Context context, Drawable image, String text) {
-        super(context);
-        this.image = image;
-        this.text = text;
-
-        LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.element_item_layout,this,true);
-        replaceImageDrawable(this.image);
-        replaceText(this.text);
     }
 
     private void replaceImageDrawable(Drawable image) {

@@ -10,6 +10,7 @@ import android.widget.*;
 
 import androidx.core.content.ContextCompat;
 
+import sb.yoon.kiosk.CartFragment;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.Ingredient;
@@ -19,11 +20,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 // 어뎁터 클래스
-public class KioskListAdapter extends BaseAdapter {
+public class KioskListAdapter extends BaseAdapter implements View.OnClickListener {
     private List<Menu> menuList;
+    private Context context;
+    private CartFragment cartFragment;
 
-    public KioskListAdapter(List<Menu> menuList){
+    public KioskListAdapter(List<Menu> menuList, CartFragment cartFragment){
         this.menuList = menuList;
+        this.cartFragment = cartFragment;
     }
 
     @Override
@@ -43,7 +47,14 @@ public class KioskListAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return getCount();
+        //return getCount();
+
+        if(getCount() > 0) {
+            return getCount();
+        }
+        else{
+            return super.getViewTypeCount();
+        }
     }
 
     @Override
@@ -53,8 +64,8 @@ public class KioskListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        final int pos = position;
-        final Context context = parent.getContext();
+        context = parent.getContext();
+
         // 특정 행의 데이터 구함
         Menu menu = (Menu)getItem(position);
 
@@ -65,11 +76,15 @@ public class KioskListAdapter extends BaseAdapter {
         }
 
         // View의 각 Widget에 데이터 저장
-        ItemElement view = convertView.findViewById(R.id.menu_element);
+        ItemElement menuItem = convertView.findViewById(R.id.menu_element);
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
                 .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
-        view.setImageDrawable(drawable);
-        view.setText(menu.getName());
+        menuItem.setImageDrawable(drawable);
+        menuItem.setText(menu.getName());
+        menuItem.setTag(position);
+
+        // ItemElement에 OnClickListener 달아주기
+        menuItem.setOnClickListener(this);
 
         TextView price1 = (TextView)convertView.findViewById(R.id.price1);
         price1.setText(Integer.toString(menu.getPrice()));
@@ -113,5 +128,12 @@ public class KioskListAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    @Override
+    public void onClick(View view) {
+        System.out.println("클릭했음" + view.toString());
+        int position = (int) view.getTag();
+        cartFragment.addCartMenuList(menuList.get(position));
     }
 }

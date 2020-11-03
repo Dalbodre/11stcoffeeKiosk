@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,7 +46,14 @@ public class CartListAdapter extends BaseAdapter {
 
     @Override
     public int getViewTypeCount() {
-        return getCount();
+        //return getCount();
+
+        if(getCount() > 0) {
+            return getCount();
+        }
+        else{
+            return super.getViewTypeCount();
+        }
     }
 
     @Override
@@ -57,7 +65,7 @@ public class CartListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
         final Context context = parent.getContext();
         // 특정 행의 데이터 구함
-        CartMenu cartMenu = (CartMenu)getItem(position);
+        final CartMenu cartMenu = (CartMenu)getItem(position);
 
         // View는 재사용되기 때문에 처음에만 리스트 아이템 표시용 레이아웃을 읽어와서 생성함
         if(convertView == null){
@@ -66,10 +74,43 @@ public class CartListAdapter extends BaseAdapter {
         }
 
         // View의 각 Widget에 데이터 저장
-        ItemElement view = convertView.findViewById(R.id.menu_element);
+        ItemElement cartItemElement = convertView.findViewById(R.id.menu_element);
         Drawable drawable = cartMenu.getIcon();
-        view.setImageDrawable(drawable);
-        view.setText(cartMenu.getName());
+        cartItemElement.setImageDrawable(drawable);
+        cartItemElement.setText(cartMenu.getName());
+
+        // 수량 보여주기
+        TextView textview = convertView.findViewById(R.id.quantity);
+        textview.setText(Integer.toString(cartMenu.getQuantity()));
+
+        // 수량 변경 버튼들
+        Button plusButton = convertView.findViewById(R.id.plus);
+        Button minusButton = convertView.findViewById(R.id.minus);
+        plusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cartMenu.plusQuantity();
+                CartListAdapter.this.notifyDataSetChanged();
+            }
+        });
+        minusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int quantity = cartMenu.minusQuantity();
+                if (quantity <= 0) cartMenuList.remove(cartMenu);
+                CartListAdapter.this.notifyDataSetChanged();
+            }
+        });
+
+        // 없애기 버튼
+        Button deleteButton = convertView.findViewById(R.id.delete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cartMenuList.remove(cartMenu);
+                CartListAdapter.this.notifyDataSetChanged();
+            }
+        });
 
         return convertView;
     }

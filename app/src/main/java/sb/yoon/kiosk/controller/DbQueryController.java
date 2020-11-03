@@ -2,7 +2,10 @@ package sb.yoon.kiosk.controller;
 
 import android.app.Activity;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import sb.yoon.kiosk.KioskApplication;
 import sb.yoon.kiosk.model.Category;
@@ -84,6 +87,24 @@ public class DbQueryController {
         return menu.getOptionList();
     }
 
+    // 해당 메뉴에 대한 옵션을 해시맵으로 돌려줌
+    // key: [옵션이름, multiSelectable] value: List<옵션아이템들>
+    public HashMap<String[], List<String>> getParsedOptionList(Menu menu) {
+        List<Option> optionList = this.getOptionList(menu);
+        HashMap<String[], List<String>> parsedOptionMap = new HashMap<>();
+
+        for (Option option : optionList) {
+            String name = option.getName();
+            String multiSelectable = option.getMultiSelectable().toString();
+            String[] key = {name, multiSelectable};
+
+            List<String> value = Arrays.asList(option.getValue().split("/"));
+            parsedOptionMap.put(key, value);
+        }
+
+        return parsedOptionMap;
+    }
+
     // 이름으로 메뉴 검색
     public List<Menu> searchMenusByName(String name) {
         return menuDao.queryBuilder().where(MenuDao.Properties.Name.like("%" + name + "%")).list();
@@ -109,6 +130,18 @@ public class DbQueryController {
             menuDao.insertOrReplace(new Menu(1L, "아메리카노", 1L, 1100, "americano", true));
             menuDao.insertOrReplace(new Menu(2L, "카페라떼", 1L, 1800, "caffe_latte", true));
             menuDao.insertOrReplace(new Menu(3L, "카푸치노", 1L, 2100, "capuccino", true));
+
+            menuDao.insertOrReplace(new Menu(4L, "A아메리카노", 1L, 1100, "americano", true));
+            menuDao.insertOrReplace(new Menu(5L, "A카페라떼", 1L, 1800, "caffe_latte", true));
+            menuDao.insertOrReplace(new Menu(6L, "A카푸치노", 1L, 2100, "capuccino", true));
+
+            menuDao.insertOrReplace(new Menu(7L, "B아메리카노", 1L, 1100, "americano", true));
+            menuDao.insertOrReplace(new Menu(8L, "B카페라떼", 1L, 1800, "caffe_latte", true));
+            menuDao.insertOrReplace(new Menu(9L, "B카푸치노", 1L, 2100, "capuccino", true));
+
+            menuDao.insertOrReplace(new Menu(10L, "C아메리카노", 2L, 1100, "americano", true));
+            menuDao.insertOrReplace(new Menu(11L, "C카페라떼", 2L, 1800, "caffe_latte", true));
+            menuDao.insertOrReplace(new Menu(12L, "C카푸치노", 2L, 2100, "capuccino", true));
         }
 
         private void initIngredients() {
