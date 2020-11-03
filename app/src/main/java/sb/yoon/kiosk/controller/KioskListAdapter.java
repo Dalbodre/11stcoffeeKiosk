@@ -100,9 +100,6 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
 
             Drawable ingredientDrawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(ingredient.getIconPath(), "drawable", context.getPackageName()));
 
-            // 메뉴 아이템 (이미지 + 텍스트) 삽입
-            // 수 지정 안해주면 (아마도) 다중스레드 때문에 랜덤으로 추가되어버리는 버그 있음
-            // @todo 버그 제대로 픽스
             ItemElement ingredientElement = null;
             switch(index) {
                 case 0: ingredientElement = holder.findViewById(R.id.ingredient1); break;
@@ -117,12 +114,6 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
                 ingredientElement.setText(ingredient.getName());
                 ingredientElement.setVisibility(View.VISIBLE);
             }
-
-            // DP 단위로 변환
-            //final int width = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, context.getResources().getDisplayMetrics());
-            //final int height = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 100, context.getResources().getDisplayMetrics());
-            //LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width,height);
-            //holder.addView(element, params);
 
             index += 1;
         }

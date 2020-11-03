@@ -85,7 +85,10 @@ public class CartFragment extends ListFragment {
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
                 .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
 
-        CartMenu cartMenu = new CartMenu(drawable, menu.getName());
+        // @todo 옵션에 따른 추가요금 적용
+        int extraPrice = 0;
+
+        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), extraPrice);
         this.cartMenuList.add(cartMenu);
         adapter.notifyDataSetChanged();
     }
