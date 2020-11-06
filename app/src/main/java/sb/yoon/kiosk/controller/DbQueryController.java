@@ -89,7 +89,7 @@ public class DbQueryController {
 
     // 해당 메뉴에 대한 옵션을 해시맵으로 돌려줌
     // key: [옵션이름, multiSelectable] value: List<옵션아이템들>
-    public HashMap<String[], List<String>> getParsedOptionList(Menu menu) {
+   /* public HashMap<String[], List<String>> getParsedOptionList(Menu menu) {
         List<Option> optionList = this.getOptionList(menu);
         HashMap<String[], List<String>> parsedOptionMap = new HashMap<>();
 
@@ -103,7 +103,7 @@ public class DbQueryController {
         }
 
         return parsedOptionMap;
-    }
+    }*/
 
     // 이름으로 메뉴 검색
     public List<Menu> searchMenusByName(String name) {
@@ -127,21 +127,49 @@ public class DbQueryController {
         }
 
         private void initMenus() {
+            //커피
             menuDao.insertOrReplace(new Menu(1L, "아메리카노", 1L, 1100, "americano", true));
             menuDao.insertOrReplace(new Menu(2L, "카페라떼", 1L, 1800, "caffe_latte", true));
             menuDao.insertOrReplace(new Menu(3L, "카푸치노", 1L, 2100, "capuccino", true));
+            menuDao.insertOrReplace(new Menu(4L, "에소프레소"));
+            menuDao.insertOrReplace(new Menu(5L, "바닐라라떼"));
+            menuDao.insertOrReplace(new Menu(6L, "헤어즐넛라떼"));
+            menuDao.insertOrReplace(new Menu(7L, "카라멜마끼아또"));
+            menuDao.insertOrReplace(new Menu(8L, "카페모카"));
+            menuDao.insertOrReplace(new Menu(9L, "민트그린모카"));
 
-            menuDao.insertOrReplace(new Menu(4L, "A아메리카노", 1L, 1100, "americano", true));
-            menuDao.insertOrReplace(new Menu(5L, "A카페라떼", 1L, 1800, "caffe_latte", true));
-            menuDao.insertOrReplace(new Menu(6L, "A카푸치노", 1L, 2100, "capuccino", true));
+            //에이드
+            menuDao.insertOrReplace(new Menu(10L, "레몬에이드"));
+            menuDao.insertOrReplace(new Menu(11L, "오렌지에이드"));
+            menuDao.insertOrReplace(new Menu(12L, "자몽에이드"));
+            menuDao.insertOrReplace(new Menu(13L, "청포도에이드"));
 
-            menuDao.insertOrReplace(new Menu(7L, "B아메리카노", 1L, 1100, "americano", true));
-            menuDao.insertOrReplace(new Menu(8L, "B카페라떼", 1L, 1800, "caffe_latte", true));
-            menuDao.insertOrReplace(new Menu(9L, "B카푸치노", 1L, 2100, "capuccino", true));
+            //주스
+            menuDao.insertOrReplace(new Menu(14L, "애플주스"));
+            menuDao.insertOrReplace(new Menu(15L, "애플주스 스파클링"));
 
-            menuDao.insertOrReplace(new Menu(10L, "C아메리카노", 2L, 1100, "americano", true));
-            menuDao.insertOrReplace(new Menu(11L, "C카페라떼", 2L, 1800, "caffe_latte", true));
-            menuDao.insertOrReplace(new Menu(12L, "C카푸치노", 2L, 2100, "capuccino", true));
+            //라떼
+            menuDao.insertOrReplace(new Menu(16L, "그린티라떼"));
+            menuDao.insertOrReplace(new Menu(17L, "고구마라떼"));
+            menuDao.insertOrReplace(new Menu(18L, "밀크티라떼"));
+            menuDao.insertOrReplace(new Menu(19L, "초코라떼"));
+
+            //티백차
+            menuDao.insertOrReplace(new Menu(20L, "캐모마일"));
+            menuDao.insertOrReplace(new Menu(21L, "페퍼민트"));
+            menuDao.insertOrReplace(new Menu(22L, "얼그레이"));
+
+            //과일청차
+            menuDao.insertOrReplace(new Menu(23L, "자몽차"));
+            menuDao.insertOrReplace(new Menu(24L, ""));
+            menuDao.insertOrReplace(new Menu(25L, "에소프레소"));
+            menuDao.insertOrReplace(new Menu(26L, "바닐라라떼"));
+            menuDao.insertOrReplace(new Menu(27L, "헤어즐넛라떼"));
+            menuDao.insertOrReplace(new Menu(28L, "에소프레소"));
+            menuDao.insertOrReplace(new Menu(29L, "바닐라라떼"));
+            menuDao.insertOrReplace(new Menu(30L, "헤어즐넛라떼"));
+            menuDao.insertOrReplace(new Menu(31L, "에소프레소"));
+
         }
 
         private void initIngredients() {
@@ -162,8 +190,14 @@ public class DbQueryController {
         }
 
         private void initOptions() {
-            optionDao.insertOrReplace(new Option(1L, "사이즈 선택", false, "레귤러/라지/엑스라지"));
-            optionDao.insertOrReplace(new Option(2L, "온도 선택", false, "HOT/COLD"));
+            optionDao.insertOrReplace(new Option(1L, "사이즈", 500));
+            optionDao.insertOrReplace(new Option(2L, "온도", 0));
+            optionDao.insertOrReplace(new Option(3L, "테이크아웃", 0));
+            optionDao.insertOrReplace(new Option(4L, "텀블러", -200));
+            optionDao.insertOrReplace(new Option(5L,"샷", 500));
+            optionDao.insertOrReplace(new Option(6L, "설탕시럽", 0));
+            optionDao.insertOrReplace(new Option(7L, "헤이즐넛시럽", 500));
+            optionDao.insertOrReplace(new Option(8L, "연하게", 0));
         }
 
         private void initOptionJoiner() {
