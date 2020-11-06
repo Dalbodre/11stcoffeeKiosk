@@ -131,6 +131,6 @@ public class CartFragment extends Fragment {
 
     private void setAdapter() {
         // 인덱스 표시 어댑터 설정
-        adapter = new CartListAdapter()
+        adapter = new CartListAdapter();
     }
 }
