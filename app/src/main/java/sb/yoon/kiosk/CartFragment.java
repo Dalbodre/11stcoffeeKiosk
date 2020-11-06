@@ -7,7 +7,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,11 +39,13 @@ import sb.yoon.kiosk.model.Menu;
 import sb.yoon.kiosk.model.Option;
 
 
-public class CartFragment extends ListFragment {
+public class CartFragment extends Fragment {
 
     private List<CartMenu> cartMenuList = new ArrayList<>();
     private CartListAdapter adapter;
     private View view;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     public CartFragment() {
         this.setAdapter();
@@ -127,8 +131,6 @@ public class CartFragment extends ListFragment {
 
     private void setAdapter() {
         // 인덱스 표시 어댑터 설정
-        adapter = new CartListAdapter(cartMenuList);
-        // 어댑터를 설정
-        this.setListAdapter(adapter);
+        adapter = new CartListAdapter()
     }
 }
