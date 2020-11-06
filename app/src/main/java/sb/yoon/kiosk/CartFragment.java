@@ -84,6 +84,7 @@ public class CartFragment extends ListFragment {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("결제가격", totalPriceView.getText());
+                    jsonObject.put("test", 123);
                     jsonObject.put("포장", "N");
                     jsonObject.put("메뉴", new JSONArray(gson.toJson(cartMenuList,
                             new TypeToken<List<CartMenu>>(){}.getType())));
@@ -91,7 +92,7 @@ public class CartFragment extends ListFragment {
                     e.printStackTrace();
                 }
                 Log.d("결제 데이터", jsonObject.toString());
-                HttpNetworkController httpController = new HttpNetworkController(getContext(), "https://reqres.in/api/users");
+                HttpNetworkController httpController = new HttpNetworkController(getContext(), "http://192.168.1.3:8080");
                 httpController.postJson(jsonObject);
             }
         });
