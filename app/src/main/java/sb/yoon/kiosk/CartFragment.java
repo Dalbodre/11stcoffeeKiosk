@@ -32,7 +32,9 @@ import java.util.List;
 import sb.yoon.kiosk.controller.CartListAdapter;
 import sb.yoon.kiosk.controller.HttpNetworkController;
 import sb.yoon.kiosk.model.CartMenu;
+import sb.yoon.kiosk.model.CartOption;
 import sb.yoon.kiosk.model.Menu;
+import sb.yoon.kiosk.model.Option;
 
 
 public class CartFragment extends ListFragment {
@@ -82,6 +84,7 @@ public class CartFragment extends ListFragment {
                 JSONObject jsonObject = new JSONObject();
                 try {
                     jsonObject.put("결제가격", totalPriceView.getText());
+                    jsonObject.put("포장", "N");
                     jsonObject.put("메뉴", new JSONArray(gson.toJson(cartMenuList,
                             new TypeToken<List<CartMenu>>(){}.getType())));
                 } catch (JSONException e) {
@@ -122,10 +125,14 @@ public class CartFragment extends ListFragment {
                 .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
 
         // @todo 옵션에 따른 추가요금 적용
-        int extraPrice = 0;
-        String option = "옵션 추가해야함";
+        int totalPrice = 0;
 
-        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), extraPrice, option);
+        List<CartOption> cartOptions = new ArrayList<>();
+        cartOptions.add(new CartOption("test option", "1", 500));
+
+        totalPrice = totalPrice + menu.getPrice();
+
+        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), totalPrice, cartOptions);
         this.cartMenuList.add(cartMenu);
         adapter.notifyDataSetChanged();
     }

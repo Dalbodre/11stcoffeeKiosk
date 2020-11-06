@@ -343,14 +343,12 @@ public class DbQueryController {
         }
 
         private void initOptions() {
-            optionDao.insertOrReplace(new Option(1L, "사이즈", 500));
-            optionDao.insertOrReplace(new Option(2L, "온도", 0));
-            optionDao.insertOrReplace(new Option(3L, "테이크아웃", 0));
-            optionDao.insertOrReplace(new Option(4L, "텀블러", -200));
-            optionDao.insertOrReplace(new Option(5L,"샷", 500));
-            optionDao.insertOrReplace(new Option(6L, "설탕시럽", 0));
-            optionDao.insertOrReplace(new Option(7L, "헤이즐넛시럽", 500));
-            optionDao.insertOrReplace(new Option(8L, "연하게", 0));
+            optionDao.insertOrReplace(new Option(1L, "테이크아웃", 0, false));
+            optionDao.insertOrReplace(new Option(2L, "텀블러", -200, false));
+            optionDao.insertOrReplace(new Option(3L, "샷 추가", 500, true));
+            optionDao.insertOrReplace(new Option(4L, "설탕시럽", 500, true));
+            optionDao.insertOrReplace(new Option(5L, "헤이즐넛시럽", 500, true));
+            optionDao.insertOrReplace(new Option(6L, "연하게", 0, false));
         }
 
         private void initOptionJoiner() {
