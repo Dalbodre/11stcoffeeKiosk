@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="310dp"
+    android:layout_height="711dp"
+    android:background="#eeeeee"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/option_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/option_top_back"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:paddingStart="10dp"
+            android:onClick="mOnClose"/>
+
+        <ImageView
+            android:id="@+id/option_top_cancel"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:paddingEnd="10dp"
+            android:onClick="mOnClose"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/pop_main_pic"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/pop_main_pic_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#4b3621" />
+
+    <TextView
+        android:id="@+id/pop_main_pic_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="#4b3621" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="2">
+
+        <TableRow>
+
+            <Button
+                android:id="@+id/pop_icemode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4b3621"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/pop_hotmode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#4b3621"/>
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="추가옵션"
+        android:textColor="#4b3621"
+        android:textSize="15dp"
+        android:padding="15sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/pop_shot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#4b3621"/>
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/pop_hazel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#4b3621"/>
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/pop_nongdo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#4b3621"/>
+    </LinearLayout>
+
+</LinearLayout>
