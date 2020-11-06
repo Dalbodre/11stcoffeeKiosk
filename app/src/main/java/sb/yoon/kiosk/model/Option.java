@@ -17,23 +17,26 @@ public class Option {
     @NotNull
     private String name;
 
-    // 예) true
+/*    // 예) true
     // 해당 옵션이 다중 선택 가능한지 지정
     @NotNull
-    private Boolean multiSelectable;
+    private Boolean multiSelectable;*/
 
     // 예) 레귤러/라지/엑스라지
     // 옵션을 나열. '/' 기호로 구분.
     @NotNull
-    private String value;
+    private int price;
 
-@Generated(hash = 190502910)
-public Option(Long id, @NotNull String name, @NotNull Boolean multiSelectable,
-        @NotNull String value) {
+    // 옵션이 갯수인지 아니면 Y/N인지 설정
+    @NotNull
+    private boolean isInteger;
+
+@Generated(hash = 1437519651)
+public Option(Long id, @NotNull String name, int price, boolean isInteger) {
     this.id = id;
     this.name = name;
-    this.multiSelectable = multiSelectable;
-    this.value = value;
+    this.price = price;
+    this.isInteger = isInteger;
 }
 
 @Generated(hash = 104107376)
@@ -56,19 +59,19 @@ public void setName(String name) {
     this.name = name;
 }
 
-public Boolean getMultiSelectable() {
-    return this.multiSelectable;
+public int getPrice() {
+    return this.price;
 }
 
-public void setMultiSelectable(Boolean multiSelectable) {
-    this.multiSelectable = multiSelectable;
+public void setPrice(int price) {
+    this.price = price;
 }
 
-public String getValue() {
-    return this.value;
+public boolean getIsInteger() {
+    return this.isInteger;
 }
 
-public void setValue(String value) {
-    this.value = value;
+public void setIsInteger(boolean isInteger) {
+    this.isInteger = isInteger;
 }
 }

@@ -79,28 +79,6 @@ public class CartListAdapter extends BaseAdapter {
         cartItemElement.setImageDrawable(drawable);
         cartItemElement.setText(cartMenu.getName());
 
-        // 수량 보여주기
-        TextView textview = convertView.findViewById(R.id.quantity);
-        textview.setText(Integer.toString(cartMenu.getQuantity()));
-
-        // 수량 변경 버튼들
-        Button plusButton = convertView.findViewById(R.id.plus);
-        Button minusButton = convertView.findViewById(R.id.minus);
-        plusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cartMenu.plusQuantity();
-                CartListAdapter.this.notifyDataSetChanged();
-            }
-        });
-        minusButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int quantity = cartMenu.minusQuantity();
-                if (quantity <= 0) cartMenuList.remove(cartMenu);
-                CartListAdapter.this.notifyDataSetChanged();
-            }
-        });
 
         // 없애기 버튼
         Button deleteButton = convertView.findViewById(R.id.delete);

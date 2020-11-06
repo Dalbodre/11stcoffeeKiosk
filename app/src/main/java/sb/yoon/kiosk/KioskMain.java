@@ -1,10 +1,12 @@
 package sb.yoon.kiosk;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -99,6 +101,28 @@ public class KioskMain extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public void mOnPopupClick(View v) {
+        //어케보면 액티비티 이동시키는 거랑 같은 방식이라고 보면 됩니다.
+        Intent intent = new Intent(this, PopupActivity.class); //액티비티 이동입니다.
+        intent.putExtra("data", "test popup");                     //시험칠 때 봤겠지만 데이터 넘길 때 쓰는 애 입니다.
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //데이터 넘겨줄 때 씀
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                //데이터 받기
+                String result = data.getStringExtra("result");
+                if (result != null) {
+                    Log.d("데이터", result);
+                }
             }
         }
     }

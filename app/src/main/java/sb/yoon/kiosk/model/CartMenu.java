@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable;
 
 import com.google.gson.annotations.Expose;
 
+import java.util.List;
+
 public class CartMenu {
     private Drawable icon;
 
@@ -11,25 +13,20 @@ public class CartMenu {
     @Expose
     private String name;
     @Expose
-    private int quantity = 1;
-    @Expose
     private int price;
 
-    // 옵션등에 따른 추가요금
+    // 옵션들 + 메뉴 가격
     @Expose
-    private int extraPrice;
-
-    // 따로 연산하거나 DB에 저장할 필요없이 서버에다 보내주면 되는 데이터이므로 통합하여 문자열로 처리
-    // 예: 사이즈:라지/샷 추가:1/온도: 아이스/
+    private int totalPrice;
     @Expose
-    private String option;
+    private List<CartOption> options;
 
-    public CartMenu(Drawable icon, String name, int price, int extraPrice, String option) {
+    public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options) {
         this.icon = icon;
         this.name = name;
         this.price = price;
-        this.extraPrice = extraPrice;
-        this.option = option;
+        this.totalPrice = totalPrice;
+        this.options = options;
     }
 
     public Drawable getIcon() {
@@ -48,29 +45,27 @@ public class CartMenu {
         this.name = name;
     }
 
-    public int plusQuantity() {
-        this.quantity += 1;
-        return this.quantity;
+    public int getPrice() {
+        return price;
     }
 
-    public int minusQuantity() {
-        this.quantity -= 1;
-        return this.quantity;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
-    public String getOption() {
-        return option;
+    public List<CartOption> getOptions() {
+        return options;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setOptions(List<CartOption> options) {
+        this.options = options;
     }
 }

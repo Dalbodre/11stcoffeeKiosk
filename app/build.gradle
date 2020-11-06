@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 
 greendao {
-    schemaVersion 6
+    schemaVersion 7
     // daoPackage "com.example.model" // set package of generated classes
 }
 
@@ -54,4 +54,7 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.3.0' // greendao sqlite orm library
 
     implementation 'com.android.volley:volley:1.1.1' // http library
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 }
