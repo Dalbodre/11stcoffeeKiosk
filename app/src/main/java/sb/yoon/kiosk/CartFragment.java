@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -52,7 +53,6 @@ public class CartFragment extends Fragment {
     }
 
     public CartFragment(List<CartMenu> menuList) {
-        this.setAdapter();
         this.setCartMenuList(menuList);
     }
 
@@ -66,6 +66,11 @@ public class CartFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //View view = super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_cart, container, false);
+
+        RecyclerView cartRecyclerView = view.findViewById(R.id.cart_recycler_list);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext());
+        cartRecyclerView.setLayoutManager(mLinearLayoutManager);
+        cartRecyclerView.setAdapter(this.adapter);
 
         // 결제 버튼 리스너
         final Gson gson = new GsonBuilder()
@@ -127,10 +132,11 @@ public class CartFragment extends Fragment {
     public void setCartMenuList(List<CartMenu> cartMenuList) {
         this.cartMenuList = cartMenuList;
         adapter.notifyDataSetChanged();
+        Log.d("카트에는: ", this.cartMenuList.toString());
     }
 
     private void setAdapter() {
         // 인덱스 표시 어댑터 설정
-        adapter = new CartListAdapter();
+        adapter = new CartListAdapter(cartMenuList);
     }
 }
