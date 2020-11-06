@@ -175,7 +175,7 @@ public class DbQueryController {
 
             //스무디
             menuDao.insertOrReplace(new Menu(28L, "유자스무디", 8L, 4000, "yuja_smoothe", false));
-            menuDao.insertOrReplace(new Menu(29L, "플레인요거트스무디", 8L, 4000, "plain_smmothe", false));
+            menuDao.insertOrReplace(new Menu(29L, "플레인요거트스무디", 8L, 4000, "plain_smoothe", false));
             menuDao.insertOrReplace(new Menu(30L, "딸기요거트스무디", 8L, 4000, "berry_smoothe", false));
             menuDao.insertOrReplace(new Menu(31L, "블루베리요거트스무디", 8L, 4000, "blueberry_smoothe", false));
         }
@@ -218,7 +218,7 @@ public class DbQueryController {
             ingredientDao.insertOrReplace(new Ingredient(30L, "쿠앤크가루", "cookie_grau"));
 
             ingredientDao.insertOrReplace(new Ingredient(31L, "유자", "yuja"));
-            ingredientDao.insertOrReplace(new Ingredient(32L, "요거트가루", "yogurt"));
+            ingredientDao.insertOrReplace(new Ingredient(32L, "요거트가루", "yogurt_garu"));
             ingredientDao.insertOrReplace(new Ingredient(33L, "딸기", "straw"));
             ingredientDao.insertOrReplace(new Ingredient(34L, "블루베리", "blueberry"));
         }
@@ -334,12 +334,12 @@ public class DbQueryController {
             ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(73L, 30L, 33L));
             ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(74L, 30L, 32L));
             ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(75L, 30L, 2L));
-            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(75L, 30L, 29L));
+            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(76L, 30L, 29L));
             //블루베리 요거트스무디
-            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(76L, 31L, 34L));
-            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(77L, 31L, 32L));
-            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(78L, 31L, 2L));
-            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(78L, 31L, 29L));
+            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(77L, 31L, 34L));
+            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(78L, 31L, 32L));
+            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(79L, 31L, 2L));
+            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(80L, 31L, 29L));
         }
 
         private void initOptions() {
@@ -364,6 +364,4 @@ public class DbQueryController {
             optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(6L, 3L, 2L));
         }
     }
-
-
 }
