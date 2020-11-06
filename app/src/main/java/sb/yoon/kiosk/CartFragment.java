@@ -83,10 +83,9 @@ public class CartFragment extends ListFragment {
             public void onClick(View view) {
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("결제가격", totalPriceView.getText());
-                    jsonObject.put("test", 123);
-                    jsonObject.put("포장", "N");
-                    jsonObject.put("메뉴", new JSONArray(gson.toJson(cartMenuList,
+                    jsonObject.put("totalPrice", Integer.parseInt((String) totalPriceView.getText()));
+                    jsonObject.put("takeOut", "N");
+                    jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
                             new TypeToken<List<CartMenu>>(){}.getType())));
                 } catch (JSONException e) {
                     e.printStackTrace();
