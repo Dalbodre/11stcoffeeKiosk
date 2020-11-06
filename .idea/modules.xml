@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/kiosk.iml" filepath="$PROJECT_DIR$/.idea/modules/kiosk.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/kiosk.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/kiosk.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/StudioProjects.kiosk.iml" filepath="$PROJECT_DIR$/.idea/modules/StudioProjects.kiosk.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/StudioProjects.kiosk.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/StudioProjects.kiosk.app.iml" />
     </modules>
   </component>
 </project>

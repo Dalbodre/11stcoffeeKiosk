@@ -63,15 +63,6 @@ public class CartFragment extends ListFragment {
         //View view = super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_cart, container, false);
 
-        // 숨김/보이기 버튼 리스너
-        Button hideOrShowButton = view.findViewById(R.id.hideshow_button);
-        hideOrShowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setListWrapperVisibility(!getListWrapperVisibility());
-            }
-        });
-
         // 결제 버튼 리스너
         final Gson gson = new GsonBuilder()
                 .excludeFieldsWithoutExposeAnnotation()
@@ -100,15 +91,6 @@ public class CartFragment extends ListFragment {
         return view;
     }
 
-    public void setListWrapperVisibility(boolean visibility) {
-        LinearLayout listWrapper = view.findViewById(R.id.list_wrapper);
-        listWrapper.setVisibility(visibility ? View.VISIBLE : View.GONE);
-    }
-
-    public boolean getListWrapperVisibility() {
-        LinearLayout listWrapper = view.findViewById(R.id.list_wrapper);
-        return listWrapper.getVisibility() == View.VISIBLE;
-    }
 
     public void delCartMenuList(int position) {
         this.cartMenuList.remove(position);

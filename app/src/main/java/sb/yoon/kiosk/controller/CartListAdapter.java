@@ -45,7 +45,7 @@ public class CartListAdapter extends BaseAdapter {
     }
 
     @Override
-    public int getViewTypeCount() {
+    public int getViewTypeCount() { //List하나마다 카운트를 해야하는데 안적으면 랜덤으로 들어감...
         //return getCount();
 
         if(getCount() > 0) {
@@ -59,7 +59,7 @@ public class CartListAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
         return position;
-    }
+    } //둘이 같이..
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
@@ -78,6 +78,7 @@ public class CartListAdapter extends BaseAdapter {
         Drawable drawable = cartMenu.getIcon();
         cartItemElement.setImageDrawable(drawable);
         cartItemElement.setText(cartMenu.getName());
+        //cartItemElement.setText();
 
 
         // 없애기 버튼

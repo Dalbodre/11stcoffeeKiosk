@@ -126,6 +126,5 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
     public void onClick(View view) {
         int position = (int) view.getTag();
         cartFragment.addCartMenuList(menuList.get(position));
-        cartFragment.setListWrapperVisibility(true);
     }
 }
