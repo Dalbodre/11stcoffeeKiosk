@@ -11,6 +11,7 @@ import sb.yoon.kiosk.model.DaoSession;
 public class KioskApplication extends Application {
     private DaoSession daoSession;
     private DbQueryController dbQueryController;
+    private Database db;
 
     @Override
     public void onCreate() {
@@ -18,7 +19,7 @@ public class KioskApplication extends Application {
 
         // regular SQLite database
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "kiosk-db");
-        Database db = helper.getWritableDb();
+        db = helper.getWritableDb();
 
         // encrypted SQLCipher database
         // note: you need to add SQLCipher to your dependencies, check the build.gradle file
@@ -31,6 +32,11 @@ public class KioskApplication extends Application {
 
     public DaoSession getDaoSession() {
         return daoSession;
+    }
+
+    public void resetDaoSession() {
+        daoSession.clear();
+        daoSession = new DaoMaster(db).newSession();
     }
 
     public DbQueryController getDbQueryController() {

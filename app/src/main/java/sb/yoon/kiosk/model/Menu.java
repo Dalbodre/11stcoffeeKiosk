@@ -1,5 +1,8 @@
 package sb.yoon.kiosk.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Index;
@@ -14,7 +17,7 @@ import org.greenrobot.greendao.DaoException;
 @Entity(indexes = {
         @Index(value = "name DESC", unique = true)
 })
-public class Menu {
+public class Menu implements Parcelable {
     @Id(autoincrement = true)
     private Long id;
 
@@ -70,7 +73,62 @@ public Menu(Long id, @NotNull String name, @NotNull Long categoryId, int price,
 public Menu() {
 }
 
-public Long getId() {
+    protected Menu(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        name = in.readString();
+        if (in.readByte() == 0) {
+            categoryId = null;
+        } else {
+            categoryId = in.readLong();
+        }
+        price = in.readInt();
+        iconPath = in.readString();
+        byte tmpIsHot = in.readByte();
+        isHot = tmpIsHot == 0 ? null : tmpIsHot == 1;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(id);
+        }
+        dest.writeString(name);
+        if (categoryId == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(categoryId);
+        }
+        dest.writeInt(price);
+        dest.writeString(iconPath);
+        dest.writeByte((byte) (isHot == null ? 0 : isHot ? 1 : 2));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Menu> CREATOR = new Creator<Menu>() {
+        @Override
+        public Menu createFromParcel(Parcel in) {
+            return new Menu(in);
+        }
+
+        @Override
+        public Menu[] newArray(int size) {
+            return new Menu[size];
+        }
+    };
+
+    public Long getId() {
     return this.id;
 }
 
