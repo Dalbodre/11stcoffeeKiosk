@@ -2,7 +2,6 @@ package sb.yoon.kiosk.controller;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,23 +10,23 @@ import android.widget.*;
 import androidx.core.content.ContextCompat;
 
 import sb.yoon.kiosk.CartFragment;
+import sb.yoon.kiosk.KioskMain;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.Menu;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // 어뎁터 클래스
 public class KioskListAdapter extends BaseAdapter implements View.OnClickListener {
     private List<Menu> menuList;
     private Context context;
-    private CartFragment cartFragment;
+    private KioskMain mainActivity;
 
-    public KioskListAdapter(List<Menu> menuList, CartFragment cartFragment){
+    public KioskListAdapter(List<Menu> menuList, KioskMain mainActivity){
         this.menuList = menuList;
-        this.cartFragment = cartFragment;
+        this.mainActivity = mainActivity;
     }
 
     @Override
@@ -125,6 +124,6 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
     @Override
     public void onClick(View view) {
         int position = (int) view.getTag();
-        cartFragment.addCartMenuList(menuList.get(position));
+        mainActivity.addCartMenuList(menuList.get(position));
     }
 }

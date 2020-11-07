@@ -1,10 +1,12 @@
 package sb.yoon.kiosk;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +19,18 @@ import android.os.Bundle;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import sb.yoon.kiosk.controller.CartListAdapter;
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.layout.CategoryButton;
+import sb.yoon.kiosk.model.CartMenu;
+import sb.yoon.kiosk.model.CartOption;
 import sb.yoon.kiosk.model.Category;
+import sb.yoon.kiosk.model.Menu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class KioskMain extends AppCompatActivity {
@@ -30,10 +39,12 @@ public class KioskMain extends AppCompatActivity {
     private ItemListFragment itemListFragment;
     private List<Category> categories;
 
+    private List<CartMenu> cartMenuList = new ArrayList<>();
+    private CartListAdapter cartListAdapter;
+
     // 프론트에서 쓰기 편하게 DB 관련 메서드들 제공
     private DbQueryController dbQueryController;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +68,14 @@ public class KioskMain extends AppCompatActivity {
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
 
+        // 카트 리사이클러뷰
+        RecyclerView cartRecyclerView = this.findViewById(R.id.cart_recycler_list);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        cartRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        cartListAdapter = new CartListAdapter(cartMenuList);
+        cartRecyclerView.setAdapter(cartListAdapter);
     }
 
     private void createCategoryButtons() {
@@ -86,6 +105,45 @@ public class KioskMain extends AppCompatActivity {
 
             categoryButtonsGroup.addView(button, params);
         }
+    }
+
+    public void delCartMenuList(int position) {
+        this.cartMenuList.remove(position);
+        cartListAdapter.notifyDataSetChanged();
+    }
+
+    public void addCartMenuList(CartMenu cartMenu) {
+        this.cartMenuList.add(cartMenu);
+        cartListAdapter.notifyDataSetChanged();
+    }
+
+    public void addCartMenuList(Menu menu) {
+        Context context = this;
+        Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
+                .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
+
+        // @todo 옵션에 따른 추가요금 적용
+        int totalPrice = 0;
+
+        List<CartOption> cartOptions = new ArrayList<>();
+        cartOptions.add(new CartOption("test option", "1", 500));
+
+        totalPrice = totalPrice + menu.getPrice();
+
+        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), totalPrice, cartOptions);
+        this.cartMenuList.add(cartMenu);
+        cartListAdapter.notifyDataSetChanged();
+    }
+
+    public void setCartMenuList(List<CartMenu> cartMenuList) {
+        this.cartMenuList = cartMenuList;
+        cartListAdapter.notifyDataSetChanged();
+        Log.d("카트에는: ", this.cartMenuList.toString());
+    }
+
+    private void setAdapter() {
+        // 인덱스 표시 어댑터 설정
+        cartListAdapter = new CartListAdapter(cartMenuList);
     }
 
     // 버튼 누르면 버튼의 순서를 확인하고 플래그먼트에 삽입

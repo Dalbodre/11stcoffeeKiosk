@@ -29,20 +29,62 @@
         android:id="@+id/list_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/cart_fragment"
+        app:layout_constraintBottom_toTopOf="@+id/cart_buttons"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categories">
 
     </FrameLayout>
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/cart_fragment"
-        android:name="sb.yoon.kiosk.CartFragment"
+    <LinearLayout
+        android:id="@+id/cart_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/list_fragment"
+        app:layout_constraintBottom_toTopOf="@+id/cart_recycler_list"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/hideshow_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/coffeeBrown"
+            android:text="열기/닫기"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/coffeeBrown"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/purchase_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/coffeeBrown"
+            android:text="계산"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_recycler_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintHeight_max="300dp"
-        app:layout_constrainedHeight="true"/>
+        app:layout_constraintTop_toBottomOf="@+id/cart_buttons" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

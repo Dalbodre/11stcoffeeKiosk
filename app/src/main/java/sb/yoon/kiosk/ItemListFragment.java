@@ -28,10 +28,10 @@ public class ItemListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        CartFragment cartFragment = (CartFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.cart_fragment);
+        KioskMain mainActivity = (KioskMain) getActivity();
 
         // 인덱스 표시 어댑터 설정
-        KioskListAdapter adapter = new KioskListAdapter(menuList, cartFragment);
+        KioskListAdapter adapter = new KioskListAdapter(menuList, mainActivity);
         // 어댑터를 설정
         setListAdapter(adapter);
     }
