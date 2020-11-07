@@ -101,8 +101,6 @@ public class PopupActivity extends Activity{
     private void pop_coldhot() {
         Button ice = this.findViewById(R.id.pop_icemode);
         Button hot = this.findViewById(R.id.pop_hotmode);
-
-        ice.setPressed(true);
     }
 
     private void pop_main_pic(String iconPath, String name, int price) {
