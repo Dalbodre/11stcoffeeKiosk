@@ -14,6 +14,7 @@ import java.util.List;
 
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.controller.SearchRecyclerViewAdapter;
+import sb.yoon.kiosk.layout.SearchItemDecoration;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.IngredientDao;
 
@@ -28,6 +29,7 @@ public class SearchActivity extends AppCompatActivity {
         RecyclerView searchRecyclerView = this.findViewById(R.id.search_ingredients_list);
         GridLayoutManager mLinearLayoutManager = new GridLayoutManager(this, 4);
         searchRecyclerView.setLayoutManager(mLinearLayoutManager);
+        searchRecyclerView.addItemDecoration(new SearchItemDecoration(this, 4));
 
         KioskApplication kioskApplication = (KioskApplication) getApplication();
         DbQueryController dbQueryController = new DbQueryController(kioskApplication.getDaoSession());
