@@ -65,15 +65,17 @@
                 android:id="@+id/pop_icemode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#4b3621"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="ICE"
+                android:textColor="#4b3621" />
 
             <Button
                 android:id="@+id/pop_hotmode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textColor="#4b3621"/>
+                android:text="HOT"
+                android:textColor="#4b3621" />
         </TableRow>
     </TableLayout>
 
@@ -89,30 +91,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
-            android:layout_weight="1"
             android:id="@+id/pop_shot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#4b3621"/>
-        <Button
             android:layout_weight="1"
+            android:text="샷 추가"
+            android:textColor="#4b3621" />
+
+        <Button
             android:id="@+id/pop_hazel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#4b3621"/>
-        <Button
             android:layout_weight="1"
+            android:text="설탕시럽"
+            android:textColor="#4b3621" />
+
+        <Button
             android:id="@+id/pop_sugar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#4b3621"/>
-        <Button
             android:layout_weight="1"
+            android:text="헤이즐넛시럽"
+            android:textColor="#4b3621" />
+
+        <Button
             android:id="@+id/pop_nongdo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#4b3621"/>
+            android:layout_weight="1"
+            android:text="연하게"
+            android:textColor="#4b3621" />
     </LinearLayout>
     <Button
         android:id="@+id/OptionSelectButton"

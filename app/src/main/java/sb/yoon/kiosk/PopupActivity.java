@@ -7,9 +7,11 @@ import android.os.Bundle;
 
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.model.CartMenu;
+import sb.yoon.kiosk.model.CartOption;
 import sb.yoon.kiosk.model.Menu;
 import sb.yoon.kiosk.model.Option;
 
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -24,13 +26,9 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 public class PopupActivity extends Activity{
-    //시작전에 반드시 implementation 'com.github.bumptech.glide:glide:4.9.0' 확인!
-    //시작전에 반드시 <activity android:name=".PopupActivity" android:theme="@android:style/Theme.Dialog"> 되어 있는지 확인
-    //시작전에 반드시 파일 이름 맞는 지 확인!
-    //팝업창 띄우는 액티비티입니다
-    //천천히 책 읽듯이 읽어봐주시면 감사하겠습니다
     CartMenu mCartMenu;
     Menu menu;
+    DbQueryController dbQueryController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +36,15 @@ public class PopupActivity extends Activity{
         requestWindowFeature(Window.FEATURE_NO_TITLE); //타이틀 없는 거 설정
         setContentView(R.layout.activity_popup);
 
-        Intent intent = getIntent();
-        Long id = intent.getLongExtra("data", 1L);
+        final Intent intent = getIntent();
+        //Long id = intent.getLongExtra("menuId", 1L);
+
+        KioskApplication app = (KioskApplication) getApplication();
+        //Log.d("다오세션", app.getDaoSession().toString());
+        dbQueryController = new DbQueryController(app.getDaoSession());
 
         menu = (Menu) intent.getParcelableExtra("menu");
+        menu.__setDaoSession(app.getDaoSession());
         String iconPath = menu.getIconPath();
         String name = menu.getName();
         int price = menu.getPrice();
@@ -51,6 +54,17 @@ public class PopupActivity extends Activity{
         pop_main_pic(iconPath, name, price);     //커피이미지 불러올 자리
         pop_coldhot();      //cold,hot버튼
         pop_addOptions(categoryId);   //추가옵션
+
+        Button confirmedButton = findViewById(R.id.OptionSelectButton);
+        confirmedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //CartOption cartOption = new CartOption();
+                setResult(RESULT_OK, intent);
+
+                finish();
+            }
+        });
     }
 
     private void pop_addOptions(Long cateId) {
@@ -68,9 +82,8 @@ public class PopupActivity extends Activity{
             nongdo.setVisibility(Button.GONE);
         }
         else{ //카테고리가 커피인 경우 나타남.
-            KioskApplication app = (KioskApplication) getApplication();
-            DbQueryController dbQueryController = new DbQueryController(app.getDaoSession());
             List<Option> options = dbQueryController.getOptionList(menu);
+            Log.d("옵션들", options.toString());
 
             shot.setText(options.get(2).getName());
             hazel.setText(options.get(3).getName());
@@ -86,12 +99,10 @@ public class PopupActivity extends Activity{
     }
 
     private void pop_coldhot() {
-
         Button ice = this.findViewById(R.id.pop_icemode);
         Button hot = this.findViewById(R.id.pop_hotmode);
 
-        ice.setText("ICE");
-        hot.setText("HOT");
+        ice.setPressed(true);
     }
 
     private void pop_main_pic(String iconPath, String name, int price) {
