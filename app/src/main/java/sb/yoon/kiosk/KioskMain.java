@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -116,14 +117,30 @@ public class KioskMain extends AppCompatActivity {
         }
     }
 
+    private void updateCartTotalPrice() {
+        int totalPrice = 0;
+        TextView totalPriceView = this.findViewById(R.id.total_price);
+        for (CartMenu cartMenu :
+                this.cartMenuList) {
+            totalPrice += cartMenu.getPrice();
+        }
+        totalPriceView.setTag(totalPrice);
+        String text = Integer.toString(totalPrice) + "원";
+        totalPriceView.setText(text);
+    }
+
     public void delCartMenuList(int position) {
         this.cartMenuList.remove(position);
         cartListAdapter.notifyDataSetChanged();
+
+        this.updateCartTotalPrice();
     }
 
     public void addCartMenuList(CartMenu cartMenu) {
         this.cartMenuList.add(cartMenu);
         cartListAdapter.notifyDataSetChanged();
+
+        this.updateCartTotalPrice();
     }
 
     public void addCartMenuList(Menu menu) {
@@ -142,12 +159,16 @@ public class KioskMain extends AppCompatActivity {
         CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), totalPrice, cartOptions);
         this.cartMenuList.add(cartMenu);
         cartListAdapter.notifyDataSetChanged();
+
+        this.updateCartTotalPrice();
     }
 
     public void setCartMenuList(List<CartMenu> cartMenuList) {
         this.cartMenuList = cartMenuList;
         cartListAdapter.notifyDataSetChanged();
         Log.d("카트에는: ", this.cartMenuList.toString());
+
+        this.updateCartTotalPrice();
     }
 
     private void setAdapter() {
@@ -179,7 +200,8 @@ public class KioskMain extends AppCompatActivity {
             final TextView totalPriceView = KioskMain.this.findViewById(R.id.total_price);
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("totalPrice", Integer.parseInt((String) totalPriceView.getText()));
+                //                                       총 가격 숫자만
+                jsonObject.put("totalPrice", totalPriceView.getTag());
                 jsonObject.put("takeOut", "N");
                 jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
                         new TypeToken<List<CartMenu>>(){}.getType())));
@@ -187,6 +209,7 @@ public class KioskMain extends AppCompatActivity {
                 e.printStackTrace();
             }
             Log.d("결제 데이터", jsonObject.toString());
+            Toast.makeText(KioskMain.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
             HttpNetworkController httpController = new HttpNetworkController(KioskMain.this, "http://192.168.1.3:8080");
             httpController.postJson(jsonObject);
         }
