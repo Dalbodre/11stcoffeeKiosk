@@ -2,20 +2,15 @@ package sb.yoon.kiosk;
 
 import android.content.Intent;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -23,8 +18,17 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import sb.yoon.kiosk.controller.CartListAdapter;
 import sb.yoon.kiosk.controller.DbQueryController;
+import sb.yoon.kiosk.controller.HttpNetworkController;
 import sb.yoon.kiosk.layout.CategoryButton;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
@@ -77,6 +81,10 @@ public class KioskMain extends AppCompatActivity {
 
         cartListAdapter = new CartListAdapter(cartMenuList);
         cartRecyclerView.setAdapter(cartListAdapter);
+
+        // 계산버튼 리스너
+        Button purchaseButton = findViewById(R.id.purchase_button);
+        purchaseButton.setOnClickListener(new purchaseButtonClickListener());
     }
 
     private void createCategoryButtons() {
@@ -100,7 +108,7 @@ public class KioskMain extends AppCompatActivity {
         for (Category category: categories) {
             CategoryButton button = new CategoryButton(this);
             button.setText(category.getName());
-            button.setOnClickListener(new ButtonClickListener());
+            button.setOnClickListener(new categoryButtonClickListener());
             button.setTag(tagNum);
             tagNum += 1;
 
@@ -148,7 +156,7 @@ public class KioskMain extends AppCompatActivity {
     }
 
     // 버튼 누르면 버튼의 순서를 확인하고 플래그먼트에 삽입
-    class ButtonClickListener implements View.OnClickListener {
+    class categoryButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             int tagNum = (int) view.getTag();
@@ -159,6 +167,28 @@ public class KioskMain extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    class purchaseButtonClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            final Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .create();
+            final TextView totalPriceView = KioskMain.this.findViewById(R.id.total_price);
+            JSONObject jsonObject = new JSONObject();
+            try {
+                jsonObject.put("totalPrice", Integer.parseInt((String) totalPriceView.getText()));
+                jsonObject.put("takeOut", "N");
+                jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
+                        new TypeToken<List<CartMenu>>(){}.getType())));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.d("결제 데이터", jsonObject.toString());
+            HttpNetworkController httpController = new HttpNetworkController(KioskMain.this, "http://192.168.1.3:8080");
+            httpController.postJson(jsonObject);
         }
     }
 

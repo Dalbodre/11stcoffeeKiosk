@@ -47,7 +47,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
     public void onBindViewHolder(@NonNull CustomViewHolder viewHolder, int position){
         viewHolder.itemElement.setImageDrawable(cartMenuList.get(position).getIcon());
         viewHolder.itemElement.setText(cartMenuList.get(position).getName());
-        //viewHolder.price.setText(cartMenuList.get(position).getTotalPrice());
+        viewHolder.price.setText(Integer.toString(cartMenuList.get(position).getTotalPrice()));
     }
 
     @Override
@@ -62,71 +62,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         public CustomViewHolder(View v){
             super(v);
             this.itemElement = (ItemElement)v.findViewById(R.id.menu_element);
-            this.price = (TextView)v.findViewById(R.id.price);
+            this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
         }
     }
-
-    /*@Override
-    public int getCount() {
-        return cartMenuList.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return cartMenuList.get(i);
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        //return getCount();
-
-        if(getCount() > 0) {
-            return getCount();
-        }
-        else{
-            return super.getViewTypeCount();
-        }
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        final Context context = parent.getContext();
-        // 특정 행의 데이터 구함
-        final CartMenu cartMenu = (CartMenu)getItem(position);
-
-        // View는 재사용되기 때문에 처음에만 리스트 아이템 표시용 레이아웃을 읽어와서 생성함
-        if(convertView == null){
-            LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.cart_item, parent, false);
-        }
-
-        // View의 각 Widget에 데이터 저장
-        ItemElement cartItemElement = convertView.findViewById(R.id.menu_element);
-        Drawable drawable = cartMenu.getIcon();
-        cartItemElement.setImageDrawable(drawable);
-        cartItemElement.setText(cartMenu.getName());
-
-
-        // 없애기 버튼
-        Button deleteButton = convertView.findViewById(R.id.delete);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                cartMenuList.remove(cartMenu);
-                CartListAdapter.this.notifyDataSetChanged();
-            }
-        });
-
-        return convertView;
-    }*/
 }
