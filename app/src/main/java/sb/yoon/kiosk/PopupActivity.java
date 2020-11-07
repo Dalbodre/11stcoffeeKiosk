@@ -27,8 +27,8 @@ public class PopupActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE); //타이틀 없는 거 설정
         setContentView(R.layout.activity_popup);
 
-        /*Intent intent = getIntent();
-        String data = intent.getStringExtra("data");*/
+        Intent intent = getIntent();
+        Long id = intent.getLongExtra("data", 1L);
 
         pop_TOP();          //위에 back/canel버튼
         pop_main_pic();     //커피이미지 불러올 자리

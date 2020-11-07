@@ -30,6 +30,20 @@ import sb.yoon.kiosk.model.Menu;
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.CustomViewHolder> {
     private List<CartMenu> cartMenuList;
 
+    // 뷰 홀더
+    public class CustomViewHolder extends RecyclerView.ViewHolder {
+        protected ItemElement itemElement;
+        protected TextView price;
+        protected Button deleteButton;
+
+        public CustomViewHolder(View v){
+            super(v);
+            this.itemElement = (ItemElement)v.findViewById(R.id.menu_element);
+            this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
+            this.deleteButton = v.findViewById(R.id.cart_item_delete_button);
+        }
+    }
+
     public CartListAdapter(List<CartMenu> menuList){
         this.cartMenuList = menuList;
     }
@@ -53,16 +67,5 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
     @Override
     public int getItemCount(){
         return (null != cartMenuList ? cartMenuList.size() : 0);
-    }
-
-    public class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected ItemElement itemElement;
-        protected TextView price;
-
-        public CustomViewHolder(View v){
-            super(v);
-            this.itemElement = (ItemElement)v.findViewById(R.id.menu_element);
-            this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
-        }
     }
 }
