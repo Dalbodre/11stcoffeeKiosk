@@ -2,6 +2,7 @@ package sb.yoon.kiosk;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -57,14 +58,19 @@ public class PopupActivity extends Activity {
 
     private void pop_main_pic() {
         ImageView main = this.findViewById(R.id.pop_main_pic);
+
+        Intent intent = getIntent();
+        //Drawable drawable = intent.getExtras().;
+        String name = intent.getExtras().getString("name");
+        int price = intent.getExtras().getInt("price");
         Glide.with(this).load(R.drawable.shot).into(main); //가운데 커피이미지 넣는 자리입니다. load부분 수정하면 바꿀 수 있음.
 
         TextView main_coffee = this.findViewById(R.id.pop_main_pic_name);
-        main_coffee.setText("카페라떼");                            //커피 이름 넣는 자리입니다. 여기 수정하면 커피 이름 수정됩니다.
+        main_coffee.setText(name);                            //커피 이름 넣는 자리입니다. 여기 수정하면 커피 이름 수정됩니다.
         main_coffee.setTextSize(30);
 
         TextView main_coffee_price = this.findViewById(R.id.pop_main_pic_price);
-        main_coffee_price.setText("2,800원");                        //커피 가격 넣는 자리입니다. 여기 수정하면 가격 수정됩니다.
+        main_coffee_price.setText(Integer.toString(price)+"원");                        //커피 가격 넣는 자리입니다. 여기 수정하면 가격 수정됩니다.
         main_coffee_price.setTextSize(20);
     }
 
@@ -82,6 +88,7 @@ public class PopupActivity extends Activity {
         //종료시키는 메서드 입니다.
         Intent intent = new Intent();
         intent.putExtra("result", "Close Popup");
+
         setResult(RESULT_OK, intent);
 
         finish();

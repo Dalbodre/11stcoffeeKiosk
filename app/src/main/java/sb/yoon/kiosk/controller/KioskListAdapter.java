@@ -131,7 +131,10 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
 
         // 팝업 띄우는거
         Intent intent = new Intent(context, PopupActivity.class); //액티비티 이동입니다.
-        intent.putExtra("data", menuList.get(position).getCategoryId());                     //시험칠 때 봤겠지만 데이터 넘길 때 쓰는 애 입니다.
+        intent.putExtra("drawable", menuList.get(position).getIconPath());
+        intent.putExtra("name", menuList.get(position).getName());
+        intent.putExtra("price", menuList.get(position).getPrice());
+        //시험칠 때 봤겠지만 데이터 넘길 때 쓰는 애 입니다.
         context.startActivityForResult(intent, 1);
     }
 }
