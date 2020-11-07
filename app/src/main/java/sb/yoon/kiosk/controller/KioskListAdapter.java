@@ -1,10 +1,8 @@
 package sb.yoon.kiosk.controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,24 +11,24 @@ import android.widget.*;
 import androidx.core.content.ContextCompat;
 
 import sb.yoon.kiosk.CartFragment;
+import sb.yoon.kiosk.KioskMain;
 import sb.yoon.kiosk.PopupActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.Menu;
 
-import java.util.ArrayList;
 import java.util.List;
 
 // 어뎁터 클래스
 public class KioskListAdapter extends BaseAdapter implements View.OnClickListener {
     private List<Menu> menuList;
-    private Activity context;
-    private CartFragment cartFragment;
+    // private Context context;
+    private KioskMain context;
 
-    public KioskListAdapter(List<Menu> menuList, CartFragment cartFragment){
+    public KioskListAdapter(List<Menu> menuList, KioskMain mainActivity){
         this.menuList = menuList;
-        this.cartFragment = cartFragment;
+        this.context = mainActivity;
     }
 
     @Override
@@ -67,7 +65,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        context = (Activity) parent.getContext();
+        context = (KioskMain) parent.getContext();
 
         // 특정 행의 데이터 구함
         Menu menu = (Menu)getItem(position);
@@ -127,9 +125,11 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
     // 메뉴 아이콘 눌렸을 때
     @Override
     public void onClick(View view) {
-//        int position = (int) view.getTag();
-//        cartFragment.addCartMenuList(menuList.get(position));
-//        cartFragment.setListWrapperVisibility(true);
+        // 리사이클뷰 (쇼핑카트)에 아이템 넣는거
+        int position = (int) view.getTag();
+        context.addCartMenuList(menuList.get(position));
+
+        // 팝업 띄우는거
         Intent intent = new Intent(context, PopupActivity.class); //액티비티 이동입니다.
         intent.putExtra("data", "test popup");                     //시험칠 때 봤겠지만 데이터 넘길 때 쓰는 애 입니다.
         context.startActivityForResult(intent, 1);

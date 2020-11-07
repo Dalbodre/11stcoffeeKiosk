@@ -7,7 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -37,18 +40,19 @@ import sb.yoon.kiosk.model.Menu;
 import sb.yoon.kiosk.model.Option;
 
 
-public class CartFragment extends ListFragment {
+public class CartFragment extends Fragment {
 
     private List<CartMenu> cartMenuList = new ArrayList<>();
     private CartListAdapter adapter;
     private View view;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
 
     public CartFragment() {
         this.setAdapter();
     }
 
     public CartFragment(List<CartMenu> menuList) {
-        this.setAdapter();
         this.setCartMenuList(menuList);
     }
 
@@ -63,14 +67,10 @@ public class CartFragment extends ListFragment {
         //View view = super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_cart, container, false);
 
-        // 숨김/보이기 버튼 리스너
-        Button hideOrShowButton = view.findViewById(R.id.hideshow_button);
-        hideOrShowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setListWrapperVisibility(!getListWrapperVisibility());
-            }
-        });
+        RecyclerView cartRecyclerView = view.findViewById(R.id.cart_recycler_list);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(getContext());
+        cartRecyclerView.setLayoutManager(mLinearLayoutManager);
+        cartRecyclerView.setAdapter(this.adapter);
 
         // 결제 버튼 리스너
         final Gson gson = new GsonBuilder()
@@ -99,15 +99,6 @@ public class CartFragment extends ListFragment {
         return view;
     }
 
-    public void setListWrapperVisibility(boolean visibility) {
-        LinearLayout listWrapper = view.findViewById(R.id.list_wrapper);
-        listWrapper.setVisibility(visibility ? View.VISIBLE : View.GONE);
-    }
-
-    public boolean getListWrapperVisibility() {
-        LinearLayout listWrapper = view.findViewById(R.id.list_wrapper);
-        return listWrapper.getVisibility() == View.VISIBLE;
-    }
 
     public void delCartMenuList(int position) {
         this.cartMenuList.remove(position);
@@ -140,12 +131,11 @@ public class CartFragment extends ListFragment {
     public void setCartMenuList(List<CartMenu> cartMenuList) {
         this.cartMenuList = cartMenuList;
         adapter.notifyDataSetChanged();
+        Log.d("카트에는: ", this.cartMenuList.toString());
     }
 
     private void setAdapter() {
         // 인덱스 표시 어댑터 설정
         adapter = new CartListAdapter(cartMenuList);
-        // 어댑터를 설정
-        this.setListAdapter(adapter);
     }
 }
