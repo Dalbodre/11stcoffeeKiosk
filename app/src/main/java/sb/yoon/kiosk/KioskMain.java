@@ -102,6 +102,13 @@ public class KioskMain extends AppCompatActivity {
         //searchIcon.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.MULTIPLY);
         searchButton.setCompoundDrawables(searchIcon, null, null, null);
         searchButton.setText("검색");
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(KioskMain.this, SearchActivity.class);
+                startActivity(intent);
+            }
+        });
         categoryButtonsGroup.addView(searchButton, params);
 
         // 버튼 순서 태그로 지정
