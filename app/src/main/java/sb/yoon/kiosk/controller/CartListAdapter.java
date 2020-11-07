@@ -20,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+import sb.yoon.kiosk.KioskMain;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.CartMenu;
@@ -35,12 +36,18 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         protected ItemElement itemElement;
         protected TextView price;
         protected Button deleteButton;
+        protected KioskMain context;
 
         public CustomViewHolder(View v){
             super(v);
             this.itemElement = (ItemElement)v.findViewById(R.id.menu_element);
             this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
             this.deleteButton = v.findViewById(R.id.cart_item_delete_button);
+            this.context = (KioskMain) v.getContext();
+        }
+
+        public KioskMain getContext() {
+            return context;
         }
     }
 
@@ -58,10 +65,17 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CustomViewHolder viewHolder, int position){
+    public void onBindViewHolder(@NonNull final CustomViewHolder viewHolder, final int position){
         viewHolder.itemElement.setImageDrawable(cartMenuList.get(position).getIcon());
         viewHolder.itemElement.setText(cartMenuList.get(position).getName());
         viewHolder.price.setText(Integer.toString(cartMenuList.get(position).getTotalPrice()));
+
+        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                viewHolder.getContext().delCartMenuList(position);
+            }
+        });
     }
 
     @Override
