@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sb.yoon.kiosk.R;
+import sb.yoon.kiosk.SearchActivity;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.Ingredient;
 
@@ -57,12 +58,14 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(ingredients.get(position).getIconPath(), "drawable", context.getPackageName()));
         holder.imageView.setImageDrawable(drawable);
         holder.textView.setText(ingredients.get(position).getName());
+
+        holder.imageView.setTag(ingredients.get(position));
+        holder.imageView.setOnClickListener(new SearchActivity.OnClickSearchIngredients());
     }
 
     @Override
     public int getItemCount() {
         return (null != ingredients ? ingredients.size() : 0);
     }
-
 
 }

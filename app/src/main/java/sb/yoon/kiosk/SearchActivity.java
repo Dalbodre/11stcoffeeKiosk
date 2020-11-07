@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import org.greenrobot.greendao.Property;
 
@@ -17,9 +18,11 @@ import sb.yoon.kiosk.controller.SearchRecyclerViewAdapter;
 import sb.yoon.kiosk.layout.SearchItemDecoration;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.IngredientDao;
+import sb.yoon.kiosk.model.Menu;
 
 public class SearchActivity extends AppCompatActivity {
     private List<Ingredient> ingredientList;
+    private List<Menu> searchedMenuList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +35,17 @@ public class SearchActivity extends AppCompatActivity {
         searchRecyclerView.addItemDecoration(new SearchItemDecoration(this, 4));
 
         KioskApplication kioskApplication = (KioskApplication) getApplication();
-        DbQueryController dbQueryController = new DbQueryController(kioskApplication.getDaoSession());
+        DbQueryController dbQueryController = kioskApplication.getDbQueryController();
         IngredientDao ingredientDao = dbQueryController.getIngredientDao();
         ingredientList = ingredientDao.queryBuilder().orderAsc(IngredientDao.Properties.Name).list();
-        Log.d("재료 리스트:", ingredientList.toString());
         searchRecyclerView.setAdapter(new SearchRecyclerViewAdapter(ingredientList));
+    }
+
+    public static class OnClickSearchIngredients implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            Ingredient ingredient = (Ingredient) view.getTag();
+            ingredient.getMenuList();
+        }
     }
 }

@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="TextView"
+            android:text="재료 검색"
             android:textSize="30sp" />
     </LinearLayout>
 

@@ -2,6 +2,7 @@ package sb.yoon.kiosk.controller;
 
 import android.app.Activity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -113,6 +114,10 @@ public class DbQueryController {
     // 이름으로 재료 검색
     public List<Ingredient> searchIngredientsByName(String name) {
         return ingredientDao.queryBuilder().where(IngredientDao.Properties.Name.like("%" + name + "%")).list();
+    }
+
+    public List<Menu> searchMenuByIngredients(Ingredient ingredient) {
+        return ingredient.getMenuList();
     }
 
     // 초기화 역할 하는 클래스
