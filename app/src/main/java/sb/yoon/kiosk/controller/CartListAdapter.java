@@ -65,7 +65,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final CustomViewHolder viewHolder, final int position){
+    public void onBindViewHolder(@NonNull final CustomViewHolder viewHolder, final int position) {
         viewHolder.itemElement.setImageDrawable(cartMenuList.get(position).getIcon());
         viewHolder.itemElement.setText(cartMenuList.get(position).getName());
         viewHolder.price.setText(Integer.toString(cartMenuList.get(position).getTotalPrice()));
