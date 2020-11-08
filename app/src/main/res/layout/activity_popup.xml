@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="310dp"
-    android:layout_height="match_parent"
+    android:layout_height="711dp"
     android:background="#eeeeee"
     android:orientation="vertical">
-    <!--711dp-->
 
     <RelativeLayout
         android:id="@+id/option_top"
@@ -16,24 +15,22 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/option_top_back"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentStart="true"
+            android:id="@+id/popup_back_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentLeft="true"
-            android:onClick="onClickPopUpBackButton"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp" />
+            android:src="@drawable/ic_baseline_arrow_back_ios_24"
+            android:layout_alignParentStart="true"
+            android:padding="10dp" />
 
         <ImageView
-            android:id="@+id/option_top_cancel"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentEnd="true"
+            android:id="@+id/popup_exit_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_alignParentRight="true"
-            android:onClick="mOnClose"
-            android:paddingEnd="10dp"
-            android:paddingRight="10dp" />
+            android:src="@drawable/ic_baseline_clear_24"
+            android:layout_alignParentEnd="true"
+            android:padding="10dp" />
     </RelativeLayout>
 
     <ImageView
@@ -44,7 +41,8 @@
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/option_top" />
+        app:layout_constraintTop_toBottomOf="@+id/option_top"
+        android:src="@drawable/apple" />
 
     <TextView
         android:id="@+id/pop_main_pic_name"
@@ -64,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="0dp"
         android:gravity="center"
         android:text="가격"
         android:textColor="#4b3621"

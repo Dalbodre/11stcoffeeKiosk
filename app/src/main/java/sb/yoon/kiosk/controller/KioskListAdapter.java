@@ -16,9 +16,12 @@ import sb.yoon.kiosk.PopupActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.CartMenu;
+import sb.yoon.kiosk.model.CartOption;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.Menu;
+import sb.yoon.kiosk.model.Option;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // 어뎁터 클래스
@@ -146,6 +149,11 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         Menu menu = menuList.get(position);
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
                 .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
+        List<Option> options = menu.getOptionList();
+        List<CartOption> cartOptions = new ArrayList<>();
+        for (Option option: options) {
+            cartOptions.add(new CartOption(option.getName(), 1, option.getPrice(), option.getIsInteger()));
+        }
 
         CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, null);
         cartMenu.setCategoryId(menu.getCategoryId());

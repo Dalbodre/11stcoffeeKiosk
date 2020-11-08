@@ -162,7 +162,7 @@ public class KioskListActivity extends AppCompatActivity {
         int totalPrice = 0;
 
         List<CartOption> cartOptions = new ArrayList<>();
-        cartOptions.add(new CartOption("test option", "1", 500));
+        cartOptions.add(new CartOption("test option", 1, 500, false));
 
         totalPrice = totalPrice + menu.getPrice();
 

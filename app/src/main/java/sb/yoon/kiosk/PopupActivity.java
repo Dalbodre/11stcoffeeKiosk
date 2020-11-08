@@ -2,30 +2,28 @@ package sb.yoon.kiosk;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import sb.yoon.kiosk.controller.DbQueryController;
+import sb.yoon.kiosk.controller.CartListAdapter;
+import sb.yoon.kiosk.controller.OptionListAdapter;
+import sb.yoon.kiosk.layout.SearchItemDecoration;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
-import sb.yoon.kiosk.model.Menu;
-import sb.yoon.kiosk.model.Option;
 
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
-
-import com.bumptech.glide.Glide;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public class PopupActivity extends Activity{
+    private RecyclerView optionRecyclerView;
+    private OptionListAdapter optionListAdapter;
+    private List<CartOption> cartOptionList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +36,18 @@ public class PopupActivity extends Activity{
         if (cartMenu != null) {
             Log.d("팝업인풋", cartMenu.toString());
         }
+
+        if (cartMenu != null) {
+            cartOptionList = cartMenu.getOptions();
+        }
+
+        optionRecyclerView = this.findViewById(R.id.option_recycler);
+        LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
+        mLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        optionRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        optionListAdapter = new OptionListAdapter(cartOptionList);
+        optionRecyclerView.setAdapter(optionListAdapter);
     }
 
     public void onClickPopUpBackButton(View view) {
