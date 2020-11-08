@@ -1,31 +1,22 @@
 package sb.yoon.kiosk.controller;
 
-import android.content.ClipData;
-import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import sb.yoon.kiosk.KioskMain;
+import sb.yoon.kiosk.KioskListActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.CartMenu;
-import sb.yoon.kiosk.model.Ingredient;
-import sb.yoon.kiosk.model.Menu;
 
 // 어뎁터 클래스
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.CustomViewHolder> {
@@ -36,17 +27,17 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         protected ItemElement itemElement;
         protected TextView price;
         protected Button deleteButton;
-        protected KioskMain context;
+        protected KioskListActivity context;
 
         public CustomViewHolder(View v){
             super(v);
             this.itemElement = (ItemElement)v.findViewById(R.id.menu_element);
             this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
             this.deleteButton = v.findViewById(R.id.cart_item_delete_button);
-            this.context = (KioskMain) v.getContext();
+            this.context = (KioskListActivity) v.getContext();
         }
 
-        public KioskMain getContext() {
+        public KioskListActivity getContext() {
             return context;
         }
     }

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#fbe49e"
     android:orientation="vertical"
-    tools:context=".KioskMain">
+    tools:context=".KioskListActivity">
 
     <HorizontalScrollView
         android:id="@+id/categories"

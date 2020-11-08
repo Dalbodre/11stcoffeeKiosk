@@ -11,24 +11,22 @@ import android.widget.*;
 
 import androidx.core.content.ContextCompat;
 
-import sb.yoon.kiosk.CartFragment;
-import sb.yoon.kiosk.KioskMain;
+import sb.yoon.kiosk.KioskListActivity;
 import sb.yoon.kiosk.PopupActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.Menu;
 
-import java.io.Serializable;
 import java.util.List;
 
 // 어뎁터 클래스
 public class KioskListAdapter extends BaseAdapter implements View.OnClickListener {
     private List<Menu> menuList;
     // private Context context;
-    private KioskMain context;
+    private KioskListActivity context;
 
-    public KioskListAdapter(List<Menu> menuList, KioskMain mainActivity){
+    public KioskListAdapter(List<Menu> menuList, KioskListActivity mainActivity){
         this.menuList = menuList;
         this.context = mainActivity;
     }
@@ -67,7 +65,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
-        context = (KioskMain) parent.getContext();
+        context = (KioskListActivity) parent.getContext();
 
         // 특정 행의 데이터 구함
         Menu menu = (Menu)getItem(position);

@@ -37,10 +37,9 @@ import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.Menu;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class KioskMain extends AppCompatActivity {
+public class KioskListActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
     private ItemListFragment itemListFragment;
@@ -58,7 +57,7 @@ public class KioskMain extends AppCompatActivity {
         setContentView(R.layout.activity_kiosk_main);
 
         KioskApplication kioskApplication = (KioskApplication)getApplication();
-        kioskApplication.setKioskMain(this);
+        kioskApplication.setKioskListActivity(this);
 
         // DB 컨트롤러 (프론트에서 쓸 메서드들 모음)
         dbQueryController = kioskApplication.getDbQueryController();
@@ -109,7 +108,7 @@ public class KioskMain extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(KioskMain.this, SearchActivity.class);
+                Intent intent = new Intent(KioskListActivity.this, SearchActivity.class);
                 startActivityForResult(intent, 2);
             }
         });
@@ -208,7 +207,7 @@ public class KioskMain extends AppCompatActivity {
             final Gson gson = new GsonBuilder()
                     .excludeFieldsWithoutExposeAnnotation()
                     .create();
-            final TextView totalPriceView = KioskMain.this.findViewById(R.id.total_price);
+            final TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
             JSONObject jsonObject = new JSONObject();
             try {
                 //                                       총 가격 숫자만
@@ -220,8 +219,8 @@ public class KioskMain extends AppCompatActivity {
                 e.printStackTrace();
             }
             Log.d("결제 데이터", jsonObject.toString());
-            Toast.makeText(KioskMain.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
-            HttpNetworkController httpController = new HttpNetworkController(KioskMain.this, "http://192.168.1.3:8080");
+            Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
+            HttpNetworkController httpController = new HttpNetworkController(KioskListActivity.this, "http://192.168.1.3:8080");
             httpController.postJson(jsonObject);
         }
     }

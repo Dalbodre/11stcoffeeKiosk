@@ -4,13 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.TypedValue;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-
-import sb.yoon.kiosk.KioskMain;
 
 public class CategoryButton extends androidx.appcompat.widget.AppCompatButton {
     public CategoryButton(Context context) {

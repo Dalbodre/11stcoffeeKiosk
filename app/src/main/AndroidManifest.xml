@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SearchActivity"></activity>
-        <activity android:name=".KioskMain" />
+        <activity android:name=".KioskListActivity" />
         <activity android:name=".EnterMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
