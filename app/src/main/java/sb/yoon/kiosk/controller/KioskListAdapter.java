@@ -87,10 +87,21 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         // ItemElement에 OnClickListener 달아주기
         menuItem.setOnClickListener(this);
 
-        TextView price1 = (TextView)convertView.findViewById(R.id.price1);
-        price1.setText(Integer.toString(menu.getPrice()));
-        TextView price2 = (TextView)convertView.findViewById(R.id.price2);
-        price2.setText(Integer.toString(menu.getPrice()));
+        TextView price1 = (TextView) convertView.findViewById(R.id.price1);
+        TextView price2 = (TextView) convertView.findViewById(R.id.price2);
+
+        if (menu.getIsCold()) {
+            price1.setText(Integer.toString(menu.getPrice()));
+            //price1.setVisibility(TextView.VISIBLE);
+            price1.setTextColor(context.getResources().getColor(R.color.coolBlue));
+            price1.setAlpha(1f);
+        }
+        if (menu.getIsHot()) {
+            price2.setText(Integer.toString(menu.getPrice()));
+            //price2.setVisibility(TextView.VISIBLE);
+            price2.setTextColor(context.getResources().getColor(R.color.hotRed));
+            price2.setAlpha(1f);
+        }
 
         // 재료들 추가
         List<Ingredient> ingredients = menu.getIngredientList();

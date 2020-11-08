@@ -61,7 +61,6 @@ public class PopupActivity extends Activity{
             public void onClick(View view) {
                 //CartOption cartOption = new CartOption();
                 setResult(RESULT_OK, intent);
-
                 finish();
             }
         });

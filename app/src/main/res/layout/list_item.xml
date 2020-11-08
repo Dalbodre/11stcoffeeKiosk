@@ -24,15 +24,16 @@
         android:layout_marginBottom="3dp"
         android:width="130dp"
         android:gravity="center_horizontal"
-        android:text="20000"
+        android:text="@string/not_available"
         android:textAlignment="center"
-        android:textColor="#3F51B5"
+        android:textColor="#D5D5D5"
         android:textSize="21sp"
         app:drawableLeftCompat="@drawable/textview_drawable_left_ice"
         app:layout_constraintBottom_toTopOf="@+id/price2"
         app:layout_constraintStart_toEndOf="@+id/menu_element"
         app:layout_constraintTop_toTopOf="parent"
-        app:drawableStartCompat="@drawable/textview_drawable_left_ice" />
+        app:drawableStartCompat="@drawable/textview_drawable_left_ice"
+        android:alpha="0.2"/>
 
     <TextView
         android:id="@+id/price2"
@@ -42,15 +43,16 @@
         android:layout_marginBottom="10dp"
         android:width="130dp"
         android:gravity="center_horizontal"
-        android:text="16000"
+        android:text="@string/not_available"
         android:textAlignment="center"
-        android:textColor="#E91E63"
+        android:textColor="#D5D5D5"
         android:textSize="21sp"
         app:drawableLeftCompat="@drawable/textview_drawable_left_hot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/price1"
         app:layout_constraintTop_toBottomOf="@id/price1"
-        app:drawableStartCompat="@drawable/textview_drawable_left_hot" />
+        app:drawableStartCompat="@drawable/textview_drawable_left_hot"
+        android:alpha="0.2"/>
 
     <HorizontalScrollView
         android:layout_width="0dp"

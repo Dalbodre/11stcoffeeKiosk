@@ -51,6 +51,8 @@ public class Menu implements Parcelable {
 
     private Boolean isHot;
 
+    private Boolean isCold;
+
 /** Used to resolve relations */
 @Generated(hash = 2040040024)
 private transient DaoSession daoSession;
@@ -59,15 +61,16 @@ private transient DaoSession daoSession;
 @Generated(hash = 1372547067)
 private transient MenuDao myDao;
 
-@Generated(hash = 2114746110)
+@Generated(hash = 1473854174)
 public Menu(Long id, @NotNull String name, @NotNull Long categoryId, int price,
-        @NotNull String iconPath, Boolean isHot) {
+        @NotNull String iconPath, Boolean isHot, Boolean isCold) {
     this.id = id;
     this.name = name;
     this.categoryId = categoryId;
     this.price = price;
     this.iconPath = iconPath;
     this.isHot = isHot;
+    this.isCold = isCold;
 }
 
 @Generated(hash = 1631206187)
@@ -268,6 +271,14 @@ public List<Option> getOptionList() {
 @Generated(hash = 1801972530)
 public synchronized void resetOptionList() {
     optionList = null;
+}
+
+public Boolean getIsCold() {
+    return this.isCold;
+}
+
+public void setIsCold(Boolean isCold) {
+    this.isCold = isCold;
 }
 
 /** called by internal mechanisms, do not call yourself. */

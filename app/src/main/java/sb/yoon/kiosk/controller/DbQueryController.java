@@ -141,52 +141,52 @@ public class DbQueryController {
 
         private void initMenus() {
             //커피
-            menuDao.insertOrReplace(new Menu(1L, "에소프레소", 1L, 2000, "espresso", true));
-            menuDao.insertOrReplace(new Menu(2L, "아메리카노", 1L, 2200, "americano", true));
-            menuDao.insertOrReplace(new Menu(3L, "카페라떼", 1L, 2800, "caffe_latte", true));
-            menuDao.insertOrReplace(new Menu(4L, "카푸치노", 1L, 2800, "capuccino", true));
-            menuDao.insertOrReplace(new Menu(5L, "바닐라라떼", 1L, 3200, "vanila", true));
-            menuDao.insertOrReplace(new Menu(6L, "헤어즐넛라떼", 1L, 3200, "hazel_latte", true));
-            menuDao.insertOrReplace(new Menu(7L, "카라멜마끼아또", 1L, 3200, "macchiato", true));
-            menuDao.insertOrReplace(new Menu(8L, "카페모카", 1L, 3200, "caffe_mocha", true));
-            menuDao.insertOrReplace(new Menu(9L, "민트그린모카", 1L, 3200, "chiyak", true));
+            menuDao.insertOrReplace(new Menu(1L, "에소프레소", 1L, 2000, "espresso", true, false));
+            menuDao.insertOrReplace(new Menu(2L, "아메리카노", 1L, 2200, "americano", true, true));
+            menuDao.insertOrReplace(new Menu(3L, "카페라떼", 1L, 2800, "caffe_latte", true, true));
+            menuDao.insertOrReplace(new Menu(4L, "카푸치노", 1L, 2800, "capuccino", true, false));
+            menuDao.insertOrReplace(new Menu(5L, "바닐라라떼", 1L, 3200, "vanila", true, true));
+            menuDao.insertOrReplace(new Menu(6L, "헤어즐넛라떼", 1L, 3200, "hazel_latte", true, true));
+            menuDao.insertOrReplace(new Menu(7L, "카라멜마끼아또", 1L, 3200, "macchiato", true, true));
+            menuDao.insertOrReplace(new Menu(8L, "카페모카", 1L, 3200, "caffe_mocha", true, true));
+            menuDao.insertOrReplace(new Menu(9L, "민트그린모카", 1L, 3200, "chiyak", true, true));
 
             //에이드&아이스티
-            menuDao.insertOrReplace(new Menu(10L, "레몬에이드", 2L, 3000, "lemon_ade", false));
-            menuDao.insertOrReplace(new Menu(11L, "오렌지에이드", 2L, 3000, "orange_ade", false));
-            menuDao.insertOrReplace(new Menu(12L, "자몽에이드", 2L, 3500, "jamong_ade", false));
-            menuDao.insertOrReplace(new Menu(13L, "청포도에이드", 2L, 3500, "grape_ade", false));
-            menuDao.insertOrReplace(new Menu(32L, "복숭아 아이스티", 2L, 2200, "peach_ice", false));
+            menuDao.insertOrReplace(new Menu(10L, "레몬에이드", 2L, 3000, "lemon_ade", false, true));
+            menuDao.insertOrReplace(new Menu(11L, "오렌지에이드", 2L, 3000, "orange_ade", false, true));
+            menuDao.insertOrReplace(new Menu(12L, "자몽에이드", 2L, 3500, "jamong_ade", false, true));
+            menuDao.insertOrReplace(new Menu(13L, "청포도에이드", 2L, 3500, "grape_ade", false, true));
+            menuDao.insertOrReplace(new Menu(32L, "복숭아 아이스티", 2L, 2200, "peach_ice", false, true));
 
             //주스
-            menuDao.insertOrReplace(new Menu(14L, "애플주스", 3L, 3500, "apple", false));
-            menuDao.insertOrReplace(new Menu(15L, "애플주스 스파클링", 3L, 3500, "apple_sparkle", false));
+            menuDao.insertOrReplace(new Menu(14L, "애플주스", 3L, 3500, "apple", false, true));
+            menuDao.insertOrReplace(new Menu(15L, "애플주스 스파클링", 3L, 3500, "apple_sparkle", false, true));
 
             //라떼
-            menuDao.insertOrReplace(new Menu(16L, "그린티라떼", 4L,3200, "greentea", true));
-            menuDao.insertOrReplace(new Menu(17L, "고구마라떼", 4L, 3200, "spotato", true));
-            menuDao.insertOrReplace(new Menu(18L, "밀크티라떼", 4L, 3200, "milktea", true));
-            menuDao.insertOrReplace(new Menu(19L, "초코라떼", 4L, 3200, "choco_latte", true));
+            menuDao.insertOrReplace(new Menu(16L, "그린티라떼", 4L,3200, "greentea", true, true));
+            menuDao.insertOrReplace(new Menu(17L, "고구마라떼", 4L, 3200, "spotato", true, true));
+            menuDao.insertOrReplace(new Menu(18L, "밀크티라떼", 4L, 3200, "milktea", true, true));
+            menuDao.insertOrReplace(new Menu(19L, "초코라떼", 4L, 3200, "choco_latte", true, true));
 
             //티백차
-            menuDao.insertOrReplace(new Menu(20L, "캐모마일", 5L, 2500, "camomile", true));
-            menuDao.insertOrReplace(new Menu(21L, "페퍼민트", 5L, 2500, "peppermint", true));
-            menuDao.insertOrReplace(new Menu(22L, "얼그레이", 5L, 2500, "elgray_tea", true));
+            menuDao.insertOrReplace(new Menu(20L, "캐모마일", 5L, 2500, "camomile", true, true));
+            menuDao.insertOrReplace(new Menu(21L, "페퍼민트", 5L, 2500, "peppermint", true, true));
+            menuDao.insertOrReplace(new Menu(22L, "얼그레이", 5L, 2500, "elgray_tea", true, true));
 
             //과일청차
-            menuDao.insertOrReplace(new Menu(23L, "자몽차", 6L, 3500, "jamong_tea", true));
-            menuDao.insertOrReplace(new Menu(24L, "유자청", 6L, 3500, "yuja_tea", true));
-            menuDao.insertOrReplace(new Menu(25L, "생강차", 6L, 3500, "ginger", true));
+            menuDao.insertOrReplace(new Menu(23L, "자몽차", 6L, 3500, "jamong_tea", true, true));
+            menuDao.insertOrReplace(new Menu(24L, "유자청", 6L, 3500, "yuja_tea", true, true));
+            menuDao.insertOrReplace(new Menu(25L, "생강차", 6L, 3500, "ginger", true, true));
 
             //프라페
-            menuDao.insertOrReplace(new Menu(26L, "자바칩프라페", 7L, 4000, "java_frappe", false));
-            menuDao.insertOrReplace(new Menu(27L, "쿠앤크프라페", 7L, 4000, "cookie_frappe", false));
+            menuDao.insertOrReplace(new Menu(26L, "자바칩프라페", 7L, 4000, "java_frappe", false, true));
+            menuDao.insertOrReplace(new Menu(27L, "쿠앤크프라페", 7L, 4000, "cookie_frappe", false, true));
 
             //스무디
-            menuDao.insertOrReplace(new Menu(28L, "유자스무디", 8L, 4000, "yuja_smoothe", false));
-            menuDao.insertOrReplace(new Menu(29L, "플레인요거트스무디", 8L, 4000, "plain_smoothe", false));
-            menuDao.insertOrReplace(new Menu(30L, "딸기요거트스무디", 8L, 4000, "berry_smoothe", false));
-            menuDao.insertOrReplace(new Menu(31L, "블루베리요거트스무디", 8L, 4000, "blueberry_smoothe", false));
+            menuDao.insertOrReplace(new Menu(28L, "유자스무디", 8L, 4000, "yuja_smoothe", false, true));
+            menuDao.insertOrReplace(new Menu(29L, "플레인요거트스무디", 8L, 4000, "plain_smoothe", false, true));
+            menuDao.insertOrReplace(new Menu(30L, "딸기요거트스무디", 8L, 4000, "berry_smoothe", false, true));
+            menuDao.insertOrReplace(new Menu(31L, "블루베리요거트스무디", 8L, 4000, "blueberry_smoothe", false, true));
         }
 
         private void initIngredients() {
