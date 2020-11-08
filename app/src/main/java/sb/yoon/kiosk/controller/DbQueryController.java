@@ -80,6 +80,10 @@ public class DbQueryController {
         return category.getMenuList();
     }
 
+    public List<Menu> getMenuListByIdArray(ArrayList<Integer> idArray) {
+        return this.menuDao.queryBuilder().where(MenuDao.Properties.Id.in(idArray)).list();
+    }
+
     public List<Ingredient> getIngredientList(Menu menu) {
         return menu.getIngredientList();
     }

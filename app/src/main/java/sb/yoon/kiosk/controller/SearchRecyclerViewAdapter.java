@@ -24,6 +24,7 @@ import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.SearchActivity;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.Ingredient;
+import sb.yoon.kiosk.model.Menu;
 
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.CustomViewHolder> {
     private List<Ingredient> ingredients = new ArrayList<>();
@@ -58,9 +59,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(ingredients.get(position).getIconPath(), "drawable", context.getPackageName()));
         holder.imageView.setImageDrawable(drawable);
         holder.textView.setText(ingredients.get(position).getName());
-
         holder.imageView.setTag(ingredients.get(position));
-        holder.imageView.setOnClickListener(new SearchActivity.OnClickSearchIngredients());
     }
 
     @Override
