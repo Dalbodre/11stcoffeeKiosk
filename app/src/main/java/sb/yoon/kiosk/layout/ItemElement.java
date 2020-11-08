@@ -53,4 +53,8 @@ public class ItemElement extends LinearLayout{
         TextView elementText = view.findViewById(R.id.element_text);
         elementText.setText(text);
     }
+
+    public ImageView getImageView() {
+        return view.findViewById(R.id.element_image);
+    }
 }

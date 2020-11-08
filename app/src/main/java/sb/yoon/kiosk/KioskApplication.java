@@ -12,6 +12,7 @@ public class KioskApplication extends Application {
     private DaoSession daoSession;
     private DbQueryController dbQueryController;
     private Database db;
+    private KioskMain kioskMain;
 
     @Override
     public void onCreate() {
@@ -41,5 +42,13 @@ public class KioskApplication extends Application {
 
     public DbQueryController getDbQueryController() {
         return dbQueryController;
+    }
+
+    public KioskMain getKioskMain() {
+        return kioskMain;
+    }
+
+    public void setKioskMain(KioskMain kioskMain) {
+        this.kioskMain = kioskMain;
     }
 }

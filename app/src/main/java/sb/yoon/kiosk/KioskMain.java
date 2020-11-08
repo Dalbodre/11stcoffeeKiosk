@@ -37,6 +37,7 @@ import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.Menu;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class KioskMain extends AppCompatActivity {
@@ -56,8 +57,11 @@ public class KioskMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiosk_main);
 
+        KioskApplication kioskApplication = (KioskApplication)getApplication();
+        kioskApplication.setKioskMain(this);
+
         // DB 컨트롤러 (프론트에서 쓸 메서드들 모음)
-        dbQueryController = ((KioskApplication)getApplication()).getDbQueryController();
+        dbQueryController = kioskApplication.getDbQueryController();
 
         // DB 초기화
         dbQueryController.initDB();
@@ -102,6 +106,13 @@ public class KioskMain extends AppCompatActivity {
         //searchIcon.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.MULTIPLY);
         searchButton.setCompoundDrawables(searchIcon, null, null, null);
         searchButton.setText("검색");
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(KioskMain.this, SearchActivity.class);
+                startActivityForResult(intent, 2);
+            }
+        });
         categoryButtonsGroup.addView(searchButton, params);
 
         // 버튼 순서 태그로 지정
@@ -232,6 +243,21 @@ public class KioskMain extends AppCompatActivity {
                 String result = data.getStringExtra("result");
                 if (result != null) {
                     Log.d("데이터", result);
+                }
+            }
+        } else if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                ArrayList<Integer> searchedMenuIdList = data.getIntegerArrayListExtra("searchedMenuIdList");
+                Log.d("얻은값", searchedMenuIdList != null ? searchedMenuIdList.toString() : "값 없음");
+
+                List<Menu> queryResult = dbQueryController.getMenuListByIdArray(searchedMenuIdList);
+                Log.d("쿼리결과", queryResult.toString());
+                try {
+                    itemListFragment = new ItemListFragment(queryResult);
+                    fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         }
