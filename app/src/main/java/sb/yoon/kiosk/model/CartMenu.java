@@ -1,12 +1,14 @@
 package sb.yoon.kiosk.model;
 
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
-public class CartMenu {
+public class CartMenu implements Parcelable {
     private Drawable icon;
 
     // Gson에서 긁을 멤버변수들 지정
@@ -21,12 +23,21 @@ public class CartMenu {
     @Expose
     private List<CartOption> options;
 
+    private Long menuId;
+    private Long categoryId;
+
     public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options) {
         this.icon = icon;
         this.name = name;
         this.price = price;
         this.totalPrice = totalPrice;
         this.options = options;
+    }
+
+    protected CartMenu(Parcel in) {
+        name = in.readString();
+        price = in.readInt();
+        totalPrice = in.readInt();
     }
 
     public Drawable getIcon() {
@@ -68,4 +79,45 @@ public class CartMenu {
     public void setOptions(List<CartOption> options) {
         this.options = options;
     }
+
+    public Long getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryid) {
+        this.categoryId = categoryid;
+    }
+
+    // Parcelable 객체가 file descriptor를 포함하고 있다면 CONTENTS_FILE_DESCRIPTOR를 리턴하고 그 외는 0을 리턴하라고 함
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeInt(price);
+        parcel.writeInt(totalPrice);
+    }
+
+    public static final Creator<CartMenu> CREATOR = new Creator<CartMenu>() {
+        @Override
+        public CartMenu createFromParcel(Parcel in) {
+            return new CartMenu(in);
+        }
+
+        @Override
+        public CartMenu[] newArray(int size) {
+            return new CartMenu[size];
+        }
+    };
 }

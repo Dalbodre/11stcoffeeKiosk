@@ -15,6 +15,7 @@ import sb.yoon.kiosk.KioskListActivity;
 import sb.yoon.kiosk.PopupActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
+import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.Menu;
 
@@ -142,7 +143,15 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
 
         // 팝업 띄우는거
         Intent intent = new Intent(context, PopupActivity.class); //액티비티 이동입니다.
-        intent.putExtra("menu", (Parcelable) menuList.get(position));
+        Menu menu = menuList.get(position);
+        Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
+                .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
+
+        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, null);
+        cartMenu.setCategoryId(menu.getCategoryId());
+        cartMenu.setMenuId(menu.getId());
+
+        intent.putExtra("cartMenu", (Parcelable) cartMenu);
         //시험칠 때 봤겠지만 데이터 넘길 때 쓰는 애 입니다.
         context.startActivityForResult(intent, 1);
     }

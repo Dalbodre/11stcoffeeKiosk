@@ -1,8 +1,11 @@
 package sb.yoon.kiosk.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 
-public class CartOption {
+public class CartOption implements Parcelable {
     @Expose
     private String name;
     @Expose
@@ -14,6 +17,12 @@ public class CartOption {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    protected CartOption(Parcel in) {
+        name = in.readString();
+        quantity = in.readString();
+        price = in.readInt();
     }
 
     public String getName() {
@@ -39,4 +48,29 @@ public class CartOption {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    // Parcelable 객체가 file descriptor를 포함하고 있다면 CONTENTS_FILE_DESCRIPTOR를 리턴하고 그 외는 0을 리턴하라고 함
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(quantity);
+        parcel.writeInt(price);
+    }
+
+    public static final Creator<CartOption> CREATOR = new Creator<CartOption>() {
+        @Override
+        public CartOption createFromParcel(Parcel in) {
+            return new CartOption(in);
+        }
+
+        @Override
+        public CartOption[] newArray(int size) {
+            return new CartOption[size];
+        }
+    };
 }
