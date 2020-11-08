@@ -78,6 +78,6 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
 
     @Override
     public int getItemCount() {
-        return optionList.size();
+        return (null != optionList ? optionList.size() : 0);
     }
 }

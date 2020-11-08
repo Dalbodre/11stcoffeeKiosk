@@ -3,7 +3,9 @@ package sb.yoon.kiosk.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -145,7 +147,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         //context.addCartMenuList(menuList.get(position));
 
         // 팝업 띄우는거
-        Intent intent = new Intent(context, PopupActivity.class); //액티비티 이동입니다.
+        Intent intent = new Intent(context, PopupActivity.class);
         Menu menu = menuList.get(position);
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
                 .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
@@ -155,12 +157,10 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
             cartOptions.add(new CartOption(option.getName(), 1, option.getPrice(), option.getIsInteger()));
         }
 
-        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, null);
-        cartMenu.setCategoryId(menu.getCategoryId());
-        cartMenu.setMenuId(menu.getId());
+        //Log.d("카트옵션", cartOptions.toString());
 
-        intent.putExtra("cartMenu", (Parcelable) cartMenu);
-        //시험칠 때 봤겠지만 데이터 넘길 때 쓰는 애 입니다.
+        PopupActivity.cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, cartOptions, menu.getId(), menu.getCategoryId());
+
         context.startActivityForResult(intent, 1);
     }
 }

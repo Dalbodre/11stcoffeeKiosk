@@ -25,7 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="Button"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/textView2"
@@ -34,13 +35,15 @@
             android:layout_weight="3"
             android:gravity="center"
             android:text="TextView"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="Button"
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

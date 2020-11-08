@@ -166,7 +166,7 @@ public class KioskListActivity extends AppCompatActivity {
 
         totalPrice = totalPrice + menu.getPrice();
 
-        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), totalPrice, cartOptions);
+        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), totalPrice, cartOptions, 1L,1L);
         this.cartMenuList.add(cartMenu);
         cartListAdapter.notifyDataSetChanged();
 

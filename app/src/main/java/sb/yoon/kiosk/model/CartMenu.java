@@ -26,18 +26,22 @@ public class CartMenu implements Parcelable {
     private Long menuId;
     private Long categoryId;
 
-    public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options) {
+    public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options, Long menuId, Long categoryId) {
         this.icon = icon;
         this.name = name;
         this.price = price;
         this.totalPrice = totalPrice;
         this.options = options;
+        this.menuId = menuId;
+        this.categoryId = categoryId;
     }
 
     protected CartMenu(Parcel in) {
         name = in.readString();
         price = in.readInt();
         totalPrice = in.readInt();
+        menuId = in.readLong();
+        categoryId = in.readLong();
     }
 
     public Drawable getIcon() {
@@ -107,6 +111,8 @@ public class CartMenu implements Parcelable {
         parcel.writeString(name);
         parcel.writeInt(price);
         parcel.writeInt(totalPrice);
+        parcel.writeLong(menuId);
+        parcel.writeLong(categoryId);
     }
 
     public static final Creator<CartMenu> CREATOR = new Creator<CartMenu>() {

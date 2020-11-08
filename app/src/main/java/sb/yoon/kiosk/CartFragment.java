@@ -123,7 +123,7 @@ public class CartFragment extends Fragment {
 
         totalPrice = totalPrice + menu.getPrice();
 
-        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), totalPrice, cartOptions);
+        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), totalPrice, cartOptions, 1L, 1L);
         this.cartMenuList.add(cartMenu);
         adapter.notifyDataSetChanged();
     }

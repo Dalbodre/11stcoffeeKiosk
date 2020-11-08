@@ -352,85 +352,104 @@ public class DbQueryController {
         }
 
         private void initOptions() {
-            optionDao.insertOrReplace(new Option(1L, "테이크아웃", 0, false));
-            optionDao.insertOrReplace(new Option(2L, "텀블러", -200, false));
-            optionDao.insertOrReplace(new Option(3L, "샷 추가", 500, true));
-            optionDao.insertOrReplace(new Option(4L, "설탕시럽", 500, true));
-            optionDao.insertOrReplace(new Option(5L, "헤이즐넛시럽", 500, true));
-            optionDao.insertOrReplace(new Option(6L, "연하게", 0, false));
+            optionDao.insertOrReplace(new Option(1L, "샷 추가", 500, true));
+            optionDao.insertOrReplace(new Option(2L, "설탕시럽", 500, true));
+            optionDao.insertOrReplace(new Option(3L, "헤이즐넛시럽", 500, true));
+            optionDao.insertOrReplace(new Option(4L, "연하게", 0, false));
+
+            optionDao.insertOrReplace(new Option(5L, "테이크아웃", 0, false));
+            optionDao.insertOrReplace(new Option(6L, "텀블러", -200, false));
         }
 
         private void initOptionJoiner() {
-            Long i = 1L;
-            for(Long j = 1L; j<=32L; j++){
-                for(Long k = 1L; k<=6L; k++){
-                    optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(i++, j, k));
-                }
+//            Long i = 1L;
+//            for(Long j = 1L; j<=32L; j++){
+//                for(Long k = 1L; k<=6L; k++){
+//                    optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(i++, j, k));
+//                }
+//            }
+
+            // 기본적으로 텀블러, 테이크아웃은 가지고 있으므로 모든 메뉴에 해당 옵션들 추가
+            Long joinerId = 1L;
+            for (Long menuId = 1L; menuId<=31L; menuId++) {
+                optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 5L));
+                optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 6L));
             }
 
-            /*//1L
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(1L, 1L, 1L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(2L, 1L, 2L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(3L, 1L, 3L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(4L, 1L, 4L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(5L, 1L, 5L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(6L, 1L, 6L));
-            //2L
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(7L, 2L, 1L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(8L, 2L, 2L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(9L, 2L, 3L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(10L, 2L, 4L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(11L, 2L, 5L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(12L, 2L, 6L));
-            //3L
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(13L, 1L, 1L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(14L, 1L, 2L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(15L, 1L, 3L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(16L, 1L, 4L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(17L, 1L, 5L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(18L, 1L, 6L));
-            //4L
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(20L, 1L, 1L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(21L, 1L, 2L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(22L, 1L, 3L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(23L, 1L, 4L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(24L, 1L, 5L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(25L, 1L, 6L));
-            //5L
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(26L, 1L, 1L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(27L, 1L, 2L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(28L, 1L, 3L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(29L, 1L, 4L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(30L, 1L, 5L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(31L, 1L, 6L));
-            //6L
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(32L, 1L, 1L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(33L, 1L, 2L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(34L, 1L, 3L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(35L, 1L, 4L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(36L, 1L, 5L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(37L, 1L, 6L));
-            //7L
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(38L, 1L, 1L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(39L, 1L, 2L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(40L, 1L, 3L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(41L, 1L, 4L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(42L, 1L, 5L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(43L, 1L, 6L));
-            //8L
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(44L, 1L, 1L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(45L, 1L, 2L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(46L, 1L, 3L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(47L, 1L, 4L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(48L, 1L, 5L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(49L, 1L, 6L));
-            //9L
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(50L, 1L, 1L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(51L, 1L, 2L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(52L, 1L, 3L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(53L, 1L, 4L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(54L, 1L, 5L));
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(55L, 1L, 6L));*/
+            // 커피 카테고리에 샷, 설탕시럽, 헤이즐넛 시럽, 연하게 옵션들 추가
+            for (Long menuId = 1L; menuId<=9L; menuId++) {
+                optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 1L));
+                optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 2L));
+                optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 3L));
+                optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 4L));
+            }
+
+            // 복숭아 아이스티에 샷 추가
+            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, 32L, 1L));
+
+//            //1L
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(1L, 1L, 1L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(2L, 1L, 2L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(3L, 1L, 3L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(4L, 1L, 4L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(5L, 1L, 5L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(6L, 1L, 6L));
+//            //2L
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(7L, 2L, 1L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(8L, 2L, 2L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(9L, 2L, 3L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(10L, 2L, 4L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(11L, 2L, 5L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(12L, 2L, 6L));
+//            //3L
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(13L, 1L, 1L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(14L, 1L, 2L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(15L, 1L, 3L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(16L, 1L, 4L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(17L, 1L, 5L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(18L, 1L, 6L));
+//            //4L
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(20L, 1L, 1L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(21L, 1L, 2L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(22L, 1L, 3L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(23L, 1L, 4L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(24L, 1L, 5L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(25L, 1L, 6L));
+//            //5L
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(26L, 1L, 1L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(27L, 1L, 2L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(28L, 1L, 3L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(29L, 1L, 4L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(30L, 1L, 5L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(31L, 1L, 6L));
+//            //6L
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(32L, 1L, 1L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(33L, 1L, 2L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(34L, 1L, 3L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(35L, 1L, 4L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(36L, 1L, 5L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(37L, 1L, 6L));
+//            //7L
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(38L, 1L, 1L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(39L, 1L, 2L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(40L, 1L, 3L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(41L, 1L, 4L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(42L, 1L, 5L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(43L, 1L, 6L));
+//            //8L
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(44L, 1L, 1L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(45L, 1L, 2L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(46L, 1L, 3L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(47L, 1L, 4L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(48L, 1L, 5L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(49L, 1L, 6L));
+//            //9L
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(50L, 1L, 1L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(51L, 1L, 2L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(52L, 1L, 3L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(53L, 1L, 4L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(54L, 1L, 5L));
+//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(55L, 1L, 6L));
         }
     }
 }
