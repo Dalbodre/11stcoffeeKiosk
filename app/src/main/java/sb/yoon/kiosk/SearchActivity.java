@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
@@ -50,6 +51,14 @@ public class SearchActivity extends AppCompatActivity {
         IngredientDao ingredientDao = dbQueryController.getIngredientDao();
         ingredientList = ingredientDao.queryBuilder().orderAsc(IngredientDao.Properties.Name).list();
         searchRecyclerView.setAdapter(new SearchRecyclerViewAdapter(ingredientList));
+
+        Button button = findViewById(R.id.search_return_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     public void onClickSearchIngredientIcon(View view) {

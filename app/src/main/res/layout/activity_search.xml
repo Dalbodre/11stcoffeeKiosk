@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/search_return_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_baseline_arrow_back_ios_24"
