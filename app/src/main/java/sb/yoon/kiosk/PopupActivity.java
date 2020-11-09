@@ -38,6 +38,8 @@ public class PopupActivity extends Activity{
 
     private ToggleButton hotButton;
     private ToggleButton iceButton;
+    private ToggleButton takeout;
+    private ToggleButton no_takeout;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -58,9 +60,13 @@ public class PopupActivity extends Activity{
 
         hotButton = findViewById(R.id.option_hot_toggle);
         iceButton = findViewById(R.id.option_ice_toggle);
+        takeout = findViewById(R.id.option_takeout_toggle);
+        no_takeout = findViewById(R.id.option_store_toggle);
+
         hotButton.setOnClickListener(new OnToggleChanged());
         iceButton.setOnClickListener(new OnToggleChanged());
 
+        init();
         ImageView imageView = findViewById(R.id.pop_up_option_pic);
         imageView.setImageDrawable(cartMenu.getIcon());
 
@@ -78,26 +84,29 @@ public class PopupActivity extends Activity{
         optionRecyclerView.setAdapter(optionListAdapter);
     }
 
+    public void init(){
+        iceButton.setChecked(false);
+        hotButton.setChecked(true);
+
+        iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+        hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+    }
+
     private class OnToggleChanged implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            ToggleButton toggleButton = (ToggleButton) view;
-            if (toggleButton.equals(hotButton)) {
-                if (toggleButton.isChecked()) {
-                    //toggleButton.setChecked(false);
-                    iceButton.setChecked(false);
-                } else {
-                    //toggleButton.setChecked(true);
-                    iceButton.setChecked(true);
-                }
-            } else if (toggleButton.equals(iceButton)) {
-                if (toggleButton.isChecked()) {
-                    //toggleButton.setChecked(false);
-                    hotButton.setChecked(false);
-                } else {
-                    //toggleButton.setChecked(true);
-                    hotButton.setChecked(true);
-                }
+            ToggleButton tButton = (ToggleButton) view;
+            if(tButton.equals(iceButton)){
+                iceButton.setChecked(true);
+                iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+                hotButton.setChecked(false);
+                hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+            }
+            else if(tButton.equals(hotButton)){
+                iceButton.setChecked(false);
+                iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+                hotButton.setChecked(true);
+                hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
             }
         }
     }
