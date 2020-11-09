@@ -17,6 +17,7 @@ import sb.yoon.kiosk.KioskListActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.model.CartMenu;
+import sb.yoon.kiosk.model.CartOption;
 
 // 어뎁터 클래스
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.CustomViewHolder> {
@@ -28,12 +29,14 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         protected TextView price;
         protected Button deleteButton;
         protected KioskListActivity context;
+        protected TextView tempText;
 
         public CustomViewHolder(View v){
             super(v);
             this.itemElement = (ItemElement)v.findViewById(R.id.menu_element);
             this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
             this.deleteButton = v.findViewById(R.id.cart_item_delete_button);
+            this.tempText = v.findViewById(R.id.temp);
             this.context = (KioskListActivity) v.getContext();
         }
 
@@ -60,6 +63,10 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         viewHolder.itemElement.setImageDrawable(cartMenuList.get(position).getIcon());
         viewHolder.itemElement.setText(cartMenuList.get(position).getName());
         viewHolder.price.setText(Integer.toString(cartMenuList.get(position).getTotalPrice()));
+        List<CartOption> OptionList = cartMenuList.get(position).getOptions();
+        //String menuTemp = OptionList.get()
+
+        viewHolder.tempText.setText(tempString);
 
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
