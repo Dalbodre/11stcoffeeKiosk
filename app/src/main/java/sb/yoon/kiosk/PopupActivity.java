@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.RequiresApi;
@@ -41,6 +42,7 @@ public class PopupActivity extends Activity{
     private ToggleButton takeout;
     private ToggleButton no_takeout;
 
+    private Button confirm;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +64,13 @@ public class PopupActivity extends Activity{
         iceButton = findViewById(R.id.option_ice_toggle);
         takeout = findViewById(R.id.option_takeout_toggle);
         no_takeout = findViewById(R.id.option_store_toggle);
+        confirm = findViewById(R.id.option_confirm_button);
 
         hotButton.setOnClickListener(new OnTempToggleChanged());
         iceButton.setOnClickListener(new OnTempToggleChanged());
+        takeout.setOnClickListener(new OnTakeoutToggleChanged());
+        no_takeout.setOnClickListener(new OnTakeoutToggleChanged());
+
 
         init();
         ImageView imageView = findViewById(R.id.pop_up_option_pic);
@@ -113,6 +119,25 @@ public class PopupActivity extends Activity{
         }
     }
 
+    private class OnTakeoutToggleChanged implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            ToggleButton tButton = (ToggleButton) view;
+            if(tButton.equals(takeout)){
+                takeout.setChecked(true);
+                takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+                no_takeout.setChecked(false);
+                no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+            }
+            else if(tButton.equals(no_takeout)){
+                takeout.setChecked(false);
+                takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+                no_takeout.setChecked(true);
+                no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+            }
+        }
+    }
+
     public void onClickPopUpCloseButtons(View view) {
         finish();
     }
@@ -125,7 +150,13 @@ public class PopupActivity extends Activity{
             optionsTotalPrice += cartOption.getPrice() * cartOption.getQuantity();
         }
         cartMenu.setTotalPrice(cartMenu.getPrice() + optionsTotalPrice);
-        kioskListActivity.addCartMenuList(cartMenu);
-        finish();
+
+        if(!takeout.isChecked() && !no_takeout.isChecked()){
+            Toast.makeText(this, "포장 혹은 매장 버튼을 선택해주세요.", Toast.LENGTH_LONG).show();
+        }
+        else{
+            kioskListActivity.addCartMenuList(cartMenu);
+            finish();
+        }
     }
 }
