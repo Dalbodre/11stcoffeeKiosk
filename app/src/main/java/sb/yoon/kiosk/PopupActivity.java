@@ -14,6 +14,7 @@ import sb.yoon.kiosk.model.CartOption;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,7 +68,11 @@ public class PopupActivity extends Activity{
         optionRecyclerView.setAdapter(optionListAdapter);
     }
 
-    public void onClickPopUpBackButton(View view) {
+    public void onClickPopUpCloseButtons(View view) {
+        finish();
+    }
+
+    public void onClickPopUpConfirmedButtons(View view) {
 
     }
 }
