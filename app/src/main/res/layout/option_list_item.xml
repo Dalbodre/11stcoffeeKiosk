@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="옵션이름"
+        android:textColor="@android:color/black"
         android:textSize="20sp" />
 
     <LinearLayout
@@ -18,6 +19,7 @@
         android:layout_gravity="center"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
+        android:gravity="right"
         android:orientation="horizontal">
 
         <Button
@@ -45,5 +47,6 @@
             android:layout_weight="1"
             android:text="Button"
             android:visibility="gone" />
+
     </LinearLayout>
 </LinearLayout>

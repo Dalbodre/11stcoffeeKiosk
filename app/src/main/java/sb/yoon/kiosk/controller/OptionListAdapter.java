@@ -60,7 +60,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             minusButton.setText("<");
 
             TextView quantityTextView = new TextView(holder.context);
-            quantityTextView.setText(cartOption.getName());
+            quantityTextView.setText(cartOption.getQuantity() + "개");
 
             Button plusButton = new Button(holder.context);
             plusButton.setText(">");
