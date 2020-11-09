@@ -15,8 +15,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
@@ -33,6 +35,9 @@ public class PopupActivity extends Activity{
     private OptionListAdapter optionListAdapter;
     public static CartMenu cartMenu;
     private List<CartOption> cartOptionList;
+
+    private ToggleButton hotButton;
+    private ToggleButton iceButton;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -51,6 +56,11 @@ public class PopupActivity extends Activity{
 
         Log.d("카트옵션", cartOptionList.toString());
 
+        hotButton = findViewById(R.id.option_hot_toggle);
+        iceButton = findViewById(R.id.option_ice_toggle);
+        hotButton.setOnClickListener(new OnToggleChanged());
+        iceButton.setOnClickListener(new OnToggleChanged());
+
         ImageView imageView = findViewById(R.id.pop_up_option_pic);
         imageView.setImageDrawable(cartMenu.getIcon());
 
@@ -66,6 +76,30 @@ public class PopupActivity extends Activity{
 
         optionListAdapter = new OptionListAdapter(cartOptionList);
         optionRecyclerView.setAdapter(optionListAdapter);
+    }
+
+    private class OnToggleChanged implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            ToggleButton toggleButton = (ToggleButton) view;
+            if (toggleButton.equals(hotButton)) {
+                if (toggleButton.isChecked()) {
+                    //toggleButton.setChecked(false);
+                    iceButton.setChecked(false);
+                } else {
+                    //toggleButton.setChecked(true);
+                    iceButton.setChecked(true);
+                }
+            } else if (toggleButton.equals(iceButton)) {
+                if (toggleButton.isChecked()) {
+                    //toggleButton.setChecked(false);
+                    hotButton.setChecked(false);
+                } else {
+                    //toggleButton.setChecked(true);
+                    hotButton.setChecked(true);
+                }
+            }
+        }
     }
 
     public void onClickPopUpCloseButtons(View view) {
