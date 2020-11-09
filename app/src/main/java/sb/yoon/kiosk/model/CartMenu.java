@@ -31,6 +31,8 @@ public class CartMenu implements Parcelable {
     private boolean isHot;
     private boolean isCold;
 
+    private boolean isTakeOut;
+
     public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options, Long menuId, Long categoryId, boolean isHot, boolean isCold, String temp) {
         this.icon = icon;
         this.name = name;
@@ -62,6 +64,14 @@ public class CartMenu implements Parcelable {
 
     public Drawable getIcon() {
         return icon;
+    }
+
+    public boolean isTakeOut() {
+        return isTakeOut;
+    }
+
+    public void setTakeOut(boolean takeOut) {
+        isTakeOut = takeOut;
     }
 
     public void setIcon(Drawable icon) {

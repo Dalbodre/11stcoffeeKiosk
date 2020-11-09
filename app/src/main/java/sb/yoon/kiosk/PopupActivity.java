@@ -175,6 +175,7 @@ public class PopupActivity extends Activity{
             Toast.makeText(this, "포장 혹은 매장 버튼을 선택해주세요.", Toast.LENGTH_LONG).show();
         }
         else{
+            cartMenu.setTakeOut(takeout.isChecked());
             kioskListActivity.addCartMenuList(cartMenu);
             finish();
         }
