@@ -132,7 +132,7 @@ public class KioskListActivity extends AppCompatActivity {
         TextView totalPriceView = this.findViewById(R.id.total_price);
         for (CartMenu cartMenu :
                 this.cartMenuList) {
-            totalPrice += cartMenu.getPrice();
+            totalPrice += cartMenu.getTotalPrice();
         }
         totalPriceView.setTag(totalPrice);
         String text = Integer.toString(totalPrice) + "원";
@@ -223,13 +223,6 @@ public class KioskListActivity extends AppCompatActivity {
             HttpNetworkController httpController = new HttpNetworkController(KioskListActivity.this, "http://192.168.1.3:8080");
             httpController.postJson(jsonObject);
         }
-    }
-
-    public void mOnPopupClick(View v) {
-        //어케보면 액티비티 이동시키는 거랑 같은 방식이라고 보면 됩니다.
-        Intent intent = new Intent(this, PopupActivity.class); //액티비티 이동입니다.
-        intent.putExtra("data", "test popup");                     //시험칠 때 봤겠지만 데이터 넘길 때 쓰는 애 입니다.
-        startActivityForResult(intent, 1);
     }
 
     @Override
