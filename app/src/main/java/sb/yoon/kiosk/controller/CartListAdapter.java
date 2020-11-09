@@ -66,7 +66,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         List<CartOption> OptionList = cartMenuList.get(position).getOptions();
         //String menuTemp = OptionList.get()
 
-        viewHolder.tempText.setText(tempString);
+        viewHolder.tempText.setText(cartMenuList.get(position).getTemp());
 
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override

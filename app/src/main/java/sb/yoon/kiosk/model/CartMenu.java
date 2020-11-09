@@ -23,14 +23,6 @@ public class CartMenu implements Parcelable {
     @Expose
     private List<CartOption> options;
 
-    public String getTemp() {
-        return temp;
-    }
-
-    public void setTemp(String temp) {
-        this.temp = temp;
-    }
-
     private String temp;
 
     private Long menuId;
@@ -58,6 +50,14 @@ public class CartMenu implements Parcelable {
         totalPrice = in.readInt();
         menuId = in.readLong();
         categoryId = in.readLong();
+    }
+
+    public String getTemp() {
+        return temp;
+    }
+
+    public void setTemp(String temp) {
+        this.temp = temp;
     }
 
     public Drawable getIcon() {

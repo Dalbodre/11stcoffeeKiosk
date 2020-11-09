@@ -165,6 +165,12 @@ public class PopupActivity extends Activity{
         }
         cartMenu.setTotalPrice(cartMenu.getPrice() + optionsTotalPrice);
 
+        if (hotButton.isChecked()) {
+            cartMenu.setTemp("뜨거움");
+        } else if (iceButton.isChecked()) {
+            cartMenu.setTemp("차가움");
+        }
+
         if(!takeout.isChecked() && !no_takeout.isChecked()){
             Toast.makeText(this, "포장 혹은 매장 버튼을 선택해주세요.", Toast.LENGTH_LONG).show();
         }
