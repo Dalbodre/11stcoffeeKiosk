@@ -154,7 +154,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         List<Option> options = menu.getOptionList();
         List<CartOption> cartOptions = new ArrayList<>();
         for (Option option: options) {
-            cartOptions.add(new CartOption(option.getName(), 1, option.getPrice(), option.getIsInteger()));
+            cartOptions.add(new CartOption(option.getName(), 0, option.getPrice(), option.getIsInteger()));
         }
 
         //Log.d("카트옵션", cartOptions.toString());
