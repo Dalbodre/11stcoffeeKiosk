@@ -63,8 +63,8 @@ public class PopupActivity extends Activity{
         takeout = findViewById(R.id.option_takeout_toggle);
         no_takeout = findViewById(R.id.option_store_toggle);
 
-        hotButton.setOnClickListener(new OnToggleChanged());
-        iceButton.setOnClickListener(new OnToggleChanged());
+        hotButton.setOnClickListener(new OnTempToggleChanged());
+        iceButton.setOnClickListener(new OnTempToggleChanged());
 
         init();
         ImageView imageView = findViewById(R.id.pop_up_option_pic);
@@ -90,9 +90,11 @@ public class PopupActivity extends Activity{
 
         iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
         hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+        takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+        no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
     }
 
-    private class OnToggleChanged implements View.OnClickListener {
+    private class OnTempToggleChanged implements View.OnClickListener {
         @Override
         public void onClick(View view) {
             ToggleButton tButton = (ToggleButton) view;
