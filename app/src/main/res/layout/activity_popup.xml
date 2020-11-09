@@ -31,6 +31,7 @@
             android:src="@drawable/ic_baseline_clear_24"
             android:layout_alignParentEnd="true"
             android:padding="10dp" />
+
     </RelativeLayout>
 
     <ImageView
@@ -38,18 +39,18 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/apple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/option_top"
-        android:src="@drawable/apple" />
+        app:layout_constraintTop_toBottomOf="@+id/option_top" />
 
     <TextView
         android:id="@+id/pop_up_option_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="메뉴이름"
         android:textColor="#4b3621"
@@ -70,14 +71,74 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pop_up_option_name" />
 
+    <LinearLayout
+        android:id="@+id/option_hot_ice_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pop_up_option_price">
+
+        <ToggleButton
+            android:id="@+id/option_hot_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ToggleButton"
+            android:textOff="ICE X"
+            android:textOn="ICE O" />
+
+        <ToggleButton
+            android:id="@+id/option_ice_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ToggleButton"
+            android:textOff="HOT X"
+            android:textOn="HOT O" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/option_etc_static_options_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/option_hot_ice_wrapper">
+
+        <ToggleButton
+            android:id="@+id/option_store_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="매장 X"
+            android:textOn="매장 O"/>
+
+        <ToggleButton
+            android:id="@+id/option_takeout_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ToggleButton"
+            android:textOff="포장 X"
+            android:textOn="포장 O" />
+
+        <ToggleButton
+            android:id="@+id/option_tumblr_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ToggleButton"
+            android:textOff="텀블러 X"
+            android:textOn="텀블러 O" />
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/option_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pop_up_option_price" />
+        app:layout_constraintTop_toBottomOf="@+id/option_etc_static_options_wrapper" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

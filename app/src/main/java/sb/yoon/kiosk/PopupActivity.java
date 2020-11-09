@@ -2,6 +2,7 @@ package sb.yoon.kiosk;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import sb.yoon.kiosk.controller.CartListAdapter;
@@ -16,6 +17,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +33,7 @@ public class PopupActivity extends Activity{
     public static CartMenu cartMenu;
     private List<CartOption> cartOptionList;
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
