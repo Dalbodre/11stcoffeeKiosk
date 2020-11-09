@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import sb.yoon.kiosk.PopupActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.model.CartOption;
 
@@ -80,8 +81,10 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             holder.optionButtonsWrapper.addView(plusButton);
         } else if (!cartOption.isInteger()) {
             ToggleButton button = new ToggleButton(holder.context);
+            button.setChecked(false);
+            button.setBackgroundDrawable(ContextCompat.getDrawable(holder.context, R.drawable.togglebutton_off));
             button.setText("적용 안됨");
-            button.setOnClickListener(new OnClickBoolButtons(cartOption));
+            button.setOnClickListener(new OnClickBoolButtons(cartOption, holder.context));
 
             holder.optionButtonsWrapper.addView(button);
         }
@@ -117,22 +120,30 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
 
     class OnClickBoolButtons implements View.OnClickListener {
         private CartOption cartOption;
+        private Context context;
+        private int quantity;
 
-        public OnClickBoolButtons(CartOption cartOption) {
+        public OnClickBoolButtons(CartOption cartOption, Context context) {
             this.cartOption = cartOption;
+            this.context = context;
+            this.quantity = cartOption.getQuantity();
         }
 
         @Override
         public void onClick(View view) {
             ToggleButton button = (ToggleButton) view;
-            if (button.isChecked()) {
+            if (!button.isChecked()) {
                 cartOption.setQuantity(0);
-                button.setPressed(false);
-                button.setText("적용됨");
+                int quantity = this.quantity;
+                Log.d("shit", Integer.toString(quantity));
+                button.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.togglebutton_off));
+                button.setChecked(false);
+                button.setText("적용 안됨");
             } else {
                 cartOption.setQuantity(1);
+                button.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.togglebutton_on));
                 button.setPressed(true);
-                button.setText("적용 안됨");
+                button.setText("적용됨");
             };
         }
     }

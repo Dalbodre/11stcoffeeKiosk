@@ -356,9 +356,6 @@ public class DbQueryController {
             optionDao.insertOrReplace(new Option(2L, "설탕시럽", 500, true));
             optionDao.insertOrReplace(new Option(3L, "헤이즐넛시럽", 500, true));
             optionDao.insertOrReplace(new Option(4L, "연하게", 0, false));
-
-            optionDao.insertOrReplace(new Option(5L, "테이크아웃", 0, false));
-            optionDao.insertOrReplace(new Option(6L, "텀블러", -200, false));
         }
 
         private void initOptionJoiner() {
