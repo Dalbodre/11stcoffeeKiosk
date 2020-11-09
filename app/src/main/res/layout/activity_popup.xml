@@ -85,8 +85,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="ToggleButton"
-            android:textOff="ICE X"
-            android:textOn="ICE O" />
+            android:textOff="HOT X"
+            android:textOn="HOT O"
+            android:visibility="gone" />
 
         <ToggleButton
             android:id="@+id/option_ice_toggle"
@@ -94,8 +95,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="ToggleButton"
-            android:textOff="HOT X"
-            android:textOn="HOT O" />
+            android:textOff="ICE X"
+            android:textOn="ICE O"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout

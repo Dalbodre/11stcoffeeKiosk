@@ -110,23 +110,23 @@ public class CartFragment extends Fragment {
         adapter.notifyDataSetChanged();
     }
 
-    public void addCartMenuList(Menu menu) {
-        Context context = getContext();
-        Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
-                .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
-
-        // @todo 옵션에 따른 추가요금 적용
-        int totalPrice = 0;
-
-        List<CartOption> cartOptions = new ArrayList<>();
-        cartOptions.add(new CartOption("test option", 1, 500, false));
-
-        totalPrice = totalPrice + menu.getPrice();
-
-        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), totalPrice, cartOptions, 1L, 1L);
-        this.cartMenuList.add(cartMenu);
-        adapter.notifyDataSetChanged();
-    }
+//    public void addCartMenuList(Menu menu) {
+//        Context context = getContext();
+//        Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
+//                .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
+//
+//        // @todo 옵션에 따른 추가요금 적용
+//        int totalPrice = 0;
+//
+//        List<CartOption> cartOptions = new ArrayList<>();
+//        cartOptions.add(new CartOption("test option", 1, 500, false));
+//
+//        totalPrice = totalPrice + menu.getPrice();
+//
+//        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), totalPrice, cartOptions, 1L, 1L);
+//        this.cartMenuList.add(cartMenu);
+//        adapter.notifyDataSetChanged();
+//    }
 
     public void setCartMenuList(List<CartMenu> cartMenuList) {
         this.cartMenuList = cartMenuList;

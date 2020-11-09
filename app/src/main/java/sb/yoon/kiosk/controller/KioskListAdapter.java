@@ -159,7 +159,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
 
         //Log.d("카트옵션", cartOptions.toString());
 
-        PopupActivity.cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, cartOptions, menu.getId(), menu.getCategoryId());
+        PopupActivity.cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, cartOptions, menu.getId(), menu.getCategoryId(), menu.getIsHot(), menu.getIsCold());
 
         context.startActivityForResult(intent, 1);
     }

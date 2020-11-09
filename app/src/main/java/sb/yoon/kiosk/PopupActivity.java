@@ -92,6 +92,20 @@ public class PopupActivity extends Activity{
         hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
         takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
         no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+
+        if (cartMenu.isCold()) {
+            iceButton.setVisibility(ToggleButton.VISIBLE);
+        }
+        if (cartMenu.isHot()) {
+            hotButton.setVisibility(ToggleButton.VISIBLE);
+        }
+
+        if (!cartMenu.isHot() && cartMenu.isCold()) {
+            iceButton.setChecked(true);
+            hotButton.setChecked(false);
+            iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+            hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+        }
     }
 
     private class OnTempToggleChanged implements View.OnClickListener {

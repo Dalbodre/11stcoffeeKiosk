@@ -26,7 +26,10 @@ public class CartMenu implements Parcelable {
     private Long menuId;
     private Long categoryId;
 
-    public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options, Long menuId, Long categoryId) {
+    private boolean isHot;
+    private boolean isCold;
+
+    public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options, Long menuId, Long categoryId, boolean isHot, boolean isCold) {
         this.icon = icon;
         this.name = name;
         this.price = price;
@@ -34,6 +37,8 @@ public class CartMenu implements Parcelable {
         this.options = options;
         this.menuId = menuId;
         this.categoryId = categoryId;
+        this.isHot = isHot;
+        this.isCold = isCold;
     }
 
     protected CartMenu(Parcel in) {
@@ -98,6 +103,22 @@ public class CartMenu implements Parcelable {
 
     public void setCategoryId(Long categoryid) {
         this.categoryId = categoryid;
+    }
+
+    public boolean isHot() {
+        return isHot;
+    }
+
+    public void setHot(boolean hot) {
+        isHot = hot;
+    }
+
+    public boolean isCold() {
+        return isCold;
+    }
+
+    public void setCold(boolean cold) {
+        isCold = cold;
     }
 
     // Parcelable 객체가 file descriptor를 포함하고 있다면 CONTENTS_FILE_DESCRIPTOR를 리턴하고 그 외는 0을 리턴하라고 함
