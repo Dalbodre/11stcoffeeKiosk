@@ -186,9 +186,9 @@ public class PopupActivity extends Activity{
         cartMenu.setTotalPrice(cartMenu.getPrice() + optionsTotalPrice);
 
         if (hotButton.isChecked()) {
-            cartMenu.setTemp("뜨거움");
+            cartMenu.setTemp("핫");
         } else if (iceButton.isChecked()) {
-            cartMenu.setTemp("차가움");
+            cartMenu.setTemp("아이스");
         }
 
         if (tumbler.isChecked()) {
