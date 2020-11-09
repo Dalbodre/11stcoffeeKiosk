@@ -41,6 +41,7 @@ public class PopupActivity extends Activity{
     private ToggleButton iceButton;
     private ToggleButton takeout;
     private ToggleButton no_takeout;
+    private ToggleButton tumbler;
 
     private Button confirm;
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -65,12 +66,13 @@ public class PopupActivity extends Activity{
         takeout = findViewById(R.id.option_takeout_toggle);
         no_takeout = findViewById(R.id.option_store_toggle);
         confirm = findViewById(R.id.option_confirm_button);
+        tumbler = findViewById(R.id.option_tumblr_toggle);
 
         hotButton.setOnClickListener(new OnTempToggleChanged());
         iceButton.setOnClickListener(new OnTempToggleChanged());
         takeout.setOnClickListener(new OnTakeoutToggleChanged());
         no_takeout.setOnClickListener(new OnTakeoutToggleChanged());
-
+        tumbler.setOnClickListener(new OnTumblerToggleChanged());
 
         init();
         ImageView imageView = findViewById(R.id.pop_up_option_pic);
@@ -112,6 +114,9 @@ public class PopupActivity extends Activity{
             iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
             hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
         }
+
+        tumbler.setChecked(false);
+        tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
     }
 
     private class OnTempToggleChanged implements View.OnClickListener {
@@ -129,6 +134,21 @@ public class PopupActivity extends Activity{
                 iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
                 hotButton.setChecked(true);
                 hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+            }
+        }
+    }
+
+    private class OnTumblerToggleChanged implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            ToggleButton tButton = (ToggleButton) view;
+            if(!tumbler.isChecked()){
+                tumbler.setChecked(false);
+                tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+            }
+            else{
+                tumbler.setChecked(true);
+                tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
             }
         }
     }
