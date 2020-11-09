@@ -73,6 +73,14 @@ public class PopupActivity extends Activity{
     }
 
     public void onClickPopUpConfirmedButtons(View view) {
-
+        KioskListActivity kioskListActivity = ((KioskApplication) getApplication()).getKioskListActivity();
+        cartMenu.setOptions(cartOptionList);
+        int optionsTotalPrice = 0;
+        for (CartOption cartOption : cartOptionList) {
+            optionsTotalPrice += cartOption.getPrice() * cartOption.getQuantity();
+        }
+        cartMenu.setTotalPrice(cartMenu.getPrice() + optionsTotalPrice);
+        kioskListActivity.addCartMenuList(cartMenu);
+        finish();
     }
 }
