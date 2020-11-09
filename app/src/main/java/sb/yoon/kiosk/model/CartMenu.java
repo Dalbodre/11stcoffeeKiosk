@@ -39,8 +39,7 @@ public class CartMenu implements Parcelable {
     private boolean isHot;
     private boolean isCold;
 
-    public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options, Long menuId, Long categoryId, boolean isHot, boolean isCold) {
-    public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options, Long menuId, Long categoryId, String temp) {
+    public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options, Long menuId, Long categoryId, boolean isHot, boolean isCold, String temp) {
         this.icon = icon;
         this.name = name;
         this.price = price;
