@@ -41,6 +41,7 @@ public class PopupActivity extends Activity{
     private ToggleButton iceButton;
     private ToggleButton takeout;
     private ToggleButton no_takeout;
+    private ToggleButton tumblrButton;
 
     private Button confirm;
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -65,6 +66,7 @@ public class PopupActivity extends Activity{
         takeout = findViewById(R.id.option_takeout_toggle);
         no_takeout = findViewById(R.id.option_store_toggle);
         confirm = findViewById(R.id.option_confirm_button);
+        tumblrButton = findViewById(R.id.option_tumblr_toggle);
 
         hotButton.setOnClickListener(new OnTempToggleChanged());
         iceButton.setOnClickListener(new OnTempToggleChanged());
@@ -169,6 +171,11 @@ public class PopupActivity extends Activity{
             cartMenu.setTemp("뜨거움");
         } else if (iceButton.isChecked()) {
             cartMenu.setTemp("차가움");
+        }
+
+        if (tumblrButton.isChecked()) {
+            cartMenu.setTumblr(true);
+            cartMenu.setTotalPrice(cartMenu.getTotalPrice() -200);
         }
 
         if(!takeout.isChecked() && !no_takeout.isChecked()){

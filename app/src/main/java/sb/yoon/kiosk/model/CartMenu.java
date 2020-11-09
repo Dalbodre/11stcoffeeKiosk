@@ -33,6 +33,8 @@ public class CartMenu implements Parcelable {
 
     private boolean isTakeOut;
 
+    private boolean isTumblr;
+
     public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options, Long menuId, Long categoryId, boolean isHot, boolean isCold, String temp) {
         this.icon = icon;
         this.name = name;
@@ -52,6 +54,14 @@ public class CartMenu implements Parcelable {
         totalPrice = in.readInt();
         menuId = in.readLong();
         categoryId = in.readLong();
+    }
+
+    public boolean isTumblr() {
+        return isTumblr;
+    }
+
+    public void setTumblr(boolean tumblr) {
+        isTumblr = tumblr;
     }
 
     public String getTemp() {
