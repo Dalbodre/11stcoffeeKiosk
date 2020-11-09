@@ -1,6 +1,7 @@
 package sb.yoon.kiosk.controller;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,13 +58,18 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
 
         if (cartOption.isInteger()) {
             Button minusButton = new Button(holder.context);
-            minusButton.setText("<");
+            minusButton.setText("◀");
+            minusButton.setTextColor(Color.parseColor("#4b3621"));
+            minusButton.setTextSize(10f);
 
             TextView quantityTextView = new TextView(holder.context);
-            quantityTextView.setText(cartOption.getQuantity() + "개");
+            quantityTextView.setText(Integer.toString(cartOption.getQuantity()));
+            quantityTextView.setTextColor(Color.parseColor("#4b3621"));
 
             Button plusButton = new Button(holder.context);
-            plusButton.setText(">");
+            plusButton.setText("▶");
+            plusButton.setTextColor(Color.parseColor("#4b3621"));
+            plusButton.setTextSize(10f);
 
             holder.optionButtonsWrapper.addView(minusButton);
             holder.optionButtonsWrapper.addView(quantityTextView);

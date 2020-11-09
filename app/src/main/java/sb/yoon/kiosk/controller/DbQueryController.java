@@ -371,7 +371,7 @@ public class DbQueryController {
 
             // 기본적으로 텀블러, 테이크아웃은 가지고 있으므로 모든 메뉴에 해당 옵션들 추가
             Long joinerId = 1L;
-            for (Long menuId = 1L; menuId<=31L; menuId++) {
+            for (Long menuId = 1L; menuId<=32L; menuId++) {
                 optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 5L));
                 optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 6L));
             }
