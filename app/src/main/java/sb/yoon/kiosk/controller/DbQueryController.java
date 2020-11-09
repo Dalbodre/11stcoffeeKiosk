@@ -367,12 +367,13 @@ public class DbQueryController {
 //            }
 
             // 기본적으로 텀블러, 테이크아웃은 가지고 있으므로 모든 메뉴에 해당 옵션들 추가
-            Long joinerId = 1L;
-            for (Long menuId = 1L; menuId<=32L; menuId++) {
-                optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 5L));
-                optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 6L));
-            }
+//            Long joinerId = 1L;
+//            for (Long menuId = 1L; menuId<=32L; menuId++) {
+//                optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 5L));
+//                optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 6L));
+//            }
 
+            Long joinerId = 1L;
             // 커피 카테고리에 샷, 설탕시럽, 헤이즐넛 시럽, 연하게 옵션들 추가
             for (Long menuId = 1L; menuId<=9L; menuId++) {
                 optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, menuId, 1L));
