@@ -30,6 +30,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         protected Button deleteButton;
         protected KioskListActivity context;
         protected TextView tempText;
+        protected TextView takeOutText;
 
         public CustomViewHolder(View v){
             super(v);
@@ -37,6 +38,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
             this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
             this.deleteButton = v.findViewById(R.id.cart_item_delete_button);
             this.tempText = v.findViewById(R.id.temp);
+            this.takeOutText = v.findViewById(R.id.cart_item_take_out);
             this.context = (KioskListActivity) v.getContext();
         }
 
@@ -66,6 +68,11 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         List<CartOption> OptionList = cartMenuList.get(position).getOptions();
         //String menuTemp = OptionList.get()
 
+        if (cartMenuList.get(position).isTakeOut()) {
+            viewHolder.takeOutText.setText("포장");
+        } else {
+            viewHolder.takeOutText.setText("매장");
+        }
         viewHolder.tempText.setText(cartMenuList.get(position).getTemp());
 
         viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
