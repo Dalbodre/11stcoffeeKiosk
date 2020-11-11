@@ -70,6 +70,13 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             minusButton.setTextSize(10f);
             minusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
 
+            if(quantityTextView.getText().equals("0")){
+                minusButton.setVisibility(Button.GONE);
+            }
+            else{
+                minusButton.setVisibility(Button.VISIBLE);
+            }
+
             Button plusButton = new Button(holder.context);
             plusButton.setText("▶");
             plusButton.setTextColor(Color.parseColor("#4b3621"));
