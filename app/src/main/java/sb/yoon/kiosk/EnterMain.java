@@ -18,6 +18,6 @@ public class EnterMain extends AppCompatActivity {
         Intent intent = new Intent(this, KioskListActivity.class);
         startActivity(intent);
 
-        finish();
+        //finish();
     }
 }

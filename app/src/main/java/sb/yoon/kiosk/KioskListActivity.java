@@ -212,16 +212,20 @@ public class KioskListActivity extends AppCompatActivity {
             try {
                 //                                       총 가격 숫자만
                 jsonObject.put("totalPrice", totalPriceView.getTag());
-                jsonObject.put("takeOut", "N");
                 jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
                         new TypeToken<List<CartMenu>>(){}.getType())));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.d("결제 데이터", jsonObject.toString());
+            Log.d("결제", jsonObject.toString());
             Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
-            HttpNetworkController httpController = new HttpNetworkController(KioskListActivity.this, "http://192.168.1.3:8080");
+            HttpNetworkController httpController = new HttpNetworkController(
+                    KioskListActivity.this, "http://192.168.1.3:8080");
             httpController.postJson(jsonObject);
+            finish();
+
+            //Intent intent = new Intent(KioskListActivity.this, OrderNumberPopupActivity.class);
+            //startActivity(intent);
         }
     }
 

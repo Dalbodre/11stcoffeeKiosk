@@ -23,6 +23,7 @@ public class CartMenu implements Parcelable {
     @Expose
     private List<CartOption> options;
 
+    @Expose
     private String temp;
 
     private Long menuId;
@@ -31,8 +32,10 @@ public class CartMenu implements Parcelable {
     private boolean isHot;
     private boolean isCold;
 
+    @Expose
     private boolean isTakeOut;
 
+    @Expose
     private boolean isTumbler;
 
     public CartMenu(Drawable icon, String name, int price, int totalPrice, List<CartOption> options, Long menuId, Long categoryId, boolean isHot, boolean isCold, String temp) {

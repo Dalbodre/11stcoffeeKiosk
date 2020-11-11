@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class PopupActivity extends Activity{
+public class PopupActivity extends Activity {
     private RecyclerView optionRecyclerView;
     private OptionListAdapter optionListAdapter;
     public static CartMenu cartMenu;
