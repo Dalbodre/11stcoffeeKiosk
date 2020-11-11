@@ -1,13 +1,10 @@
 package sb.yoon.kiosk;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
-import sb.yoon.kiosk.controller.CartListAdapter;
 import sb.yoon.kiosk.controller.OptionListAdapter;
-import sb.yoon.kiosk.layout.SearchItemDecoration;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
 
@@ -15,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,11 +19,8 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -192,7 +185,7 @@ public class PopupActivity extends Activity{
         }
 
         if (tumbler.isChecked()) {
-            cartMenu.setTumblr(true);
+            cartMenu.setTumbler(true);
             cartMenu.setTotalPrice(cartMenu.getTotalPrice() -200);
         }
 
