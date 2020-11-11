@@ -27,7 +27,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         protected ItemElement itemElement;
         protected TextView price;
-        protected Button deleteButton;
+        protected TextView deleteButton;
         protected KioskListActivity context;
         protected TextView tempText;
         protected TextView takeOutText;
