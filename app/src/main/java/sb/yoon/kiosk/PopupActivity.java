@@ -34,6 +34,7 @@ public class PopupActivity extends Activity {
     private ToggleButton iceButton;
     private ToggleButton takeout;
     private ToggleButton no_takeout;
+
     private ToggleButton tumbler;
 
     private Button confirm;
