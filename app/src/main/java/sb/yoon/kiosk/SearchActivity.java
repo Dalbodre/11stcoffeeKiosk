@@ -42,9 +42,9 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         searchRecyclerView = this.findViewById(R.id.search_ingredients_list);
-        GridLayoutManager mLinearLayoutManager = new GridLayoutManager(this, 4);
+        GridLayoutManager mLinearLayoutManager = new GridLayoutManager(this, 5);
         searchRecyclerView.setLayoutManager(mLinearLayoutManager);
-        searchRecyclerView.addItemDecoration(new SearchItemDecoration(this, 4));
+        searchRecyclerView.addItemDecoration(new SearchItemDecoration(this, 5));
 
         KioskApplication kioskApplication = (KioskApplication) getApplication();
         DbQueryController dbQueryController = kioskApplication.getDbQueryController();
