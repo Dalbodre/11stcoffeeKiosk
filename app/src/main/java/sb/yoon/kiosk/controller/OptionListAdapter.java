@@ -62,18 +62,29 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
         if (cartOption.isInteger()) {
             TextView quantityTextView = new TextView(holder.context);
             quantityTextView.setText(Integer.toString(cartOption.getQuantity()));
+            quantityTextView.setTextSize(40f);
+            quantityTextView.setPadding(10, 0,10,0);
             quantityTextView.setTextColor(Color.parseColor("#4b3621"));
 
             Button minusButton = new Button(holder.context);
             minusButton.setText("◀");
             minusButton.setTextColor(Color.parseColor("#4b3621"));
-            minusButton.setTextSize(10f);
+            minusButton.setTextSize(40f);
+            minusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.togglebutton_off));
             minusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
+
+            /*if(quantityTextView.getText().equals("0")){
+                minusButton.setVisibility(Button.GONE);
+            }
+            else{
+                minusButton.setVisibility(Button.VISIBLE);
+            }*/
 
             Button plusButton = new Button(holder.context);
             plusButton.setText("▶");
             plusButton.setTextColor(Color.parseColor("#4b3621"));
-            plusButton.setTextSize(10f);
+            plusButton.setTextSize(40f);
+            plusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.togglebutton_off));
             plusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
 
             holder.optionButtonsWrapper.addView(minusButton);
@@ -83,7 +94,9 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             ToggleButton button = new ToggleButton(holder.context);
             button.setChecked(false);
             button.setBackgroundDrawable(ContextCompat.getDrawable(holder.context, R.drawable.togglebutton_off));
-            button.setText("적용 안됨");
+            button.setText("적용안됨");
+            button.setPadding(10,10,10,10);
+            button.setTextSize(40f);
             button.setOnClickListener(new OnClickBoolButtons(cartOption, holder.context));
 
             holder.optionButtonsWrapper.addView(button);
@@ -138,12 +151,14 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
                 Log.d("shit", Integer.toString(quantity));
                 button.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.togglebutton_off));
                 button.setChecked(false);
-                button.setText("적용 안됨");
+                button.setText("적용안됨");
+                button.setPadding(10,10,10,10);
             } else {
                 cartOption.setQuantity(1);
                 button.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.togglebutton_on));
                 button.setPressed(true);
                 button.setText("적용됨");
+                button.setPadding(10,10,10,10);
             };
         }
     }
