@@ -218,11 +218,11 @@ public class KioskListActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             Log.d("결제", jsonObject.toString());
-            Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
+            // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
             HttpNetworkController httpController = new HttpNetworkController(
-                    KioskListActivity.this, "http://192.168.1.3:8080");
+                    KioskListActivity.this, "http://192.168.5.1:8080/");
             httpController.postJson(jsonObject);
-            finish();
+            // finish();
 
             //Intent intent = new Intent(KioskListActivity.this, OrderNumberPopupActivity.class);
             //startActivity(intent);
