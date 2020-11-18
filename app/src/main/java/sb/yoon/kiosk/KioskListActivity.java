@@ -153,26 +153,6 @@ public class KioskListActivity extends AppCompatActivity {
         this.updateCartTotalPrice();
     }
 
-//    public void addCartMenuList(Menu menu) {
-//        Context context = this;
-//        Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
-//                .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
-//
-//        // @todo 옵션에 따른 추가요금 적용
-//        int totalPrice = 0;
-//
-//        List<CartOption> cartOptions = new ArrayList<>();
-//        cartOptions.add(new CartOption("test option", 1, 500, false));
-//
-//        totalPrice = totalPrice + menu.getPrice();
-//
-//        CartMenu cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), totalPrice, cartOptions, 1L,1L);
-//        this.cartMenuList.add(cartMenu);
-//        cartListAdapter.notifyDataSetChanged();
-//
-//        this.updateCartTotalPrice();
-//    }
-
     public void setCartMenuList(List<CartMenu> cartMenuList) {
         this.cartMenuList = cartMenuList;
         cartListAdapter.notifyDataSetChanged();
@@ -222,10 +202,11 @@ public class KioskListActivity extends AppCompatActivity {
             HttpNetworkController httpController = new HttpNetworkController(
                     KioskListActivity.this, "http://192.168.5.1:8080/");
             httpController.postJson(jsonObject);
-            // finish();
 
-            //Intent intent = new Intent(KioskListActivity.this, OrderNumberPopupActivity.class);
-            //startActivity(intent);
+            Intent intent = new Intent(KioskListActivity.this, OrderNumberPopupActivity.class);
+            intent.putExtra("orderNumber", 9999);
+            startActivity(intent);
+            finish();
         }
     }
 
