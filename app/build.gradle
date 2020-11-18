@@ -29,6 +29,10 @@ android {
     }
 
     configurations { implementation.exclude group: 'org.jetbrains', module: 'annotations' }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
