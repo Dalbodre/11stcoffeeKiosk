@@ -63,7 +63,7 @@ public class KioskListActivity extends AppCompatActivity {
         dbQueryController = kioskApplication.getDbQueryController();
 
         // DB 초기화
-        dbQueryController.initDB();
+        // dbQueryController.initDB();
 
         // 카테고리 리스트 불러오기
         categories = dbQueryController.getCategoriesList();

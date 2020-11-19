@@ -29,6 +29,9 @@ public class KioskApplication extends Application {
 
         daoSession = new DaoMaster(db).newSession();
         dbQueryController = new DbQueryController(daoSession);
+
+        // DB 초기화
+        dbQueryController.initDB();
     }
 
     public DaoSession getDaoSession() {
