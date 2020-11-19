@@ -30,9 +30,9 @@ public class SearchItemDecoration extends RecyclerView.ItemDecoration {
         int row = position / spanCount;
         int lastRow = (maxCount - 1) / spanCount;
 
-        outRect.left = column * spacing / spanCount;
-        outRect.right = spacing - (column + 1) * spacing / spanCount;
-        outRect.top = spacing * 2;
+        //outRect.left = column * spacing / spanCount;
+        //outRect.right = spacing - (column + 1) * spacing / spanCount;
+        //outRect.top = spacing * 2;
 
         if (row == lastRow) {
             outRect.bottom = outerMargin;

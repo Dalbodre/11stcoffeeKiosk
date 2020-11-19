@@ -146,7 +146,7 @@ public class DbQueryController {
             menuDao.insertOrReplace(new Menu(3L, "카페라떼", 1L, 2800, "caffe_latte", true, true));
             menuDao.insertOrReplace(new Menu(4L, "카푸치노", 1L, 2800, "capuccino", true, false));
             menuDao.insertOrReplace(new Menu(5L, "바닐라라떼", 1L, 3200, "vanila", true, true));
-            menuDao.insertOrReplace(new Menu(6L, "헤어즐넛라떼", 1L, 3200, "hazel_latte", true, true));
+            menuDao.insertOrReplace(new Menu(6L, "헤이즐넛라떼", 1L, 3200, "hazel_latte", true, true));
             menuDao.insertOrReplace(new Menu(7L, "카라멜마끼아또", 1L, 3200, "macchiato", true, true));
             menuDao.insertOrReplace(new Menu(8L, "카페모카", 1L, 3200, "caffe_mocha", true, true));
             menuDao.insertOrReplace(new Menu(9L, "민트그린모카", 1L, 3200, "chiyak", true, true));
@@ -194,7 +194,7 @@ public class DbQueryController {
             ingredientDao.insertOrReplace(new Ingredient(2L, "물",  "water"));
             ingredientDao.insertOrReplace(new Ingredient(3L, "우유",  "milk"));
             ingredientDao.insertOrReplace(new Ingredient(4L, "시나몬가루",  "cynamon"));
-            ingredientDao.insertOrReplace(new Ingredient(5L, "바닐라시럽",  "vanila"));
+            ingredientDao.insertOrReplace(new Ingredient(5L, "바닐라시럽",  "vanila_syrup"));
             ingredientDao.insertOrReplace(new Ingredient(6L, "헤이즐넛시럽",  "hazelnut_syrup"));
             ingredientDao.insertOrReplace(new Ingredient(7L, "카라멜소스",  "caramel_syrup"));
             ingredientDao.insertOrReplace(new Ingredient(8L, "초코소스", "choco_syrup"));
