@@ -184,6 +184,10 @@ public class KioskListActivity extends AppCompatActivity {
     class purchaseButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
+            if (cartMenuList.isEmpty()) {
+                return;
+            }
+
             final Gson gson = new GsonBuilder()
                     .excludeFieldsWithoutExposeAnnotation()
                     .create();
