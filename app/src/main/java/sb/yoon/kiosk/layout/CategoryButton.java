@@ -24,6 +24,7 @@ public class CategoryButton extends androidx.appcompat.widget.AppCompatButton {
         this.setTextSize(TypedValue.COMPLEX_UNIT_SP, 33);
         this.setTextColor(ContextCompat.getColor(getContext(), android.R.color.white));
         this.setBackgroundColor(Color.parseColor("#544842"));
-        this.setPadding(20,20,20,20);
+        this.setPadding(20,0,20,0);
+        this.getMaxHeight();
     }
 }

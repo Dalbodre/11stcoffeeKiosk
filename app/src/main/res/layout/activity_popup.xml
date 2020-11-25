@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="1400px"
-    android:layout_height="2300px"
+    android:layout_width="1000px"
+    android:layout_height="1900px"
     android:background="#eeeeee"
     android:orientation="vertical">
 
@@ -89,7 +89,7 @@
             android:drawableLeft="@drawable/textview_drawable_left_hot"
             android:textOff="HOT X"
             android:textOn="HOT O"
-            android:textSize="33sp"
+            android:textSize="50sp"
             android:visibility="gone" />
 
         <ToggleButton
@@ -102,7 +102,7 @@
             android:drawableLeft="@drawable/textview_drawable_left_ice"
             android:textOff="ICE X"
             android:textOn="ICE O"
-            android:textSize="33sp"
+            android:textSize="50sp"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -126,7 +126,7 @@
             android:textOff="매장 X"
             android:textOn="매장 O"
             android:paddingTop="17px"
-            android:textSize="25dp"/>
+            android:textSize="40dp"/>
 
         <ToggleButton
             android:id="@+id/option_takeout_toggle"
@@ -138,7 +138,7 @@
             android:background="@drawable/togglebutton_off"
             android:drawableLeft="@drawable/small_drawable_cart_plus"
             android:paddingTop="17px"
-            android:textSize="25dp"
+            android:textSize="40dp"
             android:textOff="포장 X"
             android:textOn="포장 O" />
 
@@ -153,7 +153,7 @@
             android:textOff="텀블러 X"
             android:textOn="텀블러 O"
             android:paddingTop="17px"
-            android:textSize="25dp" />
+            android:textSize="40dp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -176,7 +176,7 @@
         android:padding="10dp"
         android:drawableLeft="@drawable/small_drawable_check"
         android:text="확인"
-        android:textSize="90px"
+        android:textSize="75px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
