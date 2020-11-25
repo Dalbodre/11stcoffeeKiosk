@@ -101,7 +101,7 @@ public class KioskListActivity extends AppCompatActivity {
         CategoryButton searchButton = new CategoryButton(this);
         Drawable searchIcon = ContextCompat.getDrawable(this, R.drawable.search_icon);
         // 검색 아이콘 삽입 (Drawable Left)
-        searchIcon.setBounds(0, 0, 80, 80);
+        searchIcon.setBounds(0, 0, 60, 60);
         //searchIcon.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.MULTIPLY);
         searchButton.setCompoundDrawables(searchIcon, null, null, null);
         searchButton.setText("검색");

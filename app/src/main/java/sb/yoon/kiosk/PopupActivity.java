@@ -95,7 +95,7 @@ public class PopupActivity extends Activity {
         hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
         takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
         no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
-
+        //to. JoRim: 나중에 시연해보고 나서 아이콘 크기 별로면 여기를 건드려서 해결하길 바람
         Drawable iceIcon = ContextCompat.getDrawable(this, R.drawable.ice_cubes);
         iceIcon.setBounds(0,0,80,80);
         iceButton.setCompoundDrawables(iceIcon,null,null,null);
