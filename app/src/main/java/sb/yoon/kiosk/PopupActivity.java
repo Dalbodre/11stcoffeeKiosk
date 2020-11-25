@@ -1,6 +1,7 @@
 package sb.yoon.kiosk;
 
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -94,6 +95,14 @@ public class PopupActivity extends Activity {
         hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
         takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
         no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+
+        Drawable iceIcon = ContextCompat.getDrawable(this, R.drawable.ice_cubes);
+        iceIcon.setBounds(0,0,80,80);
+        iceButton.setCompoundDrawables(iceIcon,null,null,null);
+
+        Drawable hotIcon = ContextCompat.getDrawable(this, R.drawable.burn);
+        hotIcon.setBounds(0,0,80,80);
+        hotButton.setCompoundDrawables(hotIcon,null,null,null);
 
         if (cartMenu.isCold()) {
             iceButton.setVisibility(ToggleButton.VISIBLE);

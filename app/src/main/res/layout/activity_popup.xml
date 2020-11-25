@@ -37,10 +37,9 @@
 
     <ImageView
         android:id="@+id/pop_up_option_pic"
-        android:layout_width="700px"
-        android:layout_height="700px"
+        android:layout_width="600px"
+        android:layout_height="600px"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/option_top" />
@@ -86,7 +85,6 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:drawableLeft="@drawable/textview_drawable_left_hot"
             android:textOff="HOT X"
             android:textOn="HOT O"
             android:textSize="50sp"
@@ -99,7 +97,6 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:drawableLeft="@drawable/textview_drawable_left_ice"
             android:textOff="ICE X"
             android:textOn="ICE O"
             android:textSize="50sp"
@@ -120,13 +117,13 @@
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:padding="10dp"
             android:background="@drawable/togglebutton_off"
             android:drawableLeft="@drawable/small_drawable_store"
+            android:padding="10dp"
+            android:paddingTop="17px"
             android:textOff="매장 X"
             android:textOn="매장 O"
-            android:paddingTop="17px"
-            android:textSize="40dp"/>
+            android:textSize="40dp" />
 
         <ToggleButton
             android:id="@+id/option_takeout_toggle"
@@ -134,25 +131,25 @@
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:padding="10dp"
             android:background="@drawable/togglebutton_off"
             android:drawableLeft="@drawable/small_drawable_cart_plus"
+            android:padding="10dp"
             android:paddingTop="17px"
-            android:textSize="40dp"
             android:textOff="포장 X"
-            android:textOn="포장 O" />
+            android:textOn="포장 O"
+            android:textSize="40dp" />
 
         <ToggleButton
             android:id="@+id/option_tumblr_toggle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:padding="10dp"
             android:background="@drawable/togglebutton_off"
             android:drawableLeft="@drawable/small_drawable_thermos"
+            android:padding="10dp"
+            android:paddingTop="17px"
             android:textOff="텀블러 X"
             android:textOn="텀블러 O"
-            android:paddingTop="17px"
             android:textSize="40dp" />
     </LinearLayout>
 
@@ -166,19 +163,18 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+
     <Button
         android:id="@+id/option_confirm_button"
         android:layout_width="match_parent"
-        android:layout_height="150px"
-        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30sp"
         android:background="@drawable/togglebutton_off"
         android:onClick="onClickPopUpConfirmedButtons"
         android:padding="10dp"
-        android:drawableLeft="@drawable/small_drawable_check"
         android:text="확인"
         android:textSize="75px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
