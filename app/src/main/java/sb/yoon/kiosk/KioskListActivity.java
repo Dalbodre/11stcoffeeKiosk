@@ -1,7 +1,6 @@
 package sb.yoon.kiosk;
 
 import android.content.Intent;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -32,7 +30,6 @@ import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.controller.HttpNetworkController;
 import sb.yoon.kiosk.layout.CategoryButton;
 import sb.yoon.kiosk.model.CartMenu;
-import sb.yoon.kiosk.model.CartOption;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.Menu;
 
@@ -204,14 +201,16 @@ public class KioskListActivity extends AppCompatActivity {
             Log.d("결제", jsonObject.toString());
             // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
             HttpNetworkController httpController = new HttpNetworkController(
-                    KioskListActivity.this, "http://192.168.5.1:8080/");
-            httpController.postJson(jsonObject);
-
-            Intent intent = new Intent(KioskListActivity.this, OrderNumberPopupActivity.class);
-            intent.putExtra("orderNumber", 9999);
-            startActivity(intent);
-            finish();
+                    KioskListActivity.this, getResources().getString(R.string.server_ip));
+            httpController.postJsonCartData(jsonObject);
         }
+    }
+
+    public void popUpOrderNumberAndQuit(int orderNumber) {
+        Intent intent = new Intent(KioskListActivity.this, OrderNumberPopupActivity.class);
+        intent.putExtra("orderNumber", orderNumber);
+        startActivity(intent);
+        finish();
     }
 
     @Override
