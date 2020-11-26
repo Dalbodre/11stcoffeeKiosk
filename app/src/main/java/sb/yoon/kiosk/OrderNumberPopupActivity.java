@@ -20,7 +20,10 @@ public class OrderNumberPopupActivity extends Activity {
         TextView orderNumTextView = findViewById(R.id.text1);
         Intent intent = getIntent();
         int orderNumber = intent.getIntExtra("orderNumber", 0);
-        orderNumTextView.setText("주문번호 : " + orderNumber);
+        orderNumTextView.setText("주문번호\n\n" + orderNumber);
+
+        TextView text3 = findViewById(R.id.text3);
+        text3.setText("메뉴가 준비되면 모니터에서\n안내해드리겠습니다.");
 
         (new Handler()).postDelayed(this::finish, 8000);
     }
