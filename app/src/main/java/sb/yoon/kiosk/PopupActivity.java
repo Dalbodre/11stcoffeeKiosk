@@ -118,8 +118,25 @@ public class PopupActivity extends Activity {
             hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
         }
 
+        icons(); // 아이콘 너무 많아서 아이콘 별로 따로 메서드 팠습니다
+
         tumbler.setChecked(false);
         tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+    }
+
+    private void icons() {
+        Drawable tableIcon = ContextCompat.getDrawable(this, R.drawable.in_table);
+        tableIcon.setBounds(0,0,70,70);
+        no_takeout.setCompoundDrawables(tableIcon,null,null,null);
+
+        Drawable packageIcon = ContextCompat.getDrawable(this, R.drawable.packages);
+        packageIcon.setBounds(0,0,70,70);
+        takeout.setCompoundDrawables(packageIcon,null,null,null);
+
+        Drawable thumblerIcon = ContextCompat.getDrawable(this, R.drawable.thumbler);
+        thumblerIcon.setBounds(0,0,80,80);
+        tumbler.setCompoundDrawables(thumblerIcon,null,null,null);
+
     }
 
     private class OnTempToggleChanged implements View.OnClickListener {
