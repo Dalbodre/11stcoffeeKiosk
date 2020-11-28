@@ -4,7 +4,7 @@
     <string name="enter_background">초입 이미지 전경</string>
 
     <!-- 서버 IP -->
-    <string name="server_ip">http://192.168.1.4:8080/</string>
+    <string name="server_ip">http://pos.siri.sh/</string>
 
     <string name="title_activity_kiosk_main">KioskMain</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
