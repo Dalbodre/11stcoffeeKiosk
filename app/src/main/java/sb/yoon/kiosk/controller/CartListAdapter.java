@@ -27,7 +27,6 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         protected ItemElement itemElement;
         protected TextView price;
-        protected TextView deleteButton;
         protected KioskListActivity context;
         protected TextView tempText;
         protected TextView takeOutText;
@@ -36,7 +35,6 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
             super(v);
             this.itemElement = (ItemElement)v.findViewById(R.id.menu_element);
             this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
-            this.deleteButton = v.findViewById(R.id.cart_item_delete_button);
             this.tempText = v.findViewById(R.id.temp);
             this.takeOutText = v.findViewById(R.id.cart_item_take_out);
             this.context = (KioskListActivity) v.getContext();
@@ -75,7 +73,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         }
         viewHolder.tempText.setText(cartMenuList.get(position).getTemp());
 
-        viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+        viewHolder.itemElement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewHolder.getContext().delCartMenuList(position);
