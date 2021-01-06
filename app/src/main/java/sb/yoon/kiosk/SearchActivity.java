@@ -36,8 +36,6 @@ public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView searchRecyclerView;
 
-    private boolean isTest = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

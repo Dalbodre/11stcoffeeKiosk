@@ -4,17 +4,25 @@ import android.content.Intent;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 public class EnterMain extends AppCompatActivity {
     ProgressBar progressBar;
+    ImageView SettingButton;
+
+    private int SBCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_main);
 
         progressBar = findViewById(R.id.progressBar);
+        SettingButton = findViewById(R.id.enter_settingButton);
     }
 
     @Override
@@ -28,7 +36,15 @@ public class EnterMain extends AppCompatActivity {
         progressBar.setVisibility(ProgressBar.VISIBLE);
         Intent intent = new Intent(this, KioskListActivity.class);
         startActivity(intent);
-
         //finish();
+    }
+
+    public void settingClicked(View v) {
+        SBCount++;
+        if (SBCount == 5) {
+            System.out.println("Pressed!");
+            SBCount = 0;
+        } else
+            System.out.println(SBCount);
     }
 }
