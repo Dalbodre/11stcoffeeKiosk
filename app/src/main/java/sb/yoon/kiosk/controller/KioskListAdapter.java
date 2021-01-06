@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import sb.yoon.kiosk.KioskListActivity;
@@ -95,6 +96,10 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
 
         TextView price1 = (TextView) convertView.findViewById(R.id.price1);
         TextView price2 = (TextView) convertView.findViewById(R.id.price2);
+        price1.setTag(position);
+        price2.setTag(position);
+        price2.setOnClickListener(this);
+        price1.setOnClickListener(this);
 
         if (menu.getIsCold()) {
             price1.setText(Integer.toString(menu.getPrice()));
@@ -131,6 +136,10 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
                 ingredientElement.setImageDrawable(ingredientDrawable);
                 ingredientElement.setText(ingredient.getName());
                 ingredientElement.setVisibility(View.VISIBLE);
+
+                //ㄱㅊ? 이거 필요하면 넣는걸로 합시다
+                ingredientElement.setTag(position);
+                ingredientElement.setOnClickListener(this);
             }
 
             index += 1;
