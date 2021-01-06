@@ -22,7 +22,6 @@ public class EnterMain extends AppCompatActivity {
         setContentView(R.layout.activity_enter_main);
 
         progressBar = findViewById(R.id.progressBar);
-        SettingButton = findViewById(R.id.enter_settingButton);
     }
 
     @Override
@@ -37,14 +36,5 @@ public class EnterMain extends AppCompatActivity {
         Intent intent = new Intent(this, KioskListActivity.class);
         startActivity(intent);
         //finish();
-    }
-
-    public void settingClicked(View v) {
-        SBCount++;
-        if (SBCount == 5) {
-            System.out.println("Pressed!");
-            SBCount = 0;
-        } else
-            System.out.println(SBCount);
     }
 }

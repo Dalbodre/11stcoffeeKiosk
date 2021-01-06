@@ -18,16 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/enter_settingButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:srcCompat="@drawable/ic_baseline_settings_applications_24"
-        tools:layout_editor_absoluteX="345dp"
-        tools:layout_editor_absoluteY="617dp"
-        tools:ignore="MissingConstraints,VectorDrawableCompat"
-        android:onClick="settingClicked"/>
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar"
