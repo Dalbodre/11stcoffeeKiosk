@@ -81,12 +81,12 @@
             android:id="@+id/option_hot_toggle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
             android:layout_weight="1"
+            android:layout_margin="10dp"
             android:padding="10dp"
             android:textOff="HOT X"
             android:textOn="HOT O"
-            android:textSize="50sp"
+            android:textSize="80px"
             android:visibility="gone" />
 
         <ToggleButton
@@ -98,7 +98,7 @@
             android:padding="10dp"
             android:textOff="ICE X"
             android:textOn="ICE O"
-            android:textSize="50sp"
+            android:textSize="80px"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -121,7 +121,7 @@
             android:paddingTop="17px"
             android:textOff="매장 X"
             android:textOn="매장 O"
-            android:textSize="40dp" />
+            android:textSize="60px" />
 
         <ToggleButton
             android:id="@+id/option_takeout_toggle"
@@ -134,7 +134,7 @@
             android:paddingTop="17px"
             android:textOff="포장 X"
             android:textOn="포장 O"
-            android:textSize="40dp" />
+            android:textSize="60px" />
 
         <ToggleButton
             android:id="@+id/option_tumblr_toggle"
@@ -147,7 +147,7 @@
             android:paddingTop="17px"
             android:textOff="텀블러 X"
             android:textOn="텀블러 O"
-            android:textSize="40dp" />
+            android:textSize="60px" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -165,7 +165,7 @@
         android:id="@+id/option_confirm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30sp"
+        android:layout_marginBottom="60px"
         android:background="@drawable/togglebutton_off"
         android:onClick="onClickPopUpConfirmedButtons"
         android:padding="10dp"

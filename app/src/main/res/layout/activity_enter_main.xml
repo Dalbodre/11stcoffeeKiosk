@@ -9,9 +9,9 @@
 
     <ImageButton
         android:id="@+id/enter_main_button"
-        android:layout_width="600dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="260dp"
+        android:layout_width="850dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="500dp"
         android:onClick="buttonClicked"
         android:background="@drawable/enter_main_button"
         app:layout_constraintEnd_toEndOf="parent"

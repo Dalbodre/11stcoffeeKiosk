@@ -95,13 +95,14 @@ public class PopupActivity extends Activity {
         hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
         takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
         no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+
         //to. JoRim: 나중에 시연해보고 나서 아이콘 크기 별로면 여기를 건드려서 해결하길 바람
         Drawable iceIcon = ContextCompat.getDrawable(this, R.drawable.ice_cubes);
-        iceIcon.setBounds(0,0,80,80);
+        iceIcon.setBounds(0,0,130,130);
         iceButton.setCompoundDrawables(iceIcon,null,null,null);
 
         Drawable hotIcon = ContextCompat.getDrawable(this, R.drawable.burn);
-        hotIcon.setBounds(0,0,80,80);
+        hotIcon.setBounds(0,0,130,130);
         hotButton.setCompoundDrawables(hotIcon,null,null,null);
 
         if (cartMenu.isCold()) {
@@ -126,15 +127,15 @@ public class PopupActivity extends Activity {
 
     private void icons() {
         Drawable tableIcon = ContextCompat.getDrawable(this, R.drawable.in_table);
-        tableIcon.setBounds(0,0,70,70);
+        tableIcon.setBounds(0,0,100,100);
         no_takeout.setCompoundDrawables(tableIcon,null,null,null);
 
         Drawable packageIcon = ContextCompat.getDrawable(this, R.drawable.packages);
-        packageIcon.setBounds(0,0,70,70);
+        packageIcon.setBounds(0,0,100,100);
         takeout.setCompoundDrawables(packageIcon,null,null,null);
 
         Drawable thumblerIcon = ContextCompat.getDrawable(this, R.drawable.thumbler);
-        thumblerIcon.setBounds(0,0,80,80);
+        thumblerIcon.setBounds(0,0,110,110);
         tumbler.setCompoundDrawables(thumblerIcon,null,null,null);
 
     }
