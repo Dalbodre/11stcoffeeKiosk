@@ -126,6 +126,7 @@ public class PopupActivity extends Activity {
     }
 
     private void icons() {
+        // 크기 조절은 여기서
         Drawable tableIcon = ContextCompat.getDrawable(this, R.drawable.in_table);
         tableIcon.setBounds(0,0,100,100);
         no_takeout.setCompoundDrawables(tableIcon,null,null,null);
@@ -227,3 +228,9 @@ public class PopupActivity extends Activity {
         }
     }
 }
+
+/*
+장조림 들어라.
+일단, 팝업 창 최고 문제는 밑에 확인버튼 안 올라오는건데, 그거 margin값으로 올라오는거 조절되니까 그걸로 조절하고,
+burn 이미지는 잘라서 있다가 저녁에 올려놓기 바랍니다.
+*/
