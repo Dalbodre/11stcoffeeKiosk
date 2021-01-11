@@ -29,7 +29,7 @@ public class PopupActivity extends Activity {
     private RecyclerView optionRecyclerView;
     private OptionListAdapter optionListAdapter;
     public static CartMenu cartMenu;
-    private List<CartOption> cartOptionList;
+    private List<CartOption> cartOptionList; //test
 
     private ToggleButton hotButton;
     private ToggleButton iceButton;
