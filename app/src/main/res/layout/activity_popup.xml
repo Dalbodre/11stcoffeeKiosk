@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:layout_margin="15px"
         android:id="@+id/option_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
