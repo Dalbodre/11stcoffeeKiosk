@@ -105,6 +105,7 @@ public class KioskListActivity extends AppCompatActivity {
         //searchIcon.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.MULTIPLY);
         searchButton.setCompoundDrawables(searchIcon, null, null, null);
         searchButton.setText("검색");
+        searchButton.setTextSize(80f);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +120,7 @@ public class KioskListActivity extends AppCompatActivity {
         for (Category category: categories) {
             CategoryButton button = new CategoryButton(this);
             button.setText(category.getName());
+            button.setTextSize(80f);
             button.setOnClickListener(new categoryButtonClickListener());
             button.setTag(tagNum);
             tagNum += 1;
@@ -135,8 +137,9 @@ public class KioskListActivity extends AppCompatActivity {
             totalPrice += cartMenu.getTotalPrice();
         }
         totalPriceView.setTag(totalPrice);
-        String text = Integer.toString(totalPrice) + "원";
+        String text = Integer.toString(totalPrice) + " 원";
         totalPriceView.setText(text);
+        totalPriceView.setTextSize(100f);
     }
 
     public void delCartMenuList(int position) {

@@ -25,5 +25,5 @@
         android:text="TextView"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="20sp" />
+        android:textSize="23px" />
 </LinearLayout>

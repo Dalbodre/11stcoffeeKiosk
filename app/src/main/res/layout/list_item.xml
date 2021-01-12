@@ -10,8 +10,8 @@
 
     <sb.yoon.kiosk.layout.ItemElement
         android:id="@+id/menu_element"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="225px"
+        android:layout_height="225px"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,16 +20,13 @@
         android:id="@+id/price1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="3dp"
-        android:width="130dp"
+        android:layout_margin="30px"
+        android:width="130px"
         android:gravity="center_horizontal"
         android:text="@string/not_available"
         android:textAlignment="center"
         android:textColor="#D5D5D5"
-        android:textSize="21sp"
+        android:textSize="40px"
         app:drawableLeftCompat="@drawable/textview_drawable_left_ice"
         app:layout_constraintBottom_toTopOf="@+id/price2"
         app:layout_constraintStart_toEndOf="@+id/menu_element"
@@ -41,14 +38,13 @@
         android:id="@+id/price2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="10dp"
-        android:width="130dp"
+        android:layout_margin="10px"
+        android:width="130px"
         android:gravity="center_horizontal"
         android:text="@string/not_available"
         android:textAlignment="center"
         android:textColor="#D5D5D5"
-        android:textSize="21sp"
+        android:textSize="40px"
         app:drawableLeftCompat="@drawable/textview_drawable_left_hot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/price1"
@@ -58,10 +54,11 @@
 
     <HorizontalScrollView
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/price1"
+        android:layout_marginTop="22.5px"
+        app:layout_constraintStart_toEndOf="@+id/price2"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -72,26 +69,26 @@
 
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="180px"
+                android:layout_height="180px"
                 android:visibility="gone" />
 
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient2"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="180px"
+                android:layout_height="180px"
                 android:visibility="gone" />
 
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient3"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="180px"
+                android:layout_height="180px"
                 android:visibility="gone" />
 
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient4"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="180px"
+                android:layout_height="180px"
                 android:visibility="gone" />
 
         </LinearLayout>
