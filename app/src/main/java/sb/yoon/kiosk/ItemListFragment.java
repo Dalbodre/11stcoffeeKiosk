@@ -43,7 +43,6 @@ public class ItemListFragment extends ListFragment {
 
         //
         ListView listView = view.findViewWithTag("testlist");
-        System.out.println(listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
