@@ -4,12 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
+
     <ListView
         android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20px"
+        android:layout_weight="1"
         android:divider="#fbe49e"
         android:dividerHeight="30px"
-        android:layout_margin="20px"
-        android:tag="testlist"/>
+        android:tag="testlist" />
+
+
 </LinearLayout>

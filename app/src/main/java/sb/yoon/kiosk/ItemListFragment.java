@@ -6,7 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,13 +47,15 @@ public class ItemListFragment extends ListFragment {
         View view = inflater.inflate(R.layout.list_fragment, container, false);
 
         //
-        ListView listView = view.findViewWithTag("testlist");
+        /*ListView listView = view.findViewWithTag("testlist");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(position);
+                System.out.println(parent);
             }
-        });
+        });*/
+
+
 
         return view;
 
