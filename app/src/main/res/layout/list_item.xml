@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/list_item_container"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#fef1d1"
     android:descendantFocusability="blocksDescendants">
 
     <sb.yoon.kiosk.layout.ItemElement
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:id="@+id/menu_element"
         android:layout_width="400px"
         android:layout_height="500px"
@@ -16,82 +17,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/price1"
+    <Button
+        android:id="@+id/element_check_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30px"
-        android:width="130px"
-        android:gravity="center_horizontal"
-        android:text="@string/not_available"
-        android:textAlignment="center"
-        android:textColor="#D5D5D5"
-        android:textSize="40px"
-        app:drawableLeftCompat="@drawable/textview_drawable_left_ice"
-        app:layout_constraintBottom_toTopOf="@+id/price2"
-        app:layout_constraintStart_toEndOf="@+id/menu_element"
-        app:layout_constraintTop_toTopOf="parent"
-        app:drawableStartCompat="@drawable/textview_drawable_left_ice"
-        android:alpha="0.2"/>
+        android:layout_below="@id/menu_element"
+        android:layout_centerHorizontal="true"
+        android:text="재료 확인"
+        android:textSize="30px"/>
 
-    <TextView
-        android:id="@+id/price2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10px"
-        android:width="130px"
-        android:gravity="center_horizontal"
-        android:text="@string/not_available"
-        android:textAlignment="center"
-        android:textColor="#D5D5D5"
-        android:textSize="40px"
-        app:drawableLeftCompat="@drawable/textview_drawable_left_hot"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/price1"
-        app:layout_constraintTop_toBottomOf="@id/price1"
-        app:drawableStartCompat="@drawable/textview_drawable_left_hot"
-        android:alpha="0.2"/>
-
-    <HorizontalScrollView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        android:layout_marginTop="22.5px"
-        app:layout_constraintStart_toEndOf="@+id/price2"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/ingredientsHolder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <sb.yoon.kiosk.layout.ItemElement
-                android:id="@+id/ingredient1"
-                android:layout_width="180px"
-                android:layout_height="180px"
-                android:visibility="gone" />
-
-            <sb.yoon.kiosk.layout.ItemElement
-                android:id="@+id/ingredient2"
-                android:layout_width="180px"
-                android:layout_height="180px"
-                android:visibility="gone" />
-
-            <sb.yoon.kiosk.layout.ItemElement
-                android:id="@+id/ingredient3"
-                android:layout_width="180px"
-                android:layout_height="180px"
-                android:visibility="gone" />
-
-            <sb.yoon.kiosk.layout.ItemElement
-                android:id="@+id/ingredient4"
-                android:layout_width="180px"
-                android:layout_height="180px"
-                android:visibility="gone" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

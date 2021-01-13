@@ -98,7 +98,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         menuItem.setOnClickListener(this);
 
         // 가격 부분
-        TextView price1 = (TextView) convertView.findViewById(R.id.price1);
+ /*       TextView price1 = (TextView) convertView.findViewById(R.id.price1);
         TextView price2 = (TextView) convertView.findViewById(R.id.price2);
         price1.setTag(position);
         price2.setTag(position);
@@ -148,7 +148,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
 
             index += 1;
         }
-
+*/
         return convertView;
     }
 

@@ -25,15 +25,4 @@
         android:textColor="@color/coffeeBrown"
         android:textSize="40px" />
 
-    <Button
-        android:id="@+id/element_check_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="재료 확인"
-        android:textSize="20px"
-        android:textColor="#000000"
-        android:background="@drawable/togglebutton_off"
-        android:layout_below="@id/element_text"
-        android:layout_centerHorizontal="true"/>
-
 </RelativeLayout>
