@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-                android:id="@+id/item_element_wrapper">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_element_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/apollo1"
-            android:id="@+id/element_image"
-            android:scaleType="centerCrop"
-            android:layout_weight="7"
-            android:contentDescription="Image of Element"/>
+        android:id="@+id/element_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/apollo1" />
 
     <TextView
         android:id="@+id/element_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="@color/coffeeBrown"
+        android:layout_below="@id/element_image"
         android:gravity="center"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="23px" />
-</LinearLayout>
+        android:textColor="@color/coffeeBrown"
+        android:textSize="40px" />
+
+    <Button
+        android:id="@+id/element_check_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="재료 확인"
+        android:textSize="20px"
+        android:textColor="#000000"
+        android:background="@drawable/togglebutton_off"
+        android:layout_below="@id/element_text"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

@@ -10,8 +10,8 @@
 
     <sb.yoon.kiosk.layout.ItemElement
         android:id="@+id/menu_element"
-        android:layout_width="225px"
-        android:layout_height="225px"
+        android:layout_width="400px"
+        android:layout_height="500px"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
