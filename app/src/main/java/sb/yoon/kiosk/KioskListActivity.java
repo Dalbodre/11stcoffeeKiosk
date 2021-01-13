@@ -95,17 +95,17 @@ public class KioskListActivity extends AppCompatActivity {
         LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(10, 0, 10, 0);
+        params.setMargins(20, 0, 20, 0);
 
         // 검색버튼 삽입
         CategoryButton searchButton = new CategoryButton(this);
         Drawable searchIcon = ContextCompat.getDrawable(this, R.drawable.search_icon);
         // 검색 아이콘 삽입 (Drawable Left)
-        searchIcon.setBounds(0, 0, 60, 60);
+        searchIcon.setBounds(0, 0, 90, 90);
         //searchIcon.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.MULTIPLY);
         searchButton.setCompoundDrawables(searchIcon, null, null, null);
         searchButton.setText("검색");
-        searchButton.setTextSize(80f);
+        searchButton.setTextSize(60f);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,7 +120,7 @@ public class KioskListActivity extends AppCompatActivity {
         for (Category category: categories) {
             CategoryButton button = new CategoryButton(this);
             button.setText(category.getName());
-            button.setTextSize(80f);
+            button.setTextSize(60f);
             button.setOnClickListener(new categoryButtonClickListener());
             button.setTag(tagNum);
             tagNum += 1;
@@ -139,7 +139,7 @@ public class KioskListActivity extends AppCompatActivity {
         totalPriceView.setTag(totalPrice);
         String text = Integer.toString(totalPrice) + " 원";
         totalPriceView.setText(text);
-        totalPriceView.setTextSize(100f);
+        totalPriceView.setTextSize(70f);
     }
 
     public void delCartMenuList(int position) {

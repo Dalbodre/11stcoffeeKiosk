@@ -29,6 +29,7 @@ import java.util.List;
 
 // 어뎁터 클래스
 public class KioskListAdapter extends BaseAdapter implements View.OnClickListener {
+    // 메뉴 리스트
     private List<Menu> menuList;
     // private Context context;
     private KioskListActivity context;
@@ -70,6 +71,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         return position;
     }
 
+    // 메뉴 한줄한줄 뷰 표현 (디스플레이)
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         context = (KioskListActivity) parent.getContext();
@@ -84,6 +86,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         }
 
         // View의 각 Widget에 데이터 저장
+        // 메뉴 사진, 이름 추가
         ItemElement menuItem = convertView.findViewById(R.id.menu_element);
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
                 .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
@@ -94,6 +97,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         // ItemElement에 OnClickListener 달아주기
         menuItem.setOnClickListener(this);
 
+        // 가격 부분
         TextView price1 = (TextView) convertView.findViewById(R.id.price1);
         TextView price2 = (TextView) convertView.findViewById(R.id.price2);
         price1.setTag(position);
