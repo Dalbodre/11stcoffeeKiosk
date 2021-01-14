@@ -121,7 +121,7 @@ public class PopupActivity extends Activity {
         }
 
         icons(); // 아이콘 너무 많아서 아이콘 별로 따로 메서드 팠습니다
-
+        //왜 커밋이 오류가 날까요?
         tumbler.setChecked(false);
         tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
     }
