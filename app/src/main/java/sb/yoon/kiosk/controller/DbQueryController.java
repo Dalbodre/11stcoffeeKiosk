@@ -157,7 +157,7 @@ public class DbQueryController {
             menuDao.insertOrReplace(new Menu(11L, "오렌지에이드", 2L, 3000, "orange_ade", false, true));
             menuDao.insertOrReplace(new Menu(12L, "자몽에이드", 2L, 3500, "jamong_ade", false, true));
             menuDao.insertOrReplace(new Menu(13L, "청포도에이드", 2L, 3500, "grape_ade", false, true));
-            menuDao.insertOrReplace(new Menu(32L, "복숭아 아이스티", 2L, 2200, "peach_ice", false, true));
+            menuDao.insertOrReplace(new Menu(43L, "복숭아 아이스티", 2L, 2200, "peach_ice", false, true));
 
             //주스
             menuDao.insertOrReplace(new Menu(14L, "애플주스", 2L, 3500, "apple", false, true));
@@ -397,7 +397,7 @@ public class DbQueryController {
             }
 
             // 복숭아 아이스티에 샷 추가
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, 32L, 1L));
+            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, 43L, 1L));
 
 //            //1L
 //            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(1L, 1L, 1L));
