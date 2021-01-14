@@ -8,37 +8,49 @@
     android:orientation="vertical"
     tools:context=".KioskListActivity">
 
-    <HorizontalScrollView
+    <LinearLayout
         android:id="@+id/categories"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="3px"
-        android:scrollbars="none"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        tools:ignore="MissingConstraints"
+        >
+        <Button
+            android:id="@+id/left_button"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="#4b3621"
-                android:layout_marginBottom="5px"/>
+            android:onClick="category_select"
+            android:enabled="true"
+            android:text="◀"
+            android:background="@android:color/white"
+            android:layout_marginLeft="20dp"
+            android:textSize="30dp"
+            />
 
-            <LinearLayout
-                android:id="@+id/categories_buttons_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="#4b3621"
-                android:layout_marginTop="5px"/>
-        </LinearLayout>
-    </HorizontalScrollView>
+        <GridLayout
+            android:id="@+id/category_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:columnCount="4"
+            android:background="#FFFFFF"
+            android:gravity="center"
+            />
+
+        <Button
+            android:id="@+id/right_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="category_select"
+            android:enabled="true"
+            android:text="▶"
+
+            android:background="@android:color/white"
+            android:layout_marginRight="20dp"
+            android:textSize="30dp"
+            />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/list_fragment"
