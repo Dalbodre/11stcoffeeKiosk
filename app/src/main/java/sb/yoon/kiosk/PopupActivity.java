@@ -124,6 +124,7 @@ public class PopupActivity extends Activity {
         //왜 커밋이 오류가 날까요?
         tumbler.setChecked(false);
         tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+        if (cartMenu.getMenuId() == 9) tumbler.setVisibility(Button.GONE);
     }
 
     private void icons() {
