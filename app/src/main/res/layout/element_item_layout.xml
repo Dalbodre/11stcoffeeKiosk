@@ -11,7 +11,7 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/apollo1"
             android:id="@+id/element_image"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:layout_weight="7"
             android:contentDescription="Image of Element"/>
 
@@ -20,10 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="@color/coffeeBrown"
         android:gravity="center"
         android:text="TextView"
         android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="23px" />
+        android:textColor="@color/coffeeBrown"
+        android:textSize="40px" />
 </LinearLayout>

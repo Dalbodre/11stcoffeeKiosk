@@ -5,48 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fbe49e"
+    android:clipToPadding="false"
     android:orientation="vertical"
     tools:context=".KioskListActivity">
 
-    <HorizontalScrollView
-        android:id="@+id/categories"
+    <TextView
+        android:id="@+id/blank2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="3px"
-        android:scrollbars="none"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="120px"
+        android:text="테스트 중 입니다."
+        android:textColor="#ff0000"
+        android:textSize="120px"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.1dp"
-                android:background="#4b3621"
-                android:layout_marginBottom="5px"/>
-
-            <LinearLayout
-                android:id="@+id/categories_buttons_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="#4b3621"
-                android:layout_marginTop="5px"/>
-        </LinearLayout>
-    </HorizontalScrollView>
+    <View
+        android:id="@+id/blank"
+        android:layout_width="match_parent"
+        android:layout_height="170px"
+        android:background="#00ff00"
+        app:layout_constraintTop_toBottomOf="@id/blank2" />
 
     <FrameLayout
         android:id="@+id/list_fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="50px"
+        android:layout_marginEnd="50px"
         app:layout_constraintBottom_toTopOf="@+id/cart_buttons"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categories"></FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/blank"></FrameLayout>
 
     <LinearLayout
         android:id="@+id/cart_buttons"

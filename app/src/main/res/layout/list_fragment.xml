@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#fbe49e"
-        android:dividerHeight="30px"
-        android:layout_margin="20px"
-        android:tag="testlist"/>
+        android:tag="testlist"
+        android:overScrollMode="never"/>
 </LinearLayout>

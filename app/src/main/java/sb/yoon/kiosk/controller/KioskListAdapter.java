@@ -98,23 +98,13 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         menuItem.setOnClickListener(this);
 
         // 가격 부분
-        TextView price1 = (TextView) convertView.findViewById(R.id.price1);
         TextView price2 = (TextView) convertView.findViewById(R.id.price2);
-        price1.setTag(position);
         price2.setTag(position);
         price2.setOnClickListener(this);
-        price1.setOnClickListener(this);
 
-        if (menu.getIsCold()) {
-            price1.setText(Integer.toString(menu.getPrice()));
-            //price1.setVisibility(TextView.VISIBLE);
-            price1.setTextColor(context.getResources().getColor(R.color.coolBlue));
-            price1.setAlpha(1f);
-        }
         if (menu.getIsHot()) {
             price2.setText(Integer.toString(menu.getPrice()));
             //price2.setVisibility(TextView.VISIBLE);
-            price2.setTextColor(context.getResources().getColor(R.color.hotRed));
             price2.setAlpha(1f);
         }
 

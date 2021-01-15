@@ -39,6 +39,7 @@ import sb.yoon.kiosk.model.Menu;
 import java.util.ArrayList;
 import java.util.List;
 
+//배경색 #373051 == 11호관 마크 색상으로 추정
 public class KioskListActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -92,7 +93,7 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     private void createCategoryButtons() {
-        LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
+        /*LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(20, 0, 20, 0);
@@ -126,7 +127,7 @@ public class KioskListActivity extends AppCompatActivity {
             tagNum += 1;
 
             categoryButtonsGroup.addView(button, params);
-        }
+        }*/
     }
 
     private void updateCartTotalPrice() {
