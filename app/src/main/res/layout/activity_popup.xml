@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:layout_margin="15px"
         android:id="@+id/option_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,8 +17,9 @@
 
         <ImageView
             android:id="@+id/popup_back_button"
-            android:layout_width="140px"
-            android:layout_height="140px"
+            android:layout_width="110px"
+            android:layout_height="110px"
+            android:paddingStart="10dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:onClick="onClickPopUpCloseButtons"
@@ -26,8 +28,8 @@
 
         <ImageView
             android:id="@+id/popup_exit_button"
-            android:layout_width="170px"
-            android:layout_height="170px"
+            android:layout_width="120px"
+            android:layout_height="120px"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:onClick="onClickPopUpCloseButtons"
@@ -37,19 +39,19 @@
 
     <ImageView
         android:id="@+id/pop_up_option_pic"
-        android:layout_width="400px"
-        android:layout_height="400px"
+        android:layout_width="600px"
+        android:layout_height="500px"
         android:layout_gravity="center"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/option_top" />
+        app:layout_constraintTop_toBottomOf="@+id/option_top"/>
 
     <TextView
         android:id="@+id/pop_up_option_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
         android:gravity="center"
         android:text="메뉴이름"
         android:textColor="#4b3621"
@@ -82,12 +84,12 @@
             android:id="@+id/option_hot_toggle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_margin="10dp"
             android:layout_weight="1"
+            android:layout_margin="10dp"
             android:padding="10dp"
             android:textOff="HOT X"
             android:textOn="HOT O"
-            android:textSize="35sp"
+            android:textSize="80px"
             android:visibility="gone" />
 
         <ToggleButton
@@ -99,7 +101,7 @@
             android:padding="10dp"
             android:textOff="ICE X"
             android:textOn="ICE O"
-            android:textSize="35sp"
+            android:textSize="80px"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -122,7 +124,7 @@
             android:paddingTop="17px"
             android:textOff="매장 X"
             android:textOn="매장 O"
-            android:textSize="30dp" />
+            android:textSize="60px" />
 
         <ToggleButton
             android:id="@+id/option_takeout_toggle"
@@ -135,7 +137,7 @@
             android:paddingTop="17px"
             android:textOff="포장 X"
             android:textOn="포장 O"
-            android:textSize="30dp" />
+            android:textSize="60px" />
 
         <ToggleButton
             android:id="@+id/option_tumblr_toggle"
@@ -148,7 +150,7 @@
             android:paddingTop="17px"
             android:textOff="텀블러 X"
             android:textOn="텀블러 O"
-            android:textSize="30dp" />
+            android:textSize="60px" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -166,6 +168,7 @@
         android:id="@+id/option_confirm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="60px"
         android:background="@drawable/togglebutton_off"
         android:onClick="onClickPopUpConfirmedButtons"
         android:padding="10dp"

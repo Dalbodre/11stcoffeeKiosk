@@ -47,7 +47,7 @@ public class KioskApplication extends Application {
         return dbQueryController;
     }
 
-    public KioskListActivity getKioskListActivity() {
+    public sb.yoon.kiosk.KioskListActivity getKioskListActivity() {
         return kioskListActivity;
     }
 

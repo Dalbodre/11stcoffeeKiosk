@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import sb.yoon.kiosk.KioskListActivity;
@@ -28,6 +29,7 @@ import java.util.List;
 
 // 어뎁터 클래스
 public class KioskListAdapter extends BaseAdapter implements View.OnClickListener {
+    // 메뉴 리스트
     private List<Menu> menuList;
     // private Context context;
     private KioskListActivity context;
@@ -69,6 +71,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         return position;
     }
 
+    // 메뉴 한줄한줄 뷰 표현 (디스플레이)
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         context = (KioskListActivity) parent.getContext();
@@ -83,6 +86,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         }
 
         // View의 각 Widget에 데이터 저장
+        // 메뉴 사진, 이름 추가
         ItemElement menuItem = convertView.findViewById(R.id.menu_element);
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
                 .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
@@ -93,19 +97,14 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         // ItemElement에 OnClickListener 달아주기
         menuItem.setOnClickListener(this);
 
-        TextView price1 = (TextView) convertView.findViewById(R.id.price1);
+        // 가격 부분
         TextView price2 = (TextView) convertView.findViewById(R.id.price2);
+        price2.setTag(position);
+        price2.setOnClickListener(this);
 
-        if (menu.getIsCold()) {
-            price1.setText(Integer.toString(menu.getPrice()));
-            //price1.setVisibility(TextView.VISIBLE);
-            price1.setTextColor(context.getResources().getColor(R.color.coolBlue));
-            price1.setAlpha(1f);
-        }
         if (menu.getIsHot()) {
             price2.setText(Integer.toString(menu.getPrice()));
             //price2.setVisibility(TextView.VISIBLE);
-            price2.setTextColor(context.getResources().getColor(R.color.hotRed));
             price2.setAlpha(1f);
         }
 
@@ -131,6 +130,10 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
                 ingredientElement.setImageDrawable(ingredientDrawable);
                 ingredientElement.setText(ingredient.getName());
                 ingredientElement.setVisibility(View.VISIBLE);
+
+                //ㄱㅊ? 이거 필요하면 넣는걸로 합시다
+                ingredientElement.setTag(position);
+                ingredientElement.setOnClickListener(this);
             }
 
             index += 1;

@@ -4,11 +4,18 @@ import android.content.Intent;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 public class EnterMain extends AppCompatActivity {
     ProgressBar progressBar;
+    ImageView SettingButton;
+
+    private int SBCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +35,6 @@ public class EnterMain extends AppCompatActivity {
         progressBar.setVisibility(ProgressBar.VISIBLE);
         Intent intent = new Intent(this, KioskListActivity.class);
         startActivity(intent);
-
         //finish();
     }
 }
