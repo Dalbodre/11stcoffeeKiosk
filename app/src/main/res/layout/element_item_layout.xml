@@ -20,15 +20,25 @@
             app:srcCompat="@drawable/apollo1" />
 
         <TextView
-            android:id="@+id/element_text"
+            android:id="@+id/element_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/element_image"
             android:gravity="center"
-            android:text="TextView"
+            android:text="이름"
             android:textAlignment="center"
             android:textColor="@color/coffeeBrown"
             android:textSize="40px" />
+
+        <TextView
+            android:id="@+id/element_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text=""
+            android:visibility="gone"
+            android:textAlignment="center"
+            android:textColor="@color/coffeeBrown"
+            android:textSize="30px" />
 
     </LinearLayout>
 

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20px"
         android:layout_weight="1"
-        android:divider="#fbe49e"
+        android:divider="@color/colorWhite"
         android:dividerHeight="30px"
         android:tag="testlist" />
 

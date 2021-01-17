@@ -91,14 +91,15 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
                 .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
         menuItem.setImageDrawable(drawable);
-        menuItem.setText(menu.getName());
+        menuItem.setName(menu.getName());
+        menuItem.setPrice(menu.getPrice());
         menuItem.setTag(position);
 
         // ItemElement에 OnClickListener 달아주기
         menuItem.setOnClickListener(this);
 
         // 가격 부분
-        TextView price2 = (TextView) convertView.findViewById(R.id.price2);
+        /*TextView price2 = (TextView) convertView.findViewById(R.id.price2);
         price2.setTag(position);
         price2.setOnClickListener(this);
 
@@ -106,7 +107,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
             price2.setText(Integer.toString(menu.getPrice()));
             //price2.setVisibility(TextView.VISIBLE);
             price2.setAlpha(1f);
-        }
+        }*/
 
         // 재료들 추가
         List<Ingredient> ingredients = menu.getIngredientList();
@@ -128,7 +129,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
             }
             if (ingredientElement != null) {
                 ingredientElement.setImageDrawable(ingredientDrawable);
-                ingredientElement.setText(ingredient.getName());
+                ingredientElement.setName(ingredient.getName());
                 ingredientElement.setVisibility(View.VISIBLE);
 
                 //ㄱㅊ? 이거 필요하면 넣는걸로 합시다

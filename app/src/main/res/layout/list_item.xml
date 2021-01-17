@@ -5,18 +5,19 @@
     android:id="@+id/list_item_container"
     android:layout_width="match_parent"
     android:layout_height="300px"
-    android:background="#fef1d1"
-    android:descendantFocusability="blocksDescendants">
+    android:background="@drawable/border_plain"
+    android:descendantFocusability="blocksDescendants"
+    android:padding="10px">
 
     <sb.yoon.kiosk.layout.ItemElement
         android:id="@+id/menu_element"
-        android:layout_width="300px"
-        android:layout_height="300px"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/list_price_container"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -32,13 +33,13 @@
             android:textColor="@color/coffeeBrown"
             android:textSize="60px"
             android:textStyle="bold" />
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@id/list_price_container"
+        android:layout_toEndOf="@id/menu_element"
         android:overScrollMode="never"
         android:scrollbars="none">
 

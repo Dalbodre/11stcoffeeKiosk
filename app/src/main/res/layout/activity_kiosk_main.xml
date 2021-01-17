@@ -4,27 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fbe49e"
+    android:background="@color/colorWhite"
     android:clipToPadding="false"
     android:orientation="vertical"
     tools:context=".KioskListActivity">
 
-    <TextView
-        android:id="@+id/blank2"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/banner_panel"
         android:layout_width="match_parent"
-        android:layout_height="120px"
-        android:text="테스트 중 입니다."
-        android:textColor="#ff0000"
-        android:textSize="120px"
-        android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:background="@color/color11thBlue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <View
-        android:id="@+id/blank"
-        android:layout_width="match_parent"
-        android:layout_height="170px"
-        android:background="#00ff00"
-        app:layout_constraintTop_toBottomOf="@id/blank2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="sans-serif-black"
+            android:text="11TH COFFEE"
+            android:textColor="@color/colorWhite"
+            android:textSize="100sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="420dp"
+            android:layout_height="270dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/the_11th_banner" />
+
+        <ImageButton
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/search_icon_white"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="20dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/list_fragment"
@@ -34,7 +55,8 @@
         android:layout_marginEnd="50px"
         app:layout_constraintBottom_toTopOf="@+id/cart_buttons"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blank"></FrameLayout>
+        app:layout_constraintTop_toBottomOf="@+id/banner_panel"
+        android:background="@drawable/shadow"/>
 
     <LinearLayout
         android:id="@+id/cart_buttons"
@@ -50,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:background="#C8C8C8"
+            android:background="@drawable/border_blue"
             android:gravity="center"
             android:text="0 원"
             android:textColor="@color/coffeeBrown"
@@ -62,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@color/coffeeBrown"
+            android:background="@color/color11thBlue"
             android:text="계산"
             android:textColor="@android:color/white"
             android:textSize="60dp"

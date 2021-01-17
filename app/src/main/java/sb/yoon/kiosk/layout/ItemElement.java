@@ -8,15 +8,13 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 
 import sb.yoon.kiosk.R;
 
 public class ItemElement extends LinearLayout{
     private Drawable image;
-    private String text;
+    private String name;
+    private int price;
     private View view;
 
     public Drawable getImage() {
@@ -28,13 +26,18 @@ public class ItemElement extends LinearLayout{
         this.image = image;
     }
 
-    public String getText() {
-        return text;
+    public String getName() {
+        return name;
     }
 
-    public void setText(String text) {
-        replaceText(text);
-        this.text = text;
+    public void setName(String name) {
+        replaceName(name);
+        this.name = name;
+    }
+
+    public void setPrice(int price) {
+        replacePrice(price);
+        this.price = price;
     }
 
     public ItemElement(Context context, AttributeSet attrs) {
@@ -49,9 +52,15 @@ public class ItemElement extends LinearLayout{
         elementImage.setImageDrawable(image);
     }
 
-    private void replaceText(String text) {
-        TextView elementText = view.findViewById(R.id.element_text);
+    private void replaceName(String text) {
+        TextView elementText = view.findViewById(R.id.element_name);
         elementText.setText(text);
+    }
+
+    private void replacePrice(int price) {
+        TextView elementText = view.findViewById(R.id.element_price);
+        elementText.setVisibility(View.VISIBLE);
+        elementText.setText(Integer.toString(price));
     }
 
     public ImageView getImageView() {
