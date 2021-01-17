@@ -31,20 +31,22 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="420dp"
-            android:layout_height="270dp"
+            android:layout_width="500px"
+            android:layout_height="300px"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/the_11th_banner" />
 
         <ImageButton
+            android:id="@+id/search_icon"
             android:layout_width="80dp"
             android:layout_height="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:background="@drawable/search_icon_white"
             android:layout_marginStart="20dp"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="20dp"
+            android:onClick="clickSearchIcon"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout

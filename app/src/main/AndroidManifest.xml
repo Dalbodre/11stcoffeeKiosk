@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SearchActivity" />
         <activity android:name=".KioskListActivity" />
         <activity android:name=".EnterMain">
             <intent-filter>
@@ -27,6 +26,9 @@
             android:theme="@android:style/Theme.Dialog" />
         <activity
             android:name=".OrderNumberPopupActivity"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".SearchActivity"
             android:theme="@android:style/Theme.Dialog" />
     </application>
 

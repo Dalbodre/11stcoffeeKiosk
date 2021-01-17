@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -30,7 +32,7 @@ import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.IngredientDao;
 import sb.yoon.kiosk.model.Menu;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends Activity {
     private List<Ingredient> ingredientList;
     private List<Menu> searchedMenuList;
 
@@ -39,6 +41,8 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_search);
 
         searchRecyclerView = this.findViewById(R.id.search_ingredients_list);

@@ -162,6 +162,11 @@ public class KioskListActivity extends AppCompatActivity {
         this.updateCartTotalPrice();
     }
 
+    public void clickSearchIcon(View view) {
+        Intent intent = new Intent(KioskListActivity.this, SearchActivity.class);
+        startActivityForResult(intent, 2);
+    }
+
     private void setAdapter() {
         // 인덱스 표시 어댑터 설정
         cartListAdapter = new CartListAdapter(cartMenuList);
