@@ -1,15 +1,18 @@
 package sb.yoon.kiosk;
 
 import android.content.Intent;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -30,13 +33,13 @@ import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.controller.HttpNetworkController;
 import sb.yoon.kiosk.layout.CategoryButton;
 import sb.yoon.kiosk.model.CartMenu;
+import sb.yoon.kiosk.model.CartOption;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.Menu;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//배경색 #373051 == 11호관 마크 색상으로 추정
 public class KioskListActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -48,6 +51,12 @@ public class KioskListActivity extends AppCompatActivity {
 
     // 프론트에서 쓰기 편하게 DB 관련 메서드들 제공
     private DbQueryController dbQueryController;
+
+    private int tagNum;
+    private int categoryPage;
+    private List<CategoryButton> buttons = new ArrayList<>();
+    private CategoryButton button;
+    int categorySize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +74,22 @@ public class KioskListActivity extends AppCompatActivity {
 
         // 카테고리 리스트 불러오기
         categories = dbQueryController.getCategoriesList();
+        categoryPage = 0;
 
+        //버튼 객체 미리 생성
+        tagNum = 0;
+
+        for (Category category: categories) {
+            button = new CategoryButton(this, category.getName(), tagNum);
+            Log.d("button", String.valueOf(tagNum));
+            Log.d("button", category.getName());
+            buttons.add(button);
+            tagNum += 1;
+        }
+        categorySize = buttons.size();
         // 카테고리 버튼들 생성
         this.createCategoryButtons();
+        this.updateCategory(categoryPage);
 
         // 기본으로 보여줄 플래그먼트 (첫번째 카테고리)
         fragmentManager = getSupportFragmentManager();
@@ -90,11 +112,13 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     private void createCategoryButtons() {
-        /*LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        params.setMargins(20, 0, 20, 0);
+        GridLayout categoryButtonsGroup = findViewById(R.id.category_list);
+        GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+        params.setGravity(GridLayout.TEXT_ALIGNMENT_CENTER);
+        //params.setMargins(20, 0, 20, 0);
 
+        /*
+        검색은 차후에 구현
         // 검색버튼 삽입
         CategoryButton searchButton = new CategoryButton(this);
         Drawable searchIcon = ContextCompat.getDrawable(this, R.drawable.search_icon);
@@ -112,19 +136,44 @@ public class KioskListActivity extends AppCompatActivity {
             }
         });
         categoryButtonsGroup.addView(searchButton, params);
+*/
 
         // 버튼 순서 태그로 지정
-        int tagNum = 0;
-        for (Category category: categories) {
-            CategoryButton button = new CategoryButton(this);
-            button.setText(category.getName());
-            button.setTextSize(60f);
-            button.setOnClickListener(new categoryButtonClickListener());
-            button.setTag(tagNum);
-            tagNum += 1;
+        // 4개씩 자름.
 
-            categoryButtonsGroup.addView(button, params);
+        /*for(int i = categoryPage*4 ; i < (categoryPage+1)*4; i++) {
+            //카테고리 사이즈보다 i가 클 때 반복문 나감.
+            if(i > categorySize) break;
+
         }*/
+        for(int i=0; i<categorySize; i++){
+            buttons.get(i).setText(buttons.get(i).getCategoryName());
+            buttons.get(i).setTextSize(60f);
+            buttons.get(i).setOnClickListener(new categoryButtonClickListener());
+            buttons.get(i).setTag(buttons.get(i).getTagNum());
+            buttons.get(i).setVisibility(View.GONE);
+            categoryButtonsGroup.addView(buttons.get(i));
+        }
+    }
+
+    private void updateCategory(int categoryPage){
+        Button leftBtn = (Button)findViewById(R.id.left_button);
+        Button rightBtn = (Button)findViewById(R.id.right_button);
+        for(int j = 0; j<categorySize;j++){
+            buttons.get(j).setVisibility(View.GONE);
+        }
+        for(int i = categoryPage*6; i<(categoryPage+1)*6; i++){
+            if(i>categorySize)break;
+            Log.d("index", String.valueOf(i));
+            buttons.get(i).setVisibility(View.VISIBLE);
+        }
+        if(categoryPage == 0){
+            leftBtn.setEnabled(false);
+            rightBtn.setEnabled(true);
+        }
+        else{
+            leftBtn.setEnabled(true);
+        }
     }
 
     private void updateCartTotalPrice() {
@@ -172,13 +221,26 @@ public class KioskListActivity extends AppCompatActivity {
         cartListAdapter = new CartListAdapter(cartMenuList);
     }
 
+    public void category_select(View view) {
+        switch(view.getId()){
+            case R.id.left_button:
+                categoryPage--;
+                break;
+            case R.id.right_button:
+                //오른쪽
+                categoryPage++;
+                break;
+        }
+        updateCategory(categoryPage);
+    }
+
     // 버튼 누르면 버튼의 순서를 확인하고 플래그먼트에 삽입
     class categoryButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            int tagNum = (int) view.getTag();
+            int tagNo = (int) view.getTag();
             try {
-                itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNum)));
+                itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
             } catch (Exception e) {

@@ -10,6 +10,7 @@ import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -120,9 +121,10 @@ public class PopupActivity extends Activity {
         }
 
         icons(); // 아이콘 너무 많아서 아이콘 별로 따로 메서드 팠습니다
-
+        //왜 커밋이 오류가 날까요?
         tumbler.setChecked(false);
         tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+        if (cartMenu.getCategoryId() == (Long)9L) {tumbler.setText("선택불가"); tumbler.setEnabled(false);}
     }
 
     private void icons() {
@@ -219,7 +221,10 @@ public class PopupActivity extends Activity {
         }
 
         if(!takeout.isChecked() && !no_takeout.isChecked()){
-            Toast.makeText(this, "포장 혹은 매장 버튼을 선택해주세요.", Toast.LENGTH_LONG).show();
+            // https://hydok.tistory.com/24 (토스트 메세지 글씨크기)
+            Toast toast = Toast.makeText(this, "포장 혹은 매장 버튼을 선택해주세요.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
+            toast.show();
         }
         else{
             cartMenu.setTakeOut(takeout.isChecked());
