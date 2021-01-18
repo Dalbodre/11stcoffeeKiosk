@@ -52,7 +52,7 @@
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient1"
                 android:layout_width="210px"
-                android:layout_height="170px"
+                android:layout_height="300px"
                 android:visibility="gone" />
 
             <sb.yoon.kiosk.layout.ItemElement
