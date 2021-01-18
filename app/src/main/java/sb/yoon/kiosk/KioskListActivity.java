@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -57,6 +58,11 @@ public class KioskListActivity extends AppCompatActivity {
     private List<CategoryButton> buttons = new ArrayList<>();
     private CategoryButton button;
     int categorySize;
+
+    @Override
+    public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
+        return super.onCreatePanelMenu(featureId, menu);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +121,7 @@ public class KioskListActivity extends AppCompatActivity {
         GridLayout categoryButtonsGroup = findViewById(R.id.category_list);
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.setGravity(GridLayout.TEXT_ALIGNMENT_CENTER);
+
         //params.setMargins(20, 0, 20, 0);
 
         /*

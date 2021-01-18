@@ -54,11 +54,6 @@ public class ItemListFragment extends ListFragment {
                 System.out.println(parent);
             }
         });*/
-
-
-
         return view;
-
-
     }
 }
