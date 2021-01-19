@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/menu_element"
+        android:layout_marginStart="100px"
         android:overScrollMode="never"
         android:scrollbars="none">
 
@@ -35,25 +36,25 @@
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient1"
                 android:layout_width="210px"
-                android:layout_height="170px"
+                android:layout_height="210px"
                 android:visibility="gone" />
 
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient2"
                 android:layout_width="210px"
-                android:layout_height="170px"
+                android:layout_height="210px"
                 android:visibility="gone" />
 
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient3"
                 android:layout_width="210px"
-                android:layout_height="170px"
+                android:layout_height="210px"
                 android:visibility="gone" />
 
             <sb.yoon.kiosk.layout.ItemElement
                 android:id="@+id/ingredient4"
                 android:layout_width="210px"
-                android:layout_height="170px"
+                android:layout_height="210px"
                 android:visibility="gone" />
 
         </LinearLayout>
