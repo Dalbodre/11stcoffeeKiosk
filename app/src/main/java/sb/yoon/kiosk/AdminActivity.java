@@ -46,8 +46,8 @@ public class AdminActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.pager);
 
         // 어댑터 지옥의 시작...
-        // 아이템 카운트에 맞춰서 플래그먼트 생성해주는 거 같음
-        // 그럼 메뉴 대신에 카테고리 리스트를 주고 거기서 리스트를 동적으로 받아서 생성하는게 좋겠다
+        // 아이템 카운트에 맞춰서 플래그먼트 생성
+        // 카테고리 리스트를 주고 거기서 메뉴리스트를 동적으로 받아서 생성
         AdminFragmentAdapter adminFragmentAdapter = new AdminFragmentAdapter(categories, this);
         adminFragmentAdapter.setItemCount(categories.size());
         viewPager.setAdapter(adminFragmentAdapter);

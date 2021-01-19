@@ -90,6 +90,7 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
         return view;
     }
 
+    // 그리드뷰 안 이미지 클릭 리스너
     class MenuOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {

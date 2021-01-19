@@ -29,11 +29,8 @@ public class AdminFragmentAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        // 각 플레그먼트 생성
-        // position에 따라서 메뉴리스트 다르게 줘야할듯
-
+        // 각 카테고리의 플레그먼트 생성
         List<Menu> menuList = categories.get(position).getMenuList();
-
         Fragment fragment = new AdminTabFragment(menuList, context);
         return fragment;
     }
