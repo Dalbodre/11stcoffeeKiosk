@@ -24,7 +24,7 @@ import sb.yoon.kiosk.layout.AdminItemElement;
 import sb.yoon.kiosk.model.Option;
 
 // 플래그먼트 내부의 그리드레이아웃을 담당하는 어댑터
-public class AdminGridLayoutAdapter extends BaseAdapter implements View.OnClickListener {
+public class AdminGridLayoutAdapter extends BaseAdapter {
     //메뉴 리스트
     private List<Menu> menuList;
 
@@ -85,31 +85,26 @@ public class AdminGridLayoutAdapter extends BaseAdapter implements View.OnClickL
         textView.setText(menu.getName());
 
         menuItem.setTag(pos);
-        menuItem.setOnClickListener(this);
+        menuItem.setOnClickListener(new MenuOnClickListener());
 
         return view;
     }
 
-    @Override
-    public void onClick(View view) {
-        int position = (int) view.getTag();
+    class MenuOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag();
 
-        //여기는 누르면 시작되는 리스너들.
-        Intent intent = new Intent(context, AdminAddActivity.class);
-        Menu menu = menuList.get(position);
+            //여기는 누르면 시작되는 리스너들.
+            Intent intent = new Intent(context, AdminAddActivity.class);
+            Menu menu = menuList.get(position);
 
-        Toast.makeText(context.getApplicationContext(), position, Toast.LENGTH_LONG).show();
+            Toast.makeText(context.getApplicationContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
 
-        Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
-                "drawable", context.getPackageName()));
-        List<Option> options = menu.getOptionList();
-        Long menuId = menu.getId();
-
-        //카트메뉴로 되있지만 여기는 수정메뉴
-        /*
-        AdminAddActivity.cartMenu =
-                new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, cartOptions, menu.getId(), menu.getCategoryId(), menu.getIsHot(), menu.getIsCold(), null);
-                */
-        // context.startActivityForResult(intent, 1);
+            Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
+                    "drawable", context.getPackageName()));
+            List<Option> options = menu.getOptionList();
+            Long menuId = menu.getId();
+        }
     }
 }
