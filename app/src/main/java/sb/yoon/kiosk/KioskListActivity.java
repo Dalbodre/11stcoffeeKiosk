@@ -40,6 +40,7 @@ import sb.yoon.kiosk.model.Menu;
 import java.util.ArrayList;
 import java.util.List;
 
+//배경색 #081832 == 11호관 마크 색상으로 추정
 public class KioskListActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -59,7 +60,7 @@ public class KioskListActivity extends AppCompatActivity {
     int categorySize;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {c
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiosk_main);
 
@@ -147,6 +148,7 @@ public class KioskListActivity extends AppCompatActivity {
             //카테고리 사이즈보다 i가 클 때 반복문 나감.
             if(i > categorySize) break;
 
+            categoryButtonsGroup.addView(button, params);
         }*/
         for(int i=0; i<categorySize; i++){
             buttons.get(i).setText(buttons.get(i).getCategoryName());
