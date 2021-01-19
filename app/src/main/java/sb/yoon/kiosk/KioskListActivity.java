@@ -270,22 +270,36 @@ public class KioskListActivity extends AppCompatActivity {
                 return;
             }
 
-            mDeviceNo = "DPT0TEST03"; // 단말기 번호
-            makeTelegramIC("1");
-            ComponentName componentName = new ComponentName("com.ksnet.kscat_a","com.ksnet.kscat_a.PaymentIntentActivity");
-            Intent mIntent = new Intent(Intent.ACTION_MAIN);
-            mIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            mIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-            mIntent.setComponent(componentName);
-            mIntent.putExtra("Telegram", mRequestTelegram);
-            mIntent.putExtra("TelegramLength", mRequestTelegram.length);
-            mIntent.putExtra("PlayType", "D");           // Daemon Type
-            mIntent.putExtra("ApprType", 1);             // 1 : 승인, 0 : 취소
-            mIntent.putExtra("TradeCode", "IC");         // IC거래
-            startActivityForResult(mIntent, 0);
+            new android.app.AlertDialog.Builder(KioskListActivity.this)
+                    .setTitle(getResources().getString(R.string.app_name))
+                    .setMessage("정말 주문하시겠습니까?")
+                    .setCancelable(true)
+                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
 
-            String str = Util.HexDump.dumpHexString(mRequestTelegram);
-            Log.d("요청전문", str);
+                }
+            }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mDeviceNo = "DPT0TEST03"; // 단말기 번호
+                    makeTelegramIC("1");
+                    ComponentName componentName = new ComponentName("com.ksnet.kscat_a","com.ksnet.kscat_a.PaymentIntentActivity");
+                    Intent mIntent = new Intent(Intent.ACTION_MAIN);
+                    mIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    mIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+                    mIntent.setComponent(componentName);
+                    mIntent.putExtra("Telegram", mRequestTelegram);
+                    mIntent.putExtra("TelegramLength", mRequestTelegram.length);
+                    mIntent.putExtra("PlayType", "D");           // Daemon Type
+                    mIntent.putExtra("ApprType", 1);             // 1 : 승인, 0 : 취소
+                    mIntent.putExtra("TradeCode", "IC");         // IC거래
+                    startActivityForResult(mIntent, 0);
+
+                    String str = Util.HexDump.dumpHexString(mRequestTelegram);
+                    Log.d("요청전문", str);
+                }
+            }).show();
         }
     }
 
