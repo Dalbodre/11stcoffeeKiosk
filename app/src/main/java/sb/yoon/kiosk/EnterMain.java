@@ -25,7 +25,8 @@ public class EnterMain extends AppCompatActivity {
     ProgressBar progressBar;
     ImageView SettingButton;
 
-    private int SBCount = 0;
+    private int easterCount=0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,8 @@ public class EnterMain extends AppCompatActivity {
         setContentView(R.layout.activity_enter_main);
 
         progressBar = findViewById(R.id.progressBar);
-        // showToast("Test");
+        View EASTER = findViewById(R.id.enter_easter);
+        EASTER.setOnClickListener(new easterClickListener());
     }
 
     @Override
@@ -45,17 +47,23 @@ public class EnterMain extends AppCompatActivity {
     public void buttonClicked(View view) {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(ProgressBar.VISIBLE);
-        checkServerOn();
+        Intent intent = new Intent(this, KioskListActivity.class);
+        startActivity(intent);
         //finish();
     }
 
     public void openListActivity() {
         Intent intent = new Intent(this, KioskListActivity.class);
         startActivity(intent);
+        //finish();
     }
-
-    public void showToast(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_LONG).show();
+    private class easterClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            easterCount ++;
+            if(easterCount == 5)
+                finish();
+        }
     }
 
     public void checkServerOn() {

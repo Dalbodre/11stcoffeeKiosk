@@ -64,11 +64,11 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             quantityTextView.setText(Integer.toString(cartOption.getQuantity()));
             quantityTextView.setTextSize(60f);
             quantityTextView.setPadding(10, 0,10,0);
-            quantityTextView.setTextColor(Color.parseColor("#4b3621"));
+            quantityTextView.setTextColor(Color.parseColor("#081832"));
 
             Button minusButton = new Button(holder.context);
             minusButton.setText("◀");
-            minusButton.setTextColor(Color.parseColor("#4b3621"));
+            minusButton.setTextColor(Color.parseColor("#081832"));
             minusButton.setTextSize(45f);
             minusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.togglebutton_off));
             minusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
@@ -82,7 +82,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
 
             Button plusButton = new Button(holder.context);
             plusButton.setText("▶");
-            plusButton.setTextColor(Color.parseColor("#4b3621"));
+            plusButton.setTextColor(Color.parseColor("#081832"));
             plusButton.setTextSize(45f);
             plusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.togglebutton_off));
             plusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
@@ -145,6 +145,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
         @Override
         public void onClick(View view) {
             ToggleButton button = (ToggleButton) view;
+            button.setTextColor(Color.parseColor("#081832"));
             if (!button.isChecked()) {
                 cartOption.setQuantity(0);
                 int quantity = this.quantity;
@@ -153,6 +154,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
                 button.setChecked(false);
                 button.setText("적용안됨");
                 button.setTextSize(50f);
+                button.setTextColor(Color.parseColor("#081832"));
                 button.setPadding(10,10,10,10);
             } else {
                 cartOption.setQuantity(1);
@@ -160,6 +162,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
                 button.setPressed(true);
                 button.setText("적용됨");
                 button.setTextSize(50f);
+                button.setTextColor(Color.parseColor("#ffffff"));
                 button.setPadding(10,10,10,10);
             };
         }

@@ -9,45 +9,44 @@
     android:orientation="vertical"
     tools:context=".KioskListActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:id="@+id/banner_panel"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="280px"
         android:background="@color/color11thBlue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/banner_panel_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:fontFamily="sans-serif-black"
-            android:text="11TH COFFEE"
+            android:text="11호관 커피"
             android:textColor="@color/colorWhite"
             android:textSize="100sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_alignParentTop="true"/>
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="500px"
             android:layout_height="300px"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/the_11th_banner" />
+            android:layout_marginStart="700px"
+            android:background="@drawable/the_11th_banner"
+            android:layout_alignParentTop="true"/>
 
         <ImageButton
             android:id="@+id/search_icon"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="30dp"
+            android:layout_below="@+id/banner_panel_text"
             android:background="@drawable/search_icon_white"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10px"
             android:onClick="clickSearchIcon"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/categories"
@@ -121,7 +120,7 @@
             android:background="@drawable/border_blue"
             android:gravity="center"
             android:text="0 원"
-            android:textColor="@color/coffeeBrown"
+            android:textColor="#081832"
             android:textSize="70dp"
             android:textStyle="bold" />
 
