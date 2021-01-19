@@ -2,49 +2,34 @@ package sb.yoon.kiosk;
 
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import sb.yoon.kiosk.controller.AdminButtonAdapter;
+import sb.yoon.kiosk.controller.AdminGridLayoutAdapter;
 import sb.yoon.kiosk.controller.AdminFragmentAdapter;
 import sb.yoon.kiosk.controller.DbQueryController;
-import sb.yoon.kiosk.controller.KioskListAdapter;
-import sb.yoon.kiosk.layout.CategoryButton;
 import sb.yoon.kiosk.model.Category;
-import sb.yoon.kiosk.model.Menu;
 
 public class AdminActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     //메뉴마다 어댑터 달기
-    private AdminButtonAdapter adapter;
+    private AdminGridLayoutAdapter adapter;
     private DbQueryController dbQueryController;
 
     private List<Category> categories;
-    private admin_tab adminTab;
+    private AdminTabFragment adminTab;
     //private admin_ItemListFragment admin_itemListFragment;
 
 
@@ -60,7 +45,10 @@ public class AdminActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.pager);
 
-        AdminFragmentAdapter adminFragmentAdapter = new AdminFragmentAdapter(this);
+        // 어댑터 지옥의 시작...
+        // 아이템 카운트에 맞춰서 플래그먼트 생성해주는 거 같음
+        // 그럼 메뉴 대신에 카테고리 리스트를 주고 거기서 리스트를 동적으로 받아서 생성하는게 좋겠다
+        AdminFragmentAdapter adminFragmentAdapter = new AdminFragmentAdapter(categories, this);
         adminFragmentAdapter.setItemCount(categories.size());
         viewPager.setAdapter(adminFragmentAdapter);
 

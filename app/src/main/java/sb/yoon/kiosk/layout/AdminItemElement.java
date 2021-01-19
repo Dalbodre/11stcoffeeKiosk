@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import sb.yoon.kiosk.R;
 
-public class admin_ItemElement extends LinearLayout {
+public class AdminItemElement extends LinearLayout {
     private Drawable img;
     private String name;
     private View view;
@@ -30,7 +30,7 @@ public class admin_ItemElement extends LinearLayout {
         this.name = name;
     }
 
-    public admin_ItemElement(Context ctx, AttributeSet attrs){
+    public AdminItemElement(Context ctx, AttributeSet attrs){
         super(ctx, attrs);
 
         LayoutInflater inflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

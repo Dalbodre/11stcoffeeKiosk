@@ -10,6 +10,9 @@ import sb.yoon.kiosk.model.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -17,18 +20,19 @@ import java.util.List;
 
 import sb.yoon.kiosk.AdminActivity;
 import sb.yoon.kiosk.R;
-import sb.yoon.kiosk.layout.admin_ItemElement;
+import sb.yoon.kiosk.layout.AdminItemElement;
 import sb.yoon.kiosk.model.Option;
 
-public class AdminButtonAdapter extends BaseAdapter implements View.OnClickListener {
+// 플래그먼트 내부의 그리드레이아웃을 담당하는 어댑터
+public class AdminGridLayoutAdapter extends BaseAdapter implements View.OnClickListener {
     //메뉴 리스트
     private List<Menu> menuList;
 
-    private AdminActivity context;
+    private Context context;
 
-    public AdminButtonAdapter(List<Menu> menuList, AdminActivity adminActivity){
+    public AdminGridLayoutAdapter(List<Menu> menuList, Context context){
         this.menuList = menuList;
-        this.context = adminActivity;
+        this.context = context;
     }
 
     @Override
@@ -72,13 +76,15 @@ public class AdminButtonAdapter extends BaseAdapter implements View.OnClickListe
             view = layoutInflater.inflate(R.layout.admin_item_layout, parent, false);
         }
 
-        admin_ItemElement menuItem = view.findViewById(R.id.admin_menu_element);
+        ImageView menuItem = view.findViewById(R.id.adminImg);
         Drawable drawable = ContextCompat.getDrawable(context,
                 context.getResources().getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
-        menuItem.setImgDrawable(drawable);
-        menuItem.setName(menu.getName());
-        menuItem.setTag(pos);
+        menuItem.setImageDrawable(drawable);
 
+        TextView textView = view.findViewById(R.id.adminText);
+        textView.setText(menu.getName());
+
+        menuItem.setTag(pos);
         menuItem.setOnClickListener(this);
 
         return view;
@@ -91,6 +97,9 @@ public class AdminButtonAdapter extends BaseAdapter implements View.OnClickListe
         //여기는 누르면 시작되는 리스너들.
         Intent intent = new Intent(context, AdminAddActivity.class);
         Menu menu = menuList.get(position);
+
+        Toast.makeText(context.getApplicationContext(), position, Toast.LENGTH_LONG).show();
+
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
                 "drawable", context.getPackageName()));
         List<Option> options = menu.getOptionList();
@@ -101,6 +110,6 @@ public class AdminButtonAdapter extends BaseAdapter implements View.OnClickListe
         AdminAddActivity.cartMenu =
                 new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, cartOptions, menu.getId(), menu.getCategoryId(), menu.getIsHot(), menu.getIsCold(), null);
                 */
-        context.startActivityForResult(intent, 1);
+        // context.startActivityForResult(intent, 1);
     }
 }
