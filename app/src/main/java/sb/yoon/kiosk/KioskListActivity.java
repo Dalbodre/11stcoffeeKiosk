@@ -45,6 +45,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+//배경색 #081832 == 11호관 마크 색상으로 추정
 public class KioskListActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
@@ -161,6 +162,7 @@ public class KioskListActivity extends AppCompatActivity {
             //카테고리 사이즈보다 i가 클 때 반복문 나감.
             if(i > categorySize) break;
 
+            categoryButtonsGroup.addView(button, params);
         }*/
         for(int i=0; i<categorySize; i++){
             buttons.get(i).setText(buttons.get(i).getCategoryName());
@@ -254,9 +256,9 @@ public class KioskListActivity extends AppCompatActivity {
     class categoryButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            int tagNo = (int) view.getTag();
+            int tagNum = (int) view.getTag();
             try {
-                itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
+                itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNum)));
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
             } catch (Exception e) {
