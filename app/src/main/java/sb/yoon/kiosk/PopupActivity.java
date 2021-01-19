@@ -1,6 +1,7 @@
 package sb.yoon.kiosk;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +39,9 @@ public class PopupActivity extends Activity {
     private ToggleButton no_takeout;
 
     private ToggleButton tumbler;
+
+    private String com_blue = "#081832";
+    private String com_white = "#ffffff";
 
     private Button confirm;
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -150,14 +154,18 @@ public class PopupActivity extends Activity {
             if(tButton.equals(iceButton)){
                 iceButton.setChecked(true);
                 iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+                iceButton.setTextColor(Color.parseColor(com_white));
                 hotButton.setChecked(false);
                 hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+                hotButton.setTextColor(Color.parseColor(com_blue));
             }
             else if(tButton.equals(hotButton)){
                 iceButton.setChecked(false);
                 iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+                iceButton.setTextColor(Color.parseColor("#081832"));
                 hotButton.setChecked(true);
                 hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+                hotButton.setTextColor(Color.parseColor("#ffffff"));
             }
         }
     }
@@ -169,10 +177,12 @@ public class PopupActivity extends Activity {
             if(!tumbler.isChecked()){
                 tumbler.setChecked(false);
                 tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+                tumbler.setTextColor(Color.parseColor(com_blue));
             }
             else{
                 tumbler.setChecked(true);
                 tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+                tumbler.setTextColor(Color.parseColor(com_white));
             }
         }
     }
@@ -184,14 +194,18 @@ public class PopupActivity extends Activity {
             if(tButton.equals(takeout)){
                 takeout.setChecked(true);
                 takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+                takeout.setTextColor(Color.parseColor(com_white));
                 no_takeout.setChecked(false);
                 no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+                no_takeout.setTextColor(Color.parseColor(com_blue));
             }
             else if(tButton.equals(no_takeout)){
                 takeout.setChecked(false);
                 takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+                takeout.setTextColor(Color.parseColor(com_blue));
                 no_takeout.setChecked(true);
                 no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+                no_takeout.setTextColor(Color.parseColor(com_white));
             }
         }
     }

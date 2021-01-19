@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="900px"
     android:layout_height="1200px"
-    android:background="#F8ECCA"
+    android:background="#ffffff"
     android:orientation="vertical"
     tools:context=".OrderNumberPopupActivity">
 
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="#BDB69F">
+        android:background="#081832">
 
         <TextView
             android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
             android:layout_centerInParent="true"
             android:layout_margin="20px"
             android:text="결재완료"
-            android:textColor="#4b3621"
+            android:textColor="#ffffff"
             android:textSize="50px"
             android:textStyle="bold" />
     </RelativeLayout>
@@ -35,7 +35,7 @@
         android:gravity="center"
         android:text="결재가 완료되었습니다."
         android:textStyle="bold"
-        android:textColor="#4b3621"
+        android:textColor="#081832"
         android:textSize="60px" />
 
     <TextView
