@@ -452,7 +452,7 @@ public class KioskListActivity extends AppCompatActivity {
             bb.put("0420".getBytes());                                      // 전문구분
         bb.put("N".getBytes());                                             // 거래형태
 
-        mDeviceNo = "DPT0TEST03";
+        mDeviceNo = getString(R.string.card_device_id);
         bb.put(mDeviceNo.getBytes());                                        // 단말기번호
         for(int i=0; i< 4; i++) bb.put(" ".getBytes());                     // 업체정보
         for(int i=0; i<12; i++) bb.put(" ".getBytes());                     // 전문일련번호
@@ -492,7 +492,7 @@ public class KioskListActivity extends AppCompatActivity {
             bb.put("            ".getBytes());                              // 원거래승인번호
             bb.put("      ".getBytes());                                    // 원거래승인일자
         }
-        else{
+        else{                                                               // 아마 취소일때만 사용
             String orgDate = "201020";                                      // 원거래승인일자
             String orgApprNo = String.format("%-12s","123456789012");       // 원거래승인번호
 
