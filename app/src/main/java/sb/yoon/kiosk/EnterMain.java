@@ -44,8 +44,9 @@ public class EnterMain extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             easterCount ++;
-            if(easterCount == 5)
-                finish();
+            if(easterCount == 5){
+                //startActivity(new Intent(this, AdminActivty.class));
+            }
         }
     }
 }
