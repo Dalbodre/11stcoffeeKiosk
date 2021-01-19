@@ -60,7 +60,7 @@ public class KioskListActivity extends AppCompatActivity {
     int categorySize;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {c
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiosk_main);
 
@@ -152,7 +152,7 @@ public class KioskListActivity extends AppCompatActivity {
         }*/
         for(int i=0; i<categorySize; i++){
             buttons.get(i).setText(buttons.get(i).getCategoryName());
-            buttons.get(i).setTextSize(60f);
+            buttons.get(i).setTextSize(30f);
             buttons.get(i).setOnClickListener(new categoryButtonClickListener());
             buttons.get(i).setTag(buttons.get(i).getTagNum());
             buttons.get(i).setVisibility(View.GONE);
