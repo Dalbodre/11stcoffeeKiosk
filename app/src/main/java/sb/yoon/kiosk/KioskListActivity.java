@@ -283,7 +283,8 @@ public class KioskListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     mDeviceNo = "DPT0TEST03"; // 단말기 번호
-                    makeTelegramIC("1");
+                    final TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
+                    makeTelegramIC("1", totalPriceView.getTag().toString());
                     ComponentName componentName = new ComponentName("com.ksnet.kscat_a","com.ksnet.kscat_a.PaymentIntentActivity");
                     Intent mIntent = new Intent(Intent.ACTION_MAIN);
                     mIntent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -437,7 +438,7 @@ public class KioskListActivity extends AppCompatActivity {
         }
     }
 
-    private void makeTelegramIC(String ApprCode) {
+    private void makeTelegramIC(String ApprCode, String totAmt) {
         ByteBuffer bb = ByteBuffer.allocate(4096);
 
         bb.put((byte)0x02);                                                 // STX
@@ -470,11 +471,11 @@ public class KioskListActivity extends AppCompatActivity {
         String et = "00";
         bb.put(et.getBytes());                         // 할부개월
 
-        String totAmt = "1004";                          // 금액인듯
+        // String totAmt = price;                          // 금액인듯
         Util.CalcTax tax = new Util.CalcTax();
-        tax.setConfig(Long.parseLong(totAmt), 10, 0);
+        tax.setConfig(Long.parseLong(totAmt), 0, 0); // 세금부분은 일단 rate 0 으로 해둠
 
-        bb.put(Util.stringToAmount(totAmt, 12).getBytes());           // 세금 + 금액 = 총금액일거임
+        bb.put(Util.stringToAmount(totAmt, 12).getBytes());           // 금액
         mTotAmt = Util.stringToAmount(totAmt, 12);
 
         bb.put(Util.stringToAmount(String.valueOf(tax.getServiceAmt()), 12).getBytes());    // 봉사료
