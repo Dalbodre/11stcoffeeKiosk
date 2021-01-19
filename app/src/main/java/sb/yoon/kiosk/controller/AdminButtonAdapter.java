@@ -1,8 +1,11 @@
 package sb.yoon.kiosk.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+
+import sb.yoon.kiosk.AdminAddActivity;
 import sb.yoon.kiosk.model.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +18,15 @@ import java.util.List;
 import sb.yoon.kiosk.AdminActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.admin_ItemElement;
+import sb.yoon.kiosk.model.Option;
 
-public class AdminListAdapter extends BaseAdapter implements View.OnClickListener {
+public class AdminButtonAdapter extends BaseAdapter implements View.OnClickListener {
     //메뉴 리스트
     private List<Menu> menuList;
 
     private AdminActivity context;
 
-    public AdminListAdapter(List<Menu> menuList, AdminActivity adminActivity){
+    public AdminButtonAdapter(List<Menu> menuList, AdminActivity adminActivity){
         this.menuList = menuList;
         this.context = adminActivity;
     }
@@ -84,6 +88,19 @@ public class AdminListAdapter extends BaseAdapter implements View.OnClickListene
     public void onClick(View view) {
         int position = (int) view.getTag();
 
-        //여기는 누르면 시작되는리스너들.
+        //여기는 누르면 시작되는 리스너들.
+        Intent intent = new Intent(context, AdminAddActivity.class);
+        Menu menu = menuList.get(position);
+        Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
+                "drawable", context.getPackageName()));
+        List<Option> options = menu.getOptionList();
+        Long menuId = menu.getId();
+
+        //카트메뉴로 되있지만 여기는 수정메뉴
+        /*
+        AdminAddActivity.cartMenu =
+                new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, cartOptions, menu.getId(), menu.getCategoryId(), menu.getIsHot(), menu.getIsCold(), null);
+                */
+        context.startActivityForResult(intent, 1);
     }
 }
