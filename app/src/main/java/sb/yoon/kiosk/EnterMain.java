@@ -1,6 +1,7 @@
 package sb.yoon.kiosk;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,12 +29,14 @@ public class EnterMain extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         progressBar.setVisibility(ProgressBar.GONE);
+        Log.d("Status", "Resume");
     }
 
     public void buttonClicked(View view) {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(ProgressBar.VISIBLE);
-        Intent intent = new Intent(this, KioskListActivity.class);
+        //Intent intent = new Intent(this, KioskListActivity.class);
+        Intent intent = new Intent(this, AdminActivity.class);
         startActivity(intent);
         //finish();
     }
