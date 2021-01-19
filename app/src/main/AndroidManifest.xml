@@ -30,6 +30,9 @@
         <activity
             android:name=".SearchActivity"
             android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".ResultActivity"
+            android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>
