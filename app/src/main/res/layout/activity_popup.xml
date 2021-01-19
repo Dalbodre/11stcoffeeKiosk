@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="1000px"
     android:layout_height="1900px"
-    android:background="#eeeeee"
+    android:background="@drawable/enterance_button"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_margin="15px"
         android:id="@+id/option_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="15px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -19,11 +19,11 @@
             android:id="@+id/popup_back_button"
             android:layout_width="110px"
             android:layout_height="110px"
-            android:paddingStart="10dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:onClick="onClickPopUpCloseButtons"
             android:padding="10dp"
+            android:paddingStart="10dp"
             android:src="@drawable/ic_baseline_arrow_back_ios_24" />
 
         <ImageView
@@ -45,7 +45,7 @@
         android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/option_top"/>
+        app:layout_constraintTop_toBottomOf="@+id/option_top" />
 
     <TextView
         android:id="@+id/pop_up_option_name"
@@ -54,7 +54,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="메뉴이름"
-        android:textColor="#4b3621"
+        android:textColor="#081832"
         android:textSize="120px"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="가격"
-        android:textColor="#4b3621"
+        android:textColor="#081832"
         android:textSize="90px"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pop_up_option_name" />
@@ -84,11 +84,12 @@
             android:id="@+id/option_hot_toggle"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_margin="10dp"
+            android:layout_weight="1"
             android:padding="10dp"
             android:textOff="HOT X"
             android:textOn="HOT O"
+            android:textColor="#ffffff"
             android:textSize="80px"
             android:visibility="gone" />
 
@@ -99,6 +100,7 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="10dp"
+            android:textColor="#081832"
             android:textOff="ICE X"
             android:textOn="ICE O"
             android:textSize="80px"
@@ -122,6 +124,7 @@
             android:background="@drawable/togglebutton_off"
             android:padding="10dp"
             android:paddingTop="17px"
+            android:textColor="#081832"
             android:textOff="매장 X"
             android:textOn="매장 O"
             android:textSize="60px" />
@@ -135,6 +138,7 @@
             android:background="@drawable/togglebutton_off"
             android:padding="10dp"
             android:paddingTop="17px"
+            android:textColor="#081832"
             android:textOff="포장 X"
             android:textOn="포장 O"
             android:textSize="60px" />
@@ -148,6 +152,7 @@
             android:drawableLeft="@drawable/small_drawable_thermos"
             android:padding="10dp"
             android:paddingTop="17px"
+            android:textColor="#081832"
             android:textOff="텀블러 X"
             android:textOn="텀블러 O"
             android:textSize="60px" />
@@ -159,8 +164,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/option_confirm_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/option_etc_static_options_wrapper">
-
+        app:layout_constraintTop_toBottomOf="@+id/option_etc_static_options_wrapper"
+        android:layout_marginBottom="30px">
     </androidx.recyclerview.widget.RecyclerView>
 
 
@@ -168,12 +173,13 @@
         android:id="@+id/option_confirm_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60px"
-        android:background="@drawable/togglebutton_off"
+        android:layout_marginBottom="11px"
+        android:background="@drawable/enterance_button"
         android:onClick="onClickPopUpConfirmedButtons"
         android:padding="10dp"
         android:text="확인"
-        android:textSize="75px"
+        android:textColor="#081832"
+        android:textSize="72px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

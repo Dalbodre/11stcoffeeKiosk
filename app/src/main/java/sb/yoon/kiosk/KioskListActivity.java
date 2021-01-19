@@ -89,6 +89,8 @@ public class KioskListActivity extends AppCompatActivity {
         purchaseButton.setOnClickListener(new purchaseButtonClickListener());
     }
 
+
+
     private void createCategoryButtons() {
         /*LinearLayout categoryButtonsGroup = findViewById(R.id.categories_buttons_group);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

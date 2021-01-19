@@ -14,7 +14,8 @@ public class EnterMain extends AppCompatActivity {
     ProgressBar progressBar;
     ImageView SettingButton;
 
-    private int SBCount = 0;
+    private int easterCount=0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class EnterMain extends AppCompatActivity {
         setContentView(R.layout.activity_enter_main);
 
         progressBar = findViewById(R.id.progressBar);
+        View EASTER = findViewById(R.id.enter_easter);
+        EASTER.setOnClickListener(new easterClickListener());
     }
 
     @Override
@@ -36,5 +39,13 @@ public class EnterMain extends AppCompatActivity {
         Intent intent = new Intent(this, KioskListActivity.class);
         startActivity(intent);
         //finish();
+    }
+    private class easterClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            easterCount ++;
+            if(easterCount == 5)
+                finish();
+        }
     }
 }

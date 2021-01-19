@@ -10,8 +10,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="옵션이름"
-        android:textColor="#4b2136"
-        android:textSize="60px" />
+        android:textColor="#081832"
+        android:textSize="90px" />
 
     <LinearLayout
         android:id="@+id/option_buttons_wrapper"
@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button"
+            android:textColor="#081832"
             android:visibility="gone"/>
 
         <TextView
@@ -38,6 +38,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="TextView"
+            android:textColor="#081832"
             android:visibility="gone" />
 
         <Button
@@ -45,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Button"
+            android:textColor="#081832"
             android:visibility="gone" />
 
     </LinearLayout>
