@@ -20,5 +20,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 
     <!-- 카드 모듈 관련 -->
-    <string name="card_device_id">DPT0TEST03</string>
+    <string name="card_device_id">AT0256328A</string>
+    <string name="server_not_reachable">서버가 열려있지 않습니다. 직원에게 문의하세요.</string>
 </resources>

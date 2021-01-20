@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -32,7 +33,7 @@ public class EnterMain extends AppCompatActivity {
         setContentView(R.layout.activity_enter_main);
 
         progressBar = findViewById(R.id.progressBar);
-        showToast("Test");
+        // showToast("Test");
     }
 
     @Override
@@ -71,11 +72,14 @@ public class EnterMain extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error.toString());
-                showToast("서버가 열려있지 않습니다. 직원에게 문의하세요.");
+                //System.out.println(error.toString());
+                TextView tv = EnterMain.this.findViewById(R.id.alertTextView);
+                tv.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.GONE);
+                //showToast(getString(R.string.server_not_reachable));
             }
         });
-        int socketTimeout = 8000;//30 seconds - change to what you want
+        int socketTimeout = 6000;
         RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         stringRequest.setRetryPolicy(policy);
         requestQueue.add(stringRequest);
