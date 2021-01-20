@@ -17,14 +17,18 @@
         android:src="@drawable/coffee_in_main_enterance" />
 
 
-    <ImageButton
+    <Button
         android:id="@+id/enter_main_button"
         android:layout_width="680px"
         android:layout_height="240px"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100px"
-        android:background="@drawable/enter_main_button"
+        android:text="주문하기"
+        android:textSize="100px"
+        android:textStyle="bold"
+        android:textColor="#0a1527"
+        android:background="@drawable/orderbutton"
         android:onClick="buttonClicked" />
 
     <TextView
