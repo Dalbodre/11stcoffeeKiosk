@@ -60,8 +60,6 @@ public class AdminTabFragment extends Fragment {
                 System.out.println(position + " " + id);
             }
         });*/
-        Button testButton = view.findViewById(R.id.testButton);
-        testButton.setOnClickListener((View v) -> Log.d("menus", menuList.toString()));
         return view;
     }
 }
