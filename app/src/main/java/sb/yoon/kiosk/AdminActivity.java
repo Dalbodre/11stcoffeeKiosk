@@ -71,12 +71,11 @@ public class AdminActivity extends AppCompatActivity {
                 Intent intent = new Intent(view.getContext(), AdminAddActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.delmenu:
-                //Todo
-                break;
+
             case R.id.exit:
                 finish();
                 break;
         }
     }
 }
+

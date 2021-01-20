@@ -40,7 +40,6 @@ public class PopupActivity extends Activity {
     private ToggleButton tumbler;
 
     private Button confirm;
-    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
