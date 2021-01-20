@@ -115,6 +115,7 @@ public class AdminAddActivity extends AppCompatActivity {
                     divider.setVisibility(View.GONE);
                     categoryText.setVisibility(View.GONE);
                     categoryText.setText("");
+                    //Todo DB 고치기 작업 필요.
                     categoryId = l-1;
                     Log.d("spinner Id", String.valueOf(l));
                 }
@@ -126,9 +127,8 @@ public class AdminAddActivity extends AppCompatActivity {
             }
         });
 
-        iconPath = "0";
+        iconPath = "0"; //Todo 고쳐야됨. 아마 이미지 선택하는 인텐트에서 이미지 선택하면 거기서 getIconPath하면 될듯.
 
-        //추가 모드가 아닐 경우
         if(isAdd) {
             Log.d("flag", "추가모드");
             menuId = lastMenuIdx;
