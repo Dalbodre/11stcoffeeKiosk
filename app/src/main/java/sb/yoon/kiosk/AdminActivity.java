@@ -48,13 +48,13 @@ public class AdminActivity extends AppCompatActivity {
             categoryButton = new Button(this);
             categoryButton.setText(category.getName());
             categoryButton.setTextSize(60f);
-            categoryButton.setOnClickListener(new categoryButtonListener());
+            //categoryButton.setOnClickListener(new categoryButtonListener());
             categoryButton.setTag(i);
             horizontalScrollView.addView(categoryButton);
             i++;
         }
     }
-    class categoryButtonListener implements View.OnClickListener{
+    /*class categoryButtonListener implements View.OnClickListener{
         int tagNo;
         @Override
         public void onClick(View view) {
@@ -63,5 +63,5 @@ public class AdminActivity extends AppCompatActivity {
 
             }
         }
-    }
+    }*/
 }

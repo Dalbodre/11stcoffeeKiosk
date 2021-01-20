@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class EnterMain extends AppCompatActivity {
     ProgressBar progressBar;
@@ -23,7 +24,7 @@ public class EnterMain extends AppCompatActivity {
         setContentView(R.layout.activity_enter_main);
 
         progressBar = findViewById(R.id.progressBar);
-        View EASTER = findViewById(R.id.enter_easter);
+        ImageView EASTER = findViewById(R.id.enter_easter);
         EASTER.setOnClickListener(new easterClickListener());
     }
 
@@ -44,8 +45,13 @@ public class EnterMain extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             easterCount ++;
+            if(easterCount == 3 || easterCount == 4){
+                Toast.makeText(EnterMain.this, easterCount+"만큼 입력하셨습니다.", Toast.LENGTH_SHORT).show();
+            }
             if(easterCount == 5){
                 //startActivity(new Intent(this, AdminActivty.class));
+                finish();
+                easterCount = 0;
             }
         }
     }

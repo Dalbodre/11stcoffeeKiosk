@@ -4,43 +4,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/enter_main_normal"
+    android:background="#0a1527"
     tools:context=".EnterMain">
+
+    <ImageView
+        android:id="@+id/enter_easter"
+        android:layout_width="500px"
+        android:layout_height="500px"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200px"
+        android:src="@drawable/coffee_in_main_enterance" />
+
 
     <ImageButton
         android:id="@+id/enter_main_button"
-        android:layout_centerHorizontal="true"
         android:layout_width="680px"
         android:layout_height="240px"
-        android:layout_marginTop="400px"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100px"
         android:background="@drawable/enter_main_button"
-        android:onClick="buttonClicked"/>
+        android:onClick="buttonClicked" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="베타테스트 작업 중..."
-        android:textSize="100px"
         android:textColor="@color/hotRed"
+        android:textSize="100px"
         android:textStyle="bold" />
 
-    <View
-        android:layout_width="200px"
-        android:layout_height="450px"
-        android:id="@+id/enter_easter"
-        android:layout_below="@id/enter_main_button"
-        android:layout_marginTop="610px"
-        android:layout_marginStart="740px"/>
+    <LinearLayout
+        android:id="@+id/enter_text_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/enter_easter"
+        android:layout_marginTop="30px"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10px"
+            android:paddingStart="140px"
+            android:text="학기중"
+            android:textColor="#ffffff"
+            android:textSize="60px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140px"
+            android:layout_marginBottom="20px"
+            android:text="주    중  08:30 a.m ~ 07:30 p.m\n토요일  10:00 a.m ~ 03:00 p.m\n※일요일 휴무"
+            android:textColor="#ffffff"
+            android:textSize="40px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10px"
+            android:paddingStart="140px"
+            android:text="방학중"
+            android:textColor="#ffffff"
+            android:textSize="60px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140px"
+            android:layout_marginBottom="20px"
+            android:text="주    중  08:30 a.m ~ 06:30 p.m\n※주말 휴무"
+            android:textColor="#ffffff"
+            android:textSize="40px"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10px"
+            android:paddingStart="140px"
+            android:text="코로나 끝나기 전까지"
+            android:textColor="#ffff00"
+            android:textSize="60px"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140px"
+            android:layout_marginBottom="20px"
+            android:text="주    중  08:30 a.m ~ 05:00 p.m\n※주말 휴무"
+            android:textColor="#ffff00"
+            android:textSize="40px"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:alpha="0.8"
-        android:visibility="gone"
         android:layout_below="@+id/enter_main_button"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:alpha="0.8"
+        android:visibility="gone" />
 
 </RelativeLayout>

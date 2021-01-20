@@ -1,5 +1,6 @@
 package sb.yoon.kiosk.controller;
 
+import android.icu.text.UFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import java.util.List;
 import sb.yoon.kiosk.KioskListActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
+import sb.yoon.kiosk.layout.for_element_item;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
 
@@ -25,7 +27,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
 
     // 뷰 홀더
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected ItemElement itemElement;
+        protected for_element_item itemElement;
         protected TextView price;
         protected KioskListActivity context;
         protected TextView tempText;
@@ -33,7 +35,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
 
         public CustomViewHolder(View v){
             super(v);
-            this.itemElement = (ItemElement)v.findViewById(R.id.menu_element);
+            this.itemElement = (for_element_item)v.findViewById(R.id.menu_element);
             this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
             this.tempText = v.findViewById(R.id.temp);
             this.takeOutText = v.findViewById(R.id.cart_item_take_out);
@@ -61,7 +63,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
     @Override
     public void onBindViewHolder(@NonNull final CustomViewHolder viewHolder, final int position) {
         viewHolder.itemElement.setImageDrawable(cartMenuList.get(position).getIcon());
-        viewHolder.itemElement.setName(cartMenuList.get(position).getName());
+        //viewHolder.itemElement.setName(cartMenuList.get(position).getName());
         viewHolder.price.setText(Integer.toString(cartMenuList.get(position).getTotalPrice()));
         List<CartOption> OptionList = cartMenuList.get(position).getOptions();
         //String menuTemp = OptionList.get()

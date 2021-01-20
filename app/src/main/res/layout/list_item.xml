@@ -17,23 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<RelativeLayout
-        android:id="@+id/list_price_container"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_toEndOf="@id/menu_element">
-
-        <TextView
-            android:id="@+id/price2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_margin="10px"
-            android:textAlignment="center"
-            android:textColor="@color/coffeeBrown"
-            android:textSize="60px"
-            android:textStyle="bold" />
-    </RelativeLayout>-->
 
     <HorizontalScrollView
         android:layout_width="wrap_content"
@@ -47,29 +30,30 @@
             android:id="@+id/ingredientsHolder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="50px"
             android:orientation="horizontal">
 
-            <sb.yoon.kiosk.layout.ItemElement
+            <sb.yoon.kiosk.layout.for_element_item
                 android:id="@+id/ingredient1"
-                android:layout_width="280px"
+                android:layout_width="210px"
                 android:layout_height="210px"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.ItemElement
+            <sb.yoon.kiosk.layout.for_element_item
                 android:id="@+id/ingredient2"
-                android:layout_width="280px"
+                android:layout_width="210px"
                 android:layout_height="210px"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.ItemElement
+            <sb.yoon.kiosk.layout.for_element_item
                 android:id="@+id/ingredient3"
-                android:layout_width="280px"
+                android:layout_width="210px"
                 android:layout_height="210px"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.ItemElement
+            <sb.yoon.kiosk.layout.for_element_item
                 android:id="@+id/ingredient4"
-                android:layout_width="280px"
+                android:layout_width="210px"
                 android:layout_height="210px"
                 android:visibility="gone" />
 

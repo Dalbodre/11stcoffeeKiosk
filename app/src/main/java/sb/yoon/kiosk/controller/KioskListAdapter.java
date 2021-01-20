@@ -18,6 +18,7 @@ import sb.yoon.kiosk.KioskListActivity;
 import sb.yoon.kiosk.PopupActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.ItemElement;
+import sb.yoon.kiosk.layout.for_element_item;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
 import sb.yoon.kiosk.model.Ingredient;
@@ -118,7 +119,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
 
             Drawable ingredientDrawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(ingredient.getIconPath(), "drawable", context.getPackageName()));
 
-            ItemElement ingredientElement = null;
+            for_element_item ingredientElement = null;
             switch(index) {
                 case 0: ingredientElement = holder.findViewById(R.id.ingredient1); break;
                 case 1: ingredientElement = holder.findViewById(R.id.ingredient2); break;
@@ -129,7 +130,6 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
             }
             if (ingredientElement != null) {
                 ingredientElement.setImageDrawable(ingredientDrawable);
-                ingredientElement.setName(ingredient.getName());
                 ingredientElement.setVisibility(View.VISIBLE);
 
                 //ㄱㅊ? 이거 필요하면 넣는걸로 합시다
