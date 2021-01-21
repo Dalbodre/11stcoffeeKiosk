@@ -141,14 +141,17 @@ public class PopupActivity extends Activity {
         // 크기 조절은 여기서
         tableIcon = ContextCompat.getDrawable(this, R.drawable.cup_xxxhdpi);
         tableIcon.setBounds(0,0,100,100);
+        DrawableCompat.setTint(tableIcon, Color.BLACK);
         no_takeout.setCompoundDrawables(null, tableIcon,null,null);
 
         packageIcon = ContextCompat.getDrawable(this, R.drawable.takeout_xxxhdpi);
         packageIcon.setBounds(0,0,80,100);
+        DrawableCompat.setTint(packageIcon, Color.BLACK);
         takeout.setCompoundDrawables(null, packageIcon,null,null);
 
         thumblerIcon = ContextCompat.getDrawable(this, R.drawable.thermos_xxxhdpi);
         thumblerIcon.setBounds(0,0,110,110);
+        DrawableCompat.setTint(thumblerIcon, Color.BLACK);
         tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
 
     }
