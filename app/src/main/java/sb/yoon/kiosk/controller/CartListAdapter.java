@@ -1,6 +1,7 @@
 package sb.yoon.kiosk.controller;
 
 import android.icu.text.UFormat;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         protected KioskListActivity context;
         protected TextView tempText;
         protected TextView takeOutText;
+        protected ImageButton cancel_button;
 
         public CustomViewHolder(View v){
             super(v);

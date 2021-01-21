@@ -46,9 +46,9 @@ public class PopupActivity extends Activity {
 
     private Button confirm;
 
-    Drawable packageIcon;
-    Drawable tableIcon;
-    Drawable thumblerIcon;
+    private Drawable packageIcon;
+    private Drawable tableIcon;
+    private Drawable thumblerIcon;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -141,11 +141,11 @@ public class PopupActivity extends Activity {
         // 크기 조절은 여기서
         tableIcon = ContextCompat.getDrawable(this, R.drawable.cup_xxxhdpi);
         tableIcon.setBounds(0,0,100,100);
-        no_takeout.setCompoundDrawables(null,tableIcon,null,null);
+        no_takeout.setCompoundDrawables(null, tableIcon,null,null);
 
         packageIcon = ContextCompat.getDrawable(this, R.drawable.takeout_xxxhdpi);
         packageIcon.setBounds(0,0,80,100);
-        takeout.setCompoundDrawables(null,packageIcon,null,null);
+        takeout.setCompoundDrawables(null, packageIcon,null,null);
 
         thumblerIcon = ContextCompat.getDrawable(this, R.drawable.thermos_xxxhdpi);
         thumblerIcon.setBounds(0,0,110,110);
