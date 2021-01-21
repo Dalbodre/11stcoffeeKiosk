@@ -18,8 +18,7 @@ import java.util.List;
 
 import sb.yoon.kiosk.KioskListActivity;
 import sb.yoon.kiosk.R;
-import sb.yoon.kiosk.layout.ItemElement;
-import sb.yoon.kiosk.layout.for_element_item;
+import sb.yoon.kiosk.layout.IngredientItem;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
 
@@ -29,8 +28,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
 
     // 뷰 홀더
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected for_element_item itemElement;
-        protected ImageButton cancel_button;
+        protected IngredientItem itemElement;
         protected TextView price;
         protected KioskListActivity context;
         protected TextView tempText;
@@ -38,7 +36,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
 
         public CustomViewHolder(View v){
             super(v);
-            this.itemElement = (for_element_item)v.findViewById(R.id.menu_element);
+            this.itemElement = (IngredientItem)v.findViewById(R.id.menu_element);
             this.cancel_button = (ImageButton)v.findViewById(R.id.cart_cancel_button);
             this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
             this.tempText = v.findViewById(R.id.temp);

@@ -110,7 +110,7 @@
     <LinearLayout
         android:id="@+id/option_etc_static_options_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="180px"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@id/option_hot_ice_wrapper">
@@ -127,7 +127,7 @@
             android:textColor="#081832"
             android:textOff="매장 X"
             android:textOn="매장 O"
-            android:textSize="60px" />
+            android:textSize="40px"/>
 
         <ToggleButton
             android:id="@+id/option_takeout_toggle"
@@ -141,7 +141,7 @@
             android:textColor="#081832"
             android:textOff="포장 X"
             android:textOn="포장 O"
-            android:textSize="60px" />
+            android:textSize="40px"/>
 
         <ToggleButton
             android:id="@+id/option_tumblr_toggle"
@@ -149,13 +149,13 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/togglebutton_off"
-            android:drawableLeft="@drawable/small_drawable_thermos"
+            android:drawableTop="@drawable/small_drawable_thermos"
             android:padding="10dp"
             android:paddingTop="17px"
             android:textColor="#081832"
             android:textOff="텀블러 X"
             android:textOn="텀블러 O"
-            android:textSize="60px" />
+            android:textSize="40px"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

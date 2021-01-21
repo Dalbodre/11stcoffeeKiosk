@@ -26,12 +26,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cart_item_take_out">
 
-        <sb.yoon.kiosk.layout.for_element_item
+        <sb.yoon.kiosk.layout.IngredientItem
             android:id="@+id/menu_element"
             android:layout_width="220px"
             android:layout_height="200px">
 
-        </sb.yoon.kiosk.layout.for_element_item>
+        </sb.yoon.kiosk.layout.IngredientItem>
 
         <ImageButton
             android:id="@+id/cart_cancel_button"
