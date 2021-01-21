@@ -146,6 +146,11 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
     // 메뉴 아이콘 눌렸을 때
     @Override
     public void onClick(View view) {
+        if (context.menuOptionPopupButtonClicked)
+            return;
+
+        context.menuOptionPopupButtonClicked = true;
+
         // 리사이클뷰 (쇼핑카트)에 아이템 넣는거
         int position = (int) view.getTag();
         //context.addCartMenuList(menuList.get(position));

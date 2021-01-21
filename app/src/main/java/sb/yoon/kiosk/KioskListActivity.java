@@ -60,6 +60,10 @@ public class KioskListActivity extends AppCompatActivity {
     private CategoryButton button;
     int categorySize;
 
+    boolean searchButtonClicked = false;
+    public boolean menuOptionPopupButtonClicked = false;
+    boolean purchaseButtonClicked = false;
+
     @Override
     public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
         return super.onCreatePanelMenu(featureId, menu);
@@ -223,6 +227,9 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     public void clickSearchIcon(View view) {
+        if (this.searchButtonClicked)
+            return;
+        this.searchButtonClicked = true;
         Intent intent = new Intent(KioskListActivity.this, SearchActivity.class);
         startActivityForResult(intent, 2);
     }
@@ -266,6 +273,10 @@ public class KioskListActivity extends AppCompatActivity {
             if (cartMenuList.isEmpty()) {
                 return;
             }
+            if (purchaseButtonClicked) {
+                return;
+            }
+            purchaseButtonClicked = true;
 
             final Gson gson = new GsonBuilder()
                     .excludeFieldsWithoutExposeAnnotation()
@@ -285,6 +296,9 @@ public class KioskListActivity extends AppCompatActivity {
             HttpNetworkController httpController = new HttpNetworkController(
                     KioskListActivity.this, getResources().getString(R.string.server_ip));
             httpController.postJsonCartData(jsonObject);
+
+            //todo master에 merge 이후 intent result받는 곳으로 옮길 것
+            purchaseButtonClicked = false;
         }
     }
 
@@ -307,13 +321,14 @@ public class KioskListActivity extends AppCompatActivity {
                     Log.d("데이터", result);
                 }
             }
+            menuOptionPopupButtonClicked = false;
         } else if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 ArrayList<Integer> searchedMenuIdList = data.getIntegerArrayListExtra("searchedMenuIdList");
-                Log.d("얻은값", searchedMenuIdList != null ? searchedMenuIdList.toString() : "값 없음");
+                //Log.d("얻은값", searchedMenuIdList != null ? searchedMenuIdList.toString() : "값 없음");
 
                 List<Menu> queryResult = dbQueryController.getMenuListByIdArray(searchedMenuIdList);
-                Log.d("쿼리결과", queryResult.toString());
+                //Log.d("쿼리결과", queryResult.toString());
                 try {
                     itemListFragment = new ItemListFragment(queryResult);
                     fragmentTransaction = fragmentManager.beginTransaction();
@@ -322,6 +337,7 @@ public class KioskListActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+            this.searchButtonClicked = false;
         }
     }
 }
