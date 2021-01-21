@@ -34,9 +34,10 @@
         </sb.yoon.kiosk.layout.for_element_item>
 
         <ImageButton
-            android:layout_marginStart="150px"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/cart_cancel_button"
+            android:layout_marginStart="170px"
+            android:layout_width="50px"
+            android:layout_height="50px"
             android:background="#ffffff"
             android:src="@drawable/ic_baseline_highlight_off_24"
             app:layout_constraintBottom_toBottomOf="@id/menu_element" />

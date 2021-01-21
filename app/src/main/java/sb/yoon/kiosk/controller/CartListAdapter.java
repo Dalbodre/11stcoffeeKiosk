@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +30,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
     // 뷰 홀더
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         protected for_element_item itemElement;
+        protected ImageButton cancel_button;
         protected TextView price;
         protected KioskListActivity context;
         protected TextView tempText;
@@ -36,6 +39,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         public CustomViewHolder(View v){
             super(v);
             this.itemElement = (for_element_item)v.findViewById(R.id.menu_element);
+            this.cancel_button = (ImageButton)v.findViewById(R.id.cart_cancel_button);
             this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
             this.tempText = v.findViewById(R.id.temp);
             this.takeOutText = v.findViewById(R.id.cart_item_take_out);
@@ -75,7 +79,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         }
         viewHolder.tempText.setText(cartMenuList.get(position).getTemp());
 
-        viewHolder.itemElement.setOnClickListener(new View.OnClickListener() {
+        viewHolder.cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 viewHolder.getContext().delCartMenuList(position);
