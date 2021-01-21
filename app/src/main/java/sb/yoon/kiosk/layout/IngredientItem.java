@@ -7,13 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 import sb.yoon.kiosk.R;
 
-public class for_element_item extends LinearLayout {
+public class IngredientItem extends RelativeLayout {
     private Drawable image;
     private View view;
 
@@ -26,7 +27,7 @@ public class for_element_item extends LinearLayout {
         this.image = image;
     }
 
-    public for_element_item(Context context, AttributeSet attrs) {
+    public IngredientItem(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

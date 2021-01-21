@@ -6,19 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/for_element_image"
-            android:layout_width="210px"
-            android:layout_height="210px"
-            android:layout_alignParentTop="true"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/apollo1" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/for_element_image"
+        android:layout_width="210px"
+        android:layout_height="210px"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/apollo1"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>

@@ -33,29 +33,49 @@
             android:layout_marginStart="50px"
             android:orientation="horizontal">
 
-            <sb.yoon.kiosk.layout.for_element_item
+            <sb.yoon.kiosk.layout.IngredientItem
                 android:id="@+id/ingredient1"
-                android:layout_width="210px"
-                android:layout_height="210px"
+                android:layout_width="240px"
+                android:layout_height="240px"
+                android:background="@drawable/circle"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.for_element_item
+            <Space
+                android:layout_width="50px"
+                android:layout_height="match_parent" />
+
+            <sb.yoon.kiosk.layout.IngredientItem
                 android:id="@+id/ingredient2"
-                android:layout_width="210px"
-                android:layout_height="210px"
+                android:layout_width="240px"
+                android:layout_height="240px"
+                android:background="@drawable/circle"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.for_element_item
+            <Space
+                android:layout_width="50px"
+                android:layout_height="match_parent" />
+
+            <sb.yoon.kiosk.layout.IngredientItem
                 android:id="@+id/ingredient3"
-                android:layout_width="210px"
-                android:layout_height="210px"
+                android:layout_width="240px"
+                android:layout_height="240px"
+                android:background="@drawable/circle"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.for_element_item
+            <Space
+                android:layout_width="50px"
+                android:layout_height="match_parent" />
+
+            <sb.yoon.kiosk.layout.IngredientItem
                 android:id="@+id/ingredient4"
-                android:layout_width="210px"
-                android:layout_height="210px"
+                android:layout_width="240px"
+                android:layout_height="240px"
+                android:background="@drawable/circle"
                 android:visibility="gone" />
+
+            <Space
+                android:layout_width="50px"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </HorizontalScrollView>
