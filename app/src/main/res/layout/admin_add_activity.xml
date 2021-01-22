@@ -34,7 +34,8 @@
                     android:id="@+id/menuBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/coolBlue"
+                    android:layout_margin="1dp"
+                    android:background="#2b384e"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="메뉴"
@@ -46,6 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_marginTop="3dp"
+                    android:onClick="imageSelect"
                     app:srcCompat="@drawable/empty_img" />
 
                 <EditText
@@ -72,14 +74,14 @@
                     android:id="@+id/priceBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/coolBlue"
+                    android:layout_margin="1dp"
+                    android:background="#2b384e"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="가격"
                     android:textColor="@color/colorWhite"
-                    android:textSize="25dp"
 
-                    />
+                    android:textSize="25dp" />
 
                 <CheckBox
                     android:id="@+id/isCold"
@@ -133,7 +135,8 @@
                     android:id="@+id/optionBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/coolBlue"
+                    android:layout_margin="1dp"
+                    android:background="#2b384e"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="옵션"
@@ -183,7 +186,8 @@
                     android:id="@+id/ingredientBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/coolBlue"
+                    android:layout_margin="1dp"
+                    android:background="#2b384e"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="재료"
@@ -212,7 +216,8 @@
                     android:id="@+id/categoryBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/coolBlue"
+                    android:layout_margin="1dp"
+                    android:background="#2b384e"
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="카테고리"
@@ -286,8 +291,12 @@
                 android:id="@+id/Ok"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#2b384e"
                 android:onClick="adminAction"
                 android:text="추가"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/cancel"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -296,8 +305,12 @@
                 android:id="@+id/cancel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:background="#2b384e"
                 android:onClick="adminAction"
                 android:text="취소"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/Ok" />

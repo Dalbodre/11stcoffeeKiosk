@@ -1,8 +1,11 @@
 package sb.yoon.kiosk;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -59,6 +62,7 @@ public class AdminAddActivity extends AppCompatActivity {
     private TextView categoryText;
 
     private String iconPath;
+    private final int GALLERY_CODE = 1112;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -96,6 +100,15 @@ public class AdminAddActivity extends AppCompatActivity {
         for(Category category : categories){
             categoryNames.add(category.getName());
         }
+        menuImg.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_CODE);
+            }
+        });
 
         ArrayAdapter<String> spinItems = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categoryNames);
         spinner.setAdapter(spinItems);
@@ -133,16 +146,18 @@ public class AdminAddActivity extends AppCompatActivity {
             Log.d("flag", "추가모드");
             menuId = lastMenuIdx;
         }
-           /* menuImg.setImageDrawable(adminMenu.getDrawable());
-            menuName.setText(adminMenu.getMenuName());
-            price.setText(adminMenu.getPrice());
-            isCold.setChecked(adminMenu.isCold());
-            isHot.setChecked(adminMenu.isHot());
-            shot.setChecked(adminMenu.is)*/
-
         //이미지 추가 팝업(Todo)
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == GALLERY_CODE && resultCode == RESULT_OK && data.getData() != null) {
+            //Todo 갤러리에서 사진 들고오기
+        }
+    }
+
     public void adminAction(View view){
         switch(view.getId()){
             case R.id.Ok:
@@ -232,4 +247,5 @@ public class AdminAddActivity extends AppCompatActivity {
                 break;
         }
     }
+
 }
