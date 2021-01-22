@@ -1,12 +1,18 @@
 package sb.yoon.kiosk.controller;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+
+import sb.yoon.kiosk.AdminAddActivity;
 import sb.yoon.kiosk.model.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
@@ -14,17 +20,19 @@ import java.util.List;
 
 import sb.yoon.kiosk.AdminActivity;
 import sb.yoon.kiosk.R;
-import sb.yoon.kiosk.layout.admin_ItemElement;
+import sb.yoon.kiosk.layout.AdminItemElement;
+import sb.yoon.kiosk.model.Option;
 
-public class AdminListAdapter extends BaseAdapter implements View.OnClickListener {
+// 플래그먼트 내부의 그리드레이아웃을 담당하는 어댑터
+public class AdminGridLayoutAdapter extends BaseAdapter {
     //메뉴 리스트
     private List<Menu> menuList;
 
-    private AdminActivity context;
+    private Context context;
 
-    public AdminListAdapter(List<Menu> menuList, AdminActivity adminActivity){
+    public AdminGridLayoutAdapter(List<Menu> menuList, Context context){
         this.menuList = menuList;
-        this.context = adminActivity;
+        this.context = context;
     }
 
     @Override
@@ -68,22 +76,36 @@ public class AdminListAdapter extends BaseAdapter implements View.OnClickListene
             view = layoutInflater.inflate(R.layout.admin_item_layout, parent, false);
         }
 
-        admin_ItemElement menuItem = view.findViewById(R.id.admin_menu_element);
+        ImageView menuItem = view.findViewById(R.id.adminImg);
         Drawable drawable = ContextCompat.getDrawable(context,
                 context.getResources().getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
-        menuItem.setImgDrawable(drawable);
-        menuItem.setName(menu.getName());
-        menuItem.setTag(pos);
+        menuItem.setImageDrawable(drawable);
 
-        menuItem.setOnClickListener(this);
+        TextView textView = view.findViewById(R.id.adminText);
+        textView.setText(menu.getName());
+
+        menuItem.setTag(pos);
+        menuItem.setOnClickListener(new MenuOnClickListener());
 
         return view;
     }
 
-    @Override
-    public void onClick(View view) {
-        int position = (int) view.getTag();
+    // 그리드뷰 안 이미지 클릭 리스너
+    class MenuOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag();
 
-        //여기는 누르면 시작되는리스너들.
+            //여기는 누르면 시작되는 리스너들.
+            Intent intent = new Intent(context, AdminAddActivity.class);
+            Menu menu = menuList.get(position);
+
+            Toast.makeText(context.getApplicationContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+
+            Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
+                    "drawable", context.getPackageName()));
+            List<Option> options = menu.getOptionList();
+            Long menuId = menu.getId();
+        }
     }
 }

@@ -1,30 +1,41 @@
 package sb.yoon.kiosk;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.List;
 
+import sb.yoon.kiosk.controller.AdminGridLayoutAdapter;
+import sb.yoon.kiosk.controller.AdminFragmentAdapter;
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.controller.KioskListAdapter;
 import sb.yoon.kiosk.layout.CategoryButton;
 import sb.yoon.kiosk.model.Category;
 
 public class AdminActivity extends AppCompatActivity {
-    private FrameLayout mFrameLayout;
-    private FragmentTransaction mFragmentTransaction;
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager;
+    //메뉴마다 어댑터 달기
+    private AdminGridLayoutAdapter adapter;
     private DbQueryController dbQueryController;
 
     private List<Category> categories;
-    private Button categoryButton;
+    private AdminTabFragment adminTab;
+    //private admin_ItemListFragment admin_itemListFragment;
 
 
     @Override
@@ -37,31 +48,40 @@ public class AdminActivity extends AppCompatActivity {
 
         categories = dbQueryController.getCategoriesList();
 
-        //카테고리 버튼 생성
-        this.createCategoryButtons();
-    }
+        tabLayout = findViewById(R.id.tabLayout);
+        viewPager = findViewById(R.id.pager);
 
-    private void createCategoryButtons(){
-        HorizontalScrollView horizontalScrollView = findViewById(R.id.adminCategory);
-        int i = 0;
-        for(Category category : categories){
-            categoryButton = new Button(this);
-            categoryButton.setText(category.getName());
-            categoryButton.setTextSize(60f);
-            //categoryButton.setOnClickListener(new categoryButtonListener());
-            categoryButton.setTag(i);
-            horizontalScrollView.addView(categoryButton);
-            i++;
-        }
-    }
-    /*class categoryButtonListener implements View.OnClickListener{
-        int tagNo;
-        @Override
-        public void onClick(View view) {
-            tagNo = (int)view.getTag();
-            try{
+        // 어댑터 지옥의 시작...
+        // 아이템 카운트에 맞춰서 플래그먼트 생성
+        // 카테고리 리스트를 주고 거기서 메뉴리스트를 동적으로 받아서 생성
+        AdminFragmentAdapter adminFragmentAdapter = new AdminFragmentAdapter(categories, this);
+        adminFragmentAdapter.setItemCount(categories.size());
+        viewPager.setAdapter(adminFragmentAdapter);
 
+        new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                tab.setText(categories.get(position).getName());
+                Log.d("menu", categories.get(position).getMenuList().get(0).getName());
+               /* Bundle args = new Bundle();
+                args.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) categories.get(position).getMenuList());*/
             }
+
+        }).attach();
+        //카테고리 버튼 생성
+        //this.createTabs();
+    }
+    public void adminOnClick(View view){
+        switch(view.getId()){
+            case R.id.addmenu:
+                Intent intent = new Intent(view.getContext(), AdminAddActivity.class);
+                startActivity(intent);
+                break;
+
+            case R.id.exit:
+                finish();
+                break;
         }
-    }*/
+    }
 }
+
