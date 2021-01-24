@@ -1,8 +1,11 @@
 package sb.yoon.kiosk;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -19,6 +22,9 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +76,8 @@ public class AdminAddActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.admin_add_activity);
 
+        tedPermission();
+
         KioskApplication kioskApplication = (KioskApplication)getApplication();
         controller = kioskApplication.getDbQueryController();
 
@@ -105,7 +113,7 @@ public class AdminAddActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/*");
+                intent.setType("image/");
                 startActivityForResult(intent, GALLERY_CODE);
             }
         });
@@ -153,8 +161,9 @@ public class AdminAddActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_CODE && resultCode == RESULT_OK && data.getData() != null) {
-            //Todo 갤러리에서 사진 들고오기
+        if (requestCode == GALLERY_CODE && resultCode == RESULT_OK && data.getData() != null){
+            Uri selectedImageUri = data.getData();
+            menuImg.setImageURI(selectedImageUri);
         }
     }
 
@@ -248,4 +257,24 @@ public class AdminAddActivity extends AppCompatActivity {
         }
     }
 
+    private void tedPermission(){
+        PermissionListener permissionListener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                // 권한 요청 성공
+
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                // 권한 요청 실패
+            }
+        };
+
+        TedPermission.with(this)
+                .setPermissionListener(permissionListener)
+                .setRationaleMessage(getResources().getString(R.string.permission_2))
+                .setDeniedMessage(getResources().getString(R.string.permission_1))
+                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE);
+    }
 }
