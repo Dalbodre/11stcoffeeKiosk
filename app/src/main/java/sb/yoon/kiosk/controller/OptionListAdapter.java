@@ -62,7 +62,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
         if (cartOption.isInteger()) {
             TextView quantityTextView = new TextView(holder.context);
             quantityTextView.setText(Integer.toString(cartOption.getQuantity()));
-            quantityTextView.setTextSize(60f);
+            quantityTextView.setTextSize(45f);
             quantityTextView.setPadding(10, 0,10,0);
             quantityTextView.setTextColor(Color.parseColor("#081832"));
 
@@ -70,7 +70,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             minusButton.setText("◀");
             minusButton.setTextColor(Color.parseColor("#081832"));
             minusButton.setTextSize(45f);
-            minusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.togglebutton_off));
+            minusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.for_option_background));
             minusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
 
             /*if(quantityTextView.getText().equals("0")){
@@ -84,7 +84,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             plusButton.setText("▶");
             plusButton.setTextColor(Color.parseColor("#081832"));
             plusButton.setTextSize(45f);
-            plusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.togglebutton_off));
+            plusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.for_option_background));
             plusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
 
             holder.optionButtonsWrapper.addView(minusButton);

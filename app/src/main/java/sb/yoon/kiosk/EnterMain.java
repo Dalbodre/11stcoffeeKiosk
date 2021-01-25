@@ -39,8 +39,8 @@ public class EnterMain extends AppCompatActivity {
     public void buttonClicked(View view) {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(ProgressBar.VISIBLE);
-        //Intent intent = new Intent(this, KioskListActivity.class);
-        Intent intent = new Intent(this, AdminActivity.class);
+        Intent intent = new Intent(this, KioskListActivity.class);
+        //Intent intent = new Intent(this, AdminActivity.class);
         startActivity(intent);
         //finish();
     }

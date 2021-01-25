@@ -111,6 +111,7 @@ public class PopupActivity extends Activity {
         Drawable iceIcon = ContextCompat.getDrawable(this, R.drawable.ice_cubes);
         iceIcon.setBounds(0,0,130,130);
         iceButton.setCompoundDrawables(iceIcon,null,null,null);
+        iceButton.setTextColor(Color.parseColor("#081832"));
 
         Drawable hotIcon = ContextCompat.getDrawable(this, R.drawable.burn);
         hotIcon.setBounds(0,0,130,130);
@@ -125,6 +126,7 @@ public class PopupActivity extends Activity {
 
         if (!cartMenu.isHot() && cartMenu.isCold()) {
             iceButton.setChecked(true);
+            iceButton.setTextColor(Color.parseColor("#ffffff"));
             hotButton.setChecked(false);
             iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
             hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
