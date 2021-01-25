@@ -24,10 +24,12 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         protected ImageView imageView;
+        protected TextView textView;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.for_element_image);
+            imageView = itemView.findViewById(R.id.search_image);
+            textView = itemView.findViewById(R.id.search_name);
             context = itemView.getContext();
         }
     }
@@ -48,6 +50,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(ingredients.get(position).getIconPath(), "drawable", context.getPackageName()));
         holder.imageView.setImageDrawable(drawable);
+        holder.textView.setText(ingredients.get(position).getName());
         holder.imageView.setTag(ingredients.get(position));
     }
 

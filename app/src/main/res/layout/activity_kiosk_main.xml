@@ -31,11 +31,11 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="500px"
-            android:layout_height="300px"
+            android:layout_width="400px"
+            android:layout_height="250px"
             android:layout_marginStart="700px"
             android:background="@drawable/the_11th_banner"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentBottom="true"/>
 
         <ImageButton
             android:id="@+id/search_icon"
