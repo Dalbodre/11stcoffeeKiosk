@@ -126,6 +126,11 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
             }
             if (ingredientElement != null) {
                 ingredientElement.setImageDrawable(ingredientDrawable);
+                ingredientElement.setName(ingredient.getName());
+
+                TextView tv = convertView.findViewById(R.id.element_name);
+                tv.setVisibility(View.GONE);
+
                 ingredientElement.setVisibility(View.VISIBLE);
 
                 //ㄱㅊ? 이거 필요하면 넣는걸로 합시다

@@ -19,29 +19,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cart_image_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/cart_item_take_out"
+        app:layout_constraintEnd_toEndOf="@id/cart_item_take_out"
         app:layout_constraintTop_toBottomOf="@id/cart_item_take_out">
 
         <sb.yoon.kiosk.layout.IngredientItem
             android:id="@+id/menu_element"
-            android:layout_width="220px"
-            android:layout_height="200px">
+            android:layout_width="match_parent"
+            android:layout_height="200px"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
         </sb.yoon.kiosk.layout.IngredientItem>
 
         <ImageButton
             android:id="@+id/cart_cancel_button"
-            android:layout_marginStart="170px"
+            app:layout_constraintTop_toTopOf="@+id/menu_element"
+            app:layout_constraintEnd_toEndOf="@+id/menu_element"
             android:layout_width="50px"
             android:layout_height="50px"
             android:background="#ffffff"
-            android:src="@drawable/ic_baseline_highlight_off_24"
-            app:layout_constraintBottom_toBottomOf="@id/menu_element" />
-    </RelativeLayout>
+            android:src="@drawable/ic_baseline_highlight_off_24"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/cart_item_price_tag"

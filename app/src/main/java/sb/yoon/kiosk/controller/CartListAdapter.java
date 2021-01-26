@@ -60,7 +60,8 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
     public CustomViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType){
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.cart_item, viewGroup, false);
-
+        TextView tv = v.findViewById(R.id.search_name);
+        tv.setVisibility(View.GONE);
         return new CustomViewHolder(v);
     }
 
