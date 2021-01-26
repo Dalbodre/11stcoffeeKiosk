@@ -2,6 +2,7 @@ package sb.yoon.kiosk;
 
 import android.content.Intent;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
@@ -94,9 +95,11 @@ public class KioskListActivity extends AppCompatActivity {
             button = new CategoryButton(this, category.getName(), tagNum);
             Log.d("button", String.valueOf(tagNum));
             Log.d("button", category.getName());
+            button.setWidth(220);
             buttons.add(button);
             tagNum += 1;
         }
+
         categorySize = buttons.size();
         // 카테고리 버튼들 생성
         this.createCategoryButtons();
@@ -122,53 +125,29 @@ public class KioskListActivity extends AppCompatActivity {
         purchaseButton.setOnClickListener(new purchaseButtonClickListener());
     }
 
-
+    private void checkCategoryButtons() {
+        for(int i=0; i<categorySize; i++){
+            if(buttons.get(i).isChecked()){
+                buttons.get(i).setBackgroundResource(R.drawable.togglebutton_on);
+                buttons.get(i).setTextColor(Color.parseColor("#ffffff"));
+            }
+        }
+    }
 
     private void createCategoryButtons() {
         GridLayout categoryButtonsGroup = findViewById(R.id.category_list);
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.setGravity(GridLayout.TEXT_ALIGNMENT_CENTER);
 
-        //params.setMargins(20, 0, 20, 0);
-
-        /*
-        검색은 차후에 구현
-        // 검색버튼 삽입
-        CategoryButton searchButton = new CategoryButton(this);
-        Drawable searchIcon = ContextCompat.getDrawable(this, R.drawable.search_icon);
-        // 검색 아이콘 삽입 (Drawable Left)
-        searchIcon.setBounds(0, 0, 90, 90);
-        //searchIcon.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.MULTIPLY);
-        searchButton.setCompoundDrawables(searchIcon, null, null, null);
-        searchButton.setText("검색");
-        searchButton.setTextSize(60f);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(KioskListActivity.this, SearchActivity.class);
-                startActivityForResult(intent, 2);
-            }
-        });
-        categoryButtonsGroup.addView(searchButton, params);
-*/
-
-        // 버튼 순서 태그로 지정
-        // 4개씩 자름.
-
-        /*for(int i = categoryPage*4 ; i < (categoryPage+1)*4; i++) {
-            //카테고리 사이즈보다 i가 클 때 반복문 나감.
-            if(i > categorySize) break;
-
-            categoryButtonsGroup.addView(button, params);
-        }*/
+        //buttons.get(0).setChecked(true);
         for(int i=0; i<categorySize; i++){
             buttons.get(i).setText(buttons.get(i).getCategoryName());
-            buttons.get(i).setTextSize(30f);
+            buttons.get(i).setTextSize(50f);
             buttons.get(i).setOnClickListener(new categoryButtonClickListener());
             buttons.get(i).setTag(buttons.get(i).getTagNum());
-            buttons.get(i).setVisibility(View.GONE);
             categoryButtonsGroup.addView(buttons.get(i));
         }
+        checkCategoryButtons();
     }
 
     private void updateCategory(int categoryPage){
