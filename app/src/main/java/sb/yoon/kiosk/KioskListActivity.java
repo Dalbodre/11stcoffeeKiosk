@@ -241,7 +241,8 @@ public class KioskListActivity extends AppCompatActivity {
 
                 for (int i = 0; i < buttons.size(); i++) {
                     buttons.get(i).setChecked(false);
-                    buttons.get(i).setBackgroundResource(R.drawable.togglebutton_off);
+                    buttons.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
+
                     buttons.get(i).setTextColor(Color.parseColor("#081832"));
                     buttons.get(i).setText(buttons.get(i).getCategoryName());
                 }

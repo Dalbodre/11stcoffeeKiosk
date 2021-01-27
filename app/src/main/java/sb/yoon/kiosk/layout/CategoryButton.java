@@ -2,9 +2,11 @@ package sb.yoon.kiosk.layout;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.LinkAddress;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.widget.LinearLayout;
 import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
@@ -34,9 +36,9 @@ public class CategoryButton extends androidx.appcompat.widget.AppCompatToggleBut
     private void styling() {
         this.setTextColor(Color.parseColor("#081832"));
         this.setPadding(20, 0, 20, 0);
-        this.setBackgroundResource(R.drawable.togglebutton_off);
-
+        this.setBackgroundColor(Color.parseColor("#ffffff"));
         this.getMaxHeight();
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             this.setStateListAnimator(null); //버전 문제때문에 그러는데, Lollipop 이후 버전으로 해야한다고 합니다.
         }
