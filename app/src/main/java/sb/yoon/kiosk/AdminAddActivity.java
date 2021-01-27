@@ -163,6 +163,7 @@ public class AdminAddActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY_CODE && resultCode == RESULT_OK && data.getData() != null){
+            System.out.println(data.getData());
             iconPath = getPath(data.getData());
             //Uri selectedImageUri = data.getData();
             //menuImg.setImageURI(selectedImageUri);
@@ -185,9 +186,10 @@ public class AdminAddActivity extends AppCompatActivity {
         //내부에 저장하는 코드
         try {
             System.out.println("시작합니다.");
-            File sd = Environment.getExternalStorageDirectory();
+            File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
             File data = Environment.getDataDirectory();
-
+            System.out.println("패스 :: " + sd.toString() + " " + data.toString());
+            System.out.println("패스2 :: " + this.getExternalFilesDir("absolute").toString() + " " + this.getExternalFilesDirs("absolute").toString());
             if(sd.canWrite()){
                 String destPath = "/storage/emulated/0/DCIM/Camera/"+filename;
                 File source = new File(sd, sourcePath);
