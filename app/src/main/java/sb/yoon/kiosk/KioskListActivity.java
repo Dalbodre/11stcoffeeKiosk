@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,7 +76,7 @@ public class KioskListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiosk_main);
 
-        KioskApplication kioskApplication = (KioskApplication)getApplication();
+        KioskApplication kioskApplication = (KioskApplication) getApplication();
         kioskApplication.setKioskListActivity(this);
 
         // DB 컨트롤러 (프론트에서 쓸 메서드들 모음)
@@ -91,7 +92,7 @@ public class KioskListActivity extends AppCompatActivity {
         //버튼 객체 미리 생성
         tagNum = 0;
 
-        for (Category category: categories) {
+        for (Category category : categories) {
             button = new CategoryButton(this, category.getName(), tagNum);
             Log.d("button", String.valueOf(tagNum));
             Log.d("button", category.getName());
@@ -126,8 +127,8 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     private void checkCategoryButtons() {
-        for(int i=0; i<categorySize; i++){
-            if(buttons.get(i).isChecked()){
+        for (int i = 0; i < categorySize; i++) {
+            if (buttons.get(i).isChecked()) {
                 buttons.get(i).setBackgroundResource(R.drawable.togglebutton_on);
                 buttons.get(i).setTextColor(Color.parseColor("#ffffff"));
             }
@@ -140,7 +141,7 @@ public class KioskListActivity extends AppCompatActivity {
         params.setGravity(GridLayout.TEXT_ALIGNMENT_CENTER);
 
         //buttons.get(0).setChecked(true);
-        for(int i=0; i<categorySize; i++){
+        for (int i = 0; i < categorySize; i++) {
             buttons.get(i).setText(buttons.get(i).getCategoryName());
             buttons.get(i).setTextSize(50f);
             buttons.get(i).setOnClickListener(new categoryButtonClickListener());
@@ -150,22 +151,21 @@ public class KioskListActivity extends AppCompatActivity {
         checkCategoryButtons();
     }
 
-    private void updateCategory(int categoryPage){
-        Button leftBtn = (Button)findViewById(R.id.left_button);
-        Button rightBtn = (Button)findViewById(R.id.right_button);
-        for(int j = 0; j<categorySize;j++){
+    private void updateCategory(int categoryPage) {
+        Button leftBtn = (Button) findViewById(R.id.left_button);
+        Button rightBtn = (Button) findViewById(R.id.right_button);
+        for (int j = 0; j < categorySize; j++) {
             buttons.get(j).setVisibility(View.GONE);
         }
-        for(int i = categoryPage*6; i<(categoryPage+1)*6; i++){
-            if(i>categorySize)break;
+        for (int i = categoryPage * 6; i < (categoryPage + 1) * 6; i++) {
+            if (i > categorySize) break;
             Log.d("index", String.valueOf(i));
             buttons.get(i).setVisibility(View.VISIBLE);
         }
-        if(categoryPage == 0){
+        if (categoryPage == 0) {
             leftBtn.setEnabled(false);
             rightBtn.setEnabled(true);
-        }
-        else{
+        } else {
             leftBtn.setEnabled(true);
         }
     }
@@ -219,7 +219,7 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     public void category_select(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.left_button:
                 categoryPage--;
                 break;
@@ -241,12 +241,17 @@ public class KioskListActivity extends AppCompatActivity {
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
 
-                for (int i=0; i<buttons.size(); i++) {
-                    if (buttons.get(i).getTagNum() == tagNo) {
-                        break;
-                    }
+                for (int i = 0; i < buttons.size(); i++) {
                     buttons.get(i).setChecked(false);
+                    buttons.get(i).setBackgroundResource(R.drawable.togglebutton_off);
+                    buttons.get(i).setTextColor(Color.parseColor("#081832"));
+                    buttons.get(i).setText(buttons.get(i).getCategoryName());
                 }
+                buttons.get(tagNo).setChecked(true);
+                buttons.get(tagNo).setBackgroundResource(R.drawable.togglebutton_on);
+                buttons.get(tagNo).setTextColor(Color.parseColor("#ffffff"));
+                buttons.get(tagNo).setText(buttons.get(tagNo).getCategoryName());
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -273,7 +278,8 @@ public class KioskListActivity extends AppCompatActivity {
                 //                                       총 가격 숫자만
                 jsonObject.put("totalPrice", totalPriceView.getTag());
                 jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
-                        new TypeToken<List<CartMenu>>(){}.getType())));
+                        new TypeToken<List<CartMenu>>() {
+                        }.getType())));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
