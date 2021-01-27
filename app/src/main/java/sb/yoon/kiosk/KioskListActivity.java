@@ -126,29 +126,22 @@ public class KioskListActivity extends AppCompatActivity {
         purchaseButton.setOnClickListener(new purchaseButtonClickListener());
     }
 
-    private void checkCategoryButtons() {
-        for (int i = 0; i < categorySize; i++) {
-            if (buttons.get(i).isChecked()) {
-                buttons.get(i).setBackgroundResource(R.drawable.togglebutton_on);
-                buttons.get(i).setTextColor(Color.parseColor("#ffffff"));
-            }
-        }
-    }
-
     private void createCategoryButtons() {
         GridLayout categoryButtonsGroup = findViewById(R.id.category_list);
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.setGravity(GridLayout.TEXT_ALIGNMENT_CENTER);
 
-        //buttons.get(0).setChecked(true);
         for (int i = 0; i < categorySize; i++) {
             buttons.get(i).setText(buttons.get(i).getCategoryName());
             buttons.get(i).setTextSize(50f);
+            if(i == 0){
+                buttons.get(i).setBackgroundResource(R.drawable.togglebutton_on);
+                buttons.get(i).setTextColor(Color.parseColor("#ffffff"));
+            }
             buttons.get(i).setOnClickListener(new categoryButtonClickListener());
             buttons.get(i).setTag(buttons.get(i).getTagNum());
             categoryButtonsGroup.addView(buttons.get(i));
         }
-        checkCategoryButtons();
     }
 
     private void updateCategory(int categoryPage) {

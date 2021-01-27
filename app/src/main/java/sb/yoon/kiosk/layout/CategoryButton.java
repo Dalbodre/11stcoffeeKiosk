@@ -24,15 +24,6 @@ public class CategoryButton extends androidx.appcompat.widget.AppCompatToggleBut
         this.tagNum = tagNum;
         this.categoryName = categoryName;
         styling();
-        toggles();
-    }
-
-    private void toggles() {
-/*        if(this.isChecked()) {
-            this.setBackgroundResource(R.drawable.togglebutton_on);
-        }
-        else
-            this.setBackgroundResource(R.drawable.togglebutton_on);*/
     }
 
     public CategoryButton(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -43,14 +34,6 @@ public class CategoryButton extends androidx.appcompat.widget.AppCompatToggleBut
     private void styling() {
         this.setTextColor(Color.parseColor("#081832"));
         this.setPadding(20, 0, 20, 0);
-        //this.set
-
-        if(this.isChecked()){
-            this.setBackgroundResource(R.drawable.togglebutton_on);
-        }
-        else{
-            this.setBackgroundResource(R.drawable.togglebutton_off);
-        }
 
         this.getMaxHeight();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
