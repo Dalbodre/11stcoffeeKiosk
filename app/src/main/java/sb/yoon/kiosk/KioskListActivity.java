@@ -62,7 +62,7 @@ public class KioskListActivity extends AppCompatActivity {
     private DbQueryController dbQueryController;
 
     private int tagNum;
-    private int categoryPage;
+    private int categoryPage = 0;
     private List<CategoryButton> buttons = new ArrayList<>();
     private CategoryButton button;
     int categorySize;
@@ -92,7 +92,6 @@ public class KioskListActivity extends AppCompatActivity {
 
         // 카테고리 리스트 불러오기
         categories = dbQueryController.getCategoriesList();
-        categoryPage = 0;
 
         //버튼 객체 미리 생성
         tagNum = 0;
@@ -155,8 +154,8 @@ public class KioskListActivity extends AppCompatActivity {
         for (int j = 0; j < categorySize; j++) {
             buttons.get(j).setVisibility(View.GONE);
         }
-        for (int i = categoryPage * 6; i < (categoryPage + 1) * 6; i++) {
-            if (i > categorySize) break;
+        for (int i = categoryPage * 8; i < i + 8; i++) {
+            if (i >= categorySize) break;
             Log.d("index", String.valueOf(i));
             buttons.get(i).setVisibility(View.VISIBLE);
         }
