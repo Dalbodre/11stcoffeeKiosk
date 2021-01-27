@@ -240,6 +240,13 @@ public class KioskListActivity extends AppCompatActivity {
                 itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
+
+                for (int i=0; i<buttons.size(); i++) {
+                    if (buttons.get(i).getTagNum() == tagNo) {
+                        break;
+                    }
+                    buttons.get(i).setChecked(false);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
