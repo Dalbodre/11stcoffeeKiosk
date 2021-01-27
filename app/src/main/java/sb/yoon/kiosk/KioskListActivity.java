@@ -169,7 +169,7 @@ public class KioskListActivity extends AppCompatActivity {
         for(int j = 0; j<categorySize;j++){
             buttons.get(j).setVisibility(View.GONE);
         }
-        for(int i = categoryPage*6; i<(categoryPage+1)*6; i++){
+        for(int i = categoryPage*8; i<(categoryPage+1)*8; i++){
             if(i>categorySize)break;
             Log.d("index", String.valueOf(i));
             buttons.get(i).setVisibility(View.VISIBLE);

@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -23,11 +24,13 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.gun0912.tedpermission.PermissionListener;
-import com.gun0912.tedpermission.TedPermission;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.model.AdminMenu;
@@ -76,8 +79,6 @@ public class AdminAddActivity extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.admin_add_activity);
 
-        tedPermission();
-
         KioskApplication kioskApplication = (KioskApplication)getApplication();
         controller = kioskApplication.getDbQueryController();
 
@@ -108,15 +109,6 @@ public class AdminAddActivity extends AppCompatActivity {
         for(Category category : categories){
             categoryNames.add(category.getName());
         }
-        menuImg.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                intent.setType("image/");
-                startActivityForResult(intent, GALLERY_CODE);
-            }
-        });
 
         ArrayAdapter<String> spinItems = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categoryNames);
         spinner.setAdapter(spinItems);
@@ -148,6 +140,15 @@ public class AdminAddActivity extends AppCompatActivity {
             }
         });
 
+        menuImg.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/");
+                startActivityForResult(intent, GALLERY_CODE);
+            }
+        });
         iconPath = "0"; //Todo 고쳐야됨. 아마 이미지 선택하는 인텐트에서 이미지 선택하면 거기서 getIconPath하면 될듯.
 
         if(isAdd) {
@@ -162,17 +163,58 @@ public class AdminAddActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY_CODE && resultCode == RESULT_OK && data.getData() != null){
-            Uri selectedImageUri = data.getData();
-            menuImg.setImageURI(selectedImageUri);
+            iconPath = getPath(data.getData());
+            //Uri selectedImageUri = data.getData();
+            //menuImg.setImageURI(selectedImageUri);
+            //iconPath = selectedImageUri.toString();
+            System.out.println(iconPath);
+
         }
     }
+    public String getPath(Uri uri){
+        String[] projection = {MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        startManagingCursor(cursor);
+        int column_idx = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        String sourcePath = cursor.getString(column_idx);
+        //정규표현식
+        String filepath[] = sourcePath.split("/");
+        String filename = filepath[filepath.length-1];
+        System.out.println(filename);
+        //내부에 저장하는 코드
+        try {
+            System.out.println("시작합니다.");
+            File sd = Environment.getExternalStorageDirectory();
+            File data = Environment.getDataDirectory();
 
-    public void adminAction(View view){
-        switch(view.getId()){
+            if(sd.canWrite()){
+                String destPath = "/storage/emulated/0/DCIM/Camera/"+filename;
+                File source = new File(sd, sourcePath);
+                File destination = new File(data, destPath);
+                System.out.println("source.exists() go");
+                if(source.exists()){
+                    System.out.println("source.exists() True");
+                    FileChannel src = new FileInputStream(source).getChannel();
+                    FileChannel dest = new FileInputStream(destination).getChannel();
+                    dest.transferFrom(src, 0, src.size());
+                    src.close();
+                    dest.close();
+                }
+                return destPath;
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void adminAction(View view) {
+        switch (view.getId()) {
             case R.id.Ok:
                 //Todo 원래 팝업 열고 추가하시겠습니까? 출력하고 해야됨. AlertDialog 이용.
                 //카테고리 추가시
-                if(!menuName.getText().toString().equals("") &&
+                if (!menuName.getText().toString().equals("") &&
                         !price.getText().toString().equals("") &&
                         categoryId == lastCategoryIdx &&
                         !categoryText.getText().toString().equals("")) {
@@ -207,14 +249,12 @@ public class AdminAddActivity extends AppCompatActivity {
                         lastOptionAndMenuJoinerIdx++;
                     }*/
                     finish();
-                }
-                else if(!menuName.getText().toString().equals("") && !price.getText().toString().equals("")
-                        && categoryId == lastCategoryIdx && categoryText.getText().toString().equals("")){
+                } else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("")
+                        && categoryId == lastCategoryIdx && categoryText.getText().toString().equals("")) {
                     Log.d("check", "카테고리 빔.");
                     //카테고리 추가를 선택하고 텍스트가 비었을 경우.
-                    Toast.makeText(this,"추가할 카테고리 이름을 입력해주세요.", Toast.LENGTH_LONG);
-                }
-                else if(!menuName.getText().toString().equals("") && !price.getText().toString().equals("") && categoryId != lastCategoryIdx){
+                    Toast.makeText(this, "추가할 카테고리 이름을 입력해주세요.", Toast.LENGTH_LONG);
+                } else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("") && categoryId != lastCategoryIdx) {
                     Log.d("check", "기존 카테고리내 추가");
                     /*//카테고리 추가가 아닌 기존의 카테고리일 경우.
                     controller.menuDao.insertOrReplace(new Menu(
@@ -243,11 +283,9 @@ public class AdminAddActivity extends AppCompatActivity {
                         lastOptionAndMenuJoinerIdx++;
                     }*/
                     finish();
-                }
-
-                else{
+                } else {
                     Log.d("check", "내용 빔");
-                    Toast.makeText(this.getApplicationContext(),"빈 곳을 채워주세요.", Toast.LENGTH_LONG);
+                    Toast.makeText(this.getApplicationContext(), "빈 곳을 채워주세요.", Toast.LENGTH_LONG);
                 }
                 break;
             case R.id.cancel:
@@ -255,26 +293,5 @@ public class AdminAddActivity extends AppCompatActivity {
                 finish();
                 break;
         }
-    }
-
-    private void tedPermission(){
-        PermissionListener permissionListener = new PermissionListener() {
-            @Override
-            public void onPermissionGranted() {
-                // 권한 요청 성공
-
-            }
-
-            @Override
-            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
-                // 권한 요청 실패
-            }
-        };
-
-        TedPermission.with(this)
-                .setPermissionListener(permissionListener)
-                .setRationaleMessage(getResources().getString(R.string.permission_2))
-                .setDeniedMessage(getResources().getString(R.string.permission_1))
-                .setPermissions(Manifest.permission.READ_EXTERNAL_STORAGE);
     }
 }
