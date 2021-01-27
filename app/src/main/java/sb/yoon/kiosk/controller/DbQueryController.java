@@ -147,7 +147,7 @@ public class DbQueryController {
             categoryDao.insertOrReplace(new Category(4L, "라떼"));
             categoryDao.insertOrReplace(new Category(5L, "차"));
             //categoryDao.insertOrReplace(new Category(6L, "과일청차"));
-            categoryDao.insertOrReplace(new Category(7L, "프라페 & 스무디"));
+            categoryDao.insertOrReplace(new Category(7L, "스무디"));
             //categoryDao.insertOrReplace(new Category(8L, "스무디"));
             categoryDao.insertOrReplace(new Category(9L, "빵"));
         }

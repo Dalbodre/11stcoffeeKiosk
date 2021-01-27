@@ -63,8 +63,7 @@
             android:onClick="category_select"
             android:enabled="true"
             android:text="◀"
-            android:background="@android:color/white"
-            android:layout_marginLeft="20dp"
+            android:background="#ffffff"
             android:textSize="30dp"
             android:layout_alignParentStart="true"
             />
@@ -74,11 +73,11 @@
             android:layout_width="950px"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginStart="5px"
             android:columnCount="4"
             android:background="#FFFFFF"
             android:gravity="center"
-            android:layout_centerHorizontal="true"
-            />
+            android:layout_toEndOf="@+id/left_button"/>
 
         <Button
             android:id="@+id/right_button"
@@ -88,8 +87,7 @@
             android:enabled="true"
             android:text="▶"
             android:layout_alignParentEnd="true"
-            android:background="@android:color/white"
-            android:layout_marginRight="20dp"
+            android:background="#ffffff"
             android:textSize="30dp"
             />
     </RelativeLayout>
