@@ -30,6 +30,8 @@
         <activity
             android:name=".SearchActivity"
             android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".AdminAddActivity" />
         <activity
             android:name=".ResultActivity"
             android:theme="@android:style/Theme.Dialog" />

@@ -22,6 +22,7 @@ import android.widget.ToggleButton;
 
 import androidx.annotation.RequiresApi;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,6 +45,11 @@ public class PopupActivity extends Activity {
     private String com_white = "#ffffff";
 
     private Button confirm;
+
+    private Drawable packageIcon;
+    private Drawable tableIcon;
+    private Drawable thumblerIcon;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +111,7 @@ public class PopupActivity extends Activity {
         Drawable iceIcon = ContextCompat.getDrawable(this, R.drawable.ice_cubes);
         iceIcon.setBounds(0,0,130,130);
         iceButton.setCompoundDrawables(iceIcon,null,null,null);
+        iceButton.setTextColor(Color.parseColor("#081832"));
 
         Drawable hotIcon = ContextCompat.getDrawable(this, R.drawable.burn);
         hotIcon.setBounds(0,0,130,130);
@@ -119,6 +126,7 @@ public class PopupActivity extends Activity {
 
         if (!cartMenu.isHot() && cartMenu.isCold()) {
             iceButton.setChecked(true);
+            iceButton.setTextColor(Color.parseColor("#ffffff"));
             hotButton.setChecked(false);
             iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
             hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
@@ -133,17 +141,20 @@ public class PopupActivity extends Activity {
 
     private void icons() {
         // 크기 조절은 여기서
-        Drawable tableIcon = ContextCompat.getDrawable(this, R.drawable.in_table);
+        tableIcon = ContextCompat.getDrawable(this, R.drawable.cup_xxxhdpi);
         tableIcon.setBounds(0,0,100,100);
-        no_takeout.setCompoundDrawables(tableIcon,null,null,null);
+        DrawableCompat.setTint(tableIcon, Color.BLACK);
+        no_takeout.setCompoundDrawables(null, tableIcon,null,null);
 
-        Drawable packageIcon = ContextCompat.getDrawable(this, R.drawable.packages);
-        packageIcon.setBounds(0,0,100,100);
-        takeout.setCompoundDrawables(packageIcon,null,null,null);
+        packageIcon = ContextCompat.getDrawable(this, R.drawable.takeout_xxxhdpi);
+        packageIcon.setBounds(0,0,80,100);
+        DrawableCompat.setTint(packageIcon, Color.BLACK);
+        takeout.setCompoundDrawables(null, packageIcon,null,null);
 
-        Drawable thumblerIcon = ContextCompat.getDrawable(this, R.drawable.thumbler);
+        thumblerIcon = ContextCompat.getDrawable(this, R.drawable.thermos_xxxhdpi);
         thumblerIcon.setBounds(0,0,110,110);
-        tumbler.setCompoundDrawables(thumblerIcon,null,null,null);
+        DrawableCompat.setTint(thumblerIcon, Color.BLACK);
+        tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
 
     }
 
@@ -178,11 +189,18 @@ public class PopupActivity extends Activity {
                 tumbler.setChecked(false);
                 tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
                 tumbler.setTextColor(Color.parseColor(com_blue));
+
+                DrawableCompat.setTint(thumblerIcon, Color.BLACK);
+                tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
             }
             else{
                 tumbler.setChecked(true);
                 tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+                no_takeout.setCompoundDrawables(null, tableIcon,null,null);
                 tumbler.setTextColor(Color.parseColor(com_white));
+
+                DrawableCompat.setTint(thumblerIcon, Color.WHITE);
+                tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
             }
         }
     }
@@ -198,6 +216,11 @@ public class PopupActivity extends Activity {
                 no_takeout.setChecked(false);
                 no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
                 no_takeout.setTextColor(Color.parseColor(com_blue));
+
+                DrawableCompat.setTint(packageIcon, Color.WHITE);
+                takeout.setCompoundDrawables(null, packageIcon,null,null);
+                DrawableCompat.setTint(tableIcon, Color.BLACK);
+                no_takeout.setCompoundDrawables(null, tableIcon,null,null);
             }
             else if(tButton.equals(no_takeout)){
                 takeout.setChecked(false);
@@ -206,6 +229,11 @@ public class PopupActivity extends Activity {
                 no_takeout.setChecked(true);
                 no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
                 no_takeout.setTextColor(Color.parseColor(com_white));
+
+                DrawableCompat.setTint(packageIcon, Color.BLACK);
+                takeout.setCompoundDrawables(null, packageIcon,null,null);
+                DrawableCompat.setTint(tableIcon, Color.WHITE);
+                no_takeout.setCompoundDrawables(null, tableIcon,null,null);
             }
         }
     }

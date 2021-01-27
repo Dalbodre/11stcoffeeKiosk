@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +13,9 @@ import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,21 +67,21 @@ public class KioskListActivity extends AppCompatActivity {
     private CategoryButton button;
     int categorySize;
 
-    // 카드 모듈 관련
-    byte[] mRequestTelegram;
+    boolean searchButtonClicked = false;
+    public boolean menuOptionPopupButtonClicked = false;
+    boolean purchaseButtonClicked = false;
 
-    String mDeviceNo = "";
-
-    String mTotAmt = "";
-    String mVat = "";
-    String mSupAmt = "";
+    @Override
+    public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
+        return super.onCreatePanelMenu(featureId, menu);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kiosk_main);
 
-        KioskApplication kioskApplication = (KioskApplication)getApplication();
+        KioskApplication kioskApplication = (KioskApplication) getApplication();
         kioskApplication.setKioskListActivity(this);
 
         // DB 컨트롤러 (프론트에서 쓸 메서드들 모음)
@@ -94,13 +97,15 @@ public class KioskListActivity extends AppCompatActivity {
         //버튼 객체 미리 생성
         tagNum = 0;
 
-        for (Category category: categories) {
+        for (Category category : categories) {
             button = new CategoryButton(this, category.getName(), tagNum);
             Log.d("button", String.valueOf(tagNum));
             Log.d("button", category.getName());
+            button.setWidth(220);
             buttons.add(button);
             tagNum += 1;
         }
+
         categorySize = buttons.size();
         // 카테고리 버튼들 생성
         this.createCategoryButtons();
@@ -126,70 +131,39 @@ public class KioskListActivity extends AppCompatActivity {
         purchaseButton.setOnClickListener(new purchaseButtonClickListener());
     }
 
-
-
     private void createCategoryButtons() {
         GridLayout categoryButtonsGroup = findViewById(R.id.category_list);
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.setGravity(GridLayout.TEXT_ALIGNMENT_CENTER);
-        //params.setMargins(20, 0, 20, 0);
 
-        /*
-        검색은 차후에 구현
-        // 검색버튼 삽입
-        CategoryButton searchButton = new CategoryButton(this);
-        Drawable searchIcon = ContextCompat.getDrawable(this, R.drawable.search_icon);
-        // 검색 아이콘 삽입 (Drawable Left)
-        searchIcon.setBounds(0, 0, 90, 90);
-        //searchIcon.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.MULTIPLY);
-        searchButton.setCompoundDrawables(searchIcon, null, null, null);
-        searchButton.setText("검색");
-        searchButton.setTextSize(60f);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(KioskListActivity.this, SearchActivity.class);
-                startActivityForResult(intent, 2);
-            }
-        });
-        categoryButtonsGroup.addView(searchButton, params);
-*/
-
-        // 버튼 순서 태그로 지정
-        // 4개씩 자름.
-
-        /*for(int i = categoryPage*4 ; i < (categoryPage+1)*4; i++) {
-            //카테고리 사이즈보다 i가 클 때 반복문 나감.
-            if(i > categorySize) break;
-
-            categoryButtonsGroup.addView(button, params);
-        }*/
-        for(int i=0; i<categorySize; i++){
+        for (int i = 0; i < categorySize; i++) {
             buttons.get(i).setText(buttons.get(i).getCategoryName());
-            buttons.get(i).setTextSize(60f);
+            buttons.get(i).setTextSize(50f);
+            if(i == 0){
+                buttons.get(i).setBackgroundResource(R.drawable.togglebutton_on);
+                buttons.get(i).setTextColor(Color.parseColor("#ffffff"));
+            }
             buttons.get(i).setOnClickListener(new categoryButtonClickListener());
             buttons.get(i).setTag(buttons.get(i).getTagNum());
-            buttons.get(i).setVisibility(View.GONE);
             categoryButtonsGroup.addView(buttons.get(i));
         }
     }
 
-    private void updateCategory(int categoryPage){
-        Button leftBtn = (Button)findViewById(R.id.left_button);
-        Button rightBtn = (Button)findViewById(R.id.right_button);
-        for(int j = 0; j<categorySize;j++){
+    private void updateCategory(int categoryPage) {
+        Button leftBtn = (Button) findViewById(R.id.left_button);
+        Button rightBtn = (Button) findViewById(R.id.right_button);
+        for (int j = 0; j < categorySize; j++) {
             buttons.get(j).setVisibility(View.GONE);
         }
-        for(int i = categoryPage*6; i<(categoryPage+1)*6; i++){
-            if(i>categorySize)break;
+        for (int i = categoryPage * 6; i < (categoryPage + 1) * 6; i++) {
+            if (i > categorySize) break;
             Log.d("index", String.valueOf(i));
             buttons.get(i).setVisibility(View.VISIBLE);
         }
-        if(categoryPage == 0){
+        if (categoryPage == 0) {
             leftBtn.setEnabled(false);
             rightBtn.setEnabled(true);
-        }
-        else{
+        } else {
             leftBtn.setEnabled(true);
         }
     }
@@ -230,6 +204,9 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     public void clickSearchIcon(View view) {
+        if (this.searchButtonClicked)
+            return;
+        this.searchButtonClicked = true;
         Intent intent = new Intent(KioskListActivity.this, SearchActivity.class);
         startActivityForResult(intent, 2);
     }
@@ -240,7 +217,7 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     public void category_select(View view) {
-        switch(view.getId()){
+        switch (view.getId()) {
             case R.id.left_button:
                 categoryPage--;
                 break;
@@ -256,11 +233,23 @@ public class KioskListActivity extends AppCompatActivity {
     class categoryButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            int tagNum = (int) view.getTag();
+            int tagNo = (int) view.getTag();
             try {
-                itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNum)));
+                itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
+
+                for (int i = 0; i < buttons.size(); i++) {
+                    buttons.get(i).setChecked(false);
+                    buttons.get(i).setBackgroundResource(R.drawable.togglebutton_off);
+                    buttons.get(i).setTextColor(Color.parseColor("#081832"));
+                    buttons.get(i).setText(buttons.get(i).getCategoryName());
+                }
+                buttons.get(tagNo).setChecked(true);
+                buttons.get(tagNo).setBackgroundResource(R.drawable.togglebutton_on);
+                buttons.get(tagNo).setTextColor(Color.parseColor("#ffffff"));
+                buttons.get(tagNo).setText(buttons.get(tagNo).getCategoryName());
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -273,40 +262,33 @@ public class KioskListActivity extends AppCompatActivity {
             if (cartMenuList.isEmpty()) {
                 return;
             }
+            if (purchaseButtonClicked) {
+                return;
+            }
+            purchaseButtonClicked = true;
 
-            new android.app.AlertDialog.Builder(KioskListActivity.this)
-                    .setTitle(getResources().getString(R.string.app_name))
-                    .setMessage("정말 주문하시겠습니까?")
-                    .setCancelable(true)
-                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    Toast.makeText(KioskListActivity.this, "결제를 취소하셨습니다", Toast.LENGTH_SHORT).show();
-                }
-            }).setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    // 라즈베리파이 서버에 전송
-                    final Gson gson = new GsonBuilder()
-                            .excludeFieldsWithoutExposeAnnotation()
-                            .create();
-                    final TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        //                                       총 가격 숫자만
-                        jsonObject.put("totalPrice", totalPriceView.getTag());
-                        jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
-                                new TypeToken<List<CartMenu>>(){}.getType())));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-//                    Log.d("결제", jsonObject.toString());
-                    // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
-                    HttpNetworkController httpController = new HttpNetworkController(
-                            KioskListActivity.this, getResources().getString(R.string.server_ip));
-                    httpController.postJsonCartData(jsonObject);
-                }
-            }).show();
+            final Gson gson = new GsonBuilder()
+                    .excludeFieldsWithoutExposeAnnotation()
+                    .create();
+            final TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
+            JSONObject jsonObject = new JSONObject();
+            try {
+                //                                       총 가격 숫자만
+                jsonObject.put("totalPrice", totalPriceView.getTag());
+                jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
+                        new TypeToken<List<CartMenu>>() {
+                        }.getType())));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.d("결제", jsonObject.toString());
+            // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
+            HttpNetworkController httpController = new HttpNetworkController(
+                    KioskListActivity.this, getResources().getString(R.string.server_ip));
+            httpController.postJsonCartData(jsonObject);
+
+            //todo master에 merge 이후 intent result받는 곳으로 옮길 것
+            purchaseButtonClicked = false;
         }
     }
 
@@ -325,17 +307,18 @@ public class KioskListActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 //데이터 받기
                 String result = data.getStringExtra("result");
-//                if (result != null) {
-//                    Log.d("데이터", result);
-//                }
+                if (result != null) {
+                    Log.d("데이터", result);
+                }
             }
+            menuOptionPopupButtonClicked = false;
         } else if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 ArrayList<Integer> searchedMenuIdList = data.getIntegerArrayListExtra("searchedMenuIdList");
-//                Log.d("얻은값", searchedMenuIdList != null ? searchedMenuIdList.toString() : "값 없음");
+                //Log.d("얻은값", searchedMenuIdList != null ? searchedMenuIdList.toString() : "값 없음");
 
                 List<Menu> queryResult = dbQueryController.getMenuListByIdArray(searchedMenuIdList);
-//                Log.d("쿼리결과", queryResult.toString());
+                //Log.d("쿼리결과", queryResult.toString());
                 try {
                     itemListFragment = new ItemListFragment(queryResult);
                     fragmentTransaction = fragmentManager.beginTransaction();
@@ -344,6 +327,7 @@ public class KioskListActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+            this.searchButtonClicked = false;
         }
     }
 }

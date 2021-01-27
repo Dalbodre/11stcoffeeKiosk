@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="1000px"
-    android:layout_height="1900px"
+    android:layout_height="1800px"
     android:background="@drawable/enterance_button"
     android:orientation="vertical">
 
@@ -87,9 +87,9 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="10dp"
+            android:textColor="#ffffff"
             android:textOff="HOT X"
             android:textOn="HOT O"
-            android:textColor="#ffffff"
             android:textSize="80px"
             android:visibility="gone" />
 
@@ -100,7 +100,6 @@
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="10dp"
-            android:textColor="#081832"
             android:textOff="ICE X"
             android:textOn="ICE O"
             android:textSize="80px"
@@ -110,7 +109,7 @@
     <LinearLayout
         android:id="@+id/option_etc_static_options_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="180px"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@id/option_hot_ice_wrapper">
@@ -122,12 +121,13 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/togglebutton_off"
+            android:drawableTop="@drawable/cup_xxxhdpi"
             android:padding="10dp"
             android:paddingTop="17px"
             android:textColor="#081832"
             android:textOff="매장 X"
             android:textOn="매장 O"
-            android:textSize="60px" />
+            android:textSize="40px" />
 
         <ToggleButton
             android:id="@+id/option_takeout_toggle"
@@ -136,12 +136,13 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:background="@drawable/togglebutton_off"
+            android:drawableTop="@drawable/takeout_xxxhdpi"
             android:padding="10dp"
             android:paddingTop="17px"
             android:textColor="#081832"
             android:textOff="포장 X"
             android:textOn="포장 O"
-            android:textSize="60px" />
+            android:textSize="40px" />
 
         <ToggleButton
             android:id="@+id/option_tumblr_toggle"
@@ -149,7 +150,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/togglebutton_off"
-            android:drawableLeft="@drawable/small_drawable_thermos"
+            android:drawableTop="@drawable/thermos_xxxhdpi"
             android:padding="10dp"
             android:paddingTop="17px"
             android:textColor="#081832"
@@ -162,25 +163,46 @@
         android:id="@+id/option_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/option_confirm_button"
+        android:layout_marginBottom="30px"
+        app:layout_constraintBottom_toTopOf="@+id/option_buttons_container"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/option_etc_static_options_wrapper"
-        android:layout_marginBottom="30px">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintTop_toBottomOf="@+id/option_etc_static_options_wrapper"></androidx.recyclerview.widget.RecyclerView>
 
-
-    <Button
-        android:id="@+id/option_confirm_button"
+    <LinearLayout
+        android:id="@+id/option_buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="11px"
-        android:background="@drawable/enterance_button"
-        android:onClick="onClickPopUpConfirmedButtons"
-        android:padding="10dp"
-        android:text="확인"
-        android:textColor="#081832"
-        android:textSize="72px"
+        android:orientation="horizontal"
+        android:weightSum="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <Button
+            android:id="@+id/option_confirm_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0px"
+            android:layout_weight="0.5"
+            android:background="@drawable/enterance_button"
+            android:onClick="onClickPopUpConfirmedButtons"
+            android:padding="10dp"
+            android:text="확인"
+            android:textColor="#081832"
+            android:textSize="72px" />
+
+        <Button
+            android:id="@+id/option_cancel_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0px"
+            android:layout_weight="0.5"
+            android:background="@drawable/enterance_button"
+            android:onClick="onClickPopUpCloseButtons"
+            android:padding="10dp"
+            android:text="취소"
+            android:textColor="#081832"
+            android:textSize="72px" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

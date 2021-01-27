@@ -11,7 +11,7 @@
         android:gravity="center"
         android:text="옵션이름"
         android:textColor="#081832"
-        android:textSize="90px" />
+        android:textSize="50px" />
 
     <LinearLayout
         android:id="@+id/option_buttons_wrapper"

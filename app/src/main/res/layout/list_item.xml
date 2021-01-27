@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_item_container"
     android:layout_width="match_parent"
-    android:layout_height="350px"
+    android:layout_height="300px"
     android:background="@drawable/border_plain"
     android:descendantFocusability="blocksDescendants"
     android:padding="10px">
@@ -23,7 +23,6 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toEndOf="@id/menu_element"
-        android:layout_marginStart="100px"
         android:overScrollMode="never"
         android:scrollbars="none">
 
@@ -31,31 +30,52 @@
             android:id="@+id/ingredientsHolder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="50px"
             android:orientation="horizontal">
 
-            <sb.yoon.kiosk.layout.ItemElement
+            <sb.yoon.kiosk.layout.IngredientItem
                 android:id="@+id/ingredient1"
-                android:layout_width="210px"
-                android:layout_height="210px"
+                android:layout_width="240px"
+                android:layout_height="240px"
+                android:background="@drawable/circle"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.ItemElement
+            <Space
+                android:layout_width="50px"
+                android:layout_height="match_parent" />
+
+            <sb.yoon.kiosk.layout.IngredientItem
                 android:id="@+id/ingredient2"
-                android:layout_width="210px"
-                android:layout_height="210px"
+                android:layout_width="240px"
+                android:layout_height="240px"
+                android:background="@drawable/circle"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.ItemElement
+            <Space
+                android:layout_width="50px"
+                android:layout_height="match_parent" />
+
+            <sb.yoon.kiosk.layout.IngredientItem
                 android:id="@+id/ingredient3"
-                android:layout_width="210px"
-                android:layout_height="210px"
+                android:layout_width="240px"
+                android:layout_height="240px"
+                android:background="@drawable/circle"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.ItemElement
+            <Space
+                android:layout_width="50px"
+                android:layout_height="match_parent" />
+
+            <sb.yoon.kiosk.layout.IngredientItem
                 android:id="@+id/ingredient4"
-                android:layout_width="210px"
-                android:layout_height="210px"
+                android:layout_width="240px"
+                android:layout_height="240px"
+                android:background="@drawable/circle"
                 android:visibility="gone" />
+
+            <Space
+                android:layout_width="50px"
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </HorizontalScrollView>

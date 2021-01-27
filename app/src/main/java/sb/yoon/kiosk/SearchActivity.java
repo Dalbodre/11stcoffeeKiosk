@@ -66,7 +66,7 @@ public class SearchActivity extends Activity {
     }
 
     public void onClickSearchIngredientIcon(View view) {
-        ImageView imageView = view.findViewById(R.id.element_image);
+        ImageView imageView = view.findViewById(R.id.search_image);
         Ingredient ingredient = (Ingredient) imageView.getTag();
         searchedMenuList = ingredient.getMenuList();
         ArrayList<Integer> searchedMenuArrayList = new ArrayList<>();

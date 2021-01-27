@@ -28,8 +28,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.element_image);
-            textView = itemView.findViewById(R.id.element_name);
+            imageView = itemView.findViewById(R.id.search_image);
+            textView = itemView.findViewById(R.id.search_name);
             context = itemView.getContext();
         }
     }

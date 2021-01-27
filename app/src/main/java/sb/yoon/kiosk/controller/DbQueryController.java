@@ -25,12 +25,14 @@ import sb.yoon.kiosk.model.OptionsAndMenuJoinerDao;
 
 public class DbQueryController {
     private DaoSession daoSession;
-    private CategoryDao categoryDao;
-    private MenuDao menuDao;
+    public CategoryDao categoryDao;
+    public MenuDao menuDao;
     private IngredientDao ingredientDao;
     private IngredientsAndMenuJoinerDao ingredientsAndMenuJoinerDao;
-    private OptionDao optionDao;
-    private OptionsAndMenuJoinerDao optionsAndMenuJoinerDao;
+    public OptionDao optionDao;
+    public OptionsAndMenuJoinerDao optionsAndMenuJoinerDao;
+
+
 
     public DbQueryController(DaoSession daoSession) {
         this.daoSession = daoSession;
@@ -52,6 +54,16 @@ public class DbQueryController {
 
     public IngredientDao getIngredientDao() {
         return this.ingredientDao;
+    }
+
+    public Long getLastMenuIdx() {
+        return (Long)this.menuDao.count();
+    }
+    public Long getLastCategoryIdx(){
+        return (Long)this.categoryDao.count();
+    }
+    public Long getLastOptionAndMenuJoinerIdx(){
+        return (Long)this.optionsAndMenuJoinerDao.count();
     }
 
     public IngredientsAndMenuJoinerDao getIngredientsAndMenuJoinerDao() {
