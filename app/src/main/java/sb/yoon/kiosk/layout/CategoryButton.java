@@ -34,6 +34,7 @@ public class CategoryButton extends androidx.appcompat.widget.AppCompatToggleBut
     private void styling() {
         this.setTextColor(Color.parseColor("#081832"));
         this.setPadding(20, 0, 20, 0);
+        this.setBackgroundResource(R.drawable.togglebutton_off);
 
         this.getMaxHeight();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
