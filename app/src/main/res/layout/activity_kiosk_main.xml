@@ -89,8 +89,7 @@
             android:text="▶"
             android:layout_alignParentEnd="true"
             android:background="#ffffff"
-            android:textSize="30dp"
-            />
+            android:textSize="30dp" />
     </RelativeLayout>
 
     <View
