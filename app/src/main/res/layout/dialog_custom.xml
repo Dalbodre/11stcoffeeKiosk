@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/enterance_button"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#081832"
+        android:text="11호관 커피"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="60px"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/dialog_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/dialog_QR"
+            android:layout_width="300px"
+            android:layout_height="300px"
+            android:layout_centerInParent="true"
+            android:src="@drawable/coffee"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="50px"/>
+
+        <TextView
+            android:id="@+id/dialog_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/dialog_QR"
+            android:text="제로페이로 결제하시려면\n위의 QR코드를 통해\n결제하신 후\n점원에게 알려주시기 바랍니다."
+            android:textAlignment="center"
+            android:textColor="#081832"
+            android:textSize="80px"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/ok_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#081832"
+            android:text="확 인"
+            android:textColor="#ffffff"
+            android:textSize="60px" />
+
+        <Button
+            android:id="@+id/cancle_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/enterance_button"
+            android:text="취 소"
+            android:textSize="60px" />
+    </LinearLayout>
+</RelativeLayout>

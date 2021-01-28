@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="20px"
-            android:text="결재완료"
+            android:text="결제완료"
             android:textColor="#ffffff"
             android:textSize="50px"
             android:textStyle="bold" />
@@ -33,7 +33,7 @@
         android:layout_below="@+id/last_top_title"
         android:layout_marginTop="20px"
         android:gravity="center"
-        android:text="결재가 완료되었습니다."
+        android:text="결제가 완료되었습니다."
         android:textStyle="bold"
         android:textColor="#081832"
         android:textSize="60px" />

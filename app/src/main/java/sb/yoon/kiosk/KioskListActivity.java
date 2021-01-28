@@ -1,5 +1,6 @@
 package sb.yoon.kiosk;
 
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -261,34 +262,59 @@ public class KioskListActivity extends AppCompatActivity {
         public void onClick(View view) {
             if (cartMenuList.isEmpty()) {
                 return;
-            }
+            }/*
             if (purchaseButtonClicked) {
                 return;
             }
-            purchaseButtonClicked = true;
+            purchaseButtonClicked = true;*/
+            System.out.println("결제버튼: 클릭함");
 
-            final Gson gson = new GsonBuilder()
-                    .excludeFieldsWithoutExposeAnnotation()
-                    .create();
-            final TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
-            JSONObject jsonObject = new JSONObject();
-            try {
-                //                                       총 가격 숫자만
-                jsonObject.put("totalPrice", totalPriceView.getTag());
-                jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
-                        new TypeToken<List<CartMenu>>() {
-                        }.getType())));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Log.d("결제", jsonObject.toString());
-            // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
-            HttpNetworkController httpController = new HttpNetworkController(
-                    KioskListActivity.this, getResources().getString(R.string.server_ip));
-            httpController.postJsonCartData(jsonObject);
+            //custom dialog
+            View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom, null);
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(KioskListActivity.this);
+            builder.setView(dialogView);
+
+            final AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+
+            Button ok_btn = dialogView.findViewById(R.id.ok_btn);
+            ok_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // 라즈베리파이 서버에 전송
+                    final Gson gson = new GsonBuilder()
+                            .excludeFieldsWithoutExposeAnnotation()
+                            .create();
+                    final TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        //                                       총 가격 숫자만
+                        jsonObject.put("totalPrice", totalPriceView.getTag());
+                        jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
+                                new TypeToken<List<CartMenu>>() {
+                                }.getType())));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    //Log.d("결제", jsonObject.toString());
+                    // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
+                    HttpNetworkController httpController = new HttpNetworkController(
+                            KioskListActivity.this, getResources().getString(R.string.server_ip));
+                    httpController.postJsonCartData(jsonObject);
+                }
+            });
+
+            Button cancle_btn = dialogView.findViewById(R.id.cancle_btn);
+            cancle_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(KioskListActivity.this, "결제를 취소하셨습니다.", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                }
+            });
             //todo master에 merge 이후 intent result받는 곳으로 옮길 것
-            purchaseButtonClicked = false;
+            //purchaseButtonClicked = false;
         }
     }
 
