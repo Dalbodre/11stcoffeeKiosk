@@ -271,6 +271,10 @@ public class KioskListActivity extends AppCompatActivity {
 
             //custom dialog
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom, null);
+            TextView price_tv = dialogView.findViewById(R.id.price_text);
+            TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
+            // Log.d("가격텍스트", (String) totalPriceView.getText());
+            price_tv.setText(totalPriceView.getText().toString());
 
             AlertDialog.Builder builder = new AlertDialog.Builder(KioskListActivity.this);
             builder.setView(dialogView);
