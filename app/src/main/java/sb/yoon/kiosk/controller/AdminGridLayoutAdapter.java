@@ -140,6 +140,7 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
             int position = (int) v.getTag();
 
             if (v.getId() == R.id.admin_modify_button) {
+                //todo 수정 기능 구현
                 Toast.makeText(context.getApplicationContext(), "수정버튼", Toast.LENGTH_SHORT).show();
             } else if (v.getId() == R.id.admin_delete_button) {
                 menuList.get(position).delete();
