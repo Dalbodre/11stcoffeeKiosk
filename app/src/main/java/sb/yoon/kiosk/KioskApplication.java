@@ -1,6 +1,8 @@
 package sb.yoon.kiosk;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.widget.Toast;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -30,8 +32,15 @@ public class KioskApplication extends Application {
         daoSession = new DaoMaster(db).newSession();
         dbQueryController = new DbQueryController(daoSession);
 
+        //Toast.makeText(this.getApplicationContext(), "앱이 실행되었습니다", Toast.LENGTH_SHORT).show();
+
         // DB 초기화
-        dbQueryController.initDB();
+        SharedPreferences prefs = getSharedPreferences("sb.yoon.kiosk", MODE_PRIVATE);
+        if (prefs.getBoolean("firstrun", true)) {
+            dbQueryController.initDB();
+            Toast.makeText(this.getApplicationContext(), "DB 초기화가 실행되었습니다", Toast.LENGTH_SHORT).show();
+            prefs.edit().putBoolean("firstrun", false).apply();
+        }
     }
 
     public DaoSession getDaoSession() {

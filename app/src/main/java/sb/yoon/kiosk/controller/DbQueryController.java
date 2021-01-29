@@ -2,6 +2,8 @@ package sb.yoon.kiosk.controller;
 
 import android.app.Activity;
 
+import org.greenrobot.greendao.AbstractDao;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -72,6 +74,7 @@ public class DbQueryController {
     public void initDB() {
         Init init = new Init();
 
+        init.destroyAll();
         init.initCategories();
 
         init.initMenus();
@@ -137,6 +140,11 @@ public class DbQueryController {
     // 초기화 역할 하는 클래스
     // 구조상 보기 편하라고 Init 내부 클래스 안에다가 해줬는데 성능상 별로면 클래스 없애고 그냥 메서드로 변경
     class Init {
+        private void destroyAll() {
+            for (AbstractDao abstractDao : daoSession.getAllDaos()){
+                abstractDao.deleteAll();
+            }
+        }
         private void initCategories() {
             // 1L = new Long(1)
             categoryDao.insertOrReplace(new Category(1L, "커피"));
