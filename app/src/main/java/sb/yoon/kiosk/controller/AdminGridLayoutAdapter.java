@@ -3,6 +3,7 @@ package sb.yoon.kiosk.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 
 import sb.yoon.kiosk.AdminAddActivity;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import java.io.File;
 import java.util.List;
 
 import sb.yoon.kiosk.AdminActivity;
@@ -77,9 +79,23 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
         }
 
         ImageView menuItem = view.findViewById(R.id.adminImg);
-        Drawable drawable = ContextCompat.getDrawable(context,
-                context.getResources().getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
-        menuItem.setImageDrawable(drawable);
+        /*Drawable drawable = ContextCompat.getDrawable(context,
+                context.getResources().getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));*/
+        try{
+            File img = new File(menu.getIconPath());
+            if(img.exists() == true){
+                Uri uri = Uri.parse(menu.getIconPath());
+                menuItem.setImageURI(uri);
+            } else {
+                Drawable drawable = ContextCompat.getDrawable(context,
+                        context.getResources().getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
+                menuItem.setImageDrawable(drawable);
+
+            }
+        } catch (Exception e){
+            menuItem.setImageResource(R.drawable.empty_img);
+        }
+        /*menuItem.setImageDrawable(drawable);*/
 
         TextView textView = view.findViewById(R.id.adminText);
         textView.setText(menu.getName());
