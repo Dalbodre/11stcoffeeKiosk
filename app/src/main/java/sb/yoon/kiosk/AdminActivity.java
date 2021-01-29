@@ -57,7 +57,8 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 tab.setText(categories.get(position).getName());
-                Log.d("menu", categories.get(position).getMenuList().get(0).getName());
+                if (categories.get(position).getMenuList().size() > 0)
+                    Log.d("menu", categories.get(position).getMenuList().get(0).getName());
                /* Bundle args = new Bundle();
                 args.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) categories.get(position).getMenuList());*/
             }
@@ -69,7 +70,9 @@ public class AdminActivity extends AppCompatActivity {
         switch(view.getId()){
             case R.id.addmenu:
                 Intent intent = new Intent(view.getContext(), AdminAddActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
                 break;
 
             case R.id.exit:

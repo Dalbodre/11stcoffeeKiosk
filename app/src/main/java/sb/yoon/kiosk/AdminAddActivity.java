@@ -286,10 +286,15 @@ public class AdminAddActivity extends AppCompatActivity {
                         controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(lastOptionAndMenuJoinerIdx, menuId, 4L));
                         lastOptionAndMenuJoinerIdx++;
                     }*/
+
+                    //finish();
+                    Intent intent = new Intent(view.getContext(), AdminActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                     finish();
                 } else {
                     Log.d("check", "내용 빔");
-                    Toast.makeText(this.getApplicationContext(), "빈 곳을 채워주세요.", Toast.LENGTH_LONG);
+                    Toast.makeText(this.getApplicationContext(), "빈 곳을 채워주세요.", Toast.LENGTH_LONG).show();
                 }
                 break;
             case R.id.cancel:
