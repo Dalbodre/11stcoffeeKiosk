@@ -69,6 +69,7 @@ public class AdminActivity extends AppCompatActivity {
     public void adminOnClick(View view){
         switch(view.getId()){
             case R.id.addmenu:
+                AdminAddActivity.isAdd = true;
                 Intent intent = new Intent(view.getContext(), AdminAddActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);

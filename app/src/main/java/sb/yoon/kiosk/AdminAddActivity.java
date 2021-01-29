@@ -1,13 +1,9 @@
 package sb.yoon.kiosk;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,27 +19,23 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
-
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.model.AdminMenu;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.Menu;
+import sb.yoon.kiosk.model.Option;
 import sb.yoon.kiosk.model.OptionsAndMenuJoiner;
 
 public class AdminAddActivity extends AppCompatActivity {
-    public static AdminMenu adminMenu;
+
     public static boolean isAdd;
     private DbQueryController controller;
 
@@ -61,7 +53,7 @@ public class AdminAddActivity extends AppCompatActivity {
 
     private Long menuId;
     private Long categoryId;
-    private String categoryName;
+
 
     private List<String> categoryNames;
     private List<Category> categories;
@@ -79,6 +71,13 @@ public class AdminAddActivity extends AppCompatActivity {
     private final int GALLERY_CODE = 1112;
 
     private Uri selectedImageUri;
+
+    //업데이트용
+    private Long updateMenuId;
+    private Menu updateMenu;
+    private Long updateCategoryId;
+    private Boolean changeImg;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +108,46 @@ public class AdminAddActivity extends AppCompatActivity {
         divider = findViewById(R.id.view);
         categoryText = findViewById(R.id.categoryText);
 
+        changeImg = false;
+        //반드시 초기화시 null이어야 하는 값.
+        updateMenuId = null;
+        updateCategoryId = null;
+        updateMenu = null;
+        //인텐트에서 메뉴 아이디 불러오기
+        // !!!! 재료는 손대지 않습니다.
+        Intent intent = getIntent();
+        updateMenuId = intent.getLongExtra("menuID", 999L);
+        if(updateMenuId != 999L){
+            isAdd = false;
+            updateMenu = controller.getMenu(updateMenuId);
+            selectedImageUri = Uri.parse(updateMenu.getIconPath());
+            menuImg.setImageURI(selectedImageUri);
+            menuName.setText(updateMenu.getName());
+            price.setText(Integer.toString(updateMenu.getPrice()));
+            List<Option> updateOption = updateMenu.getOptionList();
+            for(int i=0; i<updateOption.size(); i++){
+                switch(updateOption.get(i).getName()){
+                    case "연하게":
+                        mild.setChecked(true);
+                        break;
+                    case "샷 추가":
+                        shot.setChecked(true);
+                        break;
+                    case "설탕시럽":
+                        sugar.setChecked(true);
+                        break;
+                    case "헤이즐넛시럽":
+                        hazelnut.setChecked(true);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            updateCategoryId = updateMenu.getCategoryId();
+            isHot.setChecked(updateMenu.getIsHot());
+            isCold.setChecked(updateMenu.getIsCold());
+        }
+
         categoryNames = new ArrayList<>();
         categoryNames.add("카테고리 추가");
 
@@ -118,7 +157,9 @@ public class AdminAddActivity extends AppCompatActivity {
 
         ArrayAdapter<String> spinItems = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categoryNames);
         spinner.setAdapter(spinItems);
-
+        if(updateCategoryId != null) {
+            spinner.setSelection(updateCategoryId.intValue());
+        }
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -149,6 +190,7 @@ public class AdminAddActivity extends AppCompatActivity {
         menuImg.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                changeImg = true;
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 intent.setType("image/");
@@ -216,8 +258,17 @@ public class AdminAddActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.Ok:
                 //Todo 원래 팝업 열고 추가하시겠습니까? 출력하고 해야됨. AlertDialog 이용.
-                //카테고리 추가시\
-                iconPath = getPath(selectedImageUri);
+                //카테고리 추가시
+                //이미지를 변경한 경우(수정이든 추가든)
+                if(changeImg) {
+                    iconPath = getPath(selectedImageUri);
+                }
+                else if(!changeImg && updateMenu != null){
+                    iconPath = updateMenu.getIconPath();
+                }
+                else{
+                    iconPath = "empty_img";
+                }
                 if (!menuName.getText().toString().equals("") &&
                         !price.getText().toString().equals("") &&
                         categoryId == lastCategoryIdx &&

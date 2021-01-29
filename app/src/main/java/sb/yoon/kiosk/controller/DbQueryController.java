@@ -67,6 +67,9 @@ public class DbQueryController {
     public IngredientsAndMenuJoinerDao getIngredientsAndMenuJoinerDao() {
         return this.ingredientsAndMenuJoinerDao;
     }
+    public OptionsAndMenuJoinerDao getOptionsAndMenuJoinerDao(){
+        return this.optionsAndMenuJoinerDao;
+    }
 
     // DB 초기값 설정 역할
     public void initDB() {
@@ -92,6 +95,9 @@ public class DbQueryController {
 
     public List<Menu> getMenuListByIdArray(ArrayList<Integer> idArray) {
         return this.menuDao.queryBuilder().where(MenuDao.Properties.Id.in(idArray)).list();
+    }
+    public Menu getMenu(Long Id){
+        return this.menuDao.queryBuilder().where(MenuDao.Properties.Id.eq(Id)).unique();
     }
 
     public List<Ingredient> getIngredientList(Menu menu) {
