@@ -2,6 +2,8 @@ package sb.yoon.kiosk;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
@@ -16,6 +18,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +51,7 @@ public class AdminAddActivity extends AppCompatActivity {
     private TextView menuName;
     private CheckBox isCold;
     private CheckBox isHot;
-    private TextView price;
+    private EditText price;
     private CheckBox shot;
     private CheckBox sugar;
     private CheckBox hazelnut;
@@ -65,6 +69,7 @@ public class AdminAddActivity extends AppCompatActivity {
     private Long lastMenuIdx;
     private Long lastCategoryIdx;
     private Long lastOptionAndMenuJoinerIdx;
+    private Long MOJoinerIdx;
 
     private View divider;
     private TextView textview;
@@ -73,6 +78,7 @@ public class AdminAddActivity extends AppCompatActivity {
     private String iconPath;
     private final int GALLERY_CODE = 1112;
 
+    private Uri selectedImageUri;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +160,7 @@ public class AdminAddActivity extends AppCompatActivity {
         if(isAdd) {
             Log.d("flag", "추가모드");
             menuId = lastMenuIdx;
+            MOJoinerIdx = lastOptionAndMenuJoinerIdx;
         }
         //이미지 추가 팝업(Todo)
 
@@ -163,10 +170,8 @@ public class AdminAddActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == GALLERY_CODE && resultCode == RESULT_OK && data.getData() != null){
-            System.out.println(data.getData());
-            iconPath = getPath(data.getData());
-            //Uri selectedImageUri = data.getData();
-            //menuImg.setImageURI(selectedImageUri);
+            selectedImageUri = data.getData();
+            menuImg.setImageURI(selectedImageUri);
             //iconPath = selectedImageUri.toString();
             System.out.println(iconPath);
 
@@ -185,26 +190,22 @@ public class AdminAddActivity extends AppCompatActivity {
         System.out.println(filename);
         //내부에 저장하는 코드
         try {
-            System.out.println("시작합니다.");
-            File sd = Environment.getExternalStorageDirectory().getAbsoluteFile();
-            File data = Environment.getDataDirectory();
-            System.out.println("패스 :: " + sd.toString() + " " + data.toString());
-            System.out.println("패스2 :: " + this.getExternalFilesDir("absolute").toString() + " " + this.getExternalFilesDirs("absolute").toString());
-            if(sd.canWrite()){
-                String destPath = "/storage/emulated/0/DCIM/Camera/"+filename;
-                File source = new File(sd, sourcePath);
-                File destination = new File(data, destPath);
-                System.out.println("source.exists() go");
-                if(source.exists()){
-                    System.out.println("source.exists() True");
-                    FileChannel src = new FileInputStream(source).getChannel();
-                    FileChannel dest = new FileInputStream(destination).getChannel();
-                    dest.transferFrom(src, 0, src.size());
-                    src.close();
-                    dest.close();
-                }
-                return destPath;
+            File sd = new File(sourcePath);
+            String destPath = "/storage/emulated/0/DCIM/kiosk_images/"+filename;
+            File data = new File(destPath);
+
+            String state = Environment.getExternalStorageState();
+            if(state.equals(Environment.MEDIA_MOUNTED)){
+                FileChannel src = new FileInputStream(sd).getChannel();
+                FileChannel dest = new FileOutputStream(data).getChannel();
+                src.transferTo(0, src.size(), dest);
+                src.close();
+                dest.close();
             }
+            else{
+                throw new Exception("SD카드가 삽입되지 않음.");
+            }
+            return destPath;
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -215,7 +216,8 @@ public class AdminAddActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.Ok:
                 //Todo 원래 팝업 열고 추가하시겠습니까? 출력하고 해야됨. AlertDialog 이용.
-                //카테고리 추가시
+                //카테고리 추가시\
+                iconPath = getPath(selectedImageUri);
                 if (!menuName.getText().toString().equals("") &&
                         !price.getText().toString().equals("") &&
                         categoryId == lastCategoryIdx &&
@@ -223,7 +225,7 @@ public class AdminAddActivity extends AppCompatActivity {
 
                     Log.d("check", "카테고리 추가 정상적");
                     Log.d("check", menuName.getText().toString());
-                    /*controller.menuDao.insertOrReplace(new Menu(
+                    controller.menuDao.insertOrReplace(new Menu(
                             menuId,
                             menuName.getText().toString(),
                             categoryId,
@@ -235,27 +237,27 @@ public class AdminAddActivity extends AppCompatActivity {
 
                     //옵션
                     if(shot.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(lastOptionAndMenuJoinerIdx, menuId, 1L));
-                        lastOptionAndMenuJoinerIdx++;
+                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 1L));
+                        MOJoinerIdx++;
                     }
                     if(sugar.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(lastOptionAndMenuJoinerIdx, menuId, 2L));
-                        lastOptionAndMenuJoinerIdx++;
+                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 2L));
+                        MOJoinerIdx++;
                     }
                     if(hazelnut.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(lastOptionAndMenuJoinerIdx, menuId, 3L));
-                        lastOptionAndMenuJoinerIdx++;
+                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 3L));
+                        MOJoinerIdx++;
                     }
                     if(mild.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(lastOptionAndMenuJoinerIdx, menuId, 4L));
-                        lastOptionAndMenuJoinerIdx++;
-                    }*/
+                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 4L));
+                        MOJoinerIdx++;
+                    }
                     finish();
                 } else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("")
                         && categoryId == lastCategoryIdx && categoryText.getText().toString().equals("")) {
                     Log.d("check", "카테고리 빔.");
                     //카테고리 추가를 선택하고 텍스트가 비었을 경우.
-                    Toast.makeText(this, "추가할 카테고리 이름을 입력해주세요.", Toast.LENGTH_LONG);
+                    Toast.makeText(this, "추가할 카테고리 이름을 입력해주세요.", Toast.LENGTH_LONG).show();
                 } else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("") && categoryId != lastCategoryIdx) {
                     Log.d("check", "기존 카테고리내 추가");
                     /*//카테고리 추가가 아닌 기존의 카테고리일 경우.
@@ -292,7 +294,22 @@ public class AdminAddActivity extends AppCompatActivity {
                 break;
             case R.id.cancel:
                 //Todo 원래 팝업 열고 현재 작성중인 내용이 사라집니다. 취소하시겠습니까? 출력하고 해야됨.
-                finish();
+                AlertDialog.Builder msgBuilder = new AlertDialog.Builder(AdminAddActivity.this)
+                        .setMessage("작성을 취소하시겠습니까?\n현재 작성중인 내용이 사라집니다.")
+                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+                AlertDialog msgDlg = msgBuilder.create();
+                msgDlg.show();
                 break;
         }
     }
