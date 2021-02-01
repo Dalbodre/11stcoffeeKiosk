@@ -132,7 +132,7 @@
             android:textColor="#081832"
             android:textOff="매장 X"
             android:textOn="매장 O"
-            android:textSize="40px" />
+            android:textSize="55sp" />
 
         <ToggleButton
             android:id="@+id/option_takeout_toggle"
@@ -148,7 +148,7 @@
             android:textColor="#081832"
             android:textOff="포장 X"
             android:textOn="포장 O"
-            android:textSize="40px" />
+            android:textSize="55sp" />
 
         <ToggleButton
             android:id="@+id/option_tumblr_toggle"
@@ -163,7 +163,7 @@
             android:textColor="#081832"
             android:textOff="텀블러 X"
             android:textOn="텀블러 O"
-            android:textSize="60px" />
+            android:textSize="55sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

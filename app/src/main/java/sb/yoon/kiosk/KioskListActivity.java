@@ -67,10 +67,16 @@ public class KioskListActivity extends AppCompatActivity {
     private List<CategoryButton> buttons = new ArrayList<>();
     private CategoryButton button;
     int categorySize;
+    float maxCategoryPage;
 
     boolean searchButtonClicked = false;
     public boolean menuOptionPopupButtonClicked = false;
     boolean purchaseButtonClicked = false;
+
+    GridLayout categoryButtonsGroup;
+    GridLayout.LayoutParams params;
+    Button leftBtn;
+    Button rightBtn;
 
     @Override
     public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
@@ -132,13 +138,30 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     private void createCategoryButtons() {
-        GridLayout categoryButtonsGroup = findViewById(R.id.category_list);
-        GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+        categoryButtonsGroup = findViewById(R.id.category_list);
+        params = new GridLayout.LayoutParams();
         params.setGravity(GridLayout.TEXT_ALIGNMENT_CENTER);
 
-        for (int i = 0; i < categorySize; i++) {
+        leftBtn = (Button) findViewById(R.id.left_button);
+        rightBtn = (Button) findViewById(R.id.right_button);
+
+        maxCategoryPage = categorySize / 8;
+    }
+
+    private void updateCategory(int categoryPage) {
+        /*for (int j = 0; j < categorySize; j++) {
+            buttons.get(j).setVisibility(View.GONE);
+        }*/
+        categoryButtonsGroup.removeAllViews();
+        Log.d("페이지", String.valueOf(categoryPage));
+        int i = categoryPage * 8;
+        int limit = i + 8;
+        for (i = categoryPage * 8; i < limit; i++) {
+            if (i >= categorySize) {
+                break;
+            }
             buttons.get(i).setText(buttons.get(i).getCategoryName());
-            buttons.get(i).setTextSize(50f);
+            buttons.get(i).setTextSize(60f);
             if(i == 0){
                 buttons.get(i).setBackgroundResource(R.drawable.togglebutton_on);
                 buttons.get(i).setTextColor(Color.parseColor("#ffffff"));
@@ -146,25 +169,18 @@ public class KioskListActivity extends AppCompatActivity {
             buttons.get(i).setOnClickListener(new categoryButtonClickListener());
             buttons.get(i).setTag(buttons.get(i).getTagNum());
             categoryButtonsGroup.addView(buttons.get(i));
+            Log.d("버튼", String.valueOf(i));
         }
-    }
 
-    private void updateCategory(int categoryPage) {
-        Button leftBtn = (Button) findViewById(R.id.left_button);
-        Button rightBtn = (Button) findViewById(R.id.right_button);
-        for (int j = 0; j < categorySize; j++) {
-            buttons.get(j).setVisibility(View.GONE);
-        }
-        for (int i = categoryPage * 8; i < i + 8; i++) {
-            if (i >= categorySize) break;
-            Log.d("index", String.valueOf(i));
-            buttons.get(i).setVisibility(View.VISIBLE);
-        }
         if (categoryPage == 0) {
             leftBtn.setEnabled(false);
             rightBtn.setEnabled(true);
         } else {
             leftBtn.setEnabled(true);
+        }
+
+        if (maxCategoryPage <= categoryPage) {
+            rightBtn.setEnabled(false);
         }
     }
 
@@ -242,7 +258,6 @@ public class KioskListActivity extends AppCompatActivity {
                 for (int i = 0; i < buttons.size(); i++) {
                     buttons.get(i).setChecked(false);
                     buttons.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
-
                     buttons.get(i).setTextColor(Color.parseColor("#081832"));
                     buttons.get(i).setText(buttons.get(i).getCategoryName());
                 }

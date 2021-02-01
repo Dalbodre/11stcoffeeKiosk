@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_element_wrapper"
     android:layout_width="match_parent"
@@ -8,18 +8,23 @@
 
         <ImageView
             android:id="@+id/search_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/search_name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/apollo1" />
 
         <TextView
             android:id="@+id/search_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:text="이름"
             android:textAlignment="center"
             android:textColor="@color/coffeeBrown"
-            android:textSize="40sp" />
+            android:textSize="40sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
