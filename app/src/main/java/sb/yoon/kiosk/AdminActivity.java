@@ -34,6 +34,7 @@ public class AdminActivity extends AppCompatActivity {
     private DbQueryController dbQueryController;
 
     private List<Category> categories;
+    private AdminFragmentAdapter adminFragmentAdapter;
     private AdminTabFragment adminTab;
     //private admin_ItemListFragment admin_itemListFragment;
 
@@ -54,7 +55,7 @@ public class AdminActivity extends AppCompatActivity {
         // 어댑터 지옥의 시작...
         // 아이템 카운트에 맞춰서 플래그먼트 생성
         // 카테고리 리스트를 주고 거기서 메뉴리스트를 동적으로 받아서 생성
-        AdminFragmentAdapter adminFragmentAdapter = new AdminFragmentAdapter(categories, this);
+        adminFragmentAdapter = new AdminFragmentAdapter(categories, this);
         adminFragmentAdapter.setItemCount(categories.size());
         viewPager.setAdapter(adminFragmentAdapter);
 
@@ -62,11 +63,11 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
                 tab.setText(categories.get(position).getName());
-                Log.d("menu", categories.get(position).getMenuList().get(0).getName());
+                if (categories.get(position).getMenuList().size() > 0)
+                    Log.d("menu", categories.get(position).getMenuList().get(0).getName());
                /* Bundle args = new Bundle();
                 args.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) categories.get(position).getMenuList());*/
             }
-
         }).attach();
         //카테고리 버튼 생성
         //this.createTabs();
@@ -74,14 +75,25 @@ public class AdminActivity extends AppCompatActivity {
     public void adminOnClick(View view){
         switch(view.getId()){
             case R.id.addmenu:
+                AdminAddActivity.isAdd = true;
                 Intent intent = new Intent(view.getContext(), AdminAddActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finish();
                 break;
 
             case R.id.exit:
                 finish();
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        categories = dbQueryController.getCategoriesList();
+        adminFragmentAdapter.notifyDataSetChanged();
+
     }
 }
 

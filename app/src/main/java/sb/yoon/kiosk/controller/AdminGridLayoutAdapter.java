@@ -3,6 +3,7 @@ package sb.yoon.kiosk.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.view.LayoutInflater;
 
 import sb.yoon.kiosk.AdminAddActivity;
@@ -10,12 +11,14 @@ import sb.yoon.kiosk.model.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 
+import java.io.File;
 import java.util.List;
 
 import sb.yoon.kiosk.AdminActivity;
@@ -27,7 +30,6 @@ import sb.yoon.kiosk.model.Option;
 public class AdminGridLayoutAdapter extends BaseAdapter {
     //메뉴 리스트
     private List<Menu> menuList;
-
     private Context context;
 
     public AdminGridLayoutAdapter(List<Menu> menuList, Context context){
@@ -77,15 +79,33 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
         }
 
         ImageView menuItem = view.findViewById(R.id.adminImg);
-        Drawable drawable = ContextCompat.getDrawable(context,
-                context.getResources().getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
-        menuItem.setImageDrawable(drawable);
+        /*Drawable drawable = ContextCompat.getDrawable(context,
+                context.getResources().getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));*/
+        try{
+            File img = new File(menu.getIconPath());
+            if(img.exists() == true){
+                Uri uri = Uri.parse(menu.getIconPath());
+                menuItem.setImageURI(uri);
+            } else {
+                Drawable drawable = ContextCompat.getDrawable(context,
+                        context.getResources().getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
+                menuItem.setImageDrawable(drawable);
+
+            }
+        } catch (Exception e){
+            menuItem.setImageResource(R.drawable.empty_img);
+        }
+        /*menuItem.setImageDrawable(drawable);*/
 
         TextView textView = view.findViewById(R.id.adminText);
         textView.setText(menu.getName());
 
         menuItem.setTag(pos);
         menuItem.setOnClickListener(new MenuOnClickListener());
+
+        Button delete_button = view.findViewById(R.id.admin_delete_button);
+        delete_button.setTag(pos);
+        delete_button.setOnClickListener(new ButtonOnClickListener());
 
         return view;
     }
@@ -95,17 +115,33 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             int position = (int) v.getTag();
-
+            AdminAddActivity.isAdd = false;
             //여기는 누르면 시작되는 리스너들.
             Intent intent = new Intent(context, AdminAddActivity.class);
             Menu menu = menuList.get(position);
 
+            Long menuId = menu.getId();
+            intent.putExtra("menuID", menuId);
+            context.startActivity(intent);
             Toast.makeText(context.getApplicationContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
 
-            Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
-                    "drawable", context.getPackageName()));
-            List<Option> options = menu.getOptionList();
-            Long menuId = menu.getId();
+            //Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
+            //       "drawable", context.getPackageName()));
+            //List<Option> options = menu.getOptionList();
+
+        }
+    }
+
+    // 수정, 삭제 버튼
+    class ButtonOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            int position = (int) v.getTag();
+            if (v.getId() == R.id.admin_delete_button) {
+                menuList.get(position).delete();
+                menuList.remove(position);
+                AdminGridLayoutAdapter.this.notifyDataSetChanged();
+            }
         }
     }
 }

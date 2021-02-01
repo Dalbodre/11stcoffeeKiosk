@@ -69,6 +69,9 @@ public class DbQueryController {
     public IngredientsAndMenuJoinerDao getIngredientsAndMenuJoinerDao() {
         return this.ingredientsAndMenuJoinerDao;
     }
+    public OptionsAndMenuJoinerDao getOptionsAndMenuJoinerDao(){
+        return this.optionsAndMenuJoinerDao;
+    }
 
     // DB 초기값 설정 역할
     public void initDB() {
@@ -95,6 +98,9 @@ public class DbQueryController {
 
     public List<Menu> getMenuListByIdArray(ArrayList<Integer> idArray) {
         return this.menuDao.queryBuilder().where(MenuDao.Properties.Id.in(idArray)).list();
+    }
+    public Menu getMenu(Long Id){
+        return this.menuDao.queryBuilder().where(MenuDao.Properties.Id.eq(Id)).unique();
     }
 
     public List<Ingredient> getIngredientList(Menu menu) {
@@ -156,10 +162,15 @@ public class DbQueryController {
             categoryDao.insertOrReplace(new Category(7L, "스무디"));
             //categoryDao.insertOrReplace(new Category(8L, "스무디"));
             categoryDao.insertOrReplace(new Category(9L, "빵"));
+            categoryDao.insertOrReplace(new Category(2L, "라떼"));
+            categoryDao.insertOrReplace(new Category(3L, "차"));
+            categoryDao.insertOrReplace(new Category(4L, "주스"));
+            categoryDao.insertOrReplace(new Category(5L, "스무디"));
+            categoryDao.insertOrReplace(new Category(6L, "베이커리"));
         }
 
         private void initMenus() {
-            //커피
+            //커피 1L
             menuDao.insertOrReplace(new Menu(1L, "에소프레소", 1L, 2000, "espresso", true, false));
             menuDao.insertOrReplace(new Menu(2L, "아메리카노", 1L, 2200, "americano", true, true));
             menuDao.insertOrReplace(new Menu(3L, "카페라떼", 1L, 2800, "caffe_latte", true, true));
@@ -170,55 +181,55 @@ public class DbQueryController {
             menuDao.insertOrReplace(new Menu(8L, "카페모카", 1L, 3200, "caffe_mocha", true, true));
             menuDao.insertOrReplace(new Menu(9L, "민트그린모카", 1L, 3200, "chiyak", true, true));
 
-            //에이드&아이스티
-            menuDao.insertOrReplace(new Menu(10L, "레몬에이드", 2L, 3000, "lemon_ade", false, true));
-            menuDao.insertOrReplace(new Menu(11L, "오렌지에이드", 2L, 3000, "orange_ade", false, true));
-            menuDao.insertOrReplace(new Menu(12L, "자몽에이드", 2L, 3500, "jamong_ade", false, true));
-            menuDao.insertOrReplace(new Menu(13L, "청포도에이드", 2L, 3500, "grape_ade", false, true));
-            menuDao.insertOrReplace(new Menu(43L, "복숭아 아이스티", 2L, 2200, "peach_ice", false, true));
+            //라떼 2L
+            menuDao.insertOrReplace(new Menu(16L, "그린티라떼", 2L,3200, "greentea", true, true));
+            menuDao.insertOrReplace(new Menu(17L, "고구마라떼", 2L, 3200, "spotato", true, true));
+            menuDao.insertOrReplace(new Menu(18L, "밀크티라떼", 2L, 3200, "milktea", true, true));
+            menuDao.insertOrReplace(new Menu(19L, "초코라떼", 2L, 3200, "choco_latte", true, true));
 
-            //주스
-            menuDao.insertOrReplace(new Menu(14L, "애플주스", 2L, 3500, "apple", false, true));
-            menuDao.insertOrReplace(new Menu(15L, "애플주스 스파클링", 2L, 3500, "apple_sparkle", false, true));
+            //티백차 3L
+            menuDao.insertOrReplace(new Menu(20L, "캐모마일", 3L, 2500, "camomile", true, true));
+            menuDao.insertOrReplace(new Menu(21L, "페퍼민트", 3L, 2500, "peppermint", true, true));
+            menuDao.insertOrReplace(new Menu(22L, "얼그레이", 3L, 2500, "elgray_tea", true, true));
 
-            //라떼
-            menuDao.insertOrReplace(new Menu(16L, "그린티라떼", 4L,3200, "greentea", true, true));
-            menuDao.insertOrReplace(new Menu(17L, "고구마라떼", 4L, 3200, "spotato", true, true));
-            menuDao.insertOrReplace(new Menu(18L, "밀크티라떼", 4L, 3200, "milktea", true, true));
-            menuDao.insertOrReplace(new Menu(19L, "초코라떼", 4L, 3200, "choco_latte", true, true));
+            //과일청차 3L
+            menuDao.insertOrReplace(new Menu(23L, "자몽차", 3L, 3500, "jamong_tea", true, true));
+            menuDao.insertOrReplace(new Menu(24L, "유자청", 3L, 3500, "yuja_tea", true, true));
+            menuDao.insertOrReplace(new Menu(25L, "생강차", 3L, 3500, "ginger", true, true));
 
-            //티백차
-            menuDao.insertOrReplace(new Menu(20L, "캐모마일", 5L, 2500, "camomile", true, true));
-            menuDao.insertOrReplace(new Menu(21L, "페퍼민트", 5L, 2500, "peppermint", true, true));
-            menuDao.insertOrReplace(new Menu(22L, "얼그레이", 5L, 2500, "elgray_tea", true, true));
+            //주스 4L
+            menuDao.insertOrReplace(new Menu(14L, "애플주스", 4L, 3500, "apple", false, true));
+            menuDao.insertOrReplace(new Menu(15L, "애플주스 스파클링", 4L, 3500, "apple_sparkle", false, true));
 
-            //과일청차
-            menuDao.insertOrReplace(new Menu(23L, "자몽차", 5L, 3500, "jamong_tea", true, true));
-            menuDao.insertOrReplace(new Menu(24L, "유자청", 5L, 3500, "yuja_tea", true, true));
-            menuDao.insertOrReplace(new Menu(25L, "생강차", 5L, 3500, "ginger", true, true));
+            //프라페 5L
+            menuDao.insertOrReplace(new Menu(26L, "자바칩프라페", 5L, 4000, "java_frappe", false, true));
+            menuDao.insertOrReplace(new Menu(27L, "쿠앤크프라페", 5L, 4000, "cookie_frappe", false, true));
 
-            //프라페
-            menuDao.insertOrReplace(new Menu(26L, "자바칩프라페", 7L, 4000, "java_frappe", false, true));
-            menuDao.insertOrReplace(new Menu(27L, "쿠앤크프라페", 7L, 4000, "cookie_frappe", false, true));
+            //스무디 5L
+            menuDao.insertOrReplace(new Menu(28L, "유자스무디", 5L, 4000, "yuja_smoothe", false, true));
+            menuDao.insertOrReplace(new Menu(29L, "플레인스무디", 5L, 4000, "plain_smoothe", false, true));
+            menuDao.insertOrReplace(new Menu(30L, "딸기스무디", 5L, 4000, "berry_smoothe", false, true));
+            menuDao.insertOrReplace(new Menu(31L, "블루베리스무디", 5L, 4000, "blueberry_smoothe", false, true));
 
-            //스무디
-            menuDao.insertOrReplace(new Menu(28L, "유자스무디", 7L, 4000, "yuja_smoothe", false, true));
-            menuDao.insertOrReplace(new Menu(29L, "플레인스무디", 7L, 4000, "plain_smoothe", false, true));
-            menuDao.insertOrReplace(new Menu(30L, "딸기스무디", 7L, 4000, "berry_smoothe", false, true));
-            menuDao.insertOrReplace(new Menu(31L, "블루베리스무디", 7L, 4000, "blueberry_smoothe", false, true));
+            //에이드&아이스티 5L
+            menuDao.insertOrReplace(new Menu(10L, "레몬에이드", 5L, 3000, "lemon_ade", false, true));
+            menuDao.insertOrReplace(new Menu(11L, "오렌지에이드", 5L, 3000, "orange_ade", false, true));
+            menuDao.insertOrReplace(new Menu(12L, "자몽에이드", 5L, 3500, "jamong_ade", false, true));
+            menuDao.insertOrReplace(new Menu(13L, "청포도에이드", 5L, 3500, "grape_ade", false, true));
+            menuDao.insertOrReplace(new Menu(43L, "복숭아 아이스티", 5L, 2200, "peach_ice", false, true));
 
-            //빵
-            menuDao.insertOrReplace(new Menu(32L, "베이글(플레인)", 9L, 2800, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(33L, "모카번", 9L, 2300, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(34L, "햄 에그모닝머핀", 9L, 3500, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(35L, "크로크무슈", 9L, 3500, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(36L, "고구마무스", 9L, 4000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(37L, "초코무스", 9L, 4000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(38L, "치즈케익", 9L, 4000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(39L, "생크림 카스테라", 9L, 4000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(40L, "마카롱(초코)", 9L, 2000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(41L, "마카롱(바닐라)", 9L, 2000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(42L, "마카롱(딸기)", 9L, 2000, "yuja_smoothe", false, false));
+            //빵 6L
+            menuDao.insertOrReplace(new Menu(32L, "베이글(플레인)", 6L, 2800, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(33L, "모카번", 6L, 2300, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(34L, "햄 에그모닝머핀", 6L, 3500, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(35L, "크로크무슈", 6L, 3500, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(36L, "고구마무스", 6L, 4000, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(37L, "초코무스", 6L, 4000, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(38L, "치즈케익", 6L, 4000, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(39L, "생크림 카스테라", 6L, 4000, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(40L, "마카롱(초코)", 6L, 2000, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(41L, "마카롱(바닐라)", 6L, 2000, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(42L, "마카롱(딸기)", 6L, 2000, "yuja_smoothe", false, false));
         }
 
         private void initIngredients() {
@@ -417,69 +428,8 @@ public class DbQueryController {
             // 복숭아 아이스티에 샷 추가
             optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, 43L, 1L));
 
-//            //1L
+//            //ex)
 //            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(1L, 1L, 1L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(2L, 1L, 2L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(3L, 1L, 3L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(4L, 1L, 4L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(5L, 1L, 5L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(6L, 1L, 6L));
-//            //2L
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(7L, 2L, 1L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(8L, 2L, 2L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(9L, 2L, 3L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(10L, 2L, 4L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(11L, 2L, 5L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(12L, 2L, 6L));
-//            //3L
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(13L, 1L, 1L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(14L, 1L, 2L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(15L, 1L, 3L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(16L, 1L, 4L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(17L, 1L, 5L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(18L, 1L, 6L));
-//            //4L
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(20L, 1L, 1L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(21L, 1L, 2L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(22L, 1L, 3L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(23L, 1L, 4L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(24L, 1L, 5L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(25L, 1L, 6L));
-//            //5L
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(26L, 1L, 1L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(27L, 1L, 2L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(28L, 1L, 3L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(29L, 1L, 4L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(30L, 1L, 5L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(31L, 1L, 6L));
-//            //6L
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(32L, 1L, 1L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(33L, 1L, 2L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(34L, 1L, 3L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(35L, 1L, 4L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(36L, 1L, 5L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(37L, 1L, 6L));
-//            //7L
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(38L, 1L, 1L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(39L, 1L, 2L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(40L, 1L, 3L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(41L, 1L, 4L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(42L, 1L, 5L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(43L, 1L, 6L));
-//            //8L
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(44L, 1L, 1L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(45L, 1L, 2L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(46L, 1L, 3L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(47L, 1L, 4L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(48L, 1L, 5L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(49L, 1L, 6L));
-//            //9L
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(50L, 1L, 1L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(51L, 1L, 2L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(52L, 1L, 3L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(53L, 1L, 4L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(54L, 1L, 5L));
-//            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(55L, 1L, 6L));
         }
     }
 }
