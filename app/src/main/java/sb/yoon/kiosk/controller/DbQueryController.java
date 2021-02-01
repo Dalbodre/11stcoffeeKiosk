@@ -1,6 +1,7 @@
 package sb.yoon.kiosk.controller;
 
 import android.app.Activity;
+import android.util.Log;
 
 import org.greenrobot.greendao.AbstractDao;
 
@@ -60,7 +61,7 @@ public class DbQueryController {
         return (Long)this.menuDao.count();
     }
     public Long getLastCategoryIdx(){
-        return (Long)this.categoryDao.count();
+        return (Long)this.categoryDao.loadAll().get((int) categoryDao.count()-1).getId();
     }
     public Long getLastOptionAndMenuJoinerIdx(){
         return (Long)this.optionsAndMenuJoinerDao.count();
@@ -111,6 +112,10 @@ public class DbQueryController {
         return menu.getOptionList();
     }
 
+    public List<OptionsAndMenuJoiner> getOptionListInDb(Long menuID){
+        return this.optionsAndMenuJoinerDao.queryBuilder().where(OptionsAndMenuJoinerDao.Properties.MenuId.eq(menuID)).list();
+    }
+
     // 해당 메뉴에 대한 옵션을 해시맵으로 돌려줌
     // key: [옵션이름, multiSelectable] value: List<옵션아이템들>
    /* public HashMap<String[], List<String>> getParsedOptionList(Menu menu) {
@@ -142,6 +147,13 @@ public class DbQueryController {
     public List<Menu> searchMenuByIngredients(Ingredient ingredient) {
         return ingredient.getMenuList();
     }
+    public void refreshCategory(Long id){
+        Log.d("status", "refresh");
+        if (menuDao.queryBuilder().where(MenuDao.Properties.CategoryId.eq(id)).count() == 0) {
+            categoryDao.deleteByKey(id);
+            System.out.println("야");
+        }
+    }
 
     // 초기화 역할 하는 클래스
     // 구조상 보기 편하라고 Init 내부 클래스 안에다가 해줬는데 성능상 별로면 클래스 없애고 그냥 메서드로 변경
@@ -154,14 +166,6 @@ public class DbQueryController {
         private void initCategories() {
             // 1L = new Long(1)
             categoryDao.insertOrReplace(new Category(1L, "커피"));
-            categoryDao.insertOrReplace(new Category(2L, "주스"));
-            //categoryDao.insertOrReplace(new Category(3L, "주스"));
-            categoryDao.insertOrReplace(new Category(4L, "라떼"));
-            categoryDao.insertOrReplace(new Category(5L, "차"));
-            //categoryDao.insertOrReplace(new Category(6L, "과일청차"));
-            categoryDao.insertOrReplace(new Category(7L, "스무디"));
-            //categoryDao.insertOrReplace(new Category(8L, "스무디"));
-            categoryDao.insertOrReplace(new Category(9L, "빵"));
             categoryDao.insertOrReplace(new Category(2L, "라떼"));
             categoryDao.insertOrReplace(new Category(3L, "차"));
             categoryDao.insertOrReplace(new Category(4L, "주스"));
@@ -426,7 +430,7 @@ public class DbQueryController {
             }
 
             // 복숭아 아이스티에 샷 추가
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, 43L, 1L));
+            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(37L, 43L, 1L));
 
 //            //ex)
 //            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(1L, 1L, 1L));

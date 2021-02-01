@@ -1,12 +1,16 @@
 package sb.yoon.kiosk.controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import sb.yoon.kiosk.AdminAddActivity;
+import sb.yoon.kiosk.KioskApplication;
+import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import java.io.File;
 import java.util.List;
@@ -30,11 +35,15 @@ import sb.yoon.kiosk.model.Option;
 public class AdminGridLayoutAdapter extends BaseAdapter {
     //메뉴 리스트
     private List<Menu> menuList;
-    private Context context;
+    private FragmentActivity context;
+    public DbQueryController dbQueryController;
 
-    public AdminGridLayoutAdapter(List<Menu> menuList, Context context){
+
+    public AdminGridLayoutAdapter(List<Menu> menuList, FragmentActivity context){
         this.menuList = menuList;
         this.context = context;
+        KioskApplication kapp = (KioskApplication) context.getApplication();
+        dbQueryController = kapp.getDbQueryController();
     }
 
     @Override
@@ -122,8 +131,10 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
 
             Long menuId = menu.getId();
             intent.putExtra("menuID", menuId);
+            AdminAddActivity.isAdd = false;
             context.startActivity(intent);
-            Toast.makeText(context.getApplicationContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
+            context.finish();
+            //Toast.makeText(context.getApplicationContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
 
             //Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
             //       "drawable", context.getPackageName()));
@@ -139,7 +150,9 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
             int position = (int) v.getTag();
             if (v.getId() == R.id.admin_delete_button) {
                 menuList.get(position).delete();
+                dbQueryController.refreshCategory(menuList.get(position).getCategoryId());
                 menuList.remove(position);
+
                 AdminGridLayoutAdapter.this.notifyDataSetChanged();
             }
         }

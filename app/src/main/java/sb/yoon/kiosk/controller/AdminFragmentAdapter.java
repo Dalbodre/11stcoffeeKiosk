@@ -18,12 +18,12 @@ import sb.yoon.kiosk.model.Menu;
 public class AdminFragmentAdapter extends FragmentStateAdapter {
     private int size = 0;
     private List<Category> categories;
-    private Context context;
+    private FragmentActivity context;
 
     public AdminFragmentAdapter(List<Category> categories, FragmentActivity fragmentActivity){
         super(fragmentActivity);
         this.categories = categories;
-        this.context = (Context) fragmentActivity;
+        this.context = fragmentActivity;
     }
 
     @NonNull
