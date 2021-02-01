@@ -33,6 +33,7 @@
             android:background="@color/colorWhite"
             android:textColor="#081832"
             android:text="재료 검색"
+
             android:textSize="70sp" />
     </RelativeLayout>
 

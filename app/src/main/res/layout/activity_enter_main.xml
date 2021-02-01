@@ -19,13 +19,14 @@
 
     <Button
         android:id="@+id/enter_main_button"
-        android:layout_width="680px"
-        android:layout_height="240px"
+        android:layout_width="1000dp"
+        android:layout_height="300dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100px"
         android:text="주문하기"
         android:textSize="130px"
+
         android:textStyle="bold"
         android:textColor="#0a1527"
         android:background="@drawable/orderbutton"

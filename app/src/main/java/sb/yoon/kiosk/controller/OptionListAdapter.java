@@ -67,7 +67,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             quantityTextView.setTextColor(Color.parseColor("#081832"));
 
             Button minusButton = new Button(holder.context);
-            minusButton.setText("◀");
+            minusButton.setText("<");
             minusButton.setTextColor(Color.parseColor("#081832"));
             minusButton.setTextSize(45f);
             minusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.for_option_background));
@@ -81,7 +81,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             }*/
 
             Button plusButton = new Button(holder.context);
-            plusButton.setText("▶");
+            plusButton.setText(">");
             plusButton.setTextColor(Color.parseColor("#081832"));
             plusButton.setTextSize(45f);
             plusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.for_option_background));
@@ -116,14 +116,14 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
         public void onClick(View view) {
             Button button = (Button) view;
             Log.d("버튼텍스트", "::" + (String) button.getText());
-            if (button.getText().equals("◀")) {
+            if (button.getText().equals("<")) {
                 int quantityNew = cartOption.getQuantity() - 1;
                 if (quantityNew < 0) {
                     return;
                 }
                 cartOption.setQuantity(quantityNew);
                 quantityTextView.setText(Integer.toString(quantityNew));
-            } else if (button.getText().equals("▶")) {
+            } else if (button.getText().equals(">")) {
                 int quantityNew = cartOption.getQuantity() + 1;
                 cartOption.setQuantity(quantityNew);
                 quantityTextView.setText(Integer.toString(quantityNew));
