@@ -103,10 +103,6 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
         menuItem.setTag(pos);
         menuItem.setOnClickListener(new MenuOnClickListener());
 
-        Button modify_button = view.findViewById(R.id.admin_modify_button);
-        modify_button.setTag(pos);
-        modify_button.setOnClickListener(new ButtonOnClickListener());
-
         Button delete_button = view.findViewById(R.id.admin_delete_button);
         delete_button.setTag(pos);
         delete_button.setOnClickListener(new ButtonOnClickListener());
@@ -119,17 +115,20 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             int position = (int) v.getTag();
-
+            AdminAddActivity.isAdd = false;
             //여기는 누르면 시작되는 리스너들.
             Intent intent = new Intent(context, AdminAddActivity.class);
             Menu menu = menuList.get(position);
 
+            Long menuId = menu.getId();
+            intent.putExtra("menuID", menuId);
+            context.startActivity(intent);
             Toast.makeText(context.getApplicationContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
 
-            Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
-                    "drawable", context.getPackageName()));
-            List<Option> options = menu.getOptionList();
-            Long menuId = menu.getId();
+            //Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
+            //       "drawable", context.getPackageName()));
+            //List<Option> options = menu.getOptionList();
+
         }
     }
 
@@ -138,11 +137,7 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             int position = (int) v.getTag();
-
-            if (v.getId() == R.id.admin_modify_button) {
-                //todo 수정 기능 구현
-                Toast.makeText(context.getApplicationContext(), "수정버튼", Toast.LENGTH_SHORT).show();
-            } else if (v.getId() == R.id.admin_delete_button) {
+            if (v.getId() == R.id.admin_delete_button) {
                 menuList.get(position).delete();
                 menuList.remove(position);
                 AdminGridLayoutAdapter.this.notifyDataSetChanged();
