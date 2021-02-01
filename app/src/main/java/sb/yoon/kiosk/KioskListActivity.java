@@ -8,7 +8,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
@@ -20,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
@@ -27,6 +30,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -64,8 +68,6 @@ public class KioskListActivity extends AppCompatActivity {
 
     private int tagNum;
     private int categoryPage = 0;
-    private List<CategoryButton> buttons = new ArrayList<>();
-    private CategoryButton button;
     int categorySize;
     float maxCategoryPage;
 
@@ -73,10 +75,14 @@ public class KioskListActivity extends AppCompatActivity {
     public boolean menuOptionPopupButtonClicked = false;
     boolean purchaseButtonClicked = false;
 
-    GridLayout categoryButtonsGroup;
-    GridLayout.LayoutParams params;
-    Button leftBtn;
-    Button rightBtn;
+    private TabLayout categoryTab;
+    private ArrayList<ToggleButton> toggleButtons = new ArrayList<>();
+
+
+    private Button leftButton;
+    private Button rightButton;
+
+    final int eleSize = 5;
 
     @Override
     public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
@@ -103,19 +109,18 @@ public class KioskListActivity extends AppCompatActivity {
         //버튼 객체 미리 생성
         tagNum = 0;
 
-        for (Category category : categories) {
-            button = new CategoryButton(this, category.getName(), tagNum);
-            Log.d("button", String.valueOf(tagNum));
-            Log.d("button", category.getName());
-            button.setWidth(220);
-            buttons.add(button);
-            tagNum += 1;
-        }
+        categorySize = categories.size();
 
-        categorySize = buttons.size();
         // 카테고리 버튼들 생성
-        this.createCategoryButtons();
-        this.updateCategory(categoryPage);
+        //todo
+        categoryTab = findViewById(R.id.categoryTab);
+        categoryTab.addOnTabSelectedListener(new categoryTabClickListener());
+
+        leftButton = findViewById(R.id.left_button);
+        rightButton = findViewById(R.id.right_button);
+
+        maxCategoryPage = categorySize / 8;
+
 
         // 기본으로 보여줄 플래그먼트 (첫번째 카테고리)
         fragmentManager = getSupportFragmentManager();
@@ -135,52 +140,78 @@ public class KioskListActivity extends AppCompatActivity {
         // 계산버튼 리스너
         Button purchaseButton = findViewById(R.id.purchase_button);
         purchaseButton.setOnClickListener(new purchaseButtonClickListener());
+
+        updateCategoryTab(categoryPage);
     }
 
-    private void createCategoryButtons() {
-        categoryButtonsGroup = findViewById(R.id.category_list);
-        params = new GridLayout.LayoutParams();
-        params.setGravity(GridLayout.TEXT_ALIGNMENT_CENTER);
-
-        leftBtn = (Button) findViewById(R.id.left_button);
-        rightBtn = (Button) findViewById(R.id.right_button);
-
-        maxCategoryPage = categorySize / 8;
-    }
-
-    private void updateCategory(int categoryPage) {
-        /*for (int j = 0; j < categorySize; j++) {
-            buttons.get(j).setVisibility(View.GONE);
-        }*/
-        categoryButtonsGroup.removeAllViews();
-        Log.d("페이지", String.valueOf(categoryPage));
-        int i = categoryPage * 8;
-        int limit = i + 8;
-        for (i = categoryPage * 8; i < limit; i++) {
-            if (i >= categorySize) {
+    private void updateCategoryTab(int page) {
+        Log.d("page", String.valueOf(page));
+        categoryTab.removeAllTabs();
+        int limit = page*eleSize+eleSize;
+        toggleButtons.clear();
+        for (int i=page*eleSize; i<limit; i++) {
+            if (i>=categorySize) {
                 break;
             }
-            buttons.get(i).setText(buttons.get(i).getCategoryName());
-            buttons.get(i).setTextSize(60f);
-            if(i == 0){
-                buttons.get(i).setBackgroundResource(R.drawable.togglebutton_on);
-                buttons.get(i).setTextColor(Color.parseColor("#ffffff"));
+            TabLayout.Tab tab = categoryTab.newTab();
+            tab.setCustomView(createTabView(categories.get(i).getName(), i));
+            categoryTab.addTab(tab.setText(categories.get(i).getName()));
+        }
+        leftButton.setEnabled(page != 0);
+        rightButton.setEnabled(!(maxCategoryPage <= page));
+    }
+
+    public void updateCategoryTab(View view) {
+        if (view.getId() == R.id.left_button) {
+            categoryPage -= 1;
+            updateCategoryTab(categoryPage);
+        } else if (view.getId() == R.id.right_button) {
+            categoryPage += 1;
+            updateCategoryTab(categoryPage);
+        }
+        itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(categoryPage*eleSize)));
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
+
+        toggleButtons.get(0).setText(categories.get(categoryPage*eleSize).getName());
+    }
+
+    private View createTabView(String tabName, int tag) {
+        View tabView = LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        ToggleButton toggleButton = tabView.findViewById(R.id.txt_name);
+        toggleButton.setChecked(false);
+        toggleButton.setBackgroundColor(Color.parseColor("#ffffff"));
+        toggleButton.setTextColor(Color.parseColor("#081832"));
+        toggleButton.setText(tabName);
+        toggleButton.setTag(tag);
+        toggleButton.setOnClickListener(new onClickToggleButton());
+        toggleButtons.add(toggleButton);
+        return tabView;
+    }
+
+    class onClickToggleButton implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            int tagNo = (int) view.getTag();
+            itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
+
+            for (int i=0; i<toggleButtons.size(); i++) {
+                int index = i + categoryPage*eleSize;
+                toggleButtons.get(i).setChecked(false);
+                toggleButtons.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
+                toggleButtons.get(i).setTextColor(Color.parseColor("#081832"));
+                toggleButtons.get(i).setText(categories.get(index).getName());
             }
-            buttons.get(i).setOnClickListener(new categoryButtonClickListener());
-            buttons.get(i).setTag(buttons.get(i).getTagNum());
-            categoryButtonsGroup.addView(buttons.get(i));
-            Log.d("버튼", String.valueOf(i));
-        }
 
-        if (categoryPage == 0) {
-            leftBtn.setEnabled(false);
-            rightBtn.setEnabled(true);
-        } else {
-            leftBtn.setEnabled(true);
-        }
+            categoryTab.getTabAt(tagNo % eleSize).select();
 
-        if (maxCategoryPage <= categoryPage) {
-            rightBtn.setEnabled(false);
+            ToggleButton toggleButton = (ToggleButton) view;
+            toggleButton.setChecked(true);
+            toggleButton.setBackgroundResource(R.drawable.togglebutton_on);
+            toggleButton.setTextColor(Color.parseColor("#ffffff"));
+            toggleButton.setText(categories.get((Integer) toggleButton.getTag()).getName());
         }
     }
 
@@ -232,43 +263,37 @@ public class KioskListActivity extends AppCompatActivity {
         cartListAdapter = new CartListAdapter(cartMenuList);
     }
 
-    public void category_select(View view) {
-        switch (view.getId()) {
-            case R.id.left_button:
-                categoryPage--;
-                break;
-            case R.id.right_button:
-                //오른쪽
-                categoryPage++;
-                break;
-        }
-        updateCategory(categoryPage);
-    }
-
     // 버튼 누르면 버튼의 순서를 확인하고 플래그먼트에 삽입
-    class categoryButtonClickListener implements View.OnClickListener {
+    class categoryTabClickListener implements TabLayout.OnTabSelectedListener {
         @Override
-        public void onClick(View view) {
-            int tagNo = (int) view.getTag();
-            try {
-                itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
-                fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
+        public void onTabSelected(TabLayout.Tab tab) {
+            int tagNo = tab.getPosition();
+            itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
 
-                for (int i = 0; i < buttons.size(); i++) {
-                    buttons.get(i).setChecked(false);
-                    buttons.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
-                    buttons.get(i).setTextColor(Color.parseColor("#081832"));
-                    buttons.get(i).setText(buttons.get(i).getCategoryName());
-                }
-                buttons.get(tagNo).setChecked(true);
-                buttons.get(tagNo).setBackgroundResource(R.drawable.togglebutton_on);
-                buttons.get(tagNo).setTextColor(Color.parseColor("#ffffff"));
-                buttons.get(tagNo).setText(buttons.get(tagNo).getCategoryName());
-
-            } catch (Exception e) {
-                e.printStackTrace();
+            for (int i=0; i<toggleButtons.size(); i++) {
+                int index = i + categoryPage*eleSize;
+                toggleButtons.get(i).setChecked(false);
+                toggleButtons.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
+                toggleButtons.get(i).setTextColor(Color.parseColor("#081832"));
+                toggleButtons.get(i).setText(categories.get(index).getName());
             }
+
+            KioskListActivity.this.toggleButtons.get(tagNo).setChecked(true);
+            KioskListActivity.this.toggleButtons.get(tagNo).setBackgroundResource(R.drawable.togglebutton_on);
+            KioskListActivity.this.toggleButtons.get(tagNo).setTextColor(Color.parseColor("#ffffff"));
+            KioskListActivity.this.toggleButtons.get(tagNo).setText(categories.get(tagNo).getName());
+        }
+
+        @Override
+        public void onTabUnselected(TabLayout.Tab tab) {
+
+        }
+
+        @Override
+        public void onTabReselected(TabLayout.Tab tab) {
+
         }
     }
 
