@@ -1,37 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_element_wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
         <ImageView
             android:id="@+id/search_image"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="fitCenter"
-            app:layout_constraintBottom_toTopOf="@id/search_name"
-            app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/apollo1" />
 
         <TextView
             android:id="@+id/search_name"
             android:layout_width="match_parent"
-            android:layout_height="30px"
-            android:gravity="center"
+            android:layout_height="match_parent"
             android:text="이름"
             android:textAlignment="center"
             android:textColor="@color/coffeeBrown"
-            android:textSize="20px"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textSize="40sp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</RelativeLayout>
+</LinearLayout>

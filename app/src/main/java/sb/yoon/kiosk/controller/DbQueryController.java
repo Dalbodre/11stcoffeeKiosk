@@ -154,14 +154,14 @@ public class DbQueryController {
         private void initCategories() {
             // 1L = new Long(1)
             categoryDao.insertOrReplace(new Category(1L, "커피"));
-            categoryDao.insertOrReplace(new Category(2L, "주스"));
-            //categoryDao.insertOrReplace(new Category(3L, "주스"));
-            categoryDao.insertOrReplace(new Category(4L, "라떼"));
-            categoryDao.insertOrReplace(new Category(5L, "차"));
-            //categoryDao.insertOrReplace(new Category(6L, "과일청차"));
-            categoryDao.insertOrReplace(new Category(7L, "스무디"));
-            //categoryDao.insertOrReplace(new Category(8L, "스무디"));
-            categoryDao.insertOrReplace(new Category(9L, "빵"));
+//            categoryDao.insertOrReplace(new Category(2L, "주스"));
+//            //categoryDao.insertOrReplace(new Category(3L, "주스"));
+//            categoryDao.insertOrReplace(new Category(4L, "라떼"));
+//            categoryDao.insertOrReplace(new Category(5L, "차"));
+//            //categoryDao.insertOrReplace(new Category(6L, "과일청차"));
+//            categoryDao.insertOrReplace(new Category(7L, "스무디"));
+//            //categoryDao.insertOrReplace(new Category(8L, "스무디"));
+//            categoryDao.insertOrReplace(new Category(9L, "빵"));
             categoryDao.insertOrReplace(new Category(2L, "라떼"));
             categoryDao.insertOrReplace(new Category(3L, "차"));
             categoryDao.insertOrReplace(new Category(4L, "주스"));

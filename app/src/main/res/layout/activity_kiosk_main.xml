@@ -23,8 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="sans-serif-black"
-            android:text="11호관 커피"
+
+            android:text="11호관 커피숍"
             android:textColor="@color/colorWhite"
             android:textSize="100sp"
             android:layout_alignParentTop="true"/>
@@ -39,8 +39,8 @@
 
         <ImageButton
             android:id="@+id/search_icon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
             android:layout_marginStart="30dp"
             android:layout_below="@+id/banner_panel_text"
             android:background="@drawable/search_icon_white"
