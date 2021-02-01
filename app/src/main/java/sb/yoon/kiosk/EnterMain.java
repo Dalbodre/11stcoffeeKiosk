@@ -62,6 +62,7 @@ public class EnterMain extends AppCompatActivity {
         startActivity(intent);
         //finish();
     }
+
     private class easterClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
@@ -70,8 +71,9 @@ public class EnterMain extends AppCompatActivity {
                 Toast.makeText(EnterMain.this, easterCount+"만큼 입력하셨습니다.", Toast.LENGTH_SHORT).show();
             }
             if(easterCount == 5){
-                startActivity(new Intent(this, AdminActivty.class));
-                finish();
+                Intent intent = new Intent(EnterMain.this, AdminActivity.class);
+                startActivity(intent);
+                // finish();
                 easterCount = 0;
             }
         }
