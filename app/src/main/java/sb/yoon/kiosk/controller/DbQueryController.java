@@ -32,8 +32,6 @@ public class DbQueryController {
     public OptionDao optionDao;
     public OptionsAndMenuJoinerDao optionsAndMenuJoinerDao;
 
-
-
     public DbQueryController(DaoSession daoSession) {
         this.daoSession = daoSession;
         this.categoryDao = daoSession.getCategoryDao();
