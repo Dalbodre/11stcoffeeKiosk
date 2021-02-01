@@ -60,7 +60,7 @@
             android:id="@+id/left_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:onClick="category_select"
+            android:onClick="updateCategoryTab"
             android:enabled="true"
             android:text="&lt;"
             android:background="#ffffff"
@@ -70,22 +70,21 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1">
-            <GridLayout
-                android:id="@+id/category_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:columnCount="4"
-                android:rowCount="1"
-                android:gravity="center" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/categoryTab"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:tabRippleColor="@android:color/transparent">
+            </com.google.android.material.tabs.TabLayout>
+
         </LinearLayout>
 
         <Button
             android:id="@+id/right_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:onClick="category_select"
+            android:onClick="updateCategoryTab"
             android:enabled="true"
             android:text="&gt;"
             android:background="#ffffff"
