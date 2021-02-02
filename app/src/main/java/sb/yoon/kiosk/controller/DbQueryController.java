@@ -61,7 +61,7 @@ public class DbQueryController {
         return (Long)this.menuDao.count();
     }
     public Long getLastCategoryIdx(){
-        return (Long)this.categoryDao.loadAll().get((int) categoryDao.count()-1).getId();
+        return (Long)this.categoryDao.queryBuilder().orderDesc(CategoryDao.Properties.Id).limit(1).unique().getId();
     }
     public Long getLastOptionAndMenuJoinerIdx(){
         return (Long)this.optionsAndMenuJoinerDao.count();
