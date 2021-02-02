@@ -191,6 +191,10 @@ public class KioskListActivity extends AppCompatActivity {
         return tabView;
     }
 
+    public void clickReturnButton(View view) {
+        finish();
+    }
+
     class onClickToggleButton implements View.OnClickListener {
         @Override
         public void onClick(View view) {

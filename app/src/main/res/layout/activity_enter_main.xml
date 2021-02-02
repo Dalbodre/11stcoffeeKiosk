@@ -32,15 +32,6 @@
         android:background="@drawable/orderbutton"
         android:onClick="buttonClicked" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="베타테스트 작업 중..."
-        android:textColor="@color/hotRed"
-        android:textSize="100px"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:id="@+id/enter_text_container"
         android:layout_width="match_parent"
