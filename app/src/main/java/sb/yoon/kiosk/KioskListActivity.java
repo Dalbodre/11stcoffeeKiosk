@@ -193,25 +193,25 @@ public class KioskListActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             int tagNo = (int) view.getTag();
-            itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
-
-            for (int i=0; i<toggleButtons.size(); i++) {
-                int index = i + categoryPage*eleSize;
-                toggleButtons.get(i).setChecked(false);
-                toggleButtons.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
-                toggleButtons.get(i).setTextColor(Color.parseColor("#081832"));
-                toggleButtons.get(i).setText(categories.get(index).getName());
-            }
+//            itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
+//            fragmentTransaction = fragmentManager.beginTransaction();
+//            fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
+//
+//            for (int i=0; i<toggleButtons.size(); i++) {
+//                int index = i + categoryPage*eleSize;
+//                toggleButtons.get(i).setChecked(false);
+//                toggleButtons.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
+//                toggleButtons.get(i).setTextColor(Color.parseColor("#081832"));
+//                toggleButtons.get(i).setText(categories.get(index).getName());
+//            }
 
             categoryTab.getTabAt(tagNo % eleSize).select();
 
-            ToggleButton toggleButton = (ToggleButton) view;
-            toggleButton.setChecked(true);
-            toggleButton.setBackgroundResource(R.drawable.togglebutton_on);
-            toggleButton.setTextColor(Color.parseColor("#ffffff"));
-            toggleButton.setText(categories.get((Integer) toggleButton.getTag()).getName());
+//            ToggleButton toggleButton = (ToggleButton) view;
+//            toggleButton.setChecked(true);
+//            toggleButton.setBackgroundResource(R.drawable.togglebutton_on);
+//            toggleButton.setTextColor(Color.parseColor("#ffffff"));
+//            toggleButton.setText(categories.get((Integer) toggleButton.getTag()).getName());
         }
     }
 
@@ -268,7 +268,7 @@ public class KioskListActivity extends AppCompatActivity {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             int tagNo = tab.getPosition();
-            itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
+            itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo + eleSize*categoryPage)));
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
 
