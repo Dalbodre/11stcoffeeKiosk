@@ -94,6 +94,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             ToggleButton button = new ToggleButton(holder.context);
             button.setChecked(false);
             button.setBackgroundDrawable(ContextCompat.getDrawable(holder.context, R.drawable.togglebutton_off));
+            button.setTextColor(ContextCompat.getColor(holder.context, R.color.color11thBlue));
             button.setText("적용안됨");
             button.setPadding(10,10,10,10);
             button.setTextSize(50f);
