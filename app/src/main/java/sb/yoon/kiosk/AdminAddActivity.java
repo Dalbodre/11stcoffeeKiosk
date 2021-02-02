@@ -304,7 +304,7 @@ public class AdminAddActivity extends AppCompatActivity {
                                                 iconPath,
                                                 isHot.isChecked(),
                                                 isCold.isChecked()));
-                                        controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString()));
+                                        controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), false));
 
                                         //옵션
                                         if (shot.isChecked()) {

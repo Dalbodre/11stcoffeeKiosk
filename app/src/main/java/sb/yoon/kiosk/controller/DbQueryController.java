@@ -1,17 +1,10 @@
 package sb.yoon.kiosk.controller;
 
-import android.app.Activity;
-import android.util.Log;
-
 import org.greenrobot.greendao.AbstractDao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import sb.yoon.kiosk.KioskApplication;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.CategoryDao;
 import sb.yoon.kiosk.model.DaoSession;
@@ -180,12 +173,12 @@ public class DbQueryController {
         }
         private void initCategories() {
             // 1L = new Long(1)
-            categoryDao.insertOrReplace(new Category(1L, "커피"));
-            categoryDao.insertOrReplace(new Category(2L, "라떼"));
-            categoryDao.insertOrReplace(new Category(3L, "차"));
-            categoryDao.insertOrReplace(new Category(4L, "주스"));
-            categoryDao.insertOrReplace(new Category(5L, "스무디"));
-            categoryDao.insertOrReplace(new Category(6L, "베이커리"));
+            categoryDao.insertOrReplace(new Category(1L, "커피", true));
+            categoryDao.insertOrReplace(new Category(2L, "라떼", true));
+            categoryDao.insertOrReplace(new Category(3L, "차",true));
+            categoryDao.insertOrReplace(new Category(4L, "주스",true));
+            categoryDao.insertOrReplace(new Category(5L, "스무디", true));
+            categoryDao.insertOrReplace(new Category(6L, "베이커리", false));
         }
 
         private void initMenus() {

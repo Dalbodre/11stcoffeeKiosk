@@ -1,20 +1,13 @@
 package sb.yoon.kiosk.controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 
 import sb.yoon.kiosk.AdminAddActivity;
-import sb.yoon.kiosk.AdminTabFragment;
 import sb.yoon.kiosk.KioskApplication;
-import sb.yoon.kiosk.model.Category;
-import sb.yoon.kiosk.model.CategoryDao;
-import sb.yoon.kiosk.model.Ingredient;
-import sb.yoon.kiosk.model.IngredientsAndMenuJoiner;
 import sb.yoon.kiosk.model.IngredientsAndMenuJoinerDao;
 import sb.yoon.kiosk.model.Menu;
 import android.view.View;
@@ -23,22 +16,16 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
-
-import org.greenrobot.greendao.query.DeleteQuery;
-import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.io.File;
 import java.util.List;
 
 import sb.yoon.kiosk.AdminActivity;
 import sb.yoon.kiosk.R;
-import sb.yoon.kiosk.layout.AdminItemElement;
 import sb.yoon.kiosk.model.MenuDao;
-import sb.yoon.kiosk.model.Option;
 
 // 플래그먼트 내부의 그리드레이아웃을 담당하는 어댑터
 public class AdminGridLayoutAdapter extends BaseAdapter {
