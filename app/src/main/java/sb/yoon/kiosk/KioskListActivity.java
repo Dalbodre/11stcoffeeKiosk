@@ -183,6 +183,8 @@ public class KioskListActivity extends AppCompatActivity {
         toggleButton.setBackgroundColor(Color.parseColor("#ffffff"));
         toggleButton.setTextColor(Color.parseColor("#081832"));
         toggleButton.setText(tabName);
+        toggleButton.setTextOff(tabName);
+        toggleButton.setTextOn(tabName);
         toggleButton.setTag(tag);
         toggleButton.setOnClickListener(new onClickToggleButton());
         toggleButtons.add(toggleButton);
@@ -283,7 +285,7 @@ public class KioskListActivity extends AppCompatActivity {
             KioskListActivity.this.toggleButtons.get(tagNo).setChecked(true);
             KioskListActivity.this.toggleButtons.get(tagNo).setBackgroundResource(R.drawable.togglebutton_on);
             KioskListActivity.this.toggleButtons.get(tagNo).setTextColor(Color.parseColor("#ffffff"));
-            KioskListActivity.this.toggleButtons.get(tagNo).setText(categories.get(tagNo).getName());
+            KioskListActivity.this.toggleButtons.get(tagNo).setText(categories.get(tagNo + eleSize*categoryPage).getName());
         }
 
         @Override
