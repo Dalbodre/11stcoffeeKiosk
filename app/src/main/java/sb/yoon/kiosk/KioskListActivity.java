@@ -119,7 +119,7 @@ public class KioskListActivity extends AppCompatActivity {
         leftButton = findViewById(R.id.left_button);
         rightButton = findViewById(R.id.right_button);
 
-        maxCategoryPage = categorySize / 8;
+        maxCategoryPage = categorySize / 5;
 
 
         // 기본으로 보여줄 플래그먼트 (첫번째 카테고리)

@@ -50,6 +50,8 @@ public class PopupActivity extends Activity {
     private Drawable tableIcon;
     private Drawable thumblerIcon;
 
+    public static boolean tumblerFlag = false;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +139,11 @@ public class PopupActivity extends Activity {
         tumbler.setChecked(false);
         tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
         if (cartMenu.getCategoryId() == (Long)9L) {tumbler.setText("선택불가"); tumbler.setEnabled(false);}
+
+        // 텀블러 가능한 카테고리 아니면 비활성화
+        if (!tumblerFlag) {
+            tumbler.setVisibility(View.GONE);
+        }
     }
 
     private void icons() {
