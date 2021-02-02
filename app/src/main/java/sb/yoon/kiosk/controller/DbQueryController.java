@@ -31,7 +31,7 @@ public class DbQueryController {
     public CategoryDao categoryDao;
     public MenuDao menuDao;
     private IngredientDao ingredientDao;
-    private IngredientsAndMenuJoinerDao ingredientsAndMenuJoinerDao;
+    public IngredientsAndMenuJoinerDao ingredientsAndMenuJoinerDao;
     public OptionDao optionDao;
     public OptionsAndMenuJoinerDao optionsAndMenuJoinerDao;
 
@@ -58,13 +58,28 @@ public class DbQueryController {
     }
 
     public Long getLastMenuIdx() {
-        return (Long)this.menuDao.count();
+        if( this.menuDao.queryBuilder().orderDesc(MenuDao.Properties.Id).limit(1).unique() == null){
+            return 0L;
+        }
+        else{
+            return (Long)this.menuDao.queryBuilder().orderDesc(MenuDao.Properties.Id).limit(1).unique().getId();
+        }
     }
     public Long getLastCategoryIdx(){
-        return (Long)this.categoryDao.queryBuilder().orderDesc(CategoryDao.Properties.Id).limit(1).unique().getId();
+        if(this.categoryDao.queryBuilder().orderDesc(CategoryDao.Properties.Id).limit(1).unique() == null){
+            return 0L;
+        }
+        else {
+            return (Long) this.categoryDao.queryBuilder().orderDesc(CategoryDao.Properties.Id).limit(1).unique().getId();
+        }
     }
     public Long getLastOptionAndMenuJoinerIdx(){
-        return (Long)this.optionsAndMenuJoinerDao.count();
+        if(this.optionsAndMenuJoinerDao.queryBuilder().orderDesc(OptionsAndMenuJoinerDao.Properties.Id).limit(1).unique() == null){
+            return 0L;
+        }
+        else{
+            return (Long)this.optionsAndMenuJoinerDao.queryBuilder().orderDesc(OptionsAndMenuJoinerDao.Properties.Id).limit(1).unique().getId();
+        }
     }
 
     public IngredientsAndMenuJoinerDao getIngredientsAndMenuJoinerDao() {
@@ -147,13 +162,13 @@ public class DbQueryController {
     public List<Menu> searchMenuByIngredients(Ingredient ingredient) {
         return ingredient.getMenuList();
     }
-    public void refreshCategory(Long id){
+    /*public void refreshCategory(Long id){
         Log.d("status", "refresh");
         if (menuDao.queryBuilder().where(MenuDao.Properties.CategoryId.eq(id)).count() == 0) {
             categoryDao.deleteByKey(id);
             System.out.println("야");
         }
-    }
+    }*/
 
     // 초기화 역할 하는 클래스
     // 구조상 보기 편하라고 Init 내부 클래스 안에다가 해줬는데 성능상 별로면 클래스 없애고 그냥 메서드로 변경

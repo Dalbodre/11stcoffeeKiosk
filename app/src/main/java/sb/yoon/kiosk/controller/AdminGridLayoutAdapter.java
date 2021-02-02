@@ -9,8 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 
 import sb.yoon.kiosk.AdminAddActivity;
+import sb.yoon.kiosk.AdminTabFragment;
 import sb.yoon.kiosk.KioskApplication;
 import sb.yoon.kiosk.model.Category;
+import sb.yoon.kiosk.model.CategoryDao;
+import sb.yoon.kiosk.model.Ingredient;
+import sb.yoon.kiosk.model.IngredientsAndMenuJoiner;
+import sb.yoon.kiosk.model.IngredientsAndMenuJoinerDao;
 import sb.yoon.kiosk.model.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +28,16 @@ import android.widget.Toast;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import org.greenrobot.greendao.query.DeleteQuery;
+import org.greenrobot.greendao.query.QueryBuilder;
+
 import java.io.File;
 import java.util.List;
 
 import sb.yoon.kiosk.AdminActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.AdminItemElement;
+import sb.yoon.kiosk.model.MenuDao;
 import sb.yoon.kiosk.model.Option;
 
 // 플래그먼트 내부의 그리드레이아웃을 담당하는 어댑터
@@ -37,7 +46,7 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
     private List<Menu> menuList;
     private FragmentActivity context;
     public DbQueryController dbQueryController;
-
+    //private List<IngredientsAndMenuJoiner> ingredientList;
 
     public AdminGridLayoutAdapter(List<Menu> menuList, FragmentActivity context){
         this.menuList = menuList;
@@ -149,8 +158,13 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
         public void onClick(View v) {
             int position = (int) v.getTag();
             if (v.getId() == R.id.admin_delete_button) {
+                dbQueryController.ingredientsAndMenuJoinerDao.queryBuilder().where(IngredientsAndMenuJoinerDao.Properties.MenuId.eq(menuList.get(position).getId())).buildDelete()
+                        .executeDeleteWithoutDetachingEntities();
                 menuList.get(position).delete();
-                dbQueryController.refreshCategory(menuList.get(position).getCategoryId());
+                if(dbQueryController.menuDao.queryBuilder().where(MenuDao.Properties.CategoryId.eq(menuList.get(position).getCategoryId())).count() == 0L) {
+                    //dbQueryController.refreshCategory(menuList.get(position).getCategoryId());
+                    dbQueryController.categoryDao.deleteByKey(menuList.get(position).getCategoryId());
+                }
                 menuList.remove(position);
 
                 AdminGridLayoutAdapter.this.notifyDataSetChanged();
