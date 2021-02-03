@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,6 +45,7 @@ import sb.yoon.kiosk.controller.CartListAdapter;
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.controller.HttpNetworkController;
 import sb.yoon.kiosk.layout.CategoryButton;
+import sb.yoon.kiosk.libs.IdleTimer;
 import sb.yoon.kiosk.libs.Util;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
@@ -83,6 +86,8 @@ public class KioskListActivity extends AppCompatActivity {
     private Button rightButton;
 
     final int eleSize = 5;
+
+    private IdleTimer idleTimer;
 
     @Override
     public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
@@ -142,6 +147,16 @@ public class KioskListActivity extends AppCompatActivity {
         purchaseButton.setOnClickListener(new purchaseButtonClickListener());
 
         updateCategoryTab(categoryPage);
+
+        idleTimer = new IdleTimer(this, 5000, 1000);
+        idleTimer.start();
+    }
+
+    @Override
+    public void onUserInteraction() {
+        idleTimer.cancel();
+        idleTimer.start();
+        super.onUserInteraction();
     }
 
     private void updateCategoryTab(int page) {
@@ -375,6 +390,8 @@ public class KioskListActivity extends AppCompatActivity {
         finish();
     }
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //데이터 넘겨줄 때 씀
@@ -405,5 +422,17 @@ public class KioskListActivity extends AppCompatActivity {
             }
             this.searchButtonClicked = false;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        idleTimer.cancel();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        idleTimer.start();
     }
 }

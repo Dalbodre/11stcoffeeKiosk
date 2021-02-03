@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import sb.yoon.kiosk.controller.OptionListAdapter;
+import sb.yoon.kiosk.libs.IdleTimer;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
 
@@ -49,6 +50,8 @@ public class PopupActivity extends Activity {
     private Drawable packageIcon;
     private Drawable tableIcon;
     private Drawable thumblerIcon;
+
+    private IdleTimer idleTimer;
 
     public static boolean tumblerFlag = false;
 
@@ -98,6 +101,21 @@ public class PopupActivity extends Activity {
 
         optionListAdapter = new OptionListAdapter(cartOptionList);
         optionRecyclerView.setAdapter(optionListAdapter);
+
+        idleTimer = new IdleTimer(this, 5000, 1000);
+        idleTimer.start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        idleTimer.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        idleTimer.cancel();
     }
 
     public void init(){

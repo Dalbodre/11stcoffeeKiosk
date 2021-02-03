@@ -28,6 +28,7 @@ import java.util.List;
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.controller.SearchRecyclerViewAdapter;
 import sb.yoon.kiosk.layout.SearchItemDecoration;
+import sb.yoon.kiosk.libs.IdleTimer;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.IngredientDao;
 import sb.yoon.kiosk.model.Menu;
@@ -37,6 +38,8 @@ public class SearchActivity extends Activity {
     private List<Menu> searchedMenuList;
 
     private RecyclerView searchRecyclerView;
+
+    private IdleTimer idleTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,21 @@ public class SearchActivity extends Activity {
                 finish();
             }
         });
+
+        idleTimer = new IdleTimer(this, 5000, 1000);
+        idleTimer.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        idleTimer.cancel();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        idleTimer.start();
     }
 
     public void onClickSearchIngredientIcon(View view) {
