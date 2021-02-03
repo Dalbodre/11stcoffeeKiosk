@@ -19,8 +19,8 @@
 
     <Button
         android:id="@+id/enter_main_button"
-        android:layout_width="1000dp"
-        android:layout_height="300dp"
+        android:layout_width="617px"
+        android:layout_height="200px"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100px"

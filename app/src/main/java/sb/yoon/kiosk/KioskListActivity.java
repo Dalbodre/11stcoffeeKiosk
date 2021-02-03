@@ -115,7 +115,8 @@ public class KioskListActivity extends AppCompatActivity {
         //todo
         categoryTab = findViewById(R.id.categoryTab);
         categoryTab.addOnTabSelectedListener(new categoryTabClickListener());
-        categoryTab.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF")); // 밑줄색
+
+        categoryTab.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF")); // 언더바 나오길래 안보이도록 만들었습니다.
 
         leftButton = findViewById(R.id.left_button);
         rightButton = findViewById(R.id.right_button);
