@@ -50,7 +50,9 @@ public class AdminActivity extends AppCompatActivity {
         dbQueryController = kioskApplication.getDbQueryController();
 
         categories = dbQueryController.getCategoriesList();
-
+        for(Category category : categories){
+            dbQueryController.refreshCategory((Long)category.getId());
+        }
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.pager);
 
@@ -81,7 +83,6 @@ public class AdminActivity extends AppCompatActivity {
                 Intent intent = new Intent(view.getContext(), AdminAddActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finish();
                 break;
 
             case R.id.exit:
@@ -96,6 +97,9 @@ public class AdminActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         categories = dbQueryController.getCategoriesList();
+        for(Category category : categories){
+            dbQueryController.refreshCategory((Long)category.getId());
+        }
         adminFragmentAdapter.notifyDataSetChanged();
 
     }

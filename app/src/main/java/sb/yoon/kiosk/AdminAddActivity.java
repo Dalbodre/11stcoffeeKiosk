@@ -27,7 +27,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.Menu;
@@ -48,14 +51,15 @@ public class AdminAddActivity extends AppCompatActivity {
     private CheckBox sugar;
     private CheckBox hazelnut;
     private CheckBox mild;
-
+    private CheckBox tumblerFlag;
     private Spinner spinner;
 
     private Long menuId;
     private Long categoryId;
     private Boolean categoryAddflag;
-
-    private List<String> categoryNames;
+    private Boolean isTumbler;
+    private HashMap<String, Long> categoryNames;
+    private String categoryNameInDb;
     private List<Category> categories;
 
     private Long lastMenuIdx;
@@ -71,6 +75,7 @@ public class AdminAddActivity extends AppCompatActivity {
     private final int GALLERY_CODE = 1112;
 
     private Uri selectedImageUri;
+    ArrayList<String> getHashMapKeys;
 
     //업데이트용
     private Long updateMenuId;
@@ -89,7 +94,7 @@ public class AdminAddActivity extends AppCompatActivity {
         controller = kioskApplication.getDbQueryController();
 
         lastMenuIdx = controller.getLastMenuIdx() + 1;
-        lastCategoryIdx = controller.getLastCategoryIdx() + 1;
+        lastCategoryIdx = controller.getLastCategoryIdx();
         lastOptionAndMenuJoinerIdx = controller.getLastOptionAndMenuJoinerIdx() + 1;
 
         menuImg = (ImageView)findViewById(R.id.imageBox);
@@ -109,6 +114,8 @@ public class AdminAddActivity extends AppCompatActivity {
         categoryText = findViewById(R.id.categoryText);
         ok = findViewById(R.id.Ok);
 
+        tumblerFlag = findViewById(R.id.tumblerFlag);
+        isTumbler = true;
         categoryAddflag = false;
         changeImg = false;
         //반드시 초기화시 null이어야 하는 값.
@@ -153,17 +160,21 @@ public class AdminAddActivity extends AppCompatActivity {
             isCold.setChecked(updateMenu.getIsCold());
         }
 
-        categoryNames = new ArrayList<>();
-        categoryNames.add("카테고리 추가");
         categories = controller.getCategoriesList();
+        categoryNames = new HashMap<String, Long>();
+        categoryNames.put("카테고리 추가", 0L);
+
         for(Category category : categories){
-            categoryNames.add(category.getName());
+            categoryNames.put(category.getName(), category.getId());
         }
 
-        ArrayAdapter<String> spinItems = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categoryNames);
+        ArrayAdapter<String> spinItems = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
+        spinItems.addAll(categoryNames.keySet());
+
         spinner.setAdapter(spinItems);
         if(categoryId != null) {
-            spinner.setSelection(categoryId.intValue());
+            int position = spinItems.getPosition(getKey(categoryNames, categoryId));
+            spinner.setSelection(position);
         }
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -174,6 +185,7 @@ public class AdminAddActivity extends AppCompatActivity {
                     textview.setVisibility(View.VISIBLE);
                     divider.setVisibility(View.VISIBLE);
                     categoryText.setVisibility(View.VISIBLE);
+                    tumblerFlag.setVisibility(View.VISIBLE);
                     categoryId = lastCategoryIdx;
                 }
                 else{
@@ -183,7 +195,9 @@ public class AdminAddActivity extends AppCompatActivity {
                     categoryText.setVisibility(View.GONE);
                     categoryText.setText("");
                     //Todo DB 고치기 작업 필요.
-                    categoryId = categories.get(i-1).getId();
+                    //categoryId = categories.get(i-1).getId();
+                    categoryId = categoryNames.get(spinItems.getItem(i));
+                    tumblerFlag.setChecked(categories.get(i-1).getTumblerFlag());
                     Log.d("spinner Id", String.valueOf(l));
                 }
             }
@@ -265,6 +279,14 @@ public class AdminAddActivity extends AppCompatActivity {
         }
         return null;
     }
+    public <K, V> K getKey(Map<K,V> map, V value){
+        for(K key : map.keySet()){
+            if(value.equals(map.get(key))){
+                return key;
+            }
+        }
+        return null;
+    }
 
     public void adminAction(View view) {
         switch (view.getId()) {
@@ -304,7 +326,7 @@ public class AdminAddActivity extends AppCompatActivity {
                                                 iconPath,
                                                 isHot.isChecked(),
                                                 isCold.isChecked()));
-                                        controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), false));
+                                        controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), tumblerFlag.isChecked()));
 
                                         //옵션
                                         if (shot.isChecked()) {
@@ -414,6 +436,7 @@ public class AdminAddActivity extends AppCompatActivity {
                                 iconPath,
                                 isHot.isChecked(),
                                 isCold.isChecked()));
+                        controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), tumblerFlag.isChecked()));
                         Log.d("categoryId", String.valueOf(categoryId));
                         for(int i = 0; i<4; i++){
                             if(optionList.get(i) == null){

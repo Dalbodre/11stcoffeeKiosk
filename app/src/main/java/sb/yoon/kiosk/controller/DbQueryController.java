@@ -1,5 +1,7 @@
 package sb.yoon.kiosk.controller;
 
+import android.util.Log;
+
 import org.greenrobot.greendao.AbstractDao;
 
 import java.util.ArrayList;
@@ -155,12 +157,16 @@ public class DbQueryController {
     public List<Menu> searchMenuByIngredients(Ingredient ingredient) {
         return ingredient.getMenuList();
     }
-    /*public void refreshCategory(Long id){
+    public void refreshCategory(Long id){
         Log.d("status", "refresh");
         if (menuDao.queryBuilder().where(MenuDao.Properties.CategoryId.eq(id)).count() == 0) {
             categoryDao.deleteByKey(id);
             System.out.println("야");
         }
+    }
+
+    /*public String getCategoryName(Long id){
+        return this.categoryDao.queryRaw(CategoryDao.Properties.Id.eq(id), );
     }*/
 
     // 초기화 역할 하는 클래스

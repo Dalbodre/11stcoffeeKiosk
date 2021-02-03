@@ -34,6 +34,7 @@ public class AdminTabFragment extends Fragment {
     public AdminTabFragment(List<Menu> menuList, FragmentActivity context) {
         this.menuList = menuList;
         adapter = new AdminGridLayoutAdapter(this.menuList, context);
+        adapter.notifyDataSetChanged();
         this.context = context;
     }
 

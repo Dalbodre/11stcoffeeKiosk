@@ -35,6 +35,7 @@ public class AdminFragmentAdapter extends FragmentStateAdapter {
         return fragment;
     }
 
+
     @Override
     public int getItemCount() {
         return size;

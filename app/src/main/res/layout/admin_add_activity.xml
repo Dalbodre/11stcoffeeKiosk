@@ -282,6 +282,17 @@
                             app:layout_constraintStart_toEndOf="@id/view"
                             app:layout_constraintTop_toBottomOf="@id/categoryAdd"
                             tools:visibility="visible" />
+                        <CheckBox
+                            android:id="@+id/tumblerFlag"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="텀블러 옵션"
+                            android:visibility="gone"
+                            android:checked="true"
+                            app:layout_constraintTop_toBottomOf="@id/categoryText"
+                            app:layout_constraintStart_toEndOf="@id/view"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </LinearLayout>

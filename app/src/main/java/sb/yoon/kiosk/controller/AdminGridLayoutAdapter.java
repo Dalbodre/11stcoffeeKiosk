@@ -129,7 +129,7 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
             intent.putExtra("menuID", menuId);
             AdminAddActivity.isAdd = false;
             context.startActivity(intent);
-            context.finish();
+
             //Toast.makeText(context.getApplicationContext(), Integer.toString(position), Toast.LENGTH_SHORT).show();
 
             //Drawable drawable = ContextCompat.getDrawable(context, context.getResources().getIdentifier(menu.getIconPath(),
@@ -154,7 +154,7 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
                 }
                 menuList.remove(position);
 
-                AdminGridLayoutAdapter.this.notifyDataSetChanged();
+                AdminGridLayoutAdapter.this.notifyAll();
             }
         }
     }
