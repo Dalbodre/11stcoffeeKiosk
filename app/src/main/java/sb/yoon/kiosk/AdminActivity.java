@@ -97,11 +97,11 @@ public class AdminActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         categories = dbQueryController.getCategoriesList();
-        for(Category category : categories){
-            dbQueryController.refreshCategory((Long)category.getId());
+        for (int i=0; i<categories.size(); i++) {
+            categories.get(i).refresh();
+            categories.get(i).resetMenuList();
         }
         adminFragmentAdapter.notifyDataSetChanged();
-
     }
 }
 
