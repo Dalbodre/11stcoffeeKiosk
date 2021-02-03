@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -161,7 +162,7 @@ public class AdminAddActivity extends AppCompatActivity {
         }
 
         categories = controller.getCategoriesList();
-        categoryNames = new HashMap<String, Long>();
+        categoryNames = new LinkedHashMap<String, Long>();
         categoryNames.put("카테고리 추가", 0L);
 
         for(Category category : categories){
@@ -439,7 +440,7 @@ public class AdminAddActivity extends AppCompatActivity {
                         controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), tumblerFlag.isChecked()));
                         Log.d("categoryId", String.valueOf(categoryId));
                         for(int i = 0; i<4; i++){
-                            if(optionList.get(i) == null){
+                            if(i >= optionList.size()){
                                 break;
                             }
                             controller.optionsAndMenuJoinerDao.deleteByKey(optionList.get(i).getId());
