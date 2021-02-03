@@ -115,6 +115,7 @@ public class KioskListActivity extends AppCompatActivity {
         //todo
         categoryTab = findViewById(R.id.categoryTab);
         categoryTab.addOnTabSelectedListener(new categoryTabClickListener());
+        categoryTab.setSelectedTabIndicatorColor(Color.parseColor("#FFFFFF")); // 밑줄색
 
         leftButton = findViewById(R.id.left_button);
         rightButton = findViewById(R.id.right_button);
