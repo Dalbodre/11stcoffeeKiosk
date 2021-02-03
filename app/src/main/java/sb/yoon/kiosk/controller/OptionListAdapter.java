@@ -62,14 +62,14 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
         if (cartOption.isInteger()) {
             TextView quantityTextView = new TextView(holder.context);
             quantityTextView.setText(Integer.toString(cartOption.getQuantity()));
-            quantityTextView.setTextSize(45f);
+            quantityTextView.setTextSize(60f);
             quantityTextView.setPadding(10, 0,10,0);
             quantityTextView.setTextColor(Color.parseColor("#081832"));
 
             Button minusButton = new Button(holder.context);
             minusButton.setText("<");
             minusButton.setTextColor(Color.parseColor("#081832"));
-            minusButton.setTextSize(45f);
+            minusButton.setTextSize(60f);
             minusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.for_option_background));
             minusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
 
@@ -83,7 +83,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             Button plusButton = new Button(holder.context);
             plusButton.setText(">");
             plusButton.setTextColor(Color.parseColor("#081832"));
-            plusButton.setTextSize(45f);
+            plusButton.setTextSize(60f);
             plusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.for_option_background));
             plusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
 
@@ -97,7 +97,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             button.setTextColor(ContextCompat.getColor(holder.context, R.color.color11thBlue));
             button.setText("적용안됨");
             button.setPadding(10,10,10,10);
-            button.setTextSize(50f);
+            button.setTextSize(60f);
             button.setOnClickListener(new OnClickBoolButtons(cartOption, holder.context));
 
             holder.optionButtonsWrapper.addView(button);
@@ -154,7 +154,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
                 button.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.togglebutton_off));
                 button.setChecked(false);
                 button.setText("적용안됨");
-                button.setTextSize(50f);
+                button.setTextSize(60f);
                 button.setTextColor(Color.parseColor("#081832"));
                 button.setPadding(10,10,10,10);
             } else {
@@ -162,7 +162,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
                 button.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.togglebutton_on));
                 button.setPressed(true);
                 button.setText("적용됨");
-                button.setTextSize(50f);
+                button.setTextSize(60f);
                 button.setTextColor(Color.parseColor("#ffffff"));
                 button.setPadding(10,10,10,10);
             };
