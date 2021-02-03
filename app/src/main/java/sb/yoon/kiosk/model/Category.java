@@ -22,6 +22,8 @@ public class Category {
 
     @ToMany(referencedJoinProperty = "categoryId")
     private List<Menu> menuList;
+    
+    private boolean tumblerFlag;
 
 /** Used to resolve relations */
 @Generated(hash = 2040040024)
@@ -31,10 +33,11 @@ private transient DaoSession daoSession;
 @Generated(hash = 40161530)
 private transient CategoryDao myDao;
 
-@Generated(hash = 2033714148)
-public Category(Long id, @NotNull String name) {
+@Generated(hash = 1903179033)
+public Category(Long id, @NotNull String name, boolean tumblerFlag) {
     this.id = id;
     this.name = name;
+    this.tumblerFlag = tumblerFlag;
 }
 
 @Generated(hash = 1150634039)
@@ -119,6 +122,14 @@ public void update() {
         throw new DaoException("Entity is detached from DAO context");
     }
     myDao.update(this);
+}
+
+public boolean getTumblerFlag() {
+    return this.tumblerFlag;
+}
+
+public void setTumblerFlag(boolean tumblerFlag) {
+    this.tumblerFlag = tumblerFlag;
 }
 
 /** called by internal mechanisms, do not call yourself. */

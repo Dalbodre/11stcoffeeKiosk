@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,6 +45,7 @@ import sb.yoon.kiosk.controller.CartListAdapter;
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.controller.HttpNetworkController;
 import sb.yoon.kiosk.layout.CategoryButton;
+import sb.yoon.kiosk.libs.IdleTimer;
 import sb.yoon.kiosk.libs.Util;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
@@ -84,6 +87,8 @@ public class KioskListActivity extends AppCompatActivity {
 
     final int eleSize = 5;
 
+    private IdleTimer idleTimer;
+
     @Override
     public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
         return super.onCreatePanelMenu(featureId, menu);
@@ -119,7 +124,7 @@ public class KioskListActivity extends AppCompatActivity {
         leftButton = findViewById(R.id.left_button);
         rightButton = findViewById(R.id.right_button);
 
-        maxCategoryPage = categorySize / 8;
+        maxCategoryPage = categorySize / 5;
 
 
         // 기본으로 보여줄 플래그먼트 (첫번째 카테고리)
@@ -142,6 +147,16 @@ public class KioskListActivity extends AppCompatActivity {
         purchaseButton.setOnClickListener(new purchaseButtonClickListener());
 
         updateCategoryTab(categoryPage);
+
+        idleTimer = new IdleTimer(this, 5000, 1000);
+        idleTimer.start();
+    }
+
+    @Override
+    public void onUserInteraction() {
+        idleTimer.cancel();
+        idleTimer.start();
+        super.onUserInteraction();
     }
 
     private void updateCategoryTab(int page) {
@@ -183,10 +198,16 @@ public class KioskListActivity extends AppCompatActivity {
         toggleButton.setBackgroundColor(Color.parseColor("#ffffff"));
         toggleButton.setTextColor(Color.parseColor("#081832"));
         toggleButton.setText(tabName);
+        toggleButton.setTextOff(tabName);
+        toggleButton.setTextOn(tabName);
         toggleButton.setTag(tag);
         toggleButton.setOnClickListener(new onClickToggleButton());
         toggleButtons.add(toggleButton);
         return tabView;
+    }
+
+    public void clickReturnButton(View view) {
+        finish();
     }
 
     class onClickToggleButton implements View.OnClickListener {
@@ -283,7 +304,7 @@ public class KioskListActivity extends AppCompatActivity {
             KioskListActivity.this.toggleButtons.get(tagNo).setChecked(true);
             KioskListActivity.this.toggleButtons.get(tagNo).setBackgroundResource(R.drawable.togglebutton_on);
             KioskListActivity.this.toggleButtons.get(tagNo).setTextColor(Color.parseColor("#ffffff"));
-            KioskListActivity.this.toggleButtons.get(tagNo).setText(categories.get(tagNo).getName());
+            KioskListActivity.this.toggleButtons.get(tagNo).setText(categories.get(tagNo + eleSize*categoryPage).getName());
         }
 
         @Override
@@ -369,6 +390,8 @@ public class KioskListActivity extends AppCompatActivity {
         finish();
     }
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //데이터 넘겨줄 때 씀
@@ -399,5 +422,17 @@ public class KioskListActivity extends AppCompatActivity {
             }
             this.searchButtonClicked = false;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        idleTimer.cancel();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        idleTimer.start();
     }
 }

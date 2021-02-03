@@ -92,8 +92,8 @@ public class AdminActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         categories = dbQueryController.getCategoriesList();
-        adminFragmentAdapter.notifyDataSetChanged();
 
+        adminFragmentAdapter.notifyDataSetChanged();
     }
 }
 
