@@ -54,9 +54,7 @@ public class AdminActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.pager);
 
-        // 어댑터 지옥의 시작...
-        // 아이템 카운트에 맞춰서 플래그먼트 생성
-        // 카테고리 리스트를 주고 거기서 메뉴리스트를 동적으로 받아서 생성
+        // 동작방식 변경
         adminFragmentAdapter = new AdminFragmentAdapter(categories, this);
         adminFragmentAdapter.setItemCount(categories.size());
         viewPager.setAdapter(adminFragmentAdapter);
@@ -71,6 +69,22 @@ public class AdminActivity extends AppCompatActivity {
                 args.putParcelableArrayList("list", (ArrayList<? extends Parcelable>) categories.get(position).getMenuList());*/
             }
         }).attach();
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                super.onPageScrollStateChanged(state);
+            }
+        });
         //카테고리 버튼 생성
         //this.createTabs();
     }
@@ -96,8 +110,11 @@ public class AdminActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         categories = dbQueryController.getCategoriesList();
+        for (int i=0; i<categories.size(); i++) {
+            categories.get(i).refresh();
+            categories.get(i).resetMenuList();
+        }
         adminFragmentAdapter.notifyDataSetChanged();
-
     }
 }
 

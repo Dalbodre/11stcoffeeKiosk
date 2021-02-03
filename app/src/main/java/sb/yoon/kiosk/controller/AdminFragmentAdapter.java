@@ -41,4 +41,14 @@ public class AdminFragmentAdapter extends FragmentStateAdapter {
     }
 
     public void setItemCount(int size) { this.size = size;}
+
+    @Override
+    public long getItemId(int position) {
+        return categories.get(position).getMenuList().size();
+    }
+
+    @Override
+    public boolean containsItem(long itemId) {
+        return false;
+    }
 }
