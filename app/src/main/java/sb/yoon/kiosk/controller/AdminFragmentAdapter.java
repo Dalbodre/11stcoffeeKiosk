@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sb.yoon.kiosk.AdminActivity;
@@ -19,6 +20,7 @@ public class AdminFragmentAdapter extends FragmentStateAdapter {
     private int size = 0;
     private List<Category> categories;
     private FragmentActivity context;
+    private ArrayList<Long> ids = new ArrayList<Long>();
 
     public AdminFragmentAdapter(List<Category> categories, FragmentActivity fragmentActivity){
         super(fragmentActivity);
@@ -45,11 +47,19 @@ public class AdminFragmentAdapter extends FragmentStateAdapter {
 
     @Override
     public long getItemId(int position) {
-        return categories.get(position).getMenuList().size();
+        long id = (long)(categories.get(position).getMenuList().hashCode());
+        int index = ids.indexOf(id);
+        if (index >= 0) {
+            ids.set(index, id);
+        } else {
+            ids.add(id);
+        }
+
+        return id;
     }
 
     @Override
     public boolean containsItem(long itemId) {
-        return false;
+        return ids.contains(itemId);
     }
 }
