@@ -85,7 +85,7 @@ public class KioskListActivity extends AppCompatActivity {
     private Button leftButton;
     private Button rightButton;
 
-    final int eleSize = 5;
+    final int eleSize = 4;
 
     private IdleTimer idleTimer;
 
@@ -150,7 +150,7 @@ public class KioskListActivity extends AppCompatActivity {
 
         updateCategoryTab(categoryPage);
 
-        idleTimer = new IdleTimer(this, 5000, 1000);
+        idleTimer = new IdleTimer(this, 115000, 1000);//잠깐만 115초로 변경좀 해놓겠습니다. -jojo
         idleTimer.start();
     }
 

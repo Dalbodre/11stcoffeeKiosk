@@ -9,11 +9,11 @@
 
     <ImageView
         android:id="@+id/enter_easter"
-        android:layout_width="500px"
-        android:layout_height="500px"
+        android:layout_width="700px"
+        android:layout_height="700px"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200px"
+        android:layout_marginTop="300px"
         android:src="@drawable/coffee_in_main_enterance" />
 
 
@@ -23,91 +23,26 @@
         android:layout_height="220dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100px"
-        android:text="주문하기"
-        android:textSize="130px"
-        android:textStyle="bold"
-        android:textColor="#0a1527"
+        android:layout_marginBottom="200px"
         android:background="@drawable/orderbutton"
-        android:onClick="buttonClicked" />
+        android:onClick="buttonClicked"
+        android:text="주문하기"
+        android:textColor="#0a1527"
+        android:textSize="130px"
+        android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/enter_text_container"
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/enter_easter"
-        android:layout_marginTop="30px"
-        android:orientation="vertical">
+        android:text="카운터에서 주문이 가능합니다."
+        android:layout_below="@+id/enter_easter"
+        android:layout_marginTop="100px"
+        android:textAlignment="center"
+        android:textColor="#fec93d"
+        android:textSize="90px"
+        android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10px"
-            android:layout_marginStart="260px"
-            android:text="학기중"
-            android:textColor="#ffffff"
-            android:textSize="60px"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="260px"
-            android:layout_marginBottom="20px"
-            android:text="주   중  08:30 a.m ~ 07:30 p.m\n토요일  10:00 a.m ~ 03:00 p.m"
-            android:textColor="#ffffff"
-            android:textSize="40px"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10px"
-            android:layout_marginStart="260px"
-            android:text="방학중"
-            android:textColor="#ffffff"
-            android:textSize="60px"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="260px"
-            android:layout_marginBottom="20px"
-            android:text="주   중  08:30 a.m ~ 06:30 p.m"
-            android:textColor="#ffffff"
-            android:textSize="40px"
-            android:textStyle="bold" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10px"
-            android:layout_marginStart="260px"
-            android:text="코로나 끝나기 전까지"
-            android:textColor="#fec93d"
-            android:textSize="60px"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="260px"
-            android:layout_marginBottom="120px"
-            android:text="주   중  08:30 a.m ~ 05:00 p.m"
-            android:textColor="#fec93d"
-            android:textSize="40px"
-            android:textStyle="bold" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="카운터에서 주문이 가능합니다."
-            android:textStyle="bold"
-            android:textSize="60px"
-            android:textColor="#fec93d"/>
-
-    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
