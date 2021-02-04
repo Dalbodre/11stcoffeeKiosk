@@ -153,7 +153,7 @@ public class PopupActivity extends Activity {
         }
 
         icons(); // 아이콘 너무 많아서 아이콘 별로 따로 메서드 팠습니다
-        //왜 커밋이 오류가 날까요?
+
         tumbler.setChecked(false);
         tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
         if (cartMenu.getCategoryId() == (Long)9L) {tumbler.setText("선택불가"); tumbler.setEnabled(false);}
@@ -209,7 +209,6 @@ public class PopupActivity extends Activity {
     private class OnTumblerToggleChanged implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            ToggleButton tButton = (ToggleButton) view;
             if(!tumbler.isChecked()){
                 tumbler.setChecked(false);
                 tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));

@@ -97,17 +97,6 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         // ItemElement에 OnClickListener 달아주기
         menuItem.setOnClickListener(this);
 
-        // 가격 부분
-        /*TextView price2 = (TextView) convertView.findViewById(R.id.price2);
-        price2.setTag(position);
-        price2.setOnClickListener(this);
-
-        if (menu.getIsHot()) {
-            price2.setText(Integer.toString(menu.getPrice()));
-            //price2.setVisibility(TextView.VISIBLE);
-            price2.setAlpha(1f);
-        }*/
-
         // 재료들 추가
         List<Ingredient> ingredients = menu.getIngredientList();
         LinearLayout holder = null;
@@ -166,7 +155,6 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
             cartOptions.add(new CartOption(option.getName(), 0, option.getPrice(), option.getIsInteger()));
         }
 
-        //Log.d("카트옵션", cartOptions.toString());
 
         PopupActivity.cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, cartOptions, menu.getId(), menu.getCategoryId(), menu.getIsHot(), menu.getIsCold(), null);
 

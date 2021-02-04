@@ -67,20 +67,20 @@
         <Button
             android:id="@+id/ok_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="100px"
             android:layout_weight="1"
             android:background="#081832"
             android:text="확 인"
             android:textColor="#ffffff"
-            android:textSize="60px" />
+            android:textSize="80px" />
 
         <Button
             android:id="@+id/cancle_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="100px"
             android:layout_weight="1"
             android:background="@drawable/enterance_button"
             android:text="취 소"
-            android:textSize="60px" />
+            android:textSize="80px" />
     </LinearLayout>
 </RelativeLayout>

@@ -91,8 +91,8 @@
             android:padding="10dp"
             android:textColor="#ffffff"
 
-            android:textOff="HOT X"
-            android:textOn="HOT O"
+            android:textOff="HOT"
+            android:textOn="HOT"
             android:textSize="80px"
             android:visibility="gone" />
 
@@ -104,8 +104,8 @@
             android:layout_weight="1"
             android:padding="10dp"
 
-            android:textOff="ICE X"
-            android:textOn="ICE O"
+            android:textOff="ICE"
+            android:textOn="ICE"
             android:textSize="80px"
             android:visibility="gone" />
     </LinearLayout>
@@ -130,8 +130,8 @@
             android:padding="10dp"
             android:paddingTop="17px"
             android:textColor="#081832"
-            android:textOff="매장 X"
-            android:textOn="매장 O"
+            android:textOff="매장"
+            android:textOn="매장"
             android:textSize="55sp" />
 
         <ToggleButton
@@ -146,8 +146,8 @@
             android:padding="10dp"
             android:paddingTop="17px"
             android:textColor="#081832"
-            android:textOff="포장 X"
-            android:textOn="포장 O"
+            android:textOff="포장"
+            android:textOn="포장"
             android:textSize="55sp" />
 
         <ToggleButton
@@ -161,8 +161,8 @@
             android:padding="10dp"
             android:paddingTop="17px"
             android:textColor="#081832"
-            android:textOff="텀블러 X"
-            android:textOn="텀블러 O"
+            android:textOff="텀블러"
+            android:textOn="텀블러"
             android:textSize="55sp" />
     </LinearLayout>
 
@@ -188,29 +188,26 @@
         <Button
             android:id="@+id/option_confirm_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100px"
             android:layout_marginBottom="0px"
             android:layout_weight="0.5"
             android:background="#081832"
             android:onClick="onClickPopUpConfirmedButtons"
-            android:padding="10dp"
             android:text="확인"
             android:textColor="#FFFFFF"
-            android:textSize="72px" />
+            android:textSize="80px" />
 
         <Button
             android:id="@+id/option_cancel_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100px"
             android:layout_marginBottom="0px"
             android:layout_weight="0.5"
             android:background="@drawable/enterance_button"
             android:onClick="onClickPopUpCloseButtons"
-            android:padding="10dp"
-
             android:text="취소"
             android:textColor="#081832"
-            android:textSize="72px" />
+            android:textSize="80px" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
