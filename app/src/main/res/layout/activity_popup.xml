@@ -191,12 +191,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="0px"
             android:layout_weight="0.5"
-            android:background="@drawable/enterance_button"
+            android:background="#081832"
             android:onClick="onClickPopUpConfirmedButtons"
-
             android:padding="10dp"
             android:text="확인"
-            android:textColor="#081832"
+            android:textColor="#FFFFFF"
             android:textSize="72px" />
 
         <Button

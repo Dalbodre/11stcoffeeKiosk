@@ -37,6 +37,7 @@
             android:layout_below="@+id/dialog_QR"
             android:layout_centerInParent="true"
             android:background="@color/color11thBlue"
+            android:paddingTop="15dp"
             android:text="999999원"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
