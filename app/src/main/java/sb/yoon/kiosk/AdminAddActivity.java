@@ -284,7 +284,9 @@ public class AdminAddActivity extends AppCompatActivity {
                             iconPath,
                             isHot.isChecked(),
                             isCold.isChecked()));
-                    controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString()));
+
+                    //todo 텀플러 플래그 마지막에 확인하고 변경
+                    controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), false));
 
                     //옵션
                     if(shot.isChecked()){

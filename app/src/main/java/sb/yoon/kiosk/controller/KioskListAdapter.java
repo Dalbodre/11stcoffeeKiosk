@@ -10,6 +10,7 @@ import android.widget.*;
 
 import androidx.core.content.ContextCompat;
 
+import sb.yoon.kiosk.KioskApplication;
 import sb.yoon.kiosk.KioskListActivity;
 import sb.yoon.kiosk.PopupActivity;
 import sb.yoon.kiosk.R;
@@ -17,6 +18,7 @@ import sb.yoon.kiosk.layout.ItemElement;
 import sb.yoon.kiosk.layout.IngredientItem;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
+import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.Menu;
 import sb.yoon.kiosk.model.Option;
@@ -167,6 +169,11 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         //Log.d("카트옵션", cartOptions.toString());
 
         PopupActivity.cartMenu = new CartMenu(drawable, menu.getName(), menu.getPrice(), 0, cartOptions, menu.getId(), menu.getCategoryId(), menu.getIsHot(), menu.getIsCold(), null);
+
+        // 카테고리 텀블러 가능한지 구하기
+        KioskApplication kapp = (KioskApplication) context.getApplication();
+        Category category = kapp.getDbQueryController().getCategoryDao().load(menu.getCategoryId());
+        PopupActivity.tumblerFlag = category.getTumblerFlag();
 
         context.startActivityForResult(intent, 1);
     }
