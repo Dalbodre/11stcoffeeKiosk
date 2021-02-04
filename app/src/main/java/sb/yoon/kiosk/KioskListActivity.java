@@ -150,7 +150,7 @@ public class KioskListActivity extends AppCompatActivity {
 
         updateCategoryTab(categoryPage);
 
-        idleTimer = new IdleTimer(this, 5000, 1000);
+        idleTimer = new IdleTimer(this, 15000, 1000);
         idleTimer.start();
     }
 

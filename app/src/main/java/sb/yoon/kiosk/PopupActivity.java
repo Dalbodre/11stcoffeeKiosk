@@ -102,7 +102,7 @@ public class PopupActivity extends Activity {
         optionListAdapter = new OptionListAdapter(cartOptionList);
         optionRecyclerView.setAdapter(optionListAdapter);
 
-        idleTimer = new IdleTimer(this, 5000, 1000);
+        idleTimer = new IdleTimer(this, 15000, 1000);
         idleTimer.start();
     }
 
@@ -162,6 +162,13 @@ public class PopupActivity extends Activity {
         if (!tumblerFlag) {
             tumbler.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onUserInteraction() {
+        idleTimer.cancel();
+        idleTimer.start();
+        super.onUserInteraction();
     }
 
     private void icons() {
