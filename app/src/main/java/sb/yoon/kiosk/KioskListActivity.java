@@ -5,9 +5,12 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -52,9 +55,14 @@ import sb.yoon.kiosk.model.CartOption;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.Menu;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 //배경색 #081832 == 11호관 마크 색상으로 추정
 public class KioskListActivity extends AppCompatActivity {
@@ -87,6 +95,10 @@ public class KioskListActivity extends AppCompatActivity {
     final int eleSize = 4;
 
     private IdleTimer idleTimer;
+
+    private TextView totalPriceView;
+    final private int CARD_INTENT_NUM = 811;
+    private Intent i2;
 
     @Override
     public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
@@ -125,7 +137,7 @@ public class KioskListActivity extends AppCompatActivity {
         leftButton = findViewById(R.id.left_button);
         rightButton = findViewById(R.id.right_button);
 
-        maxCategoryPage = categorySize / 5;
+        maxCategoryPage = categorySize / eleSize;
 
 
         // 기본으로 보여줄 플래그먼트 (첫번째 카테고리)
@@ -148,6 +160,8 @@ public class KioskListActivity extends AppCompatActivity {
         purchaseButton.setOnClickListener(new purchaseButtonClickListener());
 
         updateCategoryTab(categoryPage);
+
+        totalPriceView = this.findViewById(R.id.total_price);
 
         idleTimer = new IdleTimer(this, 115000, 1000);//잠깐만 115초로 변경좀 해놓겠습니다. -jojo
         idleTimer.start();
@@ -309,69 +323,228 @@ public class KioskListActivity extends AppCompatActivity {
 
             System.out.println("결제버튼: 클릭함");
 
+
             //custom dialog
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom, null);
             TextView price_tv = dialogView.findViewById(R.id.price_text);
             TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
             price_tv.setText(totalPriceView.getText().toString());
+//            View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom, null);
+//            TextView price_tv = dialogView.findViewById(R.id.price_text);
+//            TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
+//            // Log.d("가격텍스트", (String) totalPriceView.getText());
+//            price_tv.setText(totalPriceView.getText().toString());
+//
+//            AlertDialog.Builder builder = new AlertDialog.Builder(KioskListActivity.this);
+//            builder.setView(dialogView);
+//
+//            final AlertDialog alertDialog = builder.create();
+//            alertDialog.show();
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(KioskListActivity.this);
-            builder.setView(dialogView);
+//            Button ok_btn = dialogView.findViewById(R.id.ok_btn);
+//            ok_btn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    // 라즈베리파이 서버에 전송
+//                    final Gson gson = new GsonBuilder()
+//                            .excludeFieldsWithoutExposeAnnotation()
+//                            .create();
+//                    JSONObject jsonObject = new JSONObject();
+//                    try {
+//                        //                                       총 가격 숫자만
+//                        jsonObject.put("totalPrice", totalPriceView.getTag());
+//                        jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
+//                                new TypeToken<List<CartMenu>>() {
+//                                }.getType())));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                    //Log.d("결제", jsonObject.toString());
+//                    // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
+//                    HttpNetworkController httpController = new HttpNetworkController(
+//                            KioskListActivity.this, getResources().getString(R.string.server_ip));
+//                    httpController.postJsonCartData(jsonObject);
+//                }
+//            });
 
-            final AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-
-            Button ok_btn = dialogView.findViewById(R.id.ok_btn);
-            ok_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // 라즈베리파이 서버에 전송
-                    final Gson gson = new GsonBuilder()
-                            .excludeFieldsWithoutExposeAnnotation()
-                            .create();
-                    final TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
-                    JSONObject jsonObject = new JSONObject();
-                    try {
-                        //                                       총 가격 숫자만
-                        jsonObject.put("totalPrice", totalPriceView.getTag());
-                        jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
-                                new TypeToken<List<CartMenu>>() {
-                                }.getType())));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    HttpNetworkController httpController = new HttpNetworkController(
-                            KioskListActivity.this, getResources().getString(R.string.server_ip));
-                    httpController.postJsonCartData(jsonObject);
-                }
-            });
-
-            Button cancle_btn = dialogView.findViewById(R.id.cancle_btn);
-            cancle_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(KioskListActivity.this, "결제를 취소하셨습니다.", Toast.LENGTH_SHORT).show();
-                    alertDialog.dismiss();
-                }
-            });
+//            Button cancle_btn = dialogView.findViewById(R.id.cancle_btn);
+//            cancle_btn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(KioskListActivity.this, "결제를 취소하셨습니다.", Toast.LENGTH_SHORT).show();
+//                    alertDialog.dismiss();
+//                }
+//            });
             //todo master에 merge 이후 intent result받는 곳으로 옮길 것
             //purchaseButtonClicked = false;
+
+            setTranData("D1", "");
+        }
+    }
+
+    public void setTranData(String tran_types, String ADD_FIELD){
+
+        ComponentName compName = new ComponentName("kr.co.kicc.easycarda","kr.co.kicc.easycarda.CallPopup");
+
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.putExtra("TRAN_NO", "1"); 		// 거래 구분을 위한 용도
+        intent.putExtra("TRAN_TYPE", tran_types);							// 거래 타입. 'D1' 승인. 'D4' 거래 취소
+        if("M8".equals(tran_types)) {												// 포인트 조회 용도. 필요 없음
+            intent.putExtra("TERMINAL_TYPE", "CE");
+            intent.putExtra("TEXT_DECLINE", "포인트 조회가 거절되었습니다");
+        }
+        else {
+            intent.putExtra("TERMINAL_TYPE", "40");					// '40' = 일반 거래
+        }
+        intent.putExtra("TOTAL_AMOUNT", totalPriceView.getTag().toString());	// 총 금액
+        intent.putExtra("TAX", "0");				// 세금 금액
+        intent.putExtra("TAX_OPTION","A");								// M = manual. 입력값으로 처리.  A = auto. 10% 자동으로 계산
+        intent.putExtra("TIP", "0");				// 팁 금액
+        //intent.putExtra("TIP_OPTION","N");
+//        if("D4".equals(tran_types)||"B2".equals(tran_types) || "B4".equals(tran_types)) {	// 필요 없는 부분
+//            intent.putExtra("APPROVAL_NUM", this.appr_num.getText().toString());
+//            intent.putExtra("APPROVAL_DATE", this.appr_date.getText().toString());
+//            intent.putExtra("TRAN_SERIALNO", this.tran_serialno.getText().toString());
+//        }
+        if("B1".equals(tran_types) || "B2".equals(tran_types) || "B3".equals(tran_types) || "B4".equals(tran_types)) { // 필요 없는 부분
+            intent.putExtra("CASHAMOUNT", "00");
+        }else {
+            intent.putExtra("INSTALLMENT", "0"); // 할부여부. 0 = 일시불
+        }
+//        if("PT".equals(tran_types)){ 															// 프린트 관련. 현재 필요 없음
+//            String printmsg = printMessage.receiptPrint("160516120000", "IC신용구매", false, false, 1004, 91, 0, 0, "1234-56**-****-1234", "테스트점", "1234567890", "홍길동", "02-1234-5678", "1234567", "서울 테스트구 테스트동", "발급사", "00001111", "", "", "12345678", "매입사", "", "", true);
+//            try {
+//                intent.putExtra("PRINT_DATA", printmsg.getBytes("EUC-KR"));
+//            } catch (UnsupportedEncodingException e) {
+//                e.printStackTrace();
+//            }
+//        }
+        intent.putExtra("ADD_FIELD", ADD_FIELD);							// 모르겠음
+        intent.putExtra("TIMEOUT","30");							// 아마 결제 시 타임아웃 지정
+
+        intent.putExtra("TEXT_PROCESS","결제 진행중입니다");		// 결제 진행중 문구
+        intent.putExtra("TEXT_COMPLETE", "결제가 완료되었습니다");	// 결제 완료시 문구
+//		intent.putExtra("TEXT_FALLBACK", "카드의 마그네틱부분으로\n읽어주세요");
+//
+//		intent.putExtra("TEXT_MAIN_SIZE", 60);
+//		intent.putExtra("IMG_BG_WIDTH", 1000);
+//		intent.putExtra("IMG_CARD_WIDTH", 600);
+//		intent.putExtra("IMG_CLOSE_WIDTH", 100);
+
+//		intent.putExtra("FALLBACK_FLAG","N");
+
+		// 테마 커스터마이징
+        intent.putExtra("IMG_BG_PATH", "/sdcard/kicc/background_kicc.png");
+        intent.putExtra("IMG_CARD_PATH", "/sdcard/kicc/card_kicc.png");
+        intent.putExtra("IMG_CLOSE_PATH", "/sdcard/kicc/close_kicc.png");
+        intent.putExtra("TEXT_MAIN_SIZE", 18);
+        intent.putExtra("TEXT_MAIN_COLOR", "#303030");
+        intent.putExtra("TEXT_SUB1_SIZE", 12);
+        intent.putExtra("TEXT_SUB1_COLOR", "#ff752a");
+        intent.putExtra("TEXT_SUB2_SIZE", 10);
+        intent.putExtra("TEXT_SUB2_COLOR", "#ff752a");
+        intent.putExtra("TEXT_SUB3_SIZE", 16);
+        intent.putExtra("TEXT_SUB3_COLOR", "#909090");
+
+
+//		if(barcode.getText().toString().isEmpty()==false)
+//		{
+//			intent.putExtra("DONGLE_FLAG",this.dongleflag.getText().toString());
+//			intent.putExtra("BARCODE",this.barcode.getText().toString());
+//
+//		}
+
+        intent.setComponent(compName);
+        printInent(intent);
+        startActivityForResult(intent, CARD_INTENT_NUM);
+    }
+
+    public static void printInent(Intent i) {
+        try {
+            //Log.e("KTC","-------------------------------------------------------");
+            //util.saveLog("-------------------------------------------------------");
+            if (i != null) {
+                Bundle extras = i.getExtras();
+                if (extras != null) {
+                    Set keys = extras.keySet();
+
+                    for (String _key : extras.keySet()) {
+                        Log.e("KTC","key=" + _key + " : " + extras.get(_key));
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
         }
     }
 
     public void popUpOrderNumberAndQuit(int orderNumber) {
-        Intent intent = new Intent(KioskListActivity.this, OrderNumberPopupActivity.class);
-        intent.putExtra("orderNumber", orderNumber);
-        startActivity(intent);
+        i2.putExtra("orderNumber", orderNumber);
+        startActivity(i2);
         finish();
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //데이터 넘겨줄 때 씀
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CARD_INTENT_NUM) {
+                Intent cancelInfo = data;
+
+                Log.d("할부", cancelInfo.getStringExtra("INSTALLMENT"));
+                Log.d("승인날짜",cancelInfo.getStringExtra("APPROVAL_DATE"));
+                Log.d("승인넘버",cancelInfo.getStringExtra("APPROVAL_NUM"));
+                Log.d("TRAN_SERIALNO",cancelInfo.getStringExtra("TRAN_SERIALNO"));
+
+                printInent(data);
+
+                if ("9977".equals(data.getStringExtra("RESULT_CODE"))) // 승인 처리 시간 종료
+                    Toast.makeText(this, "승인처리 시간 종료", Toast.LENGTH_SHORT).show();
+
+                i2 = new Intent(this, OrderNumberPopupActivity.class);
+                Bundle extras = data.getExtras();
+                if (extras != null) {
+                    Set keys = extras.keySet();
+
+                    for (String _key : extras.keySet()) {
+                        if (extras.get(_key) == null) {
+                            i2.putExtra(_key, "null");
+                        } else
+                            i2.putExtra(_key, extras.get(_key).toString());
+                    }
+                }
+//				delayhandler.postDelayed(
+//						new Runnable() {
+//							// 1 초 후에 실행
+//							@Override
+//							public void run() {
+//								setTranData(tran_type,"");
+//							}
+//						}, 5000);
+
+                // 라즈베리파이 서버에 전송
+                final Gson gson = new GsonBuilder()
+                        .excludeFieldsWithoutExposeAnnotation()
+                        .create();
+                JSONObject jsonObject = new JSONObject();
+                try {
+                    //                                       총 가격 숫자만
+                    jsonObject.put("totalPrice", totalPriceView.getTag());
+                    jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
+                            new TypeToken<List<CartMenu>>() {
+                            }.getType())));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                //Log.d("결제", jsonObject.toString());
+                // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
+                HttpNetworkController httpController = new HttpNetworkController(
+                        KioskListActivity.this, getResources().getString(R.string.server_ip));
+                httpController.postJsonCartData(jsonObject);
+            }
+        } else if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 //데이터 받기
                 String result = data.getStringExtra("result");
