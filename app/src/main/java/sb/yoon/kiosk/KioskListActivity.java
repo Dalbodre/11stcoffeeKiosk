@@ -76,7 +76,6 @@ public class KioskListActivity extends AppCompatActivity {
 
     boolean searchButtonClicked = false;
     public boolean menuOptionPopupButtonClicked = false;
-    boolean purchaseButtonClicked = false;
 
     private TabLayout categoryTab;
     private ArrayList<ToggleButton> toggleButtons = new ArrayList<>();

@@ -1,6 +1,7 @@
 package sb.yoon.kiosk;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -11,15 +12,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class EnterMain extends AppCompatActivity {
     ProgressBar progressBar;
+    private View employee_easter;
     ImageView SettingButton;
 
-    private int easterCount=0;
+    private int easterCount = 0;
+    private int employeeCount = 0;
 
 
     private final int W_STORAGE_PER_CODE = 333;
@@ -39,12 +43,14 @@ public class EnterMain extends AppCompatActivity {
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
-                        W_STORAGE_PER_CODE);
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                    W_STORAGE_PER_CODE);
         } else {
             // Toast.makeText(this.getApplicationContext(), "이미 허가되었습니다", Toast.LENGTH_LONG).show();
         }
+        employee_easter = findViewById(R.id.employee_easter);
+        employee_easter.setOnClickListener(new employeeClickListener());
     }
 
     @Override
@@ -66,11 +72,11 @@ public class EnterMain extends AppCompatActivity {
     private class easterClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            easterCount ++;
-            if(easterCount == 3 || easterCount == 4){
-                Toast.makeText(EnterMain.this, easterCount+"만큼 입력하셨습니다.", Toast.LENGTH_SHORT).show();
+            easterCount++;
+            if (easterCount == 3 || easterCount == 4) {
+                Toast.makeText(EnterMain.this, easterCount + "만큼 입력하셨습니다.", Toast.LENGTH_SHORT).show();
             }
-            if(easterCount == 5){
+            if (easterCount == 5) {
                 Intent intent = new Intent(EnterMain.this, AdminActivity.class);
                 startActivity(intent);
                 // finish();
@@ -79,6 +85,31 @@ public class EnterMain extends AppCompatActivity {
         }
     }
 
+    private class employeeClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            employeeCount++;
+            System.out.println("이스터에그 : " + employeeCount);
+            if (employeeCount == 3) {
+                View dialogView = getLayoutInflater().inflate(R.layout.employee, null);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(EnterMain.this);
+                builder.setView(dialogView);
+
+                final AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+
+                Button employee_ok = dialogView.findViewById(R.id.employee_ok);
+                employee_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        alertDialog.dismiss();
+                    }
+                });
+                employeeCount = 0;
+            }
+        }
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -89,14 +120,15 @@ public class EnterMain extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    Toast.makeText(this,"승인이 허가되어 있습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "승인이 허가되어 있습니다.", Toast.LENGTH_LONG).show();
 
                 } else {
-                    Toast.makeText(this,"아직 승인받지 않았습니다.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "아직 승인받지 않았습니다.", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
 
         }
     }
+
 }

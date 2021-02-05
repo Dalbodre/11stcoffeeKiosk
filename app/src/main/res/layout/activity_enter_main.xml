@@ -35,14 +35,30 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="카운터에서 주문이 가능합니다."
         android:layout_below="@+id/enter_easter"
         android:layout_marginTop="100px"
+        android:text="카운터에서 주문이 가능합니다."
         android:textAlignment="center"
         android:textColor="#fec93d"
         android:textSize="90px"
         android:textStyle="bold" />
 
+    <View
+        android:id="@+id/employee_easter"
+        android:layout_width="300px"
+        android:layout_height="400px"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="#0a1527" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="IT융합전공 &lt;가온누리&gt; 동아리 팀"
+        android:textColor="#ffffff"
+        android:textSize="30sp" />
 
     <ProgressBar
         android:id="@+id/progressBar"
