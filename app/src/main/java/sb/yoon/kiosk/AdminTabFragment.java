@@ -19,6 +19,7 @@ import sb.yoon.kiosk.model.Menu;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import java.util.List;
 
@@ -28,11 +29,12 @@ public class AdminTabFragment extends Fragment {
     //private String categoryName;
     private GridView gridView;
     private AdminGridLayoutAdapter adapter;
-    private Context context;
+    private FragmentActivity context;
 
-    public AdminTabFragment(List<Menu> menuList, Context context) {
+    public AdminTabFragment(List<Menu> menuList, FragmentActivity context) {
         this.menuList = menuList;
         adapter = new AdminGridLayoutAdapter(this.menuList, context);
+        adapter.notifyDataSetChanged();
         this.context = context;
     }
 

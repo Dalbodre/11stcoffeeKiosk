@@ -1,7 +1,9 @@
 package sb.yoon.kiosk;
 
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.HorizontalScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.IntentCompat;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
@@ -30,7 +33,6 @@ public class AdminActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager2 viewPager;
     //메뉴마다 어댑터 달기
-    private AdminGridLayoutAdapter adapter;
     private DbQueryController dbQueryController;
 
     private List<Category> categories;
@@ -48,7 +50,9 @@ public class AdminActivity extends AppCompatActivity {
         dbQueryController = kioskApplication.getDbQueryController();
 
         categories = dbQueryController.getCategoriesList();
-
+        for(Category category : categories){
+            dbQueryController.refreshCategory((Long)category.getId());
+        }
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.pager);
 
@@ -79,11 +83,12 @@ public class AdminActivity extends AppCompatActivity {
                 Intent intent = new Intent(view.getContext(), AdminAddActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
-                finish();
                 break;
 
             case R.id.exit:
-                finish();
+                System.exit(0);
+                Intent startActivity = new Intent(this, EnterMain.class);
+                startActivity(startActivity);
                 break;
         }
     }
@@ -92,7 +97,10 @@ public class AdminActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         categories = dbQueryController.getCategoriesList();
-
+        for (int i=0; i<categories.size(); i++) {
+            categories.get(i).refresh();
+            categories.get(i).resetMenuList();
+        }
         adminFragmentAdapter.notifyDataSetChanged();
     }
 }

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,9 +27,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 import sb.yoon.kiosk.controller.DbQueryController;
-import sb.yoon.kiosk.model.AdminMenu;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.Menu;
 import sb.yoon.kiosk.model.Option;
@@ -48,14 +52,15 @@ public class AdminAddActivity extends AppCompatActivity {
     private CheckBox sugar;
     private CheckBox hazelnut;
     private CheckBox mild;
-
+    private CheckBox tumblerFlag;
     private Spinner spinner;
 
     private Long menuId;
     private Long categoryId;
-
-
-    private List<String> categoryNames;
+    private Boolean categoryAddflag;
+    private Boolean isTumbler;
+    private HashMap<String, Long> categoryNames;
+    private String categoryNameInDb;
     private List<Category> categories;
 
     private Long lastMenuIdx;
@@ -71,13 +76,15 @@ public class AdminAddActivity extends AppCompatActivity {
     private final int GALLERY_CODE = 1112;
 
     private Uri selectedImageUri;
+    ArrayList<String> getHashMapKeys;
 
     //업데이트용
     private Long updateMenuId;
     private Menu updateMenu;
     private Long updateCategoryId;
     private Boolean changeImg;
-
+    private Button ok;
+    private List<OptionsAndMenuJoiner> optionList;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,9 +94,8 @@ public class AdminAddActivity extends AppCompatActivity {
         KioskApplication kioskApplication = (KioskApplication)getApplication();
         controller = kioskApplication.getDbQueryController();
 
-        categories = controller.getCategoriesList();
         lastMenuIdx = controller.getLastMenuIdx() + 1;
-        lastCategoryIdx = controller.getLastCategoryIdx() + 1;
+        lastCategoryIdx = controller.getLastCategoryIdx();
         lastOptionAndMenuJoinerIdx = controller.getLastOptionAndMenuJoinerIdx() + 1;
 
         menuImg = (ImageView)findViewById(R.id.imageBox);
@@ -107,18 +113,24 @@ public class AdminAddActivity extends AppCompatActivity {
         textview = findViewById(R.id.categoryAdd);
         divider = findViewById(R.id.view);
         categoryText = findViewById(R.id.categoryText);
+        ok = findViewById(R.id.Ok);
 
+        tumblerFlag = findViewById(R.id.tumblerFlag);
+        isTumbler = true;
+        categoryAddflag = false;
         changeImg = false;
         //반드시 초기화시 null이어야 하는 값.
         updateMenuId = null;
         updateCategoryId = null;
         updateMenu = null;
+        MOJoinerIdx = lastOptionAndMenuJoinerIdx;
         //인텐트에서 메뉴 아이디 불러오기
         // !!!! 재료는 손대지 않습니다.
         Intent intent = getIntent();
         updateMenuId = intent.getLongExtra("menuID", 999L);
         if(updateMenuId != 999L){
             isAdd = false;
+            menuId = updateMenuId;
             updateMenu = controller.getMenu(updateMenuId);
             selectedImageUri = Uri.parse(updateMenu.getIconPath());
             menuImg.setImageURI(selectedImageUri);
@@ -143,40 +155,50 @@ public class AdminAddActivity extends AppCompatActivity {
                         break;
                 }
             }
-            updateCategoryId = updateMenu.getCategoryId();
+            optionList = controller.getOptionListInDb(updateMenuId);
+            categoryId = updateMenu.getCategoryId();
             isHot.setChecked(updateMenu.getIsHot());
             isCold.setChecked(updateMenu.getIsCold());
         }
 
-        categoryNames = new ArrayList<>();
-        categoryNames.add("카테고리 추가");
+        categories = controller.getCategoriesList();
+        categoryNames = new LinkedHashMap<String, Long>();
+        categoryNames.put("카테고리 추가", 0L);
 
         for(Category category : categories){
-            categoryNames.add(category.getName());
+            categoryNames.put(category.getName(), category.getId());
         }
 
-        ArrayAdapter<String> spinItems = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, categoryNames);
+        ArrayAdapter<String> spinItems = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item);
+        spinItems.addAll(categoryNames.keySet());
+
         spinner.setAdapter(spinItems);
-        if(updateCategoryId != null) {
-            spinner.setSelection(updateCategoryId.intValue());
+        if(categoryId != null) {
+            int position = spinItems.getPosition(getKey(categoryNames, categoryId));
+            spinner.setSelection(position);
         }
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 //카테고리 추가가 선택되었을 때
                 if(i == 0){
+                    categoryAddflag = true;
                     textview.setVisibility(View.VISIBLE);
                     divider.setVisibility(View.VISIBLE);
                     categoryText.setVisibility(View.VISIBLE);
+                    tumblerFlag.setVisibility(View.VISIBLE);
                     categoryId = lastCategoryIdx;
                 }
                 else{
+                    categoryAddflag = false;
                     textview.setVisibility(View.GONE);
                     divider.setVisibility(View.GONE);
                     categoryText.setVisibility(View.GONE);
                     categoryText.setText("");
                     //Todo DB 고치기 작업 필요.
-                    categoryId = l-1;
+                    //categoryId = categories.get(i-1).getId();
+                    categoryId = categoryNames.get(spinItems.getItem(i));
+                    tumblerFlag.setChecked(categories.get(i-1).getTumblerFlag());
                     Log.d("spinner Id", String.valueOf(l));
                 }
             }
@@ -202,8 +224,13 @@ public class AdminAddActivity extends AppCompatActivity {
         if(isAdd) {
             Log.d("flag", "추가모드");
             menuId = lastMenuIdx;
-            MOJoinerIdx = lastOptionAndMenuJoinerIdx;
+            ok.setText("추가");
         }
+        else{
+            Log.d("flag", "수정모드");
+            ok.setText("수정");
+        }
+
         //이미지 추가 팝업(Todo)
 
     }
@@ -253,6 +280,14 @@ public class AdminAddActivity extends AppCompatActivity {
         }
         return null;
     }
+    public <K, V> K getKey(Map<K,V> map, V value){
+        for(K key : map.keySet()){
+            if(value.equals(map.get(key))){
+                return key;
+            }
+        }
+        return null;
+    }
 
     public void adminAction(View view) {
         switch (view.getId()) {
@@ -261,7 +296,12 @@ public class AdminAddActivity extends AppCompatActivity {
                 //카테고리 추가시
                 //이미지를 변경한 경우(수정이든 추가든)
                 if(changeImg) {
-                    iconPath = getPath(selectedImageUri);
+                    if((iconPath = getPath(selectedImageUri)) == null) {
+                        iconPath="empty_img";
+                    }
+                    else{
+                        iconPath = getPath(selectedImageUri);
+                    }
                 }
                 else if(!changeImg && updateMenu != null){
                     iconPath = updateMenu.getIconPath();
@@ -269,87 +309,238 @@ public class AdminAddActivity extends AppCompatActivity {
                 else{
                     iconPath = "empty_img";
                 }
-                if (!menuName.getText().toString().equals("") &&
-                        !price.getText().toString().equals("") &&
-                        categoryId == lastCategoryIdx &&
-                        !categoryText.getText().toString().equals("")) {
+                if(isAdd) {
+                    if (!menuName.getText().toString().equals("") &&
+                            !price.getText().toString().equals("") &&
+                            categoryAddflag &&
+                            !categoryText.getText().toString().equals("")) {
+                        AlertDialog.Builder msgBuilder = new AlertDialog.Builder(AdminAddActivity.this)
+                                .setMessage("추가하시겠습니까?")
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        controller.menuDao.insertOrReplace(new Menu(
+                                                menuId,
+                                                menuName.getText().toString(),
+                                                categoryId,
+                                                Integer.parseInt(price.getText().toString()),
+                                                iconPath,
+                                                isHot.isChecked(),
+                                                isCold.isChecked()));
+                                        controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), tumblerFlag.isChecked()));
 
-                    Log.d("check", "카테고리 추가 정상적");
-                    Log.d("check", menuName.getText().toString());
-                    controller.menuDao.insertOrReplace(new Menu(
-                            menuId,
-                            menuName.getText().toString(),
-                            categoryId,
-                            Integer.parseInt(price.getText().toString()),
-                            iconPath,
-                            isHot.isChecked(),
-                            isCold.isChecked()));
+                                        //옵션
+                                        if (shot.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 1L));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (sugar.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 2L));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (hazelnut.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 3L));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (mild.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 4L));
+                                            MOJoinerIdx++;
+                                        }
+                                        isAdd = false;
+                                        Intent intent = new Intent(view.getContext(), AdminActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finishAffinity();
+                                    }
+                                })
+                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    //todo 텀플러 플래그 마지막에 확인하고 변경
-                    controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), false));
+                                    }
+                                });
+                        AlertDialog msgDlg = msgBuilder.create();
+                        msgDlg.show();
+                    } else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("")
+                            && categoryAddflag && categoryText.getText().toString().equals("")) {
+                        Log.d("check", "카테고리 빔.");
+                        //카테고리 추가를 선택하고 텍스트가 비었을 경우.
+                        Toast.makeText(this, "추가할 카테고리 이름을 입력해주세요.", Toast.LENGTH_LONG).show();
+                    } else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("") && !categoryAddflag) {
+                        Log.d("check", "기존 카테고리내 추가");
+                        //카테고리 추가가 아닌 기존의 카테고리일 경우.
+                        AlertDialog.Builder msgBuilder = new AlertDialog.Builder(AdminAddActivity.this)
+                                .setMessage("추가하시겠습니까?")
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        controller.menuDao.insertOrReplace(new Menu(
+                                                menuId,
+                                                menuName.getText().toString(),
+                                                categoryId,
+                                                Integer.parseInt(price.getText().toString()),
+                                                iconPath,
+                                                isHot.isChecked(),
+                                                isCold.isChecked()));
+                                        //옵션
+                                        if (shot.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 1L));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (sugar.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 2L));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (hazelnut.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 3L));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (mild.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 4L));
+                                            MOJoinerIdx++;
+                                        }
+                                        isAdd = false;
+                                        //finish();
+                                        Intent intent = new Intent(view.getContext(), AdminActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finishAffinity();
+                                    }
+                                })
+                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                    //옵션
-                    if(shot.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 1L));
-                        MOJoinerIdx++;
-                    }
-                    if(sugar.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 2L));
-                        MOJoinerIdx++;
-                    }
-                    if(hazelnut.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 3L));
-                        MOJoinerIdx++;
-                    }
-                    if(mild.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 4L));
-                        MOJoinerIdx++;
-                    }
-                    finish();
-                } else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("")
-                        && categoryId == lastCategoryIdx && categoryText.getText().toString().equals("")) {
-                    Log.d("check", "카테고리 빔.");
-                    //카테고리 추가를 선택하고 텍스트가 비었을 경우.
-                    Toast.makeText(this, "추가할 카테고리 이름을 입력해주세요.", Toast.LENGTH_LONG).show();
-                } else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("") && categoryId != lastCategoryIdx) {
-                    Log.d("check", "기존 카테고리내 추가");
-                    /*//카테고리 추가가 아닌 기존의 카테고리일 경우.
-                    controller.menuDao.insertOrReplace(new Menu(
-                            menuId,
-                            menuName.getText().toString(),
-                            categoryId,
-                            Integer.parseInt(price.getText().toString()),
-                            iconPath,
-                            isHot.isChecked(),
-                            isCold.isChecked()));
-                    //옵션
-                    if(shot.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(lastOptionAndMenuJoinerIdx, menuId, 1L));
-                        lastOptionAndMenuJoinerIdx++;
-                    }
-                    if(sugar.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(lastOptionAndMenuJoinerIdx, menuId, 2L));
-                        lastOptionAndMenuJoinerIdx++;
-                    }
-                    if(hazelnut.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(lastOptionAndMenuJoinerIdx, menuId, 3L));
-                        lastOptionAndMenuJoinerIdx++;
-                    }
-                    if(mild.isChecked()){
-                        controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(lastOptionAndMenuJoinerIdx, menuId, 4L));
-                        lastOptionAndMenuJoinerIdx++;
-                    }*/
+                                    }
+                                });
+                        AlertDialog msgDlg = msgBuilder.create();
+                        msgDlg.show();
 
-                    //finish();
-                    Intent intent = new Intent(view.getContext(), AdminActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    Log.d("check", "내용 빔");
-                    Toast.makeText(this.getApplicationContext(), "빈 곳을 채워주세요.", Toast.LENGTH_LONG).show();
+
+                    } else {
+                        Log.d("check", "내용 빔");
+                        Toast.makeText(this, "빈 곳을 채워주세요.", Toast.LENGTH_LONG).show();
+                    }
+                    break;
                 }
-                break;
+                //수정의 경우
+                else{
+                    if (!menuName.getText().toString().equals("") &&
+                            !price.getText().toString().equals("") &&
+                            categoryAddflag &&
+                            !categoryText.getText().toString().equals("")) {
+                        controller.menuDao.insertOrReplace(new Menu(
+                                menuId,
+                                menuName.getText().toString(),
+                                categoryId,
+                                Integer.parseInt(price.getText().toString()),
+                                iconPath,
+                                isHot.isChecked(),
+                                isCold.isChecked()));
+                        controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), tumblerFlag.isChecked()));
+                        Log.d("categoryId", String.valueOf(categoryId));
+                        for(int i = 0; i<4; i++){
+                            if(i >= optionList.size()){
+                                break;
+                            }
+                            controller.optionsAndMenuJoinerDao.deleteByKey(optionList.get(i).getId());
+                        }
+                        if (shot.isChecked()) {
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 1L));
+                            MOJoinerIdx++;
+                        }
+                        else{
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
+                            MOJoinerIdx++;
+                        }
+                        if (sugar.isChecked()) {
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 2L));
+                            MOJoinerIdx++;
+                        }
+                        else{
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
+                            MOJoinerIdx++;
+                        }
+                        if (hazelnut.isChecked()) {
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 3L));
+                            MOJoinerIdx++;
+                        }
+                        else{
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
+                            MOJoinerIdx++;
+                        }
+                        if (mild.isChecked()) {
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 4L));
+                            MOJoinerIdx++;
+                        }
+                        else{
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
+                            MOJoinerIdx++;
+                        }
+                        isAdd = false;
+                        Intent intent = new Intent(view.getContext(), AdminActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("") && !categoryAddflag) {
+                        //조건 2
+                        controller.menuDao.insertOrReplace(new Menu(
+                                menuId,
+                                menuName.getText().toString(),
+                                categoryId,
+                                Integer.parseInt(price.getText().toString()),
+                                iconPath,
+                                isHot.isChecked(),
+                                isCold.isChecked()));
+                        Log.d("categoryId", String.valueOf(categoryId));
+                        for(int i = 0; i<4; i++){
+                            if(i >= optionList.size()){
+                                break;
+                            }
+                            controller.optionsAndMenuJoinerDao.deleteByKey(optionList.get(i).getId());
+                        }
+                        if (shot.isChecked()) {
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 1L));
+                            MOJoinerIdx++;
+                        }
+
+                        if (sugar.isChecked()) {
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 2L));
+                            MOJoinerIdx++;
+                        }
+                        if (hazelnut.isChecked()) {
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 3L));
+                            MOJoinerIdx++;
+                        }
+                        if (mild.isChecked()) {
+                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 4L));
+                            MOJoinerIdx++;
+                        }
+
+                        isAdd = false;
+                        Intent intent = new Intent(view.getContext(), AdminActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
+                    }
+
+
+
+
+                    else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("")
+                            && categoryId == lastCategoryIdx && categoryText.getText().toString().equals("")) {
+                        Log.d("check", "카테고리 빔.");
+                        //카테고리 추가를 선택하고 텍스트가 비었을 경우.
+                        Toast.makeText(this, "추가할 카테고리 이름을 입력해주세요.", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Log.d("check", "내용 빔");
+                        Toast.makeText(this, "빈 곳을 채워주세요.", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                }
             case R.id.cancel:
                 //Todo 원래 팝업 열고 현재 작성중인 내용이 사라집니다. 취소하시겠습니까? 출력하고 해야됨.
                 AlertDialog.Builder msgBuilder = new AlertDialog.Builder(AdminAddActivity.this)

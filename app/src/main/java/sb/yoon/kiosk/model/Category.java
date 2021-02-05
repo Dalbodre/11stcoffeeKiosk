@@ -22,8 +22,9 @@ public class Category {
 
     @ToMany(referencedJoinProperty = "categoryId")
     private List<Menu> menuList;
-    
-    private boolean tumblerFlag;
+
+    @NotNull
+    private Boolean tumblerFlag;
 
 /** Used to resolve relations */
 @Generated(hash = 2040040024)
@@ -33,8 +34,8 @@ private transient DaoSession daoSession;
 @Generated(hash = 40161530)
 private transient CategoryDao myDao;
 
-@Generated(hash = 1903179033)
-public Category(Long id, @NotNull String name, boolean tumblerFlag) {
+@Generated(hash = 1352811361)
+public Category(Long id, @NotNull String name, @NotNull Boolean tumblerFlag) {
     this.id = id;
     this.name = name;
     this.tumblerFlag = tumblerFlag;
@@ -58,6 +59,14 @@ public String getName() {
 
 public void setName(String name) {
     this.name = name;
+}
+
+public Boolean getTumblerFlag() {
+    return this.tumblerFlag;
+}
+
+public void setTumblerFlag(Boolean tumblerFlag) {
+    this.tumblerFlag = tumblerFlag;
 }
 
 /**
@@ -124,19 +133,10 @@ public void update() {
     myDao.update(this);
 }
 
-public boolean getTumblerFlag() {
-    return this.tumblerFlag;
-}
-
-public void setTumblerFlag(boolean tumblerFlag) {
-    this.tumblerFlag = tumblerFlag;
-}
-
 /** called by internal mechanisms, do not call yourself. */
 @Generated(hash = 503476761)
 public void __setDaoSession(DaoSession daoSession) {
     this.daoSession = daoSession;
     myDao = daoSession != null ? daoSession.getCategoryDao() : null;
 }
-
 }

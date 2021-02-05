@@ -1,16 +1,12 @@
 package sb.yoon.kiosk.controller;
 
-import android.app.Activity;
+import android.util.Log;
 
 import org.greenrobot.greendao.AbstractDao;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import sb.yoon.kiosk.KioskApplication;
 import sb.yoon.kiosk.model.Category;
 import sb.yoon.kiosk.model.CategoryDao;
 import sb.yoon.kiosk.model.DaoSession;
@@ -30,7 +26,7 @@ public class DbQueryController {
     public CategoryDao categoryDao;
     public MenuDao menuDao;
     private IngredientDao ingredientDao;
-    private IngredientsAndMenuJoinerDao ingredientsAndMenuJoinerDao;
+    public IngredientsAndMenuJoinerDao ingredientsAndMenuJoinerDao;
     public OptionDao optionDao;
     public OptionsAndMenuJoinerDao optionsAndMenuJoinerDao;
 
@@ -57,13 +53,28 @@ public class DbQueryController {
     }
 
     public Long getLastMenuIdx() {
-        return (Long)this.menuDao.count();
+        if( this.menuDao.queryBuilder().orderDesc(MenuDao.Properties.Id).limit(1).unique() == null){
+            return 0L;
+        }
+        else{
+            return (Long)this.menuDao.queryBuilder().orderDesc(MenuDao.Properties.Id).limit(1).unique().getId();
+        }
     }
     public Long getLastCategoryIdx(){
-        return (Long)this.categoryDao.count();
+        if(this.categoryDao.queryBuilder().orderDesc(CategoryDao.Properties.Id).limit(1).unique() == null){
+            return 0L;
+        }
+        else {
+            return (Long) this.categoryDao.queryBuilder().orderDesc(CategoryDao.Properties.Id).limit(1).unique().getId();
+        }
     }
     public Long getLastOptionAndMenuJoinerIdx(){
-        return (Long)this.optionsAndMenuJoinerDao.count();
+        if(this.optionsAndMenuJoinerDao.queryBuilder().orderDesc(OptionsAndMenuJoinerDao.Properties.Id).limit(1).unique() == null){
+            return 0L;
+        }
+        else{
+            return (Long)this.optionsAndMenuJoinerDao.queryBuilder().orderDesc(OptionsAndMenuJoinerDao.Properties.Id).limit(1).unique().getId();
+        }
     }
 
     public IngredientsAndMenuJoinerDao getIngredientsAndMenuJoinerDao() {
@@ -111,6 +122,10 @@ public class DbQueryController {
         return menu.getOptionList();
     }
 
+    public List<OptionsAndMenuJoiner> getOptionListInDb(Long menuID){
+        return this.optionsAndMenuJoinerDao.queryBuilder().where(OptionsAndMenuJoinerDao.Properties.MenuId.eq(menuID)).list();
+    }
+
     // 해당 메뉴에 대한 옵션을 해시맵으로 돌려줌
     // key: [옵션이름, multiSelectable] value: List<옵션아이템들>
    /* public HashMap<String[], List<String>> getParsedOptionList(Menu menu) {
@@ -142,6 +157,17 @@ public class DbQueryController {
     public List<Menu> searchMenuByIngredients(Ingredient ingredient) {
         return ingredient.getMenuList();
     }
+    public void refreshCategory(Long id){
+        Log.d("status", "refresh");
+        if (menuDao.queryBuilder().where(MenuDao.Properties.CategoryId.eq(id)).count() == 0) {
+            categoryDao.deleteByKey(id);
+            System.out.println("야");
+        }
+    }
+
+    /*public String getCategoryName(Long id){
+        return this.categoryDao.queryRaw(CategoryDao.Properties.Id.eq(id), );
+    }*/
 
     // 초기화 역할 하는 클래스
     // 구조상 보기 편하라고 Init 내부 클래스 안에다가 해줬는데 성능상 별로면 클래스 없애고 그냥 메서드로 변경
@@ -155,8 +181,8 @@ public class DbQueryController {
             // 1L = new Long(1)
             categoryDao.insertOrReplace(new Category(1L, "커피", true));
             categoryDao.insertOrReplace(new Category(2L, "라떼", true));
-            categoryDao.insertOrReplace(new Category(3L, "차", true));
-            categoryDao.insertOrReplace(new Category(4L, "주스", true));
+            categoryDao.insertOrReplace(new Category(3L, "차",true));
+            categoryDao.insertOrReplace(new Category(4L, "주스",true));
             categoryDao.insertOrReplace(new Category(5L, "스무디", true));
             categoryDao.insertOrReplace(new Category(6L, "베이커리", false));
         }
@@ -418,7 +444,7 @@ public class DbQueryController {
             }
 
             // 복숭아 아이스티에 샷 추가
-            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(joinerId++, 43L, 1L));
+            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(37L, 43L, 1L));
 
 //            //ex)
 //            optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(1L, 1L, 1L));
