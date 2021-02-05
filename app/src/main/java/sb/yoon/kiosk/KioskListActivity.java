@@ -491,20 +491,13 @@ public class KioskListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             if (requestCode == CARD_INTENT_NUM) {
-                Intent cancelInfo = data;
-
-                Log.d("할부", cancelInfo.getStringExtra("INSTALLMENT"));
-                Log.d("승인날짜",cancelInfo.getStringExtra("APPROVAL_DATE"));
-                Log.d("승인넘버",cancelInfo.getStringExtra("APPROVAL_NUM"));
-                Log.d("TRAN_SERIALNO",cancelInfo.getStringExtra("TRAN_SERIALNO"));
-
-                printInent(data);
+                Bundle extras = data.getExtras();
 
                 if ("9977".equals(data.getStringExtra("RESULT_CODE"))) // 승인 처리 시간 종료
                     Toast.makeText(this, "승인처리 시간 종료", Toast.LENGTH_SHORT).show();
 
                 i2 = new Intent(this, OrderNumberPopupActivity.class);
-                Bundle extras = data.getExtras();
+
                 if (extras != null) {
                     Set keys = extras.keySet();
 
@@ -524,25 +517,41 @@ public class KioskListActivity extends AppCompatActivity {
 //							}
 //						}, 5000);
 
-                // 라즈베리파이 서버에 전송
-                final Gson gson = new GsonBuilder()
-                        .excludeFieldsWithoutExposeAnnotation()
-                        .create();
-                JSONObject jsonObject = new JSONObject();
                 try {
-                    //                                       총 가격 숫자만
-                    jsonObject.put("totalPrice", totalPriceView.getTag());
-                    jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
-                            new TypeToken<List<CartMenu>>() {
-                            }.getType())));
-                } catch (JSONException e) {
+                    Log.d("할부", data.getStringExtra("INSTALLMENT"));
+                    Log.d("승인날짜", data.getStringExtra("APPROVAL_DATE"));
+                    Log.d("승인넘버", data.getStringExtra("APPROVAL_NUM"));
+                    Log.d("TRAN_SERIALNO", data.getStringExtra("TRAN_SERIALNO"));
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //Log.d("결제", jsonObject.toString());
-                // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
-                HttpNetworkController httpController = new HttpNetworkController(
-                        KioskListActivity.this, getResources().getString(R.string.server_ip));
-                httpController.postJsonCartData(jsonObject);
+
+                printInent(data);
+
+                if (extras.get("RESULT_CODE").equals("0000")) {
+                    // 라즈베리파이 서버에 전송
+                    final Gson gson = new GsonBuilder()
+                            .excludeFieldsWithoutExposeAnnotation()
+                            .create();
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        //                                       총 가격 숫자만
+                        jsonObject.put("totalPrice", totalPriceView.getTag());
+                        jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
+                                new TypeToken<List<CartMenu>>() {
+                                }.getType())));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    //Log.d("결제", jsonObject.toString());
+                    // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
+                    HttpNetworkController httpController = new HttpNetworkController(
+                            KioskListActivity.this, getResources().getString(R.string.server_ip));
+                    httpController.postJsonCartData(jsonObject);
+                } else {
+                    Toast.makeText(this.getApplicationContext(), "에러 :: " + extras.get("RESULT_CODE").toString(), Toast.LENGTH_SHORT).show();
+                    popUpOrderNumberAndQuit(extras.getInt("RESULT_CODE"));
+                }
             }
         } else if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
