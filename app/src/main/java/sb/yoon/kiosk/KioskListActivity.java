@@ -76,7 +76,6 @@ public class KioskListActivity extends AppCompatActivity {
 
     boolean searchButtonClicked = false;
     public boolean menuOptionPopupButtonClicked = false;
-    boolean purchaseButtonClicked = false;
 
     private TabLayout categoryTab;
     private ArrayList<ToggleButton> toggleButtons = new ArrayList<>();
@@ -85,7 +84,7 @@ public class KioskListActivity extends AppCompatActivity {
     private Button leftButton;
     private Button rightButton;
 
-    final int eleSize = 5;
+    final int eleSize = 4;
 
     private IdleTimer idleTimer;
 
@@ -150,7 +149,7 @@ public class KioskListActivity extends AppCompatActivity {
 
         updateCategoryTab(categoryPage);
 
-        idleTimer = new IdleTimer(this, 15000, 1000);
+        idleTimer = new IdleTimer(this, 115000, 1000);//잠깐만 115초로 변경좀 해놓겠습니다. -jojo
         idleTimer.start();
     }
 
@@ -164,10 +163,10 @@ public class KioskListActivity extends AppCompatActivity {
     private void updateCategoryTab(int page) {
         Log.d("page", String.valueOf(page));
         categoryTab.removeAllTabs();
-        int limit = page*eleSize+eleSize;
+        int limit = page * eleSize + eleSize;
         toggleButtons.clear();
-        for (int i=page*eleSize; i<limit; i++) {
-            if (i>=categorySize) {
+        for (int i = page * eleSize; i < limit; i++) {
+            if (i >= categorySize) {
                 break;
             }
             TabLayout.Tab tab = categoryTab.newTab();
@@ -186,11 +185,11 @@ public class KioskListActivity extends AppCompatActivity {
             categoryPage += 1;
             updateCategoryTab(categoryPage);
         }
-        itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(categoryPage*eleSize)));
+        itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(categoryPage * eleSize)));
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
 
-        toggleButtons.get(0).setText(categories.get(categoryPage*eleSize).getName());
+        toggleButtons.get(0).setText(categories.get(categoryPage * eleSize).getName());
     }
 
     private View createTabView(String tabName, int tag) {
@@ -216,25 +215,7 @@ public class KioskListActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             int tagNo = (int) view.getTag();
-//            itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo)));
-//            fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
-//
-//            for (int i=0; i<toggleButtons.size(); i++) {
-//                int index = i + categoryPage*eleSize;
-//                toggleButtons.get(i).setChecked(false);
-//                toggleButtons.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
-//                toggleButtons.get(i).setTextColor(Color.parseColor("#081832"));
-//                toggleButtons.get(i).setText(categories.get(index).getName());
-//            }
-
             categoryTab.getTabAt(tagNo % eleSize).select();
-
-//            ToggleButton toggleButton = (ToggleButton) view;
-//            toggleButton.setChecked(true);
-//            toggleButton.setBackgroundResource(R.drawable.togglebutton_on);
-//            toggleButton.setTextColor(Color.parseColor("#ffffff"));
-//            toggleButton.setText(categories.get((Integer) toggleButton.getTag()).getName());
         }
     }
 
@@ -291,12 +272,12 @@ public class KioskListActivity extends AppCompatActivity {
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             int tagNo = tab.getPosition();
-            itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo + eleSize*categoryPage)));
+            itemListFragment = new ItemListFragment(dbQueryController.getMenuList(categories.get(tagNo + eleSize * categoryPage)));
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.list_fragment, itemListFragment).commitAllowingStateLoss();
 
-            for (int i=0; i<toggleButtons.size(); i++) {
-                int index = i + categoryPage*eleSize;
+            for (int i = 0; i < toggleButtons.size(); i++) {
+                int index = i + categoryPage * eleSize;
                 toggleButtons.get(i).setChecked(false);
                 toggleButtons.get(i).setBackgroundColor(Color.parseColor("#ffffff"));
                 toggleButtons.get(i).setTextColor(Color.parseColor("#081832"));
@@ -306,7 +287,7 @@ public class KioskListActivity extends AppCompatActivity {
             KioskListActivity.this.toggleButtons.get(tagNo).setChecked(true);
             KioskListActivity.this.toggleButtons.get(tagNo).setBackgroundResource(R.drawable.togglebutton_on);
             KioskListActivity.this.toggleButtons.get(tagNo).setTextColor(Color.parseColor("#ffffff"));
-            KioskListActivity.this.toggleButtons.get(tagNo).setText(categories.get(tagNo + eleSize*categoryPage).getName());
+            KioskListActivity.this.toggleButtons.get(tagNo).setText(categories.get(tagNo + eleSize * categoryPage).getName());
         }
 
         @Override
@@ -323,20 +304,15 @@ public class KioskListActivity extends AppCompatActivity {
     class purchaseButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if (cartMenuList.isEmpty()) {
+            if (cartMenuList.isEmpty())
                 return;
-            }/*
-            if (purchaseButtonClicked) {
-                return;
-            }
-            purchaseButtonClicked = true;*/
+
             System.out.println("결제버튼: 클릭함");
 
             //custom dialog
             View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom, null);
             TextView price_tv = dialogView.findViewById(R.id.price_text);
             TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
-            // Log.d("가격텍스트", (String) totalPriceView.getText());
             price_tv.setText(totalPriceView.getText().toString());
 
             AlertDialog.Builder builder = new AlertDialog.Builder(KioskListActivity.this);
@@ -364,8 +340,6 @@ public class KioskListActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    //Log.d("결제", jsonObject.toString());
-                    // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
                     HttpNetworkController httpController = new HttpNetworkController(
                             KioskListActivity.this, getResources().getString(R.string.server_ip));
                     httpController.postJsonCartData(jsonObject);
@@ -393,7 +367,6 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //데이터 넘겨줄 때 씀
@@ -410,10 +383,8 @@ public class KioskListActivity extends AppCompatActivity {
         } else if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 ArrayList<Integer> searchedMenuIdList = data.getIntegerArrayListExtra("searchedMenuIdList");
-                //Log.d("얻은값", searchedMenuIdList != null ? searchedMenuIdList.toString() : "값 없음");
 
                 List<Menu> queryResult = dbQueryController.getMenuListByIdArray(searchedMenuIdList);
-                //Log.d("쿼리결과", queryResult.toString());
                 try {
                     itemListFragment = new ItemListFragment(queryResult);
                     fragmentTransaction = fragmentManager.beginTransaction();

@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="700dp"
+    android:background="@drawable/enterance_button"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/employee_first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/enterance_button"
+        android:text="개발자"
+        android:paddingTop="10sp"
+        android:textAlignment="center"
+        android:textColor="#081832"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:id="@+id/employee_main_text_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/employee_first"
+        android:layout_margin="20sp">
+
+        <TextView
+            android:id="@+id/employee_text_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:text="LINC+ 사회공헌단"
+            android:textSize="75sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/employee_text_1"
+            android:text="팀장: 윤성빈(20140137)\n팀원: 김민우(20162124)\n       장효림(20162173)\n       박슬기(20181044)"
+            android:textSize="50dp" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/employee_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/employee_main_text_container"
+        android:background="@drawable/enterance_button"
+        android:paddingTop="10sp"
+        android:text="확인"
+        android:textColor="#081832"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+</RelativeLayout>
