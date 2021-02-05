@@ -27,13 +27,13 @@
             android:name=".PopupActivity"
             android:theme="@style/fontedDialog" />
         <activity
+            android:name=".ResultActivity"
+            android:theme="@style/fontedDialog" />
+        <activity
             android:name=".OrderNumberPopupActivity"
             android:theme="@style/fontedDialog" />
         <activity
             android:name=".SearchActivity"
-            android:theme="@style/fontedDialog" />
-        <activity
-            android:name=".ResultActivity"
             android:theme="@style/fontedDialog" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".AdminAddActivity" />

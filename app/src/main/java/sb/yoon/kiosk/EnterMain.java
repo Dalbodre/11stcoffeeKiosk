@@ -3,6 +3,9 @@ package sb.yoon.kiosk;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 
@@ -14,6 +17,10 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class EnterMain extends AppCompatActivity {
     ProgressBar progressBar;
@@ -45,6 +52,56 @@ public class EnterMain extends AppCompatActivity {
         } else {
             // Toast.makeText(this.getApplicationContext(), "이미 허가되었습니다", Toast.LENGTH_LONG).show();
         }
+
+        savebmp("background_kicc.png",R.drawable.background_kicc);
+        savebmp("close_kicc.png",R.drawable.close_kicc);
+        savebmp("card_kicc.png",R.drawable.card_kicc);
+    }
+
+    public void savebmp(String filename, int drawable_id)
+    {
+        Bitmap bm = BitmapFactory.decodeResource(getApplicationContext().getResources(), drawable_id);
+        File dir = new File(Environment.getExternalStorageDirectory() + File.separator + "kicc");
+
+        boolean doSave = true;
+        if (!dir.exists()) {
+            doSave = dir.mkdirs();
+        }
+
+        if (doSave) {
+            saveBitmapToFile(dir,filename,bm,Bitmap.CompressFormat.PNG,100);
+        }
+        else {
+            Log.e("app","Couldn't create target directory.");
+        }
+    }
+
+    public boolean saveBitmapToFile(File dir, String fileName, Bitmap bm,
+                                    Bitmap.CompressFormat format, int quality) {
+
+        File imageFile = new File(dir,fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(imageFile);
+
+            bm.compress(format,quality,fos);
+
+            fos.close();
+
+            return true;
+        }
+        catch (IOException e) {
+            Log.e("app",e.getMessage());
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+        return false;
     }
 
     @Override

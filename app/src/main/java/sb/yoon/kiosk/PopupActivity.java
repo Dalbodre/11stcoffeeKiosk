@@ -27,6 +27,8 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class PopupActivity extends Activity {
@@ -54,6 +56,9 @@ public class PopupActivity extends Activity {
     private IdleTimer idleTimer;
 
     public static boolean tumblerFlag = false;
+
+    private int itemCount = 1;
+    private TextView countDisplayTv;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -102,8 +107,30 @@ public class PopupActivity extends Activity {
         optionListAdapter = new OptionListAdapter(cartOptionList);
         optionRecyclerView.setAdapter(optionListAdapter);
 
+        // 수량 세팅
+        Button countDecreaseButton = findViewById(R.id.count_decrease_button);
+        countDisplayTv = findViewById(R.id.count_display_view);
+        countDisplayTv.setText(Integer.toString(this.itemCount));
+        Button countIncreaseButton = findViewById(R.id.count_increase_button);
+
+        countDecreaseButton.setOnClickListener(new OnClickCountButton());
+        countIncreaseButton.setOnClickListener(new OnClickCountButton());
+
         idleTimer = new IdleTimer(this, 15000, 1000);
         idleTimer.start();
+    }
+
+    class OnClickCountButton implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.count_decrease_button) {
+                PopupActivity.this.itemCount -= 1;
+                PopupActivity.this.countDisplayTv.setText(Integer.toString(PopupActivity.this.itemCount));
+            } else if (view.getId() == R.id.count_increase_button) {
+                PopupActivity.this.itemCount += 1;
+                PopupActivity.this.countDisplayTv.setText(Integer.toString(PopupActivity.this.itemCount));
+            }
+        }
     }
 
     @Override
@@ -302,7 +329,9 @@ public class PopupActivity extends Activity {
         }
         else{
             cartMenu.setTakeOut(takeout.isChecked());
-            kioskListActivity.addCartMenuList(cartMenu);
+            for (int i=0; i<this.itemCount; i++) {
+                kioskListActivity.addCartMenuList(cartMenu);
+            }
             finish();
         }
     }
