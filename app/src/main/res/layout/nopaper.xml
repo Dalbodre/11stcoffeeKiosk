@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/enterance_button">
+
+    <TextView
+        android:id="@+id/nopaper_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/enterance_button"
+        android:paddingTop="10px"
+        android:text="사용제한"
+        android:textAlignment="center"
+        android:textSize="90px" />
+
+    <TextView
+        android:id="@+id/textview_nopaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/nopaper_main"
+        android:paddingTop="10px"
+        android:text="&lt;용지부족&gt;\n\n카운터에서\n계산해주세요"
+        android:textAlignment="center"
+        android:textColor="#081832"
+        android:textSize="100px" />
+
+    <Button
+        android:layout_below="@id/textview_nopaper"
+        android:id="@+id/noPaperButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="확인" />
+
+</RelativeLayout>
