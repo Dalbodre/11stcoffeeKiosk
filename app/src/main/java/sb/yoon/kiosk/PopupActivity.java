@@ -113,6 +113,12 @@ public class PopupActivity extends Activity {
         countDisplayTv.setText(Integer.toString(this.itemCount));
         Button countIncreaseButton = findViewById(R.id.count_increase_button);
 
+        if(PopupActivity.this.itemCount == 0 ) {
+            countDecreaseButton.setVisibility(View.GONE);
+        }
+        else{
+            countDecreaseButton.setVisibility(View.VISIBLE);
+        }
         countDecreaseButton.setOnClickListener(new OnClickCountButton());
         countIncreaseButton.setOnClickListener(new OnClickCountButton());
 

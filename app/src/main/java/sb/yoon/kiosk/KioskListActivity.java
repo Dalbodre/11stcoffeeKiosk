@@ -1,16 +1,27 @@
 package sb.yoon.kiosk;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.hardware.usb.UsbConstants;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbEndpoint;
+import android.hardware.usb.UsbInterface;
+import android.hardware.usb.UsbManager;
 import android.os.CountDownTimer;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -60,9 +71,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 //배경색 #081832 == 11호관 마크 색상으로 추정
 public class KioskListActivity extends AppCompatActivity {
@@ -99,6 +114,34 @@ public class KioskListActivity extends AppCompatActivity {
     private TextView totalPriceView;
     final private int CARD_INTENT_NUM = 811;
     private Intent i2;
+
+    //Printer ------------------------------------------
+    private static final String TAG = "UsbMenuActivity";
+    Thread statusThread;
+    TextView status,count;
+    boolean statusloop;
+    byte[] readBuffer;
+    int readBufferPosition;
+    int prt_count;
+    PendingIntent permissionIntent;
+
+    private UsbManager mUsbManager;
+    private UsbDevice mDevice;
+    private UsbDeviceConnection mConnection;
+    private UsbEndpoint mEndpointBulk;
+    // Intent
+    private static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
+    // hwasung vendor id string
+    private static final String HWASUNG_VENDOR_ID = "6";
+    private static final int MAX_IMAGE_LINE = 24;	// NOTE! do not edit!
+
+    // printer commands
+    private static final byte CMD_DLE = 0x10;
+    private static final byte CMD_ESC = 0x1b;
+    private static final byte CMD_GS = 0x1d;
+    private static final byte CMD_FS = 0x1c;
+    //------------------------------------------------------
+
 
     @Override
     public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
@@ -165,6 +208,204 @@ public class KioskListActivity extends AppCompatActivity {
 
         idleTimer = new IdleTimer(this, 115000, 1000);//잠깐만 115초로 변경좀 해놓겠습니다. -jojo
         idleTimer.start();
+
+        //Printer-------------------------------------------
+        mUsbManager = (UsbManager)getSystemService(Context.USB_SERVICE);
+        permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+        registerReceiver(usbReceiver, filter);
+        setDevice();
+        mUsbManager.requestPermission(mDevice, permissionIntent);
+    }
+    //Printer ---------------------------------------------------
+    private final BroadcastReceiver usbReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (ACTION_USB_PERMISSION.equals(action)){
+                synchronized (this){
+                    UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+
+                    if(intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)){
+                        if(device != null){
+                            //디바이스 통신 설정 메소드 부르기.
+                        }
+                        else{
+                            Log.d(TAG, "permission denied for device"+device);
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    public void status_thread(){
+        final Handler handler = new Handler();
+        statusloop = true;
+
+        statusThread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                while(statusloop){
+                    final int[] mIntBuf, mIntBuf3;
+                    int mDataCnt;
+                    final char device_cnt;
+
+                    device_cnt = setDevice();
+                    try{
+                        if(device_cnt != 0){
+                            mIntBuf = new int[6];
+                            mIntBuf3 = new int[1];
+
+                            mIntBuf[0] = (byte) 0x10;
+                            mIntBuf[1] = (byte) 0xAA;
+                            mIntBuf[2] = (byte) 0x55;
+                            mIntBuf[3] = (byte) 0x80;
+                            mIntBuf[4] = (byte) 0x54;
+                            mIntBuf[5] = (byte) 0xAB;
+                            mDataCnt = 6;
+                            // call send data
+                            sendCommand(mDevice, mIntBuf, mDataCnt);
+                            Thread.sleep(1);
+                            receiveCommand(mDevice, mIntBuf3);
+                            handler.post(new Runnable()
+                            {
+                                public void run()
+                                {
+                                    status.setText("Status(Dec) : "+ mIntBuf3[0]);
+                                }
+                            });
+                            //Log.d("status",""+Integer.toHexString(mIntBuf3[0]));
+                        }else{
+                            statusloop = false;
+                        }
+
+                        Thread.sleep(500);
+
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+
+                    }
+                }
+            }
+        });
+        statusThread.start();
+    }
+
+    //디바이스 설정
+    private char setDevice() {
+
+        String Title;
+        String Message;
+        String mDeviceNameStr;
+        UsbDevice mDeviceName;
+        char device_cnt = 0;	// hwasung device detect counter
+
+        mUsbManager = (UsbManager)getSystemService(Context.USB_SERVICE);
+
+
+        HashMap<String, UsbDevice> deviceList = mUsbManager.getDeviceList();
+
+        Iterator<UsbDevice> deviceIterator = deviceList.values().iterator();
+
+
+        while(deviceIterator.hasNext()){
+            UsbDevice device = deviceIterator.next();
+            String mVendorId = String.valueOf(device.getVendorId());
+
+            boolean b;
+            b = Pattern.matches(HWASUNG_VENDOR_ID,mVendorId);
+            if( b == true ){
+                mDevice = device;
+                device_cnt++;
+                break;
+            }
+            // no hwasung device or disconnected
+            else{
+                device_cnt = 0;
+            }
+
+        }
+
+        if(device_cnt == 0) {
+//        	Title = "USB Connection";
+//     		Message = "Can not find Hwasung USB Device!";
+//            showDialog(Title, Message);
+
+            return 0;
+        }
+        UsbInterface intf = mDevice.getInterface(0);
+        // endpoint type BULK
+        UsbEndpoint ep = intf.getEndpoint(0);
+
+        if (ep.getType() != UsbConstants.USB_ENDPOINT_XFER_BULK) {
+            Log.e(TAG, "endpoint is not BULK type");
+            return 0;
+        }
+
+        mEndpointBulk = ep;
+
+        if (mDevice != null) {
+            UsbDeviceConnection connection = mUsbManager.openDevice(mDevice);
+            if (connection != null && connection.claimInterface(intf, true)) {
+                mConnection = connection;	// USB OPEN SUCCESS
+            }
+        }
+        return device_cnt;
+
+    }
+    //커맨드 보내기
+    private void sendCommand(UsbDevice device,int mIntBuf[],int mDataCnt) {
+
+        int mRet;
+
+        if (mConnection != null) {
+            UsbInterface intf = device.getInterface(0);
+            UsbEndpoint ep = intf.getEndpoint(0);
+
+            byte[] mByteBuf = new byte[mDataCnt];
+            int i;
+
+            // convert integer to byte
+            mByteBuf = new byte[mDataCnt];
+
+            for( i=0; i < mDataCnt ; i++) {
+                mByteBuf[i] = (byte) mIntBuf[i];
+            }
+            mRet = mConnection.bulkTransfer(ep, mByteBuf, mDataCnt, 5000);
+            if (mRet == -1)Log.d("send command fail", ""+mRet);
+        }
+
+    }
+    //커맨드 받았을 때
+    private void receiveCommand(UsbDevice device,int mIntBuf[]) {
+        String Title;
+        String Message;
+
+        int mRet,i;
+
+        if (mConnection != null) {
+
+            UsbInterface intf = device.getInterface(0);
+            // receive BULK-IN endpoint6(mAddress:0x86)
+            UsbEndpoint ep = intf.getEndpoint(2);  //엡손 호환 테스트용 수정됨
+
+            byte[] mByteBuf = new byte[1];
+
+            // 1byte read, time out 1second
+            mRet = mConnection.bulkTransfer( ep, mByteBuf, 1, 5000);
+            if(mRet == -1) {
+                Log.d("status fail", "수신 실패");
+                Log.d("receive command ", ""+mRet);
+            }
+            // set 1byte status data to integer buffer and return
+            mIntBuf[0] = (int) mByteBuf[0];
+
+
+
+        }
+
     }
 
     @Override
@@ -482,9 +723,157 @@ public class KioskListActivity extends AppCompatActivity {
     public void popUpOrderNumberAndQuit(int orderNumber) {
         i2.putExtra("orderNumber", orderNumber);
         startActivity(i2);
+        //Todo
+        onClick_usb_text2();
         finish();
     }
 
+    //프린트 내용-------------------------
+    public void onClick_usb_text2() {
+        char device_cnt;
+        String mStr,mStr2;
+        int mIntBuf[] ;
+        int mDataCnt,i;
+        byte mByteBuf[];
+
+        mStr =  "  11호관 커피\n" +
+                "  주소 : ...\n" +
+                "  주소2 : ...\n" +
+                "  TEL.052-220-5757\n" +
+                "  품명           수량          가격\n" +
+                "------------------------------------\n" +
+                "  코카콜라         1           \\700\n" +
+                "  티셔츠           1         \\7,000\n" +
+                "  콘칩            25        \\15,000\n" +
+                "  양념치킨         1         \\6,500\n" +
+                "  생수             1         \\5,300\n" +
+                "------------------------------------\n" ;
+        mStr2 ="  합계금액: \\34,500원\n\n";
+
+        // set Hwasung Syatem usb device
+        device_cnt = setDevice();
+
+        if(device_cnt != 0 ) {
+
+            // string1 convert hangul character set
+            mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // vertical double size print
+            mIntBuf[0] = CMD_GS;
+            mIntBuf[1] = '!';
+            mIntBuf[2] = 0x01;
+            mDataCnt = 3;
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // string2 convert hangul character set
+            mByteBuf = mStr2.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // clear double size
+            mIntBuf[0] = CMD_GS;
+            mIntBuf[1] = '!';
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // barcode sample
+            // centering print position
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x61;
+            mIntBuf[2] = 0x01;
+            mDataCnt = 3;
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // barcod height
+            mIntBuf[0] = CMD_GS;
+            mIntBuf[1] = 'h';
+            mIntBuf[2] = 0x80;
+            mDataCnt = 3;
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // barcode command
+            mIntBuf[0] = CMD_GS;
+            mIntBuf[1] = 0x6b;
+            mIntBuf[2] = 0x06;
+            mDataCnt = 3;
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mStr = "1234567890ABCD";
+            mDataCnt = mStr.length();
+            // get byte data from string
+            mByteBuf = mStr.getBytes();
+
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mIntBuf[0] = 0x00;	// barcode data end
+            mIntBuf[1]  = 0x0a;	// line feed
+            mDataCnt = 2;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // clear centering
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x61;
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // string3
+            mStr = "  항상 저희 제품을 애용해 주셔서 감사합니다!\n" +
+                    "  안녕히가십시오!\n" ;
+
+            mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // feeding
+            mIntBuf[0] = 0x0a;
+            mIntBuf[1] = 0x0a;
+            mIntBuf[2] = 0x0a;
+            mIntBuf[3] = 0x0a;
+            mIntBuf[4] = 0x0a;
+            mDataCnt = 5;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // full cutting
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x69;
+            mDataCnt = 2;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+        }
+
+
+    }
+    //프린트 내용-------------------------
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //데이터 넘겨줄 때 씀
@@ -590,4 +979,8 @@ public class KioskListActivity extends AppCompatActivity {
         super.onResume();
         idleTimer.start();
     }
+}
+class UsbMenuActivity {
+
+
 }
