@@ -237,17 +237,17 @@ public class DbQueryController {
             menuDao.insertOrReplace(new Menu(43L, "복숭아 아이스티", 5L, 2200, "peach_ice", false, true));
 
             //빵 6L
-            menuDao.insertOrReplace(new Menu(32L, "베이글(플레인)", 6L, 2800, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(33L, "모카번", 6L, 2300, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(34L, "햄 에그모닝머핀", 6L, 3500, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(35L, "크로크무슈", 6L, 3500, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(36L, "고구마무스", 6L, 4000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(37L, "초코무스", 6L, 4000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(38L, "치즈케익", 6L, 4000, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(32L, "베이글(플레인)", 6L, 2800, "bagle", false, false));
+            menuDao.insertOrReplace(new Menu(33L, "모카번", 6L, 2300, "mokabun", false, false));
+            menuDao.insertOrReplace(new Menu(34L, "햄 에그모닝머핀", 6L, 3500, "egg_muffin", false, false));
+            menuDao.insertOrReplace(new Menu(35L, "크로크무슈", 6L, 3500, "crossmushu", false, false));
+            menuDao.insertOrReplace(new Menu(36L, "고구마무스", 6L, 4000, "plain_cake", false, false));
+            menuDao.insertOrReplace(new Menu(37L, "초코무스", 6L, 4000, "choco_cake", false, false));
+            menuDao.insertOrReplace(new Menu(38L, "치즈케익", 6L, 4000, "cheese_cake", false, false));
             menuDao.insertOrReplace(new Menu(39L, "생크림 카스테라", 6L, 4000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(40L, "마카롱(초코)", 6L, 2000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(41L, "마카롱(바닐라)", 6L, 2000, "yuja_smoothe", false, false));
-            menuDao.insertOrReplace(new Menu(42L, "마카롱(딸기)", 6L, 2000, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(40L, "마카롱(초코)", 6L, 2000, "choco_macarron", false, false));
+            menuDao.insertOrReplace(new Menu(41L, "마카롱(바닐라)", 6L, 2000, "banilla_macarron", false, false));
+            menuDao.insertOrReplace(new Menu(42L, "마카롱(딸기)", 6L, 2000, "caramel_macarron", false, false));
         }
 
         private void initIngredients() {

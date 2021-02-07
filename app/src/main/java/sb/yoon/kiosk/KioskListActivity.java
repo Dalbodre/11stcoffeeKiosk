@@ -367,7 +367,7 @@ public class KioskListActivity extends AppCompatActivity {
 
     }
     //커맨드 보내기
-    private void sendCommand(UsbDevice device,int mIntBuf[],int mDataCnt) {
+    private void sendCommand(UsbDevice device, int mIntBuf[], int mDataCnt) {
 
         int mRet;
 
