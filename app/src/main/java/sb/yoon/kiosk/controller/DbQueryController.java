@@ -346,9 +346,9 @@ public class DbQueryController {
             ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(34L, 13L, 15L));
             ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(35L, 13L, 16L));
             //복숭아 아이스티
-            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(38L, 32L, 17L));
-            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(39L, 32L, 2L));
-            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(40L, 32L, 11L));
+            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(38L, 43L, 17L));
+            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(39L, 43L, 2L));
+            ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(40L, 43L, 11L));
 
             //그린티라떼
             ingredientsAndMenuJoinerDao.insertOrReplace(new IngredientsAndMenuJoiner(41L, 16L, 18L));

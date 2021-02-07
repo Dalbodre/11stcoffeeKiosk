@@ -218,6 +218,7 @@ public class KioskListActivity extends AppCompatActivity {
         registerReceiver(usbReceiver, filter);
         setDevice();
         mUsbManager.requestPermission(mDevice, permissionIntent);
+
     }
     //Printer ---------------------------------------------------
     private final BroadcastReceiver usbReceiver = new BroadcastReceiver() {
@@ -230,12 +231,18 @@ public class KioskListActivity extends AppCompatActivity {
 
                     if(intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)){
                         if(device != null){
-                            status_thread();
+                            //status_thread();
                         }
                         else{
                             Log.d(TAG, "permission denied for device"+device);
                         }
                     }
+                }
+            }
+            if(UsbManager.ACTION_USB_ACCESSORY_DETACHED.equals(action)){
+                UsbDevice device = (UsbDevice)intent.getParcelableExtra(UsbManager.EXTRA_DEVICE);
+                if(device != null){
+
                 }
             }
         }
@@ -275,9 +282,9 @@ public class KioskListActivity extends AppCompatActivity {
                             {
                                 public void run()
                                 {
-                                    Log.d("printer status", String.valueOf(mIntBuf3[0]));
+                                    /*Log.d("printer status", String.valueOf(mIntBuf3[0]));*/
                                     if(mIntBuf3[0] == 0x09){
-                                        Toast.makeText(KioskListActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(KioskListActivity.this, "mIntBuf3[0]:"+String.valueOf(mIntBuf3[0]), Toast.LENGTH_SHORT).show();
                                         statusloop = false;
                                         noPaperDlg noPaperDlg = new noPaperDlg(KioskListActivity.this);
                                         noPaperDlg.callFunction();
@@ -367,7 +374,7 @@ public class KioskListActivity extends AppCompatActivity {
 
     }
     //커맨드 보내기
-    private void sendCommand(UsbDevice device,int mIntBuf[],int mDataCnt) {
+    private void sendCommand(UsbDevice device, int mIntBuf[], int mDataCnt) {
 
         int mRet;
 
@@ -412,11 +419,44 @@ public class KioskListActivity extends AppCompatActivity {
             }
             // set 1byte status data to integer buffer and return
             mIntBuf[0] = (int) mByteBuf[0];
-
-
-
         }
 
+    }
+    public void readStatus() {
+        String Title;
+        String Message;
+
+        char device_cnt;
+        int[] mIntBuf ;
+        int[] mIntBuf3 = new int[12];
+        int mDataCnt,i,mRet;
+
+        device_cnt = setDevice();
+
+        if(device_cnt != 0 ) {
+
+            mDataCnt = 6;
+            mIntBuf = new int[mDataCnt];
+
+            mIntBuf[0] = 0x10;
+            mIntBuf[1] = 0xAA;
+            mIntBuf[2] = 0x55;
+            mIntBuf[3] = 0x80;
+            mIntBuf[4] = 0x54;
+            mIntBuf[5] = 0xAB;
+
+            sendCommand(mDevice, mIntBuf,mDataCnt);
+
+            receiveCommand(mDevice, mIntBuf3);
+
+            // display status value of printer
+
+            Log.d(TAG, "status : "+mIntBuf3[0]);
+            if(mIntBuf3[0] == 0x09){
+                noPaperDlg noPaperDlg = new noPaperDlg(KioskListActivity.this);
+                noPaperDlg.callFunction();
+            }
+        }
     }
     //--------------------------------------------------------------printer
 
@@ -747,6 +787,7 @@ public class KioskListActivity extends AppCompatActivity {
         char device_cnt;
         String mStr;
         String mStr2;
+        String mStr3;
         StringBuilder mStrBodyBuilder;
         int mIntBuf[] ;
         int mDataCnt,i;
@@ -754,10 +795,8 @@ public class KioskListActivity extends AppCompatActivity {
 
         mStr = "  주문번호 : " + Integer.toString(orderNumber) + "\n";
         mStr += "  11호관 커피\n" +
-                "  주소 : ...\n" +
-                "  주소2 : ...\n" +
                 "  TEL.052-220-5757\n" +
-                "  품명           수량          가격\n" +
+                "  품명\t\t수량\t\t가격\n" +
                 "------------------------------------\n";
 
         HashMap<String, Integer> quantityTable = new HashMap<String, Integer>();
@@ -770,7 +809,7 @@ public class KioskListActivity extends AppCompatActivity {
 
         mStrBodyBuilder = new StringBuilder();
         for (String name : quantityTable.keySet()) {
-            mStrBodyBuilder.append(String.format("  %s           %d         \\%d\n", name, quantityTable.get(name), priceTable.get(name)));
+            mStrBodyBuilder.append(String.format("  %s\t\t%d\t\t\\%d\n", name, quantityTable.get(name), priceTable.get(name)));
         }
 
         mStr = mStr + mStrBodyBuilder.toString();
@@ -848,10 +887,10 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            mStr = "1234567890ABCD";
-            mDataCnt = mStr.length();
+            /*mStr3 = "1234567890ABCD";
+            mDataCnt = mStr3.length();
             // get byte data from string
-            mByteBuf = mStr.getBytes();
+            mByteBuf = mStr3.getBytes();
 
             // set data to integer buffer
             for(i=0;i<mDataCnt;i++) {
@@ -870,7 +909,7 @@ public class KioskListActivity extends AppCompatActivity {
             mIntBuf[1] = 0x61;
             mIntBuf[2] = 0x00;
             mDataCnt = 3;
-            sendCommand(mDevice,mIntBuf,mDataCnt);
+            sendCommand(mDevice,mIntBuf,mDataCnt);*/
 
             // string3
             mStr = "  항상 저희 제품을 애용해 주셔서 감사합니다!\n" +
@@ -899,8 +938,8 @@ public class KioskListActivity extends AppCompatActivity {
             mDataCnt = 2;
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
+            //releaseDevice(device_cnt);
         }
-
 
     }
     //프린트 내용-------------------------
@@ -1009,5 +1048,6 @@ public class KioskListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         idleTimer.start();
+        readStatus();
     }
 }
