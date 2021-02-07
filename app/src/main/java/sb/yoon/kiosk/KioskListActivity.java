@@ -732,6 +732,7 @@ public class KioskListActivity extends AppCompatActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void popUpOrderNumberAndQuit(int orderNumber) {
         i2.putExtra("orderNumber", orderNumber);
         startActivity(i2);
@@ -768,8 +769,8 @@ public class KioskListActivity extends AppCompatActivity {
         }
 
         mStrBodyBuilder = new StringBuilder();
-        for (CartMenu cartMenu : cartMenuList) {
-            mStrBodyBuilder.append(String.format("  %s           %d         \\%d\n", cartMenu.getName(), quantityTable.get(cartMenu.getName()), priceTable.get(cartMenu.getName())));
+        for (String name : quantityTable.keySet()) {
+            mStrBodyBuilder.append(String.format("  %s           %d         \\%d\n", name, quantityTable.get(name), priceTable.get(name)));
         }
 
         mStr = mStr + mStrBodyBuilder.toString();
@@ -903,6 +904,7 @@ public class KioskListActivity extends AppCompatActivity {
 
     }
     //프린트 내용-------------------------
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //데이터 넘겨줄 때 씀
