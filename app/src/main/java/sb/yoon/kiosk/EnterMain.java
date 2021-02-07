@@ -2,11 +2,22 @@ package sb.yoon.kiosk;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.usb.UsbConstants;
+import android.hardware.usb.UsbDevice;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbEndpoint;
+import android.hardware.usb.UsbInterface;
+import android.hardware.usb.UsbManager;
 import android.os.Environment;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -18,11 +29,15 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.regex.Pattern;
 
 public class EnterMain extends AppCompatActivity {
     ProgressBar progressBar;
@@ -62,7 +77,10 @@ public class EnterMain extends AppCompatActivity {
         savebmp("background_kicc.png",R.drawable.background_kicc);
         savebmp("close_kicc.png",R.drawable.close_kicc);
         savebmp("card_kicc.png",R.drawable.card_kicc);
+
+
     }
+
 
     public void savebmp(String filename, int drawable_id)
     {

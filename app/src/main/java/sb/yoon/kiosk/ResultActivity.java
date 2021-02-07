@@ -54,7 +54,7 @@ public class ResultActivity extends Activity {
 	}
 
 	public void onBackPressed() {
-		finish();
+		finishAffinity();
 	}
 
 }
