@@ -1,5 +1,6 @@
 package sb.yoon.kiosk.controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -7,6 +8,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 
 import sb.yoon.kiosk.AdminAddActivity;
+import sb.yoon.kiosk.AdminTabFragment;
 import sb.yoon.kiosk.KioskApplication;
 import sb.yoon.kiosk.model.IngredientsAndMenuJoinerDao;
 import sb.yoon.kiosk.model.Menu;
@@ -149,12 +151,14 @@ public class AdminGridLayoutAdapter extends BaseAdapter {
                         .executeDeleteWithoutDetachingEntities();
                 menuList.get(position).delete();
                 if(dbQueryController.menuDao.queryBuilder().where(MenuDao.Properties.CategoryId.eq(menuList.get(position).getCategoryId())).count() == 0L) {
-                    //dbQueryController.refreshCategory(menuList.get(position).getCategoryId());
                     dbQueryController.categoryDao.deleteByKey(menuList.get(position).getCategoryId());
+                    ((Activity)context).finish();
+                    Intent intent = new Intent(context, AdminActivity.class);
+                    context.startActivity(intent);
                 }
                 menuList.remove(position);
 
-                AdminGridLayoutAdapter.this.notifyAll();
+                AdminGridLayoutAdapter.this.notifyDataSetChanged();
             }
         }
     }
