@@ -59,6 +59,7 @@ public class AdminActivity extends AppCompatActivity {
         // 어댑터 지옥의 시작...
         // 아이템 카운트에 맞춰서 플래그먼트 생성
         // 카테고리 리스트를 주고 거기서 메뉴리스트를 동적으로 받아서 생성
+
         adminFragmentAdapter = new AdminFragmentAdapter(categories, this);
         adminFragmentAdapter.setItemCount(categories.size());
         viewPager.setAdapter(adminFragmentAdapter);
@@ -94,13 +95,21 @@ public class AdminActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         categories = dbQueryController.getCategoriesList();
+        Log.d("status", "onresume");
         for (int i=0; i<categories.size(); i++) {
             categories.get(i).refresh();
+            System.out.println(categories.get(i).getName());
             categories.get(i).resetMenuList();
         }
+
         adminFragmentAdapter.notifyDataSetChanged();
     }
 }

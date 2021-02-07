@@ -95,7 +95,7 @@ public class AdminAddActivity extends AppCompatActivity {
         controller = kioskApplication.getDbQueryController();
 
         lastMenuIdx = controller.getLastMenuIdx() + 1;
-        lastCategoryIdx = controller.getLastCategoryIdx();
+        lastCategoryIdx = controller.getLastCategoryIdx() + 1;
         lastOptionAndMenuJoinerIdx = controller.getLastOptionAndMenuJoinerIdx() + 1;
 
         menuImg = (ImageView)findViewById(R.id.imageBox);
@@ -188,6 +188,7 @@ public class AdminAddActivity extends AppCompatActivity {
                     categoryText.setVisibility(View.VISIBLE);
                     tumblerFlag.setVisibility(View.VISIBLE);
                     categoryId = lastCategoryIdx;
+                    Log.d("lastIdx", String.valueOf(lastCategoryIdx));
                 }
                 else{
                     categoryAddflag = false;
@@ -198,6 +199,7 @@ public class AdminAddActivity extends AppCompatActivity {
                     //Todo DB 고치기 작업 필요.
                     //categoryId = categories.get(i-1).getId();
                     categoryId = categoryNames.get(spinItems.getItem(i));
+                    Log.d("spinner", spinItems.getItem(i));
                     tumblerFlag.setChecked(categories.get(i-1).getTumblerFlag());
                     Log.d("spinner Id", String.valueOf(l));
                 }
@@ -429,106 +431,129 @@ public class AdminAddActivity extends AppCompatActivity {
                             !price.getText().toString().equals("") &&
                             categoryAddflag &&
                             !categoryText.getText().toString().equals("")) {
-                        controller.menuDao.insertOrReplace(new Menu(
-                                menuId,
-                                menuName.getText().toString(),
-                                categoryId,
-                                Integer.parseInt(price.getText().toString()),
-                                iconPath,
-                                isHot.isChecked(),
-                                isCold.isChecked()));
-                        controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), tumblerFlag.isChecked()));
-                        Log.d("categoryId", String.valueOf(categoryId));
-                        for(int i = 0; i<4; i++){
-                            if(i >= optionList.size()){
-                                break;
-                            }
-                            controller.optionsAndMenuJoinerDao.deleteByKey(optionList.get(i).getId());
-                        }
-                        if (shot.isChecked()) {
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 1L));
-                            MOJoinerIdx++;
-                        }
-                        else{
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
-                            MOJoinerIdx++;
-                        }
-                        if (sugar.isChecked()) {
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 2L));
-                            MOJoinerIdx++;
-                        }
-                        else{
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
-                            MOJoinerIdx++;
-                        }
-                        if (hazelnut.isChecked()) {
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 3L));
-                            MOJoinerIdx++;
-                        }
-                        else{
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
-                            MOJoinerIdx++;
-                        }
-                        if (mild.isChecked()) {
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 4L));
-                            MOJoinerIdx++;
-                        }
-                        else{
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
-                            MOJoinerIdx++;
-                        }
-                        isAdd = false;
-                        Intent intent = new Intent(view.getContext(), AdminActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                    }
+                        AlertDialog.Builder msgBuilder = new AlertDialog.Builder(AdminAddActivity.this)
+                                .setMessage("수정하시겠습니까?")
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        controller.menuDao.insertOrReplace(new Menu(
+                                                menuId,
+                                                menuName.getText().toString(),
+                                                categoryId,
+                                                Integer.parseInt(price.getText().toString()),
+                                                iconPath,
+                                                isHot.isChecked(),
+                                                isCold.isChecked()));
+                                        controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), tumblerFlag.isChecked()));
+                                        Log.d("categoryId", String.valueOf(categoryId));
+                                        for (int j = 0; j < 4; j++) {
+                                            if (j >= optionList.size()) {
+                                                break;
+                                            }
+                                            controller.optionsAndMenuJoinerDao.deleteByKey(optionList.get(j).getId());
+                                        }
+                                        if (shot.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 1L));
+                                            MOJoinerIdx++;
+                                        } else {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (sugar.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 2L));
+                                            MOJoinerIdx++;
+                                        } else {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (hazelnut.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 3L));
+                                            MOJoinerIdx++;
+                                        } else {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (mild.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 4L));
+                                            MOJoinerIdx++;
+                                        } else {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, null, null));
+                                            MOJoinerIdx++;
+                                        }
+                                        isAdd = false;
+                                        Intent intent = new Intent(view.getContext(), AdminActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finishAffinity();
+                                    }
+                                })
+                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
 
+                                    }
+                                });
+
+                        AlertDialog msgDlg = msgBuilder.create();
+
+                        msgDlg.show();
+                    }
                     else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("") && !categoryAddflag) {
                         //조건 2
-                        controller.menuDao.insertOrReplace(new Menu(
-                                menuId,
-                                menuName.getText().toString(),
-                                categoryId,
-                                Integer.parseInt(price.getText().toString()),
-                                iconPath,
-                                isHot.isChecked(),
-                                isCold.isChecked()));
-                        Log.d("categoryId", String.valueOf(categoryId));
-                        for(int i = 0; i<4; i++){
-                            if(i >= optionList.size()){
-                                break;
-                            }
-                            controller.optionsAndMenuJoinerDao.deleteByKey(optionList.get(i).getId());
-                        }
-                        if (shot.isChecked()) {
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 1L));
-                            MOJoinerIdx++;
-                        }
+                        AlertDialog.Builder msgBuilder = new AlertDialog.Builder(AdminAddActivity.this)
+                                .setMessage("수정하시겠습니까?")
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        controller.menuDao.insertOrReplace(new Menu(
+                                                menuId,
+                                                menuName.getText().toString(),
+                                                categoryId,
+                                                Integer.parseInt(price.getText().toString()),
+                                                iconPath,
+                                                isHot.isChecked(),
+                                                isCold.isChecked()));
+                                        Log.d("categoryId", String.valueOf(categoryId));
+                                        for (int j = 0; j < 4; j++) {
+                                            if (j >= optionList.size()) {
+                                                break;
+                                            }
+                                            controller.optionsAndMenuJoinerDao.deleteByKey(optionList.get(j).getId());
+                                        }
+                                        if (shot.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 1L));
+                                            MOJoinerIdx++;
+                                        }
 
-                        if (sugar.isChecked()) {
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 2L));
-                            MOJoinerIdx++;
-                        }
-                        if (hazelnut.isChecked()) {
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 3L));
-                            MOJoinerIdx++;
-                        }
-                        if (mild.isChecked()) {
-                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 4L));
-                            MOJoinerIdx++;
-                        }
+                                        if (sugar.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 2L));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (hazelnut.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 3L));
+                                            MOJoinerIdx++;
+                                        }
+                                        if (mild.isChecked()) {
+                                            controller.optionsAndMenuJoinerDao.insertOrReplace(new OptionsAndMenuJoiner(MOJoinerIdx, menuId, 4L));
+                                            MOJoinerIdx++;
+                                        }
 
-                        isAdd = false;
-                        Intent intent = new Intent(view.getContext(), AdminActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
+                                        isAdd = false;
+                                        Intent intent = new Intent(view.getContext(), AdminActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finishAffinity();
+                                    }
+                                })
+                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                });
+                        AlertDialog msgDlg = msgBuilder.create();
+                        msgDlg.show();
                     }
-
-
-
-
                     else if (!menuName.getText().toString().equals("") && !price.getText().toString().equals("")
                             && categoryId == lastCategoryIdx && categoryText.getText().toString().equals("")) {
                         Log.d("check", "카테고리 빔.");
