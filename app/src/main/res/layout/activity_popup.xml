@@ -250,7 +250,7 @@
             android:onClick="onClickPopUpConfirmedButtons"
             android:text="확인"
             android:textColor="#FFFFFF"
-            android:textSize="80px" />
+            android:textSize="65px" />
 
         <Button
             android:id="@+id/option_cancel_button"
@@ -262,7 +262,7 @@
             android:onClick="onClickPopUpCloseButtons"
             android:text="취소"
             android:textColor="#081832"
-            android:textSize="80px" />
+            android:textSize="65px" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

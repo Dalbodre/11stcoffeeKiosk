@@ -244,7 +244,7 @@ public class DbQueryController {
             menuDao.insertOrReplace(new Menu(36L, "고구마무스", 6L, 4000, "plain_cake", false, false));
             menuDao.insertOrReplace(new Menu(37L, "초코무스", 6L, 4000, "choco_cake", false, false));
             menuDao.insertOrReplace(new Menu(38L, "치즈케익", 6L, 4000, "cheese_cake", false, false));
-            menuDao.insertOrReplace(new Menu(39L, "생크림 카스테라", 6L, 4000, "yuja_smoothe", false, false));
+            menuDao.insertOrReplace(new Menu(39L, "생크림 카스테라", 6L, 4000, "muffin", false, false));
             menuDao.insertOrReplace(new Menu(40L, "마카롱(초코)", 6L, 2000, "choco_macarron", false, false));
             menuDao.insertOrReplace(new Menu(41L, "마카롱(바닐라)", 6L, 2000, "banilla_macarron", false, false));
             menuDao.insertOrReplace(new Menu(42L, "마카롱(딸기)", 6L, 2000, "caramel_macarron", false, false));
