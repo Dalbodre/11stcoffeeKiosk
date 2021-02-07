@@ -121,7 +121,7 @@ public class KioskListActivity extends AppCompatActivity {
     private static final String TAG = "UsbMenuActivity";
     Thread statusThread;
     TextView status,count;
-    boolean statusloop;
+    static boolean statusloop = true;
     byte[] readBuffer;
     int readBufferPosition;
     int prt_count;
@@ -230,7 +230,7 @@ public class KioskListActivity extends AppCompatActivity {
 
                     if(intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)){
                         if(device != null){
-                            //디바이스 통신 설정 메소드 부르기.
+                            status_thread();
                         }
                         else{
                             Log.d(TAG, "permission denied for device"+device);
@@ -243,6 +243,7 @@ public class KioskListActivity extends AppCompatActivity {
 
     public void status_thread(){
         final Handler handler = new Handler();
+        Log.d("printer status", "작동중");
         statusloop = true;
 
         statusThread = new Thread(new Runnable(){
@@ -274,8 +275,16 @@ public class KioskListActivity extends AppCompatActivity {
                             {
                                 public void run()
                                 {
-                                    status.setText("Status(Dec) : "+ mIntBuf3[0]);
+                                    Log.d("printer status", String.valueOf(mIntBuf3[0]));
+                                    if(mIntBuf3[0] == 0x09){
+                                        Toast.makeText(KioskListActivity.this, "Hello", Toast.LENGTH_SHORT).show();
+                                        statusloop = false;
+                                        noPaperDlg noPaperDlg = new noPaperDlg(KioskListActivity.this);
+                                        noPaperDlg.callFunction();
+                                    }
+                                    /*status.setText("Status(Dec) : "+ mIntBuf3[0]);*/
                                 }
+
                             });
                             //Log.d("status",""+Integer.toHexString(mIntBuf3[0]));
                         }else{
@@ -409,6 +418,7 @@ public class KioskListActivity extends AppCompatActivity {
         }
 
     }
+    //--------------------------------------------------------------printer
 
     @Override
     public void onUserInteraction() {
@@ -998,8 +1008,4 @@ public class KioskListActivity extends AppCompatActivity {
         super.onResume();
         idleTimer.start();
     }
-}
-class UsbMenuActivity {
-
-
 }
