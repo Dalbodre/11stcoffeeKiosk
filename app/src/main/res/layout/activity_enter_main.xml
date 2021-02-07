@@ -45,8 +45,8 @@
 
     <View
         android:id="@+id/employee_easter"
-        android:layout_width="300px"
-        android:layout_height="400px"
+        android:layout_width="200px"
+        android:layout_height="300px"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:background="#0a1527" />

@@ -60,6 +60,8 @@ public class PopupActivity extends Activity {
     private int itemCount = 1;
     private TextView countDisplayTv;
 
+    private Button countDecreaseButton;
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,11 +110,10 @@ public class PopupActivity extends Activity {
         optionRecyclerView.setAdapter(optionListAdapter);
 
         // 수량 세팅
-        Button countDecreaseButton = findViewById(R.id.count_decrease_button);
+        countDecreaseButton = findViewById(R.id.count_decrease_button);
         countDisplayTv = findViewById(R.id.count_display_view);
         countDisplayTv.setText(Integer.toString(this.itemCount));
         Button countIncreaseButton = findViewById(R.id.count_increase_button);
-
         countDecreaseButton.setOnClickListener(new OnClickCountButton());
         countIncreaseButton.setOnClickListener(new OnClickCountButton());
 
@@ -123,12 +124,18 @@ public class PopupActivity extends Activity {
     class OnClickCountButton implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            if (view.getId() == R.id.count_decrease_button) {
+            if (view.getId() == R.id.count_decrease_button && PopupActivity.this.itemCount > 1) {
                 PopupActivity.this.itemCount -= 1;
                 PopupActivity.this.countDisplayTv.setText(Integer.toString(PopupActivity.this.itemCount));
             } else if (view.getId() == R.id.count_increase_button) {
                 PopupActivity.this.itemCount += 1;
                 PopupActivity.this.countDisplayTv.setText(Integer.toString(PopupActivity.this.itemCount));
+            }
+            if (PopupActivity.this.itemCount >= 2) {
+                countDecreaseButton.setVisibility(View.VISIBLE);
+            }
+            else{
+                countDecreaseButton.setVisibility(View.INVISIBLE);
             }
         }
     }
@@ -156,12 +163,12 @@ public class PopupActivity extends Activity {
 
         //to. JoRim: 나중에 시연해보고 나서 아이콘 크기 별로면 여기를 건드려서 해결하길 바람
         Drawable iceIcon = ContextCompat.getDrawable(this, R.drawable.ice_cubes);
-        iceIcon.setBounds(0,0,130,130);
+        iceIcon.setBounds(0,0,110,110);
         iceButton.setCompoundDrawables(iceIcon,null,null,null);
         iceButton.setTextColor(Color.parseColor("#081832"));
 
         Drawable hotIcon = ContextCompat.getDrawable(this, R.drawable.burn);
-        hotIcon.setBounds(0,0,130,130);
+        hotIcon.setBounds(0,0,110,110);
         hotButton.setCompoundDrawables(hotIcon,null,null,null);
 
         if (cartMenu.isCold()) {
@@ -201,17 +208,17 @@ public class PopupActivity extends Activity {
     private void icons() {
         // 크기 조절은 여기서
         tableIcon = ContextCompat.getDrawable(this, R.drawable.cup_xxxhdpi);
-        tableIcon.setBounds(0,0,100,100);
+        tableIcon.setBounds(0,0,80,80);
         DrawableCompat.setTint(tableIcon, Color.BLACK);
         no_takeout.setCompoundDrawables(null, tableIcon,null,null);
 
         packageIcon = ContextCompat.getDrawable(this, R.drawable.takeout_xxxhdpi);
-        packageIcon.setBounds(0,0,80,100);
+        packageIcon.setBounds(0,0,60,80);
         DrawableCompat.setTint(packageIcon, Color.BLACK);
         takeout.setCompoundDrawables(null, packageIcon,null,null);
 
         thumblerIcon = ContextCompat.getDrawable(this, R.drawable.thermos_xxxhdpi);
-        thumblerIcon.setBounds(0,0,110,110);
+        thumblerIcon.setBounds(0,0,80,80);
         DrawableCompat.setTint(thumblerIcon, Color.BLACK);
         tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
 
