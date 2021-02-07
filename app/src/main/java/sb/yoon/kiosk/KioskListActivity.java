@@ -19,6 +19,7 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbEndpoint;
 import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
@@ -33,6 +34,7 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -724,31 +726,48 @@ public class KioskListActivity extends AppCompatActivity {
         i2.putExtra("orderNumber", orderNumber);
         startActivity(i2);
         //Todo
-        onClick_usb_text2();
+        onClick_usb_text2(orderNumber);
         finish();
     }
 
     //프린트 내용-------------------------
-    public void onClick_usb_text2() {
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void onClick_usb_text2(int orderNumber) {
         char device_cnt;
-        String mStr,mStr2;
+        String mStr;
+        String mStr2;
+        StringBuilder mStrBodyBuilder;
         int mIntBuf[] ;
         int mDataCnt,i;
         byte mByteBuf[];
 
-        mStr =  "  11호관 커피\n" +
+        mStr = "  주문번호 : " + Integer.toString(orderNumber) + "\n";
+        mStr += "  11호관 커피\n" +
                 "  주소 : ...\n" +
                 "  주소2 : ...\n" +
                 "  TEL.052-220-5757\n" +
                 "  품명           수량          가격\n" +
-                "------------------------------------\n" +
-                "  코카콜라         1           \\700\n" +
-                "  티셔츠           1         \\7,000\n" +
-                "  콘칩            25        \\15,000\n" +
-                "  양념치킨         1         \\6,500\n" +
-                "  생수             1         \\5,300\n" +
-                "------------------------------------\n" ;
-        mStr2 ="  합계금액: \\34,500원\n\n";
+                "------------------------------------\n";
+
+        HashMap<String, Integer> quantityTable = new HashMap<String, Integer>();
+        HashMap<String, Integer> priceTable = new HashMap<>();
+        for (CartMenu cartMenu : cartMenuList) {
+            String name = cartMenu.getName();
+            quantityTable.put(name, quantityTable.getOrDefault(name, 0) + 1);
+            priceTable.put(name, priceTable.getOrDefault(name, 0) + cartMenu.getTotalPrice());
+        }
+
+        mStrBodyBuilder = new StringBuilder();
+        for (CartMenu cartMenu : cartMenuList) {
+            mStrBodyBuilder.append(String.format("  %s           %d         \\%d\n", cartMenu.getName(), quantityTable.get(cartMenu.getName()), priceTable.get(cartMenu.getName())));
+        }
+
+        mStr = mStr + mStrBodyBuilder.toString();
+        mStr = mStr + "------------------------------------\n";
+        mStr2 = String.format("  합계금액: \\%s\n\n", totalPriceView.getText());
+
+        Log.e("영수증", mStr);
+        Log.e("영수증", mStr2);
 
         // set Hwasung Syatem usb device
         device_cnt = setDevice();
