@@ -18,6 +18,7 @@ import android.hardware.usb.UsbInterface;
 import android.hardware.usb.UsbManager;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 
@@ -151,7 +152,7 @@ public class EnterMain extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                SocketAddress sockaddr = new InetSocketAddress("192.168.0.238", 8080);
+                SocketAddress sockaddr = new InetSocketAddress("192.168.0.15", 8080);
                 // Create an unbound socket
                 Socket sock = new Socket();
 
@@ -174,7 +175,13 @@ public class EnterMain extends AppCompatActivity {
     }
 
     public void connectionFailed() {
-        Toast.makeText(this.getApplicationContext(), "서버와 연결되어 있지 않습니다. 직원에게 문의하세요.", Toast.LENGTH_SHORT).show();
+        Handler mHandler = new Handler(Looper.getMainLooper());
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(EnterMain.this.getApplicationContext(), "서버와 연결되어 있지 않습니다. 직원에게 문의하세요.",Toast.LENGTH_SHORT).show();
+            }
+        }, 0);
     }
 
     private class easterClickListener implements View.OnClickListener {

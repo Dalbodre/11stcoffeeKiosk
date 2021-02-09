@@ -637,7 +637,7 @@ public class KioskListActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                SocketAddress sockaddr = new InetSocketAddress("192.168.0.238", 8080);
+                SocketAddress sockaddr = new InetSocketAddress("192.168.0.15", 8080);
                 // Create an unbound socket
                 Socket sock = new Socket();
 
