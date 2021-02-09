@@ -837,7 +837,7 @@ public class KioskListActivity extends AppCompatActivity {
         byte mByteBuf[];
 
         orderNum = "  주문번호 : " + Integer.toString(orderNumber) + "\n";
-        mStr = "  11호관 커피\n" +
+        mStr = "  \n11호관 커피\n" +
                 "  TEL.052-220-5757\n" +
                 "  승인번호 : " + card_approval_num + "\n" +
                 "  승인일자 : " + card_approval_date + "\n" +
@@ -868,25 +868,44 @@ public class KioskListActivity extends AppCompatActivity {
         device_cnt = setDevice();
 
         if(device_cnt != 0 ) {
-
-            // string1 convert hangul character set
-            mByteBuf = orderNum.getBytes(Charset.forName("EUC-KR"));
-            mDataCnt = mByteBuf.length;
-            mIntBuf = new int[mDataCnt];
-
-            // set data to integer buffer
-            for(i=0;i<mDataCnt;i++) {
-                mIntBuf[i] = (int) mByteBuf[i];
-            }
-
+            // centering print position
+            mIntBuf = new int[3];
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x61;
+            mIntBuf[2] = 0x01;
+            mDataCnt = 3;
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            // clear double size
+            // 수직으로 2배 사이즈 조절
+            mIntBuf = new int[3];
+            mIntBuf[0] = CMD_GS;
+            mIntBuf[1] = '!';
+            mIntBuf[2] = 0x01;
+            mDataCnt = 3;
+
+            // 데이터 전송 호출
+            sendCommand(mDevice, mIntBuf, mDataCnt);
+
+            //주문번호 전송
+            mByteBuf = orderNum.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+            // 정수 버퍼에 데이터 설정
+            for(i=0;i<mDataCnt;i++){
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            // 데이터 전송 호출
+            sendCommand(mDevice, mIntBuf, mDataCnt);
+
+            // 2배 사이즈 조절 끝
             mIntBuf[0] = CMD_GS;
             mIntBuf[1] = '!';
             mIntBuf[2] = 0x00;
             mDataCnt = 3;
+
+            // 데이터 전송 호출
+            sendCommand(mDevice,mIntBuf,mDataCnt);
 
             // string1 convert hangul character set
             mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
@@ -926,58 +945,8 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            // barcode sample
-            // centering print position
-            mIntBuf[0] = CMD_ESC;
-            mIntBuf[1] = 0x61;
-            mIntBuf[2] = 0x01;
-            mDataCnt = 3;
-            // call send data
-            sendCommand(mDevice,mIntBuf,mDataCnt);
-
-            // barcod height
-            mIntBuf[0] = CMD_GS;
-            mIntBuf[1] = 'h';
-            mIntBuf[2] = 0x80;
-            mDataCnt = 3;
-            // call send data
-            sendCommand(mDevice,mIntBuf,mDataCnt);
-
-            // barcode command
-            mIntBuf[0] = CMD_GS;
-            mIntBuf[1] = 0x6b;
-            mIntBuf[2] = 0x06;
-            mDataCnt = 3;
-            // call send data
-            sendCommand(mDevice,mIntBuf,mDataCnt);
-
-            /*mStr3 = "1234567890ABCD";
-            mDataCnt = mStr3.length();
-            // get byte data from string
-            mByteBuf = mStr3.getBytes();
-
-            // set data to integer buffer
-            for(i=0;i<mDataCnt;i++) {
-                mIntBuf[i] = (int) mByteBuf[i];
-            }
-            // call send data
-            sendCommand(mDevice,mIntBuf,mDataCnt);
-
-            mIntBuf[0] = 0x00;	// barcode data end
-            mIntBuf[1]  = 0x0a;	// line feed
-            mDataCnt = 2;
-            sendCommand(mDevice,mIntBuf,mDataCnt);
-
-            // clear centering
-            mIntBuf[0] = CMD_ESC;
-            mIntBuf[1] = 0x61;
-            mIntBuf[2] = 0x00;
-            mDataCnt = 3;
-            sendCommand(mDevice,mIntBuf,mDataCnt);*/
-
             // string3
-            mStr = "  항상 저희 제품을 애용해 주셔서 감사합니다!\n" +
-                    "  안녕히가십시오!\n" ;
+            mStr = "저희 11호관 커피를 이용해 주셔서 감사합니다!\n";
 
             mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
@@ -985,6 +954,12 @@ public class KioskListActivity extends AppCompatActivity {
             for(i=0;i<mDataCnt;i++) {
                 mIntBuf[i] = (int) mByteBuf[i];
             }
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+            // clear centering
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x61;
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
             // feeding
