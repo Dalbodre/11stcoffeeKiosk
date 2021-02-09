@@ -72,6 +72,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -144,6 +147,12 @@ public class KioskListActivity extends AppCompatActivity {
     private static final byte CMD_FS = 0x1c;
     //------------------------------------------------------
 
+    private String card_approval_num;
+    private String card_approval_date;
+
+    private HttpNetworkController httpController;
+    private Button purchaseButton;
+
 
     @Override
     public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
@@ -157,6 +166,9 @@ public class KioskListActivity extends AppCompatActivity {
 
         KioskApplication kioskApplication = (KioskApplication) getApplication();
         kioskApplication.setKioskListActivity(this);
+
+        httpController = new HttpNetworkController(
+                KioskListActivity.this, getResources().getString(R.string.server_ip));
 
         // DB 컨트롤러 (프론트에서 쓸 메서드들 모음)
         dbQueryController = kioskApplication.getDbQueryController();
@@ -218,7 +230,7 @@ public class KioskListActivity extends AppCompatActivity {
         registerReceiver(usbReceiver, filter);
         setDevice();
         mUsbManager.requestPermission(mDevice, permissionIntent);
-
+        purchaseButton = findViewById(R.id.purchase_button);
     }
     //Printer ---------------------------------------------------
     private final BroadcastReceiver usbReceiver = new BroadcastReceiver() {
@@ -616,12 +628,41 @@ public class KioskListActivity extends AppCompatActivity {
 
             System.out.println("결제버튼: 클릭함");
 
+            (new HttpCheckThread()).start();
+            view.setEnabled(false);
+        }
+    }
 
-            //custom dialog
-            View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom, null);
-            TextView price_tv = dialogView.findViewById(R.id.price_text);
-            TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
-            price_tv.setText(totalPriceView.getText().toString());
+    class HttpCheckThread extends Thread {
+        @Override
+        public void run() {
+            try {
+                SocketAddress sockaddr = new InetSocketAddress("192.168.0.238", 8080);
+                // Create an unbound socket
+                Socket sock = new Socket();
+
+                // This method will block no more than timeoutMs.
+                // If the timeout occurs, SocketTimeoutException is thrown.
+                int timeoutMs = 2000;   // 2 seconds
+                sock.connect(sockaddr, timeoutMs);
+                doPurchase();
+            } catch(IOException e) {
+                connectionFailed();
+            }
+        }
+    }
+
+    public void connectionFailed() {
+        Toast.makeText(this.getApplicationContext(), "서버와 연결이 불가능합니다. 직원에게 문의하세요/", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    public void doPurchase() {
+        //custom dialog
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom, null);
+        TextView price_tv = dialogView.findViewById(R.id.price_text);
+        TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
+        price_tv.setText(totalPriceView.getText().toString());
 //            View dialogView = getLayoutInflater().inflate(R.layout.dialog_custom, null);
 //            TextView price_tv = dialogView.findViewById(R.id.price_text);
 //            TextView totalPriceView = KioskListActivity.this.findViewById(R.id.total_price);
@@ -668,13 +709,14 @@ public class KioskListActivity extends AppCompatActivity {
 //                    alertDialog.dismiss();
 //                }
 //            });
-            //todo master에 merge 이후 intent result받는 곳으로 옮길 것
-            //purchaseButtonClicked = false;
+        //todo master에 merge 이후 intent result받는 곳으로 옮길 것
+        //purchaseButtonClicked = false;
 
-            setTranData("D1", "");
-        }
+        setTranData("D1", "");
     }
 
+
+    // 결제 내용 카드리더기로
     public void setTranData(String tran_types, String ADD_FIELD){
 
         ComponentName compName = new ComponentName("kr.co.kicc.easycarda","kr.co.kicc.easycarda.CallPopup");
@@ -786,6 +828,7 @@ public class KioskListActivity extends AppCompatActivity {
     public void onClick_usb_text2(int orderNumber) {
         char device_cnt;
         String mStr;
+        String orderNum;
         String mStr2;
         String mStr3;
         StringBuilder mStrBodyBuilder;
@@ -793,9 +836,11 @@ public class KioskListActivity extends AppCompatActivity {
         int mDataCnt,i;
         byte mByteBuf[];
 
-        mStr = "  주문번호 : " + Integer.toString(orderNumber) + "\n";
-        mStr += "  11호관 커피\n" +
+        orderNum = "  주문번호 : " + Integer.toString(orderNumber) + "\n";
+        mStr = "  11호관 커피\n" +
                 "  TEL.052-220-5757\n" +
+                "  승인번호 : " + card_approval_num + "\n" +
+                "  승인일자 : " + card_approval_date + "\n" +
                 "  품명\t\t수량\t\t가격\n" +
                 "------------------------------------\n";
 
@@ -823,6 +868,25 @@ public class KioskListActivity extends AppCompatActivity {
         device_cnt = setDevice();
 
         if(device_cnt != 0 ) {
+
+            // string1 convert hangul character set
+            mByteBuf = orderNum.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // clear double size
+            mIntBuf[0] = CMD_GS;
+            mIntBuf[1] = '!';
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
 
             // string1 convert hangul character set
             mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
@@ -939,6 +1003,9 @@ public class KioskListActivity extends AppCompatActivity {
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
             //releaseDevice(device_cnt);
+
+            card_approval_num = null;
+            card_approval_date = null;
         }
 
     }
@@ -963,8 +1030,14 @@ public class KioskListActivity extends AppCompatActivity {
                     for (String _key : extras.keySet()) {
                         if (extras.get(_key) == null) {
                             i2.putExtra(_key, "null");
-                        } else
+                        } else {
+                            if (_key.equals("APPROVAL_NUM")) {
+                                card_approval_num = extras.get(_key).toString();
+                            } else if (_key.equals("APPROVAL_DATE")) {
+                                card_approval_date = extras.get(_key).toString();
+                            }
                             i2.putExtra(_key, extras.get(_key).toString());
+                        }
                     }
                 }
 //				delayhandler.postDelayed(
@@ -1004,8 +1077,6 @@ public class KioskListActivity extends AppCompatActivity {
                     }
                     //Log.d("결제", jsonObject.toString());
                     // Toast.makeText(KioskListActivity.this, jsonObject.toString(), Toast.LENGTH_LONG).show();
-                    HttpNetworkController httpController = new HttpNetworkController(
-                            KioskListActivity.this, getResources().getString(R.string.server_ip));
                     httpController.postJsonCartData(jsonObject);
                 } else {
                     Toast.makeText(this.getApplicationContext(), "에러 :: " + extras.get("RESULT_CODE").toString(), Toast.LENGTH_SHORT).show();

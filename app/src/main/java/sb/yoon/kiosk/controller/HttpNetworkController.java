@@ -1,8 +1,10 @@
 package sb.yoon.kiosk.controller;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.NetworkResponse;
@@ -20,16 +22,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import sb.yoon.kiosk.EnterMain;
 import sb.yoon.kiosk.KioskListActivity;
 
 public class HttpNetworkController {
     private RequestQueue requestQueue;
     private String url;
     private AppCompatActivity activity;
-
-    public HttpNetworkController(AppCompatActivity activity) {
-        this.requestQueue = Volley.newRequestQueue(activity);
-    }
 
     public HttpNetworkController(AppCompatActivity activity, String url) {
         this.activity = activity;
@@ -50,6 +49,7 @@ public class HttpNetworkController {
                 url,
                 jsonObject,
                 new Response.Listener<JSONObject>() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("답신", response.toString());
@@ -68,6 +68,42 @@ public class HttpNetworkController {
                     }
                 });
         requestQueue.add(jsonObjectRequest);
+    }
+
+    public void checkConnection() {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        EnterMain enterMain = (EnterMain) activity;
+                        enterMain.enterListActivity();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                EnterMain enterMain = (EnterMain) activity;
+                enterMain.connectionFailed();
+            }
+        });
+    }
+
+    public void checkConnectionWhenPurchase() {
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        KioskListActivity activity = (KioskListActivity) HttpNetworkController.this.activity;
+                        activity.doPurchase();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                KioskListActivity activity = (KioskListActivity) HttpNetworkController.this.activity;
+                activity.connectionFailed();
+            }
+        });
     }
 
 }

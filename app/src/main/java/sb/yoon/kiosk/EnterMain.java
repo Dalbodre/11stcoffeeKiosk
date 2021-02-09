@@ -35,9 +35,15 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.regex.Pattern;
+
+import sb.yoon.kiosk.controller.HttpNetworkController;
 
 public class EnterMain extends AppCompatActivity {
     ProgressBar progressBar;
@@ -46,7 +52,6 @@ public class EnterMain extends AppCompatActivity {
 
     private int easterCount = 0;
     private int employeeCount = 0;
-
 
     private final int W_STORAGE_PER_CODE = 333;
 
@@ -138,10 +143,38 @@ public class EnterMain extends AppCompatActivity {
     public void buttonClicked(View view) {
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(ProgressBar.VISIBLE);
+
+        (new HttpCheckThread()).start();
+    }
+
+    class HttpCheckThread extends Thread {
+        @Override
+        public void run() {
+            try {
+                SocketAddress sockaddr = new InetSocketAddress("192.168.0.238", 8080);
+                // Create an unbound socket
+                Socket sock = new Socket();
+
+                // This method will block no more than timeoutMs.
+                // If the timeout occurs, SocketTimeoutException is thrown.
+                int timeoutMs = 2000;   // 2 seconds
+                sock.connect(sockaddr, timeoutMs);
+                enterListActivity();
+            } catch(IOException e) {
+                connectionFailed();
+            }
+        }
+    }
+
+    public void enterListActivity() {
         Intent intent = new Intent(this, KioskListActivity.class);
         //Intent intent = new Intent(this, AdminActivity.class);
         startActivity(intent);
         //finish();
+    }
+
+    public void connectionFailed() {
+        Toast.makeText(this.getApplicationContext(), "서버와 연결되어 있지 않습니다. 직원에게 문의하세요.", Toast.LENGTH_SHORT).show();
     }
 
     private class easterClickListener implements View.OnClickListener {
