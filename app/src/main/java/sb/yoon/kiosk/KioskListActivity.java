@@ -827,22 +827,25 @@ public class KioskListActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onClick_usb_text2(int orderNumber) {
         char device_cnt;
-        String mStr;
         String orderNum;
-        String mStr2;
-        String mStr3;
+        String mInfo;
+        String mPriceInfo;
+        String mPrice;
+        String mEndMsg;
+
         StringBuilder mStrBodyBuilder;
         int mIntBuf[] ;
         int mDataCnt,i;
         byte mByteBuf[];
 
         orderNum = "  주문번호 : " + Integer.toString(orderNumber) + "\n";
-        mStr = "  \n11호관 커피\n" +
+        mInfo = "  \n11호관 커피\n" +
                 "  TEL.052-220-5757\n" +
                 "  승인번호 : " + card_approval_num + "\n" +
-                "  승인일자 : " + card_approval_date + "\n" +
-                "  품명\t\t수량\t\t가격\n" +
-                "------------------------------------\n";
+                "  승인일자 : " + card_approval_date + "\n";
+
+        mPriceInfo = "          품명\t\t수량\t  가격\n" +
+                "       -----------------------------------\n";
 
         HashMap<String, Integer> quantityTable = new HashMap<String, Integer>();
         HashMap<String, Integer> priceTable = new HashMap<>();
@@ -854,15 +857,14 @@ public class KioskListActivity extends AppCompatActivity {
 
         mStrBodyBuilder = new StringBuilder();
         for (String name : quantityTable.keySet()) {
-            mStrBodyBuilder.append(String.format("  %s\t\t%d\t\t\\%d\n", name, quantityTable.get(name), priceTable.get(name)));
+            mStrBodyBuilder.append(String.format("       %s\t   %d\t  \\%d\n", name, quantityTable.get(name), priceTable.get(name)));
         }
 
-        mStr = mStr + mStrBodyBuilder.toString();
-        mStr = mStr + "------------------------------------\n";
-        mStr2 = String.format("  합계금액: \\%s\n\n", totalPriceView.getText());
+        mPriceInfo = mPriceInfo + mStrBodyBuilder.toString();
+        mPriceInfo = mPriceInfo + "       -----------------------------------\n";
+        mPrice = String.format("합계금액: \\%s\n\n", totalPriceView.getText());
 
-        Log.e("영수증", mStr);
-        Log.e("영수증", mStr2);
+        Log.e("영수증", mInfo+"\n"+mPriceInfo+"\n"+mPrice);
 
         // set Hwasung Syatem usb device
         device_cnt = setDevice();
@@ -907,8 +909,8 @@ public class KioskListActivity extends AppCompatActivity {
             // 데이터 전송 호출
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            // string1 convert hangul character set
-            mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
+            // mInfo 호출
+            mByteBuf = mInfo.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
             mIntBuf = new int[mDataCnt];
 
@@ -919,6 +921,23 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
+            // 중앙정렬 끝
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x61;
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
+            sendCommand(mDevice, mIntBuf, mDataCnt);
+
+            mByteBuf = mPriceInfo.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+
+            for(i=0;i<mDataCnt;i++){
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+
+            sendCommand(mDevice, mIntBuf, mDataCnt);
+
             // vertical double size print
             mIntBuf[0] = CMD_GS;
             mIntBuf[1] = '!';
@@ -927,8 +946,15 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            // string2 convert hangul character set
-            mByteBuf = mStr2.getBytes(Charset.forName("EUC-KR"));
+            // 중앙정렬 시작
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x61;
+            mIntBuf[2] = 0x01;
+            mDataCnt = 3;
+            sendCommand(mDevice, mIntBuf, mDataCnt);
+
+            // mPrice 출력
+            mByteBuf = mPrice.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
             // set data to integer buffer
             for(i=0;i<mDataCnt;i++) {
@@ -945,16 +971,17 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            // string3
-            mStr = "저희 11호관 커피를 이용해 주셔서 감사합니다!\n";
+            // mEndMsg
+            mEndMsg = "저희 11호관 커피를 이용해 주셔서 감사합니다!\n";
 
-            mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
+            mByteBuf = mEndMsg.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
             // set data to integer buffer
             for(i=0;i<mDataCnt;i++) {
                 mIntBuf[i] = (int) mByteBuf[i];
             }
             sendCommand(mDevice,mIntBuf,mDataCnt);
+
             // clear centering
             mIntBuf[0] = CMD_ESC;
             mIntBuf[1] = 0x61;
