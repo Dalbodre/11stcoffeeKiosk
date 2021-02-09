@@ -815,11 +815,13 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void popUpOrderNumberAndQuit(int orderNumber) {
+    public void popUpOrderNumberAndQuit(int orderNumber, boolean orderSucceess) {
         i2.putExtra("orderNumber", orderNumber);
         startActivity(i2);
         //Todo
-        onClick_usb_text2(orderNumber);
+        if (orderSucceess) {
+            onClick_usb_text2(orderNumber);
+        }
         finish();
     }
 
@@ -1080,7 +1082,7 @@ public class KioskListActivity extends AppCompatActivity {
                     httpController.postJsonCartData(jsonObject);
                 } else {
                     Toast.makeText(this.getApplicationContext(), "에러 :: " + extras.get("RESULT_CODE").toString(), Toast.LENGTH_SHORT).show();
-                    popUpOrderNumberAndQuit(extras.getInt("RESULT_CODE"));
+                    popUpOrderNumberAndQuit(extras.getInt("RESULT_CODE"), false);
                 }
             }
         } else if (requestCode == 1) {

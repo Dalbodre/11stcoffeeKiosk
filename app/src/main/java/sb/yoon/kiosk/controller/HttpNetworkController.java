@@ -55,7 +55,7 @@ public class HttpNetworkController {
                         Log.d("답신", response.toString());
                         KioskListActivity activity = (KioskListActivity) HttpNetworkController.this.activity;
                         try {
-                            activity.popUpOrderNumberAndQuit(response.getInt("orderNumber"));
+                            activity.popUpOrderNumberAndQuit(response.getInt("orderNumber"), true);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
