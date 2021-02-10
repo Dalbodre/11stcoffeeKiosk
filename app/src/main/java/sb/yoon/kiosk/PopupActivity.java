@@ -2,6 +2,7 @@ package sb.yoon.kiosk;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,6 +62,7 @@ public class PopupActivity extends Activity {
     private TextView countDisplayTv;
 
     private Button countDecreaseButton;
+    private Typeface typeface;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -77,7 +79,9 @@ public class PopupActivity extends Activity {
             cartOptionList = cartMenu.getOptions();
         }
 
-        this.setTheme(R.style.fontedDialog);
+        this.setTheme(R.style.fontDialog);
+
+        typeface = Typeface.createFromAsset(getAssets(), "font/gmarket_medium.ttf");
 
         Log.d("카트옵션", cartOptionList.toString());
 
@@ -94,6 +98,12 @@ public class PopupActivity extends Activity {
         no_takeout.setOnClickListener(new OnTakeoutToggleChanged());
         tumbler.setOnClickListener(new OnTumblerToggleChanged());
 
+        hotButton.setTypeface(typeface);
+        iceButton.setTypeface(typeface);
+        takeout.setTypeface(typeface);
+        no_takeout.setTypeface(typeface);
+        tumbler.setTypeface(typeface);
+
         init();
         ImageView imageView = findViewById(R.id.pop_up_option_pic);
         imageView.setImageDrawable(cartMenu.getIcon());
@@ -102,6 +112,8 @@ public class PopupActivity extends Activity {
         TextView menuPriceText = findViewById(R.id.pop_up_option_price);
         menuText.setText(cartMenu.getName());
         menuPriceText.setText(cartMenu.getPrice() + "원");
+        menuText.setTypeface(typeface);
+        menuPriceText.setTypeface(typeface);
 
         optionRecyclerView = this.findViewById(R.id.option_recycler);
         LinearLayoutManager mLinearLayoutManager = new LinearLayoutManager(this);
@@ -118,6 +130,9 @@ public class PopupActivity extends Activity {
         Button countIncreaseButton = findViewById(R.id.count_increase_button);
         countDecreaseButton.setOnClickListener(new OnClickCountButton());
         countIncreaseButton.setOnClickListener(new OnClickCountButton());
+        countDecreaseButton.setTypeface(typeface);
+        countDisplayTv.setTypeface(typeface);
+        countIncreaseButton .setTypeface(typeface);
 
         idleTimer = new IdleTimer(this, 120000, 1000);
         idleTimer.start();

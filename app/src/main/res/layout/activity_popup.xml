@@ -7,7 +7,7 @@
     android:layout_height="1800px"
     android:background="@drawable/enterance_button"
     android:orientation="vertical"
-    android:theme="@style/fontedDialog">
+    android:theme="@style/fontDialog">
 
     <RelativeLayout
         android:id="@+id/option_top"
@@ -48,7 +48,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/option_top" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/pop_up_option_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pop_up_option_pic" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/pop_up_option_price"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -163,7 +163,7 @@
         app:layout_constraintTop_toBottomOf="@id/option_etc_static_options_wrapper"
         app:layout_constraintStart_toStartOf="parent"
         android:orientation="horizontal">
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -189,7 +189,7 @@
             android:textColor="@color/color11thBlue"
             android:visibility="invisible"
             />
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/count_display_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

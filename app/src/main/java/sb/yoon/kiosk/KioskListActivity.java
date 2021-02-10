@@ -1079,8 +1079,8 @@ public class KioskListActivity extends AppCompatActivity {
                     try {
                         //                                       총 가격 숫자만
                         jsonObject.put("totalPrice", totalPriceView.getTag());
-//                        jsonObject.put("card_approval_num", card_approval_num);
-//                        jsonObject.put("card_approval_date", card_approval_date);
+                        jsonObject.put("approvalNumber", card_approval_num);
+                        jsonObject.put("approvalDate", card_approval_date);
                         jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
                                 new TypeToken<List<CartMenu>>() {
                                 }.getType())));

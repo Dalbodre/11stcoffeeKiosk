@@ -31,7 +31,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="fontedDialog" parent="Theme.AppCompat.Dialog">
+    <style name="fontDialog" parent="Theme.AppCompat.Dialog">
         <item name="android:fontFamily">@font/gmarket_medium</item>
         <item name="fontFamily">@font/gmarket_medium</item>
         <item name="android:textViewStyle">@style/customTextViewFontStyle</item>

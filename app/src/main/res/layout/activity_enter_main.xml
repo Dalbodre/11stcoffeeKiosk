@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/enter_easter"
         android:layout_marginTop="100px"
-        android:text="카운터에서도 주문 가능합니다."
+        android:text="카운터에서도\n주문 가능합니다."
         android:textAlignment="center"
         android:textColor="#fec93d"
         android:textSize="90px"

@@ -2,6 +2,7 @@ package sb.yoon.kiosk.controller;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,6 +46,13 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             plusButton = itemView.findViewById(R.id.button2);
             toggleButton = itemView.findViewById(R.id.toggleButton);
             context = itemView.getContext();
+
+            Typeface typeface = Typeface.createFromAsset(context.getAssets(), "font/gmarket_medium.ttf");
+            optionNameTextView.setTypeface(typeface);
+            minusButton.setTypeface(typeface);
+            quanityView.setTypeface(typeface);
+            plusButton.setTypeface(typeface);
+            toggleButton.setTypeface(typeface);
         }
     }
 
