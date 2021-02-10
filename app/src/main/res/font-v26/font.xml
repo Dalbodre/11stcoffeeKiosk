@@ -8,4 +8,16 @@
         android:fontStyle = "normal"
         android:fontWeight = "400"
         android:font = "@font/bamin_hanna_pro"/>
+    <font
+        android:fontStyle = "normal"
+        android:fontWeight = "400"
+        android:font = "@font/gmarket_bold"/>
+    <font
+        android:fontStyle = "normal"
+        android:fontWeight = "400"
+        android:font = "@font/gmarket_light"/>
+    <font
+        android:fontStyle = "normal"
+        android:fontWeight = "400"
+        android:font = "@font/gmarket_medium"/>
 </font-family>

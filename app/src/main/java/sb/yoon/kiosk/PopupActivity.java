@@ -77,6 +77,8 @@ public class PopupActivity extends Activity {
             cartOptionList = cartMenu.getOptions();
         }
 
+        this.setTheme(R.style.fontedDialog);
+
         Log.d("카트옵션", cartOptionList.toString());
 
         hotButton = findViewById(R.id.option_hot_toggle);
