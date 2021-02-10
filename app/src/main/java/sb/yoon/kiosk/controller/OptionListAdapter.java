@@ -31,11 +31,19 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
         protected TextView optionNameTextView;
         protected LinearLayout optionButtonsWrapper;
         protected Context context;
+        protected Button minusButton;
+        protected TextView quanityView;
+        protected ToggleButton toggleButton;
+        protected Button plusButton;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
             optionNameTextView = itemView.findViewById(R.id.option_name_text);
             optionButtonsWrapper = itemView.findViewById(R.id.option_buttons_wrapper);
+            minusButton = itemView.findViewById(R.id.button1);
+            quanityView = itemView.findViewById(R.id.textView2);
+            plusButton = itemView.findViewById(R.id.button2);
+            toggleButton = itemView.findViewById(R.id.toggleButton);
             context = itemView.getContext();
         }
     }
@@ -57,21 +65,21 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         CartOption cartOption = optionList.get(position);
 
-        holder.optionNameTextView.setText(cartOption.getName());
+        holder.optionNameTextView.setText(cartOption.getName() + " (가격: " + cartOption.getPrice() + ")");
 
         if (cartOption.isInteger()) {
-            TextView quantityTextView = new TextView(holder.context);
+            TextView quantityTextView = holder.quanityView;
             quantityTextView.setText(Integer.toString(cartOption.getQuantity()));
-            quantityTextView.setTextSize(60f);
+            //quantityTextView.setTextSize(60f);
             quantityTextView.setPadding(10, 0,10,0);
             quantityTextView.setTextColor(Color.parseColor("#081832"));
 
-            Button minusButton = new Button(holder.context);
+            Button minusButton = holder.minusButton;
             minusButton.setText("<");
             minusButton.setTextColor(Color.parseColor("#081832"));
-            minusButton.setTextSize(60f);
+            //minusButton.setTextSize(60f);
             minusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.for_option_background));
-            minusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
+            minusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView, minusButton));
 
             /*if(quantityTextView.getText().equals("0")){
                 minusButton.setVisibility(Button.GONE);
@@ -80,37 +88,42 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
                 minusButton.setVisibility(Button.VISIBLE);
             }*/
 
-            Button plusButton = new Button(holder.context);
+            Button plusButton = holder.plusButton;
             plusButton.setText(">");
             plusButton.setTextColor(Color.parseColor("#081832"));
-            plusButton.setTextSize(60f);
+            //plusButton.setTextSize(60f);
             plusButton.setBackground(ContextCompat.getDrawable(holder.context, R.drawable.for_option_background));
-            plusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView));
+            plusButton.setOnClickListener(new OnClickQuantityButtons(cartOption, quantityTextView, minusButton));
 
-            holder.optionButtonsWrapper.addView(minusButton);
-            holder.optionButtonsWrapper.addView(quantityTextView);
-            holder.optionButtonsWrapper.addView(plusButton);
+//            holder.optionButtonsWrapper.addView(minusButton);
+//            holder.optionButtonsWrapper.addView(quantityTextView);
+//            holder.optionButtonsWrapper.addView(plusButton);
+            //minusButton.setVisibility(View.VISIBLE);
+            quantityTextView.setVisibility(View.VISIBLE);
+            plusButton.setVisibility(View.VISIBLE);
         } else if (!cartOption.isInteger()) {
-            ToggleButton button = new ToggleButton(holder.context);
+            ToggleButton button = holder.toggleButton;
             button.setChecked(false);
             button.setBackgroundDrawable(ContextCompat.getDrawable(holder.context, R.drawable.togglebutton_off));
             button.setTextColor(ContextCompat.getColor(holder.context, R.color.color11thBlue));
             button.setText("적용안됨");
             button.setPadding(10,10,10,10);
-            button.setTextSize(60f);
+            //button.setTextSize(60f);
             button.setOnClickListener(new OnClickBoolButtons(cartOption, holder.context));
 
-            holder.optionButtonsWrapper.addView(button);
+            button.setVisibility(View.VISIBLE);
         }
     }
 
     class OnClickQuantityButtons implements View.OnClickListener {
+        private final Button minusButton;
         private CartOption cartOption;
         private TextView quantityTextView;
 
-        public OnClickQuantityButtons(CartOption cartOption, TextView quantityTextView) {
+        public OnClickQuantityButtons(CartOption cartOption, TextView quantityTextView, Button minusButton) {
             this.cartOption = cartOption;
             this.quantityTextView = quantityTextView;
+            this.minusButton = minusButton;
         }
 
         @Override
@@ -119,13 +132,16 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
             Log.d("버튼텍스트", "::" + (String) button.getText());
             if (button.getText().equals("<")) {
                 int quantityNew = cartOption.getQuantity() - 1;
-                if (quantityNew < 0) {
-                    return;
+                if (quantityNew <= 0) {
+                    minusButton.setVisibility(View.GONE);
                 }
                 cartOption.setQuantity(quantityNew);
                 quantityTextView.setText(Integer.toString(quantityNew));
             } else if (button.getText().equals(">")) {
                 int quantityNew = cartOption.getQuantity() + 1;
+                if (quantityNew >= 1) {
+                    minusButton.setVisibility(View.VISIBLE);
+                }
                 cartOption.setQuantity(quantityNew);
                 quantityTextView.setText(Integer.toString(quantityNew));
             }
@@ -154,7 +170,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
                 button.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.togglebutton_off));
                 button.setChecked(false);
                 button.setText("적용안됨");
-                button.setTextSize(60f);
+                //button.setTextSize(60f);
                 button.setTextColor(Color.parseColor("#081832"));
                 button.setPadding(10,10,10,10);
             } else {
@@ -162,7 +178,7 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Cu
                 button.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.togglebutton_on));
                 button.setPressed(true);
                 button.setText("적용됨");
-                button.setTextSize(60f);
+                //button.setTextSize(60f);
                 button.setTextColor(Color.parseColor("#ffffff"));
                 button.setPadding(10,10,10,10);
             };

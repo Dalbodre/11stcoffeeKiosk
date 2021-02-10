@@ -31,6 +31,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -220,17 +221,21 @@ public class KioskListActivity extends AppCompatActivity {
 
         totalPriceView = this.findViewById(R.id.total_price);
 
-        idleTimer = new IdleTimer(this, 115000, 1000);//잠깐만 115초로 변경좀 해놓겠습니다. -jojo
+        idleTimer = new IdleTimer(this, 120000, 1000);//잠깐만 115초로 변경좀 해놓겠습니다. -jojo
         idleTimer.start();
 
-        //Printer-------------------------------------------
-        mUsbManager = (UsbManager)getSystemService(Context.USB_SERVICE);
-        permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
-        IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
-        registerReceiver(usbReceiver, filter);
-        setDevice();
-        mUsbManager.requestPermission(mDevice, permissionIntent);
-        purchaseButton = findViewById(R.id.purchase_button);
+        try {
+            //Printer-------------------------------------------
+            mUsbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
+            permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+            IntentFilter filter = new IntentFilter(ACTION_USB_PERMISSION);
+            registerReceiver(usbReceiver, filter);
+            setDevice();
+            mUsbManager.requestPermission(mDevice, permissionIntent);
+            purchaseButton = findViewById(R.id.purchase_button);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     //Printer ---------------------------------------------------
     private final BroadcastReceiver usbReceiver = new BroadcastReceiver() {
@@ -574,6 +579,7 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     public void clickSearchIcon(View view) {
+        Log.d("검색버튼", Boolean.toString(searchButtonClicked));
         if (this.searchButtonClicked)
             return;
         this.searchButtonClicked = true;
@@ -1087,7 +1093,8 @@ public class KioskListActivity extends AppCompatActivity {
                     popUpOrderNumberAndQuit(extras.getInt("RESULT_CODE"), false);
                 }
             }
-        } else if (requestCode == 1) {
+        }
+        if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 //데이터 받기
                 String result = data.getStringExtra("result");
@@ -1096,10 +1103,10 @@ public class KioskListActivity extends AppCompatActivity {
                 }
             }
             menuOptionPopupButtonClicked = false;
-        } else if (requestCode == 2) {
+        }
+        if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 ArrayList<Integer> searchedMenuIdList = data.getIntegerArrayListExtra("searchedMenuIdList");
-
                 List<Menu> queryResult = dbQueryController.getMenuListByIdArray(searchedMenuIdList);
                 try {
                     itemListFragment = new ItemListFragment(queryResult);

@@ -117,7 +117,7 @@ public class PopupActivity extends Activity {
         countDecreaseButton.setOnClickListener(new OnClickCountButton());
         countIncreaseButton.setOnClickListener(new OnClickCountButton());
 
-        idleTimer = new IdleTimer(this, 15000, 1000);
+        idleTimer = new IdleTimer(this, 120000, 1000);
         idleTimer.start();
     }
 
@@ -164,12 +164,12 @@ public class PopupActivity extends Activity {
         //to. JoRim: 나중에 시연해보고 나서 아이콘 크기 별로면 여기를 건드려서 해결하길 바람
         Drawable iceIcon = ContextCompat.getDrawable(this, R.drawable.ice_cubes);
         iceIcon.setBounds(0,0,110,110);
-        iceButton.setCompoundDrawables(iceIcon,null,null,null);
+        //iceButton.setCompoundDrawables(iceIcon,null,null,null);
         iceButton.setTextColor(Color.parseColor("#081832"));
 
         Drawable hotIcon = ContextCompat.getDrawable(this, R.drawable.burn);
         hotIcon.setBounds(0,0,110,110);
-        hotButton.setCompoundDrawables(hotIcon,null,null,null);
+        //hotButton.setCompoundDrawables(hotIcon,null,null,null);
 
         if (cartMenu.isCold()) {
             iceButton.setVisibility(ToggleButton.VISIBLE);
@@ -210,17 +210,17 @@ public class PopupActivity extends Activity {
         tableIcon = ContextCompat.getDrawable(this, R.drawable.cup_xxxhdpi);
         tableIcon.setBounds(0,0,80,80);
         DrawableCompat.setTint(tableIcon, Color.BLACK);
-        no_takeout.setCompoundDrawables(null, tableIcon,null,null);
+        //no_takeout.setCompoundDrawables(null, tableIcon,null,null);
 
         packageIcon = ContextCompat.getDrawable(this, R.drawable.takeout_xxxhdpi);
         packageIcon.setBounds(0,0,60,80);
         DrawableCompat.setTint(packageIcon, Color.BLACK);
-        takeout.setCompoundDrawables(null, packageIcon,null,null);
+        //takeout.setCompoundDrawables(null, packageIcon,null,null);
 
         thumblerIcon = ContextCompat.getDrawable(this, R.drawable.thermos_xxxhdpi);
         thumblerIcon.setBounds(0,0,80,80);
         DrawableCompat.setTint(thumblerIcon, Color.BLACK);
-        tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
+        //tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
 
     }
 
@@ -256,16 +256,16 @@ public class PopupActivity extends Activity {
                 tumbler.setTextColor(Color.parseColor(com_blue));
 
                 DrawableCompat.setTint(thumblerIcon, Color.BLACK);
-                tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
+                //tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
             }
             else{
                 tumbler.setChecked(true);
                 tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
-                no_takeout.setCompoundDrawables(null, tableIcon,null,null);
+                //no_takeout.setCompoundDrawables(null, tableIcon,null,null);
                 tumbler.setTextColor(Color.parseColor(com_white));
 
                 DrawableCompat.setTint(thumblerIcon, Color.WHITE);
-                tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
+                //tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
             }
         }
     }
@@ -283,9 +283,9 @@ public class PopupActivity extends Activity {
                 no_takeout.setTextColor(Color.parseColor(com_blue));
 
                 DrawableCompat.setTint(packageIcon, Color.WHITE);
-                takeout.setCompoundDrawables(null, packageIcon,null,null);
+                //takeout.setCompoundDrawables(null, packageIcon,null,null);
                 DrawableCompat.setTint(tableIcon, Color.BLACK);
-                no_takeout.setCompoundDrawables(null, tableIcon,null,null);
+                //no_takeout.setCompoundDrawables(null, tableIcon,null,null);
             }
             else if(tButton.equals(no_takeout)){
                 takeout.setChecked(false);
@@ -296,9 +296,9 @@ public class PopupActivity extends Activity {
                 no_takeout.setTextColor(Color.parseColor(com_white));
 
                 DrawableCompat.setTint(packageIcon, Color.BLACK);
-                takeout.setCompoundDrawables(null, packageIcon,null,null);
+                //takeout.setCompoundDrawables(null, packageIcon,null,null);
                 DrawableCompat.setTint(tableIcon, Color.WHITE);
-                no_takeout.setCompoundDrawables(null, tableIcon,null,null);
+                //no_takeout.setCompoundDrawables(null, tableIcon,null,null);
             }
         }
     }

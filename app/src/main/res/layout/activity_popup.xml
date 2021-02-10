@@ -5,7 +5,8 @@
     android:layout_width="1000px"
     android:layout_height="1800px"
     android:background="@drawable/enterance_button"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/fontedDialog">
 
     <RelativeLayout
         android:id="@+id/option_top"
@@ -75,7 +76,7 @@
     <LinearLayout
         android:id="@+id/option_hot_ice_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="190px"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pop_up_option_price">
@@ -83,26 +84,26 @@
         <ToggleButton
             android:id="@+id/option_hot_toggle"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="10dp"
             android:textColor="#ffffff"
             android:textOff="HOT"
             android:textOn="HOT"
-            android:textSize="80px"
+            android:textSize="60sp"
             android:visibility="gone" />
 
         <ToggleButton
             android:id="@+id/option_ice_toggle"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
             android:padding="10dp"
             android:textOff="ICE"
             android:textOn="ICE"
-            android:textSize="80px"
+            android:textSize="60sp"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -122,13 +123,11 @@
             android:layout_weight="1"
 
             android:background="@drawable/togglebutton_off"
-            android:drawableTop="@drawable/cup_xxxhdpi"
             android:padding="10dp"
-            android:paddingTop="17px"
             android:textColor="#081832"
             android:textOff="매장"
             android:textOn="매장"
-            android:textSize="55sp" />
+            android:textSize="45sp" />
 
         <ToggleButton
             android:id="@+id/option_takeout_toggle"
@@ -136,15 +135,12 @@
             android:layout_height="match_parent"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-
             android:background="@drawable/togglebutton_off"
-            android:drawableTop="@drawable/takeout_xxxhdpi"
             android:padding="10dp"
-            android:paddingTop="17px"
             android:textColor="#081832"
             android:textOff="포장"
             android:textOn="포장"
-            android:textSize="55sp" />
+            android:textSize="45sp" />
 
         <ToggleButton
             android:id="@+id/option_tumblr_toggle"
@@ -152,13 +148,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/togglebutton_off"
-            android:drawableTop="@drawable/thermos_xxxhdpi"
             android:padding="10dp"
-            android:paddingTop="17px"
             android:textColor="#081832"
             android:textOff="텀블러"
             android:textOn="텀블러"
-            android:textSize="55sp" />
+            android:textSize="45sp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -175,7 +169,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:text="수량"
-            android:textSize="60sp"
+            android:textSize="35sp"
             android:textColor="@color/color11thBlue"
             android:layout_marginStart="10dp"
             android:textAlignment="center"
@@ -186,7 +180,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="&lt;"
-            android:textSize="60sp"
+            android:textSize="35sp"
             app:layout_constraintEnd_toStartOf="@id/count_display_view"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="10dp"
@@ -200,7 +194,7 @@
             android:layout_height="match_parent"
             android:text="555"
             android:layout_marginEnd="10dp"
-            android:textSize="60sp"
+            android:textSize="35sp"
             app:layout_constraintEnd_toStartOf="@id/count_increase_button"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -213,7 +207,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="&gt;"
-            android:textSize="60sp"
+            android:textSize="35sp"
             android:layout_marginEnd="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
