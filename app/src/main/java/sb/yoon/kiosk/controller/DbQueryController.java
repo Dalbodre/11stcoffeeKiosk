@@ -182,8 +182,8 @@ public class DbQueryController {
             categoryDao.insertOrReplace(new Category(1L, "커피", true));
             categoryDao.insertOrReplace(new Category(2L, "라떼", true));
             categoryDao.insertOrReplace(new Category(3L, "차",true));
-            categoryDao.insertOrReplace(new Category(4L, "주스",true));
-            categoryDao.insertOrReplace(new Category(5L, "스무디", true));
+            categoryDao.insertOrReplace(new Category(4L, "주스&에이드",true));
+            categoryDao.insertOrReplace(new Category(5L, "스무디&파르페", true));
             categoryDao.insertOrReplace(new Category(6L, "베이커리", false));
         }
 
@@ -215,9 +215,18 @@ public class DbQueryController {
             menuDao.insertOrReplace(new Menu(24L, "유자청", 3L, 3500, "yuja_tea", true, true));
             menuDao.insertOrReplace(new Menu(25L, "생강차", 3L, 3500, "ginger", true, true));
 
+            // 아이스티 3L
+            menuDao.insertOrReplace(new Menu(43L, "복숭아 아이스티", 3L, 2200, "peach_ice", false, true));
+
             //주스 4L
             menuDao.insertOrReplace(new Menu(14L, "애플주스", 4L, 3500, "apple", false, true));
             menuDao.insertOrReplace(new Menu(15L, "애플주스 스파클링", 4L, 3500, "apple_sparkle", false, true));
+
+            //에이드 4L
+            menuDao.insertOrReplace(new Menu(10L, "레몬에이드", 4L, 3000, "lemon_ade", false, true));
+            menuDao.insertOrReplace(new Menu(11L, "오렌지에이드", 4L, 3000, "orange_ade", false, true));
+            menuDao.insertOrReplace(new Menu(12L, "자몽에이드", 4L, 3500, "jamong_ade", false, true));
+            menuDao.insertOrReplace(new Menu(13L, "청포도에이드", 4L, 3500, "grape_ade", false, true));
 
             //프라페 5L
             menuDao.insertOrReplace(new Menu(26L, "자바칩프라페", 5L, 4000, "java_frappe", false, true));
@@ -228,13 +237,6 @@ public class DbQueryController {
             menuDao.insertOrReplace(new Menu(29L, "플레인스무디", 5L, 4000, "plain_smoothe", false, true));
             menuDao.insertOrReplace(new Menu(30L, "딸기스무디", 5L, 4000, "berry_smoothe", false, true));
             menuDao.insertOrReplace(new Menu(31L, "블루베리스무디", 5L, 4000, "blueberry_smoothe", false, true));
-
-            //에이드&아이스티 5L
-            menuDao.insertOrReplace(new Menu(10L, "레몬에이드", 5L, 3000, "lemon_ade", false, true));
-            menuDao.insertOrReplace(new Menu(11L, "오렌지에이드", 5L, 3000, "orange_ade", false, true));
-            menuDao.insertOrReplace(new Menu(12L, "자몽에이드", 5L, 3500, "jamong_ade", false, true));
-            menuDao.insertOrReplace(new Menu(13L, "청포도에이드", 5L, 3500, "grape_ade", false, true));
-            menuDao.insertOrReplace(new Menu(43L, "복숭아 아이스티", 5L, 2200, "peach_ice", false, true));
 
             //빵 6L
             menuDao.insertOrReplace(new Menu(32L, "베이글(플레인)", 6L, 2800, "bagle", false, false));

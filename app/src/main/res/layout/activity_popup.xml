@@ -39,10 +39,9 @@
 
     <ImageView
         android:id="@+id/pop_up_option_pic"
-        android:layout_width="450px"
-        android:layout_height="320px"
+        android:layout_width="550px"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/option_top" />
@@ -55,7 +54,7 @@
         android:gravity="center"
         android:text="메뉴이름"
         android:textColor="#081832"
-        android:textSize="100px"
+        android:textSize="80px"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pop_up_option_pic" />
