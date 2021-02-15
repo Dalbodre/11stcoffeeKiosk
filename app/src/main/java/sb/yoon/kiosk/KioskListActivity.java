@@ -761,7 +761,7 @@ public class KioskListActivity extends AppCompatActivity {
 //            }
 //        }
         intent.putExtra("ADD_FIELD", ADD_FIELD);							// 모르겠음
-        intent.putExtra("TIMEOUT","30");							// 아마 결제 시 타임아웃 지정
+        intent.putExtra("TIMEOUT","60");							// 아마 결제 시 타임아웃 지정
 
         intent.putExtra("TEXT_PROCESS","결제 진행중입니다");		// 결제 진행중 문구
         intent.putExtra("TEXT_COMPLETE", "결제가 완료되었습니다");	// 결제 완료시 문구
