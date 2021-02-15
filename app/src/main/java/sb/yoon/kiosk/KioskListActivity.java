@@ -221,7 +221,7 @@ public class KioskListActivity extends AppCompatActivity {
 
         totalPriceView = this.findViewById(R.id.total_price);
 
-        idleTimer = new IdleTimer(this, 120000, 1000);//잠깐만 115초로 변경좀 해놓겠습니다. -jojo
+        idleTimer = new IdleTimer(this, 150000, 1000);//잠깐만 115초로 변경좀 해놓겠습니다. -jojo
         idleTimer.start();
 
         try {
@@ -761,7 +761,7 @@ public class KioskListActivity extends AppCompatActivity {
 //            }
 //        }
         intent.putExtra("ADD_FIELD", ADD_FIELD);							// 모르겠음
-        intent.putExtra("TIMEOUT","60");							// 아마 결제 시 타임아웃 지정
+        intent.putExtra("TIMEOUT","80");							// 아마 결제 시 타임아웃 지정
 
         intent.putExtra("TEXT_PROCESS","결제 진행중입니다");		// 결제 진행중 문구
         intent.putExtra("TEXT_COMPLETE", "결제가 완료되었습니다");	// 결제 완료시 문구

@@ -134,7 +134,7 @@ public class PopupActivity extends Activity {
         countDisplayTv.setTypeface(typeface);
         countIncreaseButton .setTypeface(typeface);
 
-        idleTimer = new IdleTimer(this, 120000, 1000);
+        idleTimer = new IdleTimer(this, 150000, 1000);
         idleTimer.start();
     }
 

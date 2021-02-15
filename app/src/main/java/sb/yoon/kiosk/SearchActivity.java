@@ -56,7 +56,7 @@ public class SearchActivity extends Activity {
             }
         });
 
-        idleTimer = new IdleTimer(this, 120000, 1000);
+        idleTimer = new IdleTimer(this, 150000, 1000);
         idleTimer.start();
     }
 
