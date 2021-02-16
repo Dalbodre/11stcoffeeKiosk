@@ -46,9 +46,12 @@ public class OrderNumberPopupActivity extends Activity {
         } else {
             TextView text2 = findViewById(R.id.text2);
             TextView banner = findViewById(R.id.result_banner);
+            TextView text1 = findViewById(R.id.text1);
             banner.setText("결제 오류");
             text2.setText("결제 오류가 발생했습니다.\n에러코드:" + result_code);
             text3.setText("에러로 인해 카드 결제가 불가능합니다. \n 카운터에서 결제 안내해드리겠습니다.");
+            text1.setText(getResources().getIdentifier("card_err_" + result_code,"string",getPackageName()));
+            text1.setTextSize(30f);
             text3.setTextColor(ContextCompat.getColor(this, R.color.hotRed));
         }
 
