@@ -79,6 +79,7 @@ import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -1081,6 +1082,7 @@ public class KioskListActivity extends AppCompatActivity {
                         jsonObject.put("totalPrice", totalPriceView.getTag());
                         jsonObject.put("approvalNumber", card_approval_num);
                         jsonObject.put("approvalDate", card_approval_date);
+                        Collections.sort(cartMenuList);
                         jsonObject.put("menus", new JSONArray(gson.toJson(cartMenuList,
                                 new TypeToken<List<CartMenu>>() {
                                 }.getType())));

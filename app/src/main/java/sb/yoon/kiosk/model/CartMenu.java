@@ -8,7 +8,7 @@ import com.google.gson.annotations.Expose;
 
 import java.util.List;
 
-public class CartMenu implements Parcelable {
+public class CartMenu implements Parcelable, Comparable<CartMenu> {
     private Drawable icon;
 
     // Gson에서 긁을 멤버변수들 지정
@@ -181,4 +181,9 @@ public class CartMenu implements Parcelable {
             return new CartMenu[size];
         }
     };
+
+    @Override
+    public int compareTo(CartMenu otherCartMenu) {
+        return this.name.compareTo(otherCartMenu.getName());
+    }
 }

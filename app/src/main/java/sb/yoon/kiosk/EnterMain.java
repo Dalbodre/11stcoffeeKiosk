@@ -182,6 +182,7 @@ public class EnterMain extends AppCompatActivity {
                 Toast.makeText(EnterMain.this.getApplicationContext(), "서버와 연결되어 있지 않습니다. 직원에게 문의하세요.",Toast.LENGTH_SHORT).show();
             }
         }, 0);
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
     }
 
     private class easterClickListener implements View.OnClickListener {
