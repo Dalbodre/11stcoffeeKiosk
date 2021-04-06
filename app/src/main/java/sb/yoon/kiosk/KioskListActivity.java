@@ -1079,16 +1079,24 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            // Size 2x
+            // Size width 2x
             mIntBuf[0] = CMD_GS;
             mIntBuf[1] = '!';
-            mIntBuf[2] = 0x11;
+            mIntBuf[2] = 0x10;
             mDataCnt = 3;
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
+
             // Todo mTotalPrice
             int p = Math.toIntExact(Math.round(totalPrice / 1.1));
+
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x61;
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
+            sendCommand(mDevice, mIntBuf, mDataCnt);
+
             mTotalPrice = " 합계금액 : ";
 
             mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
@@ -1100,24 +1108,38 @@ public class KioskListActivity extends AppCompatActivity {
             }
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
-
-            mTotalPrice = "\t\t\t"+totalPrice+"원 \n";
-
-            mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
-            mDataCnt = mByteBuf.length;
-            mIntBuf = new int[mDataCnt];
-            // set data to integer buffer
-            for(i=0;i<mDataCnt;i++) {
-                mIntBuf[i] = (int) mByteBuf[i];
-            }
-
             mIntBuf[0] = CMD_ESC;
             mIntBuf[1] = 0x61;
-            mIntBuf[2] = 0x02;
+            mIntBuf[2] = 0x01;
             mDataCnt = 3;
             sendCommand(mDevice, mIntBuf, mDataCnt);
 
-            mTotalPrice = " 공급가 : ";
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x61;
+            mIntBuf[2] = 0x02;
+            mDataCnt = 3;
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mTotalPrice = String.format("\t%d 원  \n", totalPrice);
+
+            mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+//
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x61;
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
+            sendCommand(mDevice, mIntBuf, mDataCnt);
+
+            mTotalPrice = " 공급가액 : ";
 
             mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
@@ -1136,7 +1158,7 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            mTotalPrice = String.format(p+"원 \n");
+            mTotalPrice = String.format("\t%d 원  \n", p);
 
             mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
@@ -1145,6 +1167,7 @@ public class KioskListActivity extends AppCompatActivity {
             for(i=0;i<mDataCnt;i++) {
                 mIntBuf[i] = (int) mByteBuf[i];
             }
+            sendCommand(mDevice,mIntBuf,mDataCnt);
 
             mIntBuf[0] = CMD_ESC;
             mIntBuf[1] = 0x61;
@@ -1152,7 +1175,7 @@ public class KioskListActivity extends AppCompatActivity {
             mDataCnt = 3;
             sendCommand(mDevice, mIntBuf, mDataCnt);
 
-            mTotalPrice = " 부가세 : ";
+            mTotalPrice = " 부가세 :    ";
 
             mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
@@ -1171,7 +1194,7 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            mTotalPrice = String.format((totalPrice-p)+"원 \n");
+            mTotalPrice = String.format("\t%d 원  \n", (totalPrice-p));
 
             mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
@@ -1180,6 +1203,7 @@ public class KioskListActivity extends AppCompatActivity {
             for(i=0;i<mDataCnt;i++) {
                 mIntBuf[i] = (int) mByteBuf[i];
             }
+            sendCommand(mDevice,mIntBuf,mDataCnt);
 
             mIntBuf[0] = CMD_ESC;
             mIntBuf[1] = 0x61;
