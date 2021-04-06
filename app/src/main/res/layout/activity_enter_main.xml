@@ -26,7 +26,7 @@
         android:layout_marginBottom="200px"
         android:background="@drawable/orderbutton"
         android:onClick="buttonClicked"
-        android:text="주문하기"
+        android:text="작업중"
         android:textColor="#0a1527"
         android:textSize="130px"
         android:textStyle="bold" />
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/enter_easter"
         android:layout_marginTop="100px"
-        android:text="카운터에서도\n주문 가능합니다."
+        android:text="작업중입니다.\n카운터에서 주문해주세요."
         android:textAlignment="center"
         android:textColor="#fec93d"
         android:textSize="90px"
