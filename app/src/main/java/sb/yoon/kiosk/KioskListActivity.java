@@ -156,6 +156,10 @@ public class KioskListActivity extends AppCompatActivity {
     private Button purchaseButton;
     private int totalPrice = 0;
 
+    private String card_name;
+    private String acc_name;
+    private String card_num;
+
 
     @Override
     public boolean onCreatePanelMenu(int featureId, @NonNull android.view.Menu menu) {
@@ -1079,13 +1083,6 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            // Size width 2x
-            mIntBuf[0] = CMD_GS;
-            mIntBuf[1] = '!';
-            mIntBuf[2] = 0x10;
-            mDataCnt = 3;
-            // call send data
-            sendCommand(mDevice,mIntBuf,mDataCnt);
 
 
             // Todo mTotalPrice
@@ -1093,53 +1090,33 @@ public class KioskListActivity extends AppCompatActivity {
 
             mIntBuf[0] = CMD_ESC;
             mIntBuf[1] = 0x61;
-            mIntBuf[2] = 0x00;
-            mDataCnt = 3;
-            sendCommand(mDevice, mIntBuf, mDataCnt);
-
-            mTotalPrice = " 합계금액 : ";
-
-            mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
-            mDataCnt = mByteBuf.length;
-            mIntBuf = new int[mDataCnt];
-            // set data to integer buffer
-            for(i=0;i<mDataCnt;i++) {
-                mIntBuf[i] = (int) mByteBuf[i];
-            }
-            // call send data
-            sendCommand(mDevice,mIntBuf,mDataCnt);
-            mIntBuf[0] = CMD_ESC;
-            mIntBuf[1] = 0x61;
-            mIntBuf[2] = 0x01;
-            mDataCnt = 3;
-            sendCommand(mDevice, mIntBuf, mDataCnt);
-
-            mIntBuf[0] = CMD_ESC;
-            mIntBuf[1] = 0x61;
             mIntBuf[2] = 0x02;
             mDataCnt = 3;
-            // call send data
-            sendCommand(mDevice,mIntBuf,mDataCnt);
+            sendCommand(mDevice, mIntBuf, mDataCnt);
 
-            mTotalPrice = String.format("\t%d 원  \n", totalPrice);
-
-            mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
-            mDataCnt = mByteBuf.length;
-            mIntBuf = new int[mDataCnt];
-            // set data to integer buffer
-            for(i=0;i<mDataCnt;i++) {
-                mIntBuf[i] = (int) mByteBuf[i];
-            }
-
-            sendCommand(mDevice,mIntBuf,mDataCnt);
-//
-            mIntBuf[0] = CMD_ESC;
-            mIntBuf[1] = 0x61;
-            mIntBuf[2] = 0x00;
+            mIntBuf[0] = CMD_GS;
+            mIntBuf[1] = '!';
+            mIntBuf[2] = 0x11;
             mDataCnt = 3;
             sendCommand(mDevice, mIntBuf, mDataCnt);
 
-            mTotalPrice = " 공급가액 : ";
+
+            mTotalPrice = "  합계금액 : ";
+            mTotalPrice += totalPrice + " 원 \n";
+            mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+
+            mTotalPrice = "  공급가액 : ";
+
+            mTotalPrice += p + " 원 \n";
 
             mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
@@ -1151,32 +1128,10 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            mIntBuf[0] = CMD_ESC;
-            mIntBuf[1] = 0x61;
-            mIntBuf[2] = 0x02;
-            mDataCnt = 3;
-            // call send data
-            sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            mTotalPrice = String.format("\t%d 원  \n", p);
+            mTotalPrice = "   부가세 : ";
 
-            mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
-            mDataCnt = mByteBuf.length;
-            mIntBuf = new int[mDataCnt];
-            // set data to integer buffer
-            for(i=0;i<mDataCnt;i++) {
-                mIntBuf[i] = (int) mByteBuf[i];
-            }
-            sendCommand(mDevice,mIntBuf,mDataCnt);
-
-            mIntBuf[0] = CMD_ESC;
-            mIntBuf[1] = 0x61;
-            mIntBuf[2] = 0x00;
-            mDataCnt = 3;
-            sendCommand(mDevice, mIntBuf, mDataCnt);
-
-            mTotalPrice = " 부가세 :    ";
-
+            mTotalPrice += totalPrice-p + " 원 \n";
             mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
             mIntBuf = new int[mDataCnt];
@@ -1187,29 +1142,6 @@ public class KioskListActivity extends AppCompatActivity {
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
-            mIntBuf[0] = CMD_ESC;
-            mIntBuf[1] = 0x61;
-            mIntBuf[2] = 0x02;
-            mDataCnt = 3;
-            // call send data
-            sendCommand(mDevice,mIntBuf,mDataCnt);
-
-            mTotalPrice = String.format("\t%d 원  \n", (totalPrice-p));
-
-            mByteBuf = mTotalPrice.getBytes(Charset.forName("EUC-KR"));
-            mDataCnt = mByteBuf.length;
-            mIntBuf = new int[mDataCnt];
-            // set data to integer buffer
-            for(i=0;i<mDataCnt;i++) {
-                mIntBuf[i] = (int) mByteBuf[i];
-            }
-            sendCommand(mDevice,mIntBuf,mDataCnt);
-
-            mIntBuf[0] = CMD_ESC;
-            mIntBuf[1] = 0x61;
-            mIntBuf[2] = 0x00;
-            mDataCnt = 3;
-            sendCommand(mDevice, mIntBuf, mDataCnt);
 
             // Size width 2x
             mIntBuf[0] = CMD_GS;
@@ -1218,6 +1150,13 @@ public class KioskListActivity extends AppCompatActivity {
             mDataCnt = 3;
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x61;
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
+            sendCommand(mDevice, mIntBuf, mDataCnt);
+
 
             // Todo mBar
             mByteBuf = mBar.getBytes(Charset.forName("EUC-KR"));
@@ -1249,6 +1188,8 @@ public class KioskListActivity extends AppCompatActivity {
 
             mStr = "\n신용카드 승인 정보\n";
 
+
+
             mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
             mIntBuf = new int[mDataCnt];
@@ -1264,6 +1205,119 @@ public class KioskListActivity extends AppCompatActivity {
             mIntBuf[1] = '!';
             mIntBuf[2] = 0x00;
             mDataCnt = 3;
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // Bold On
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x45;
+            mIntBuf[2] = 0x01;
+            mDataCnt = 3;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mStr = "카드명: ";
+            mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // Bold Off
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x45;
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mStr = card_name+"\n";
+            mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x45;
+            mIntBuf[2] = 0x01;
+            mDataCnt = 3;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mStr = "카드번호 : ";
+            mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // Bold Off
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x45;
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mStr = card_num+"**********\n";
+            mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x45;
+            mIntBuf[2] = 0x01;
+            mDataCnt = 3;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x45;
+            mIntBuf[2] = 0x01;
+            mDataCnt = 3;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mStr = "매입사명 : ";
+            mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
+            // call send data
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            // Bold Off
+            mIntBuf[0] = CMD_ESC;
+            mIntBuf[1] = 0x45;
+            mIntBuf[2] = 0x00;
+            mDataCnt = 3;
+            sendCommand(mDevice,mIntBuf,mDataCnt);
+
+            mStr = acc_name+"\n";
+            mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
+            mDataCnt = mByteBuf.length;
+            mIntBuf = new int[mDataCnt];
+            // set data to integer buffer
+            for(i=0;i<mDataCnt;i++) {
+                mIntBuf[i] = (int) mByteBuf[i];
+            }
             // call send data
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
@@ -1378,6 +1432,9 @@ public class KioskListActivity extends AppCompatActivity {
             mDataCnt = 3;
             sendCommand(mDevice,mIntBuf,mDataCnt);
 
+
+
+
             mStr = "승인일시 : ";
             mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
             mDataCnt = mByteBuf.length;
@@ -1413,6 +1470,8 @@ public class KioskListActivity extends AppCompatActivity {
             mIntBuf[2] = 0x01;
             mDataCnt = 3;
             sendCommand(mDevice,mIntBuf,mDataCnt);
+
+
 
             mStr = "승인번호 : ";
             mByteBuf = mStr.getBytes(Charset.forName("EUC-KR"));
@@ -1584,6 +1643,12 @@ public class KioskListActivity extends AppCompatActivity {
                                 card_approval_num = extras.get(_key).toString();
                             } else if (_key.equals("APPROVAL_DATE")) {
                                 card_approval_date = extras.get(_key).toString();
+                            } else if (_key.equals("CARD_NAME")){
+                                card_name = extras.get(_key).toString();
+                            } else if (_key.equals("ACQUIRER_NAME")){
+                                acc_name = extras.get(_key).toString();
+                            } else if (_key.equals("CARD_NUM")){
+                                card_num = extras.get(_key).toString();
                             }
                             i2.putExtra(_key, extras.get(_key).toString());
                         }
