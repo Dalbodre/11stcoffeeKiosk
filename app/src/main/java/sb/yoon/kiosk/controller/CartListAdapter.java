@@ -35,6 +35,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         protected TextView tempText;
         protected TextView takeOutText;
         protected ImageButton cancel_button;
+        protected TextView options;
 
         public CustomViewHolder(View v){
             super(v);
@@ -43,6 +44,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
             this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
             this.tempText = v.findViewById(R.id.temp);
             this.takeOutText = v.findViewById(R.id.cart_item_take_out);
+            this.options = v.findViewById(R.id.options);
             this.context = (KioskListActivity) v.getContext();
         }
 
@@ -68,9 +70,35 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
     @Override
     public void onBindViewHolder(@NonNull final CustomViewHolder viewHolder, final int position) {
         viewHolder.itemElement.setImageDrawable(cartMenuList.get(position).getIcon());
+        viewHolder.options.setVisibility(View.GONE);
+        viewHolder.itemElement.setOnClickListener(v -> {
+            if (viewHolder.options.getVisibility() == View.GONE)
+                viewHolder.options.setVisibility(View.VISIBLE);
+            else
+                viewHolder.options.setVisibility(View.GONE);
+        });
         //viewHolder.itemElement.setName(cartMenuList.get(position).getName());
         viewHolder.price.setText(Integer.toString(cartMenuList.get(position).getTotalPrice()));
-        List<CartOption> OptionList = cartMenuList.get(position).getOptions();
+        List<CartOption> optionList = cartMenuList.get(position).getOptions();
+
+        StringBuilder optionString = new StringBuilder();
+        int index = 0;
+        if (cartMenuList.get(position).isTumbler()) {
+            optionString.append("텀블러: YES");
+            if (optionList.size() > 0) {
+                optionString.append("\n");
+            }
+        }
+        for (CartOption option : optionList) {
+            if (option.getQuantity() > 0) {
+                optionString.append(option.getName()).append(":").append(option.getQuantity());
+                if (index < optionList.size()) {
+                    optionString.append("\n");
+                }
+            }
+            index += 1;
+        }
+        viewHolder.options.setText(optionString);
         //String menuTemp = OptionList.get()
 
         if (cartMenuList.get(position).isTakeOut()) {
@@ -80,12 +108,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
         }
         viewHolder.tempText.setText(cartMenuList.get(position).getTemp());
 
-        viewHolder.cancel_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                viewHolder.getContext().delCartMenuList(position);
-            }
-        });
+        viewHolder.cancel_button.setOnClickListener(view -> viewHolder.getContext().delCartMenuList(position));
     }
 
     @Override
