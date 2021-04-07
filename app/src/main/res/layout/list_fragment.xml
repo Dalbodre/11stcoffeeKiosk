@@ -2,7 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:scrollbarFadeDuration="0"
+    android:scrollbarSize="17dp"
+    android:scrollbarThumbVertical="@color/colorPrimaryDark">
 
 
     <ListView
@@ -13,6 +17,10 @@
         android:layout_weight="1"
         android:divider="@color/colorWhite"
         android:dividerHeight="30px"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarFadeDuration="0"
+        android:scrollbarSize="20dp"
+        android:scrollbarStyle="outsideOverlay"
         android:tag="testlist" />
 
 

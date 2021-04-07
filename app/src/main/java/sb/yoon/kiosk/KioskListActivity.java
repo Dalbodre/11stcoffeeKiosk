@@ -550,15 +550,17 @@ public class KioskListActivity extends AppCompatActivity {
     }
 
     private void updateCartTotalPrice() {
+        int uTotalPrice = 0;
         TextView totalPriceView = this.findViewById(R.id.total_price);
         for (CartMenu cartMenu :
                 this.cartMenuList) {
-            totalPrice += cartMenu.getTotalPrice();
+            uTotalPrice += cartMenu.getTotalPrice();
         }
         totalPriceView.setTag(totalPrice);
         String text = Integer.toString(totalPrice) + " 원";
         totalPriceView.setText(text);
         totalPriceView.setTextSize(70f);
+        totalPrice = uTotalPrice;
     }
 
     public void delCartMenuList(int position) {
