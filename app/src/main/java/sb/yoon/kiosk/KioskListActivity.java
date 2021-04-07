@@ -556,8 +556,8 @@ public class KioskListActivity extends AppCompatActivity {
                 this.cartMenuList) {
             uTotalPrice += cartMenu.getTotalPrice();
         }
-        totalPriceView.setTag(totalPrice);
-        String text = Integer.toString(totalPrice) + " 원";
+        totalPriceView.setTag(uTotalPrice);
+        String text = Integer.toString(uTotalPrice) + " 원";
         totalPriceView.setText(text);
         totalPriceView.setTextSize(70f);
         totalPrice = uTotalPrice;
