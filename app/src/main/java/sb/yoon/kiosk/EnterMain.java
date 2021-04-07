@@ -46,10 +46,13 @@ import java.util.regex.Pattern;
 
 import sb.yoon.kiosk.controller.HttpNetworkController;
 
+
 public class EnterMain extends AppCompatActivity {
     ProgressBar progressBar;
     private View employee_easter;
     ImageView SettingButton;
+    TextView t;
+    Button b;
 
     private int easterCount = 0;
     private int employeeCount = 0;
@@ -61,6 +64,8 @@ public class EnterMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_main);
 
+        t = findViewById(R.id.splash_title);
+        b = findViewById(R.id.enter_main_button);
         progressBar = findViewById(R.id.progressBar);
         ImageView EASTER = findViewById(R.id.enter_easter);
         EASTER.setOnClickListener(new easterClickListener());
@@ -185,14 +190,34 @@ public class EnterMain extends AppCompatActivity {
         progressBar.setVisibility(ProgressBar.INVISIBLE);
     }
 
-    private class easterClickListener implements View.OnClickListener {
+    private class easterClickListener extends Thread implements View.OnClickListener {
+        @Override
+        public void run() {
+            easterCount = 0;
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
         @Override
         public void onClick(View v) {
-            easterCount++;
-            if (easterCount == 3 || easterCount == 4) {
-                Toast.makeText(EnterMain.this, easterCount + "만큼 입력하셨습니다.", Toast.LENGTH_SHORT).show();
+            run();
+
+            if (easterCount == 3) {
+                if(!b.getText().toString().equals( "작업중")) {
+                    Toast.makeText(EnterMain.this.getApplicationContext(), "작업모드로 전환합니다.", Toast.LENGTH_SHORT).show();
+                    t.setText("키오스크 작업중입니다.\n카운터에서 주문 도와드리겠습니다.");
+                    b.setText("작업중");
+                }
+                else{
+                    Toast.makeText(EnterMain.this.getApplicationContext(), "주문모드로 전환합니다.", Toast.LENGTH_SHORT).show();
+                    t.setText("카운터에서도\n주문 가능합니다.");
+                    b.setText("주문하기");
+                }
             }
-            if (easterCount == 5) {
+            if (easterCount == 4) {
                 Intent intent = new Intent(EnterMain.this, AdminActivity.class);
                 startActivity(intent);
                 // finish();
