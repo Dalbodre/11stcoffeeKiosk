@@ -1,4 +1,4 @@
-package sb.yoon.kiosk;
+package sb.yoon.kiosk2;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,8 +16,8 @@ import android.widget.ViewFlipper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.ListFragment;
-import sb.yoon.kiosk.controller.KioskListAdapter;
-import sb.yoon.kiosk.model.Menu;
+import sb.yoon.kiosk2.controller.KioskListAdapter;
+import sb.yoon.kiosk2.model.Menu;
 
 import java.util.List;
 

@@ -9,7 +9,7 @@
     android:descendantFocusability="blocksDescendants"
     android:padding="10dp">
 
-    <sb.yoon.kiosk.layout.ItemElement
+    <sb.yoon.kiosk2.layout.ItemElement
         android:id="@+id/menu_element"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -33,25 +33,25 @@
             android:layout_marginStart="10px"
             android:orientation="horizontal">
 
-            <sb.yoon.kiosk.layout.IngredientItem
+            <sb.yoon.kiosk2.layout.IngredientItem
                 android:id="@+id/ingredient1"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.IngredientItem
+            <sb.yoon.kiosk2.layout.IngredientItem
                 android:id="@+id/ingredient2"
                 android:layout_width="130dp"
                 android:layout_height="150dp"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.IngredientItem
+            <sb.yoon.kiosk2.layout.IngredientItem
                 android:id="@+id/ingredient3"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:visibility="gone" />
 
-            <sb.yoon.kiosk.layout.IngredientItem
+            <sb.yoon.kiosk2.layout.IngredientItem
                 android:id="@+id/ingredient4"
                 android:layout_width="130dp"
                 android:layout_height="150dp"

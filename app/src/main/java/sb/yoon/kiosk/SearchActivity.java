@@ -1,4 +1,4 @@
-package sb.yoon.kiosk;
+package sb.yoon.kiosk2;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,13 +14,13 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.List;
 
-import sb.yoon.kiosk.controller.DbQueryController;
-import sb.yoon.kiosk.controller.SearchRecyclerViewAdapter;
-import sb.yoon.kiosk.layout.SearchItemDecoration;
-import sb.yoon.kiosk.libs.IdleTimer;
-import sb.yoon.kiosk.model.Ingredient;
-import sb.yoon.kiosk.model.IngredientDao;
-import sb.yoon.kiosk.model.Menu;
+import sb.yoon.kiosk2.controller.DbQueryController;
+import sb.yoon.kiosk2.controller.SearchRecyclerViewAdapter;
+import sb.yoon.kiosk2.layout.SearchItemDecoration;
+import sb.yoon.kiosk2.libs.IdleTimer;
+import sb.yoon.kiosk2.model.Ingredient;
+import sb.yoon.kiosk2.model.IngredientDao;
+import sb.yoon.kiosk2.model.Menu;
 
 public class SearchActivity extends Activity {
     private List<Ingredient> ingredientList;

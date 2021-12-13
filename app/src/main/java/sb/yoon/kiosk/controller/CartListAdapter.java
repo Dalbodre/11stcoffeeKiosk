@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.controller;
+package sb.yoon.kiosk2.controller;
 
 import android.icu.text.UFormat;
 import android.media.Image;
@@ -17,11 +17,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-import sb.yoon.kiosk.KioskListActivity;
-import sb.yoon.kiosk.R;
-import sb.yoon.kiosk.layout.IngredientItem;
-import sb.yoon.kiosk.model.CartMenu;
-import sb.yoon.kiosk.model.CartOption;
+import sb.yoon.kiosk2.KioskListActivity;
+import sb.yoon.kiosk2.R;
+import sb.yoon.kiosk2.layout.IngredientItem;
+import sb.yoon.kiosk2.model.CartMenu;
+import sb.yoon.kiosk2.model.CartOption;
 
 // 어뎁터 클래스
 public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.CustomViewHolder> {

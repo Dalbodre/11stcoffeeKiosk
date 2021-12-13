@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.controller;
+package sb.yoon.kiosk2.controller;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import sb.yoon.kiosk.R;
-import sb.yoon.kiosk.model.Ingredient;
+import sb.yoon.kiosk2.R;
+import sb.yoon.kiosk2.model.Ingredient;
 
 public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecyclerViewAdapter.CustomViewHolder> {
     private List<Ingredient> ingredients = new ArrayList<>();

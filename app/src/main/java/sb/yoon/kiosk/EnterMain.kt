@@ -1,4 +1,4 @@
-package sb.yoon.kiosk
+package sb.yoon.kiosk2
 
 import android.Manifest
 import android.app.AlertDialog

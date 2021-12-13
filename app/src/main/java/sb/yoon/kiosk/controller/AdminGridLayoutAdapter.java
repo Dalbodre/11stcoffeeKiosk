@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.controller;
+package sb.yoon.kiosk2.controller;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,11 +7,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 
-import sb.yoon.kiosk.AdminAddActivity;
-import sb.yoon.kiosk.AdminTabFragment;
-import sb.yoon.kiosk.KioskApplication;
-import sb.yoon.kiosk.model.IngredientsAndMenuJoinerDao;
-import sb.yoon.kiosk.model.Menu;
+import sb.yoon.kiosk2.AdminAddActivity;
+import sb.yoon.kiosk2.AdminTabFragment;
+import sb.yoon.kiosk2.KioskApplication;
+import sb.yoon.kiosk2.model.IngredientsAndMenuJoinerDao;
+import sb.yoon.kiosk2.model.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -25,9 +25,9 @@ import androidx.fragment.app.FragmentActivity;
 import java.io.File;
 import java.util.List;
 
-import sb.yoon.kiosk.AdminActivity;
-import sb.yoon.kiosk.R;
-import sb.yoon.kiosk.model.MenuDao;
+import sb.yoon.kiosk2.AdminActivity;
+import sb.yoon.kiosk2.R;
+import sb.yoon.kiosk2.model.MenuDao;
 
 // 플래그먼트 내부의 그리드레이아웃을 담당하는 어댑터
 public class AdminGridLayoutAdapter extends BaseAdapter {

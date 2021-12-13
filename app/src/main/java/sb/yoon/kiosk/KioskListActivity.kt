@@ -1,10 +1,10 @@
-package sb.yoon.kiosk
+package sb.yoon.kiosk2
 
-import sb.yoon.kiosk.controller.HttpNetworkController
+import sb.yoon.kiosk2.controller.HttpNetworkController
 import androidx.appcompat.app.AppCompatActivity
-import sb.yoon.kiosk.model.CartMenu
-import sb.yoon.kiosk.controller.CartListAdapter
-import sb.yoon.kiosk.controller.DbQueryController
+import sb.yoon.kiosk2.model.CartMenu
+import sb.yoon.kiosk2.controller.CartListAdapter
+import sb.yoon.kiosk2.controller.DbQueryController
 import com.google.android.material.tabs.TabLayout
 import android.widget.ToggleButton
 import android.widget.TextView
@@ -34,8 +34,8 @@ import org.json.JSONObject
 import org.json.JSONArray
 import com.google.gson.reflect.TypeToken
 import org.json.JSONException
-import sb.yoon.kiosk.libs.*
-import sb.yoon.kiosk.model.Category
+import sb.yoon.kiosk2.libs.*
+import sb.yoon.kiosk2.model.Category
 import java.io.IOException
 import java.lang.Exception
 import java.net.InetSocketAddress

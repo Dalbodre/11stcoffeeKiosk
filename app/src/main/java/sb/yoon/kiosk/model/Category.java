@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.model;
+package sb.yoon.kiosk2.model;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;

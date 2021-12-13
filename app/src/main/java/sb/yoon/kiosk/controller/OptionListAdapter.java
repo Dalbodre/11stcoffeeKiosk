@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.controller;
+package sb.yoon.kiosk2.controller;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -21,9 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import sb.yoon.kiosk.PopupActivity;
-import sb.yoon.kiosk.R;
-import sb.yoon.kiosk.model.CartOption;
+import sb.yoon.kiosk2.PopupActivity;
+import sb.yoon.kiosk2.R;
+import sb.yoon.kiosk2.model.CartOption;
 
 public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.CustomViewHolder> {
     protected List<CartOption> optionList = new ArrayList<>();

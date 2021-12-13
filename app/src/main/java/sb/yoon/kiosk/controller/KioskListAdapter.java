@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.controller;
+package sb.yoon.kiosk2.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,18 +10,18 @@ import android.widget.*;
 
 import androidx.core.content.ContextCompat;
 
-import sb.yoon.kiosk.KioskApplication;
-import sb.yoon.kiosk.KioskListActivity;
-import sb.yoon.kiosk.PopupActivity;
-import sb.yoon.kiosk.R;
-import sb.yoon.kiosk.layout.ItemElement;
-import sb.yoon.kiosk.layout.IngredientItem;
-import sb.yoon.kiosk.model.CartMenu;
-import sb.yoon.kiosk.model.CartOption;
-import sb.yoon.kiosk.model.Category;
-import sb.yoon.kiosk.model.Ingredient;
-import sb.yoon.kiosk.model.Menu;
-import sb.yoon.kiosk.model.Option;
+import sb.yoon.kiosk2.KioskApplication;
+import sb.yoon.kiosk2.KioskListActivity;
+import sb.yoon.kiosk2.PopupActivity;
+import sb.yoon.kiosk2.R;
+import sb.yoon.kiosk2.layout.ItemElement;
+import sb.yoon.kiosk2.layout.IngredientItem;
+import sb.yoon.kiosk2.model.CartMenu;
+import sb.yoon.kiosk2.model.CartOption;
+import sb.yoon.kiosk2.model.Category;
+import sb.yoon.kiosk2.model.Ingredient;
+import sb.yoon.kiosk2.model.Menu;
+import sb.yoon.kiosk2.model.Option;
 
 import java.util.ArrayList;
 import java.util.List;

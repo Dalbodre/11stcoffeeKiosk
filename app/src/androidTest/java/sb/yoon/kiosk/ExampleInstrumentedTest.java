@@ -1,4 +1,4 @@
-package sb.yoon.kiosk;
+package sb.yoon.kiosk2;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;
@@ -20,6 +20,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("sb.yoon.kiosk", appContext.getPackageName());
+        assertEquals("sb.yoon.kiosk2", appContext.getPackageName());
     }
 }

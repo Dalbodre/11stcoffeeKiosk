@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.dummy;
+package sb.yoon.kiosk2.dummy;
 
 import java.util.ArrayList;
 import java.util.HashMap;

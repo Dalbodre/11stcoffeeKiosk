@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.layout;
+package sb.yoon.kiosk2.layout;
 
 import android.app.Activity;
 import android.graphics.Rect;

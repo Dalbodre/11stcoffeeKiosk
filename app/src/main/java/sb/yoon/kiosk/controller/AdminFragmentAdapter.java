@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.controller;
+package sb.yoon.kiosk2.controller;
 
 import android.content.Context;
 
@@ -11,10 +11,10 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import sb.yoon.kiosk.AdminActivity;
-import sb.yoon.kiosk.AdminTabFragment;
-import sb.yoon.kiosk.model.Category;
-import sb.yoon.kiosk.model.Menu;
+import sb.yoon.kiosk2.AdminActivity;
+import sb.yoon.kiosk2.AdminTabFragment;
+import sb.yoon.kiosk2.model.Category;
+import sb.yoon.kiosk2.model.Menu;
 
 public class AdminFragmentAdapter extends FragmentStateAdapter {
     private int size = 0;

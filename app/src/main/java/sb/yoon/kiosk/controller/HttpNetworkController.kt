@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.controller
+package sb.yoon.kiosk2.controller
 
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.RequestQueue
@@ -8,7 +8,7 @@ import androidx.annotation.RequiresApi
 import android.os.Build
 import android.util.Log
 import com.android.volley.Request
-import sb.yoon.kiosk.KioskListActivity
+import sb.yoon.kiosk2.KioskListActivity
 import org.json.JSONException
 import com.android.volley.toolbox.Volley
 

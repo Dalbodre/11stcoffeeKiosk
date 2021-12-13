@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.layout;
+package sb.yoon.kiosk2.layout;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat;
 
 import java.util.List;
 
-import sb.yoon.kiosk.R;
+import sb.yoon.kiosk2.R;
 
 public class CategoryButton extends androidx.appcompat.widget.AppCompatToggleButton {
     private String categoryName;

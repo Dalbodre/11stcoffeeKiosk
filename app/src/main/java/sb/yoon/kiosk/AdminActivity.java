@@ -1,4 +1,4 @@
-package sb.yoon.kiosk;
+package sb.yoon.kiosk2;
 
 
 import android.content.ComponentName;
@@ -22,12 +22,12 @@ import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.List;
 
-import sb.yoon.kiosk.controller.AdminGridLayoutAdapter;
-import sb.yoon.kiosk.controller.AdminFragmentAdapter;
-import sb.yoon.kiosk.controller.DbQueryController;
-import sb.yoon.kiosk.controller.KioskListAdapter;
-import sb.yoon.kiosk.layout.CategoryButton;
-import sb.yoon.kiosk.model.Category;
+import sb.yoon.kiosk2.controller.AdminGridLayoutAdapter;
+import sb.yoon.kiosk2.controller.AdminFragmentAdapter;
+import sb.yoon.kiosk2.controller.DbQueryController;
+import sb.yoon.kiosk2.controller.KioskListAdapter;
+import sb.yoon.kiosk2.layout.CategoryButton;
+import sb.yoon.kiosk2.model.Category;
 
 public class AdminActivity extends AppCompatActivity {
     private TabLayout tabLayout;

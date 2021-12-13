@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.libs;
+package sb.yoon.kiosk2.libs;
 
 import android.util.Log;
 

@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.libs
+package sb.yoon.kiosk2.libs
 
 import android.content.Context
 import android.content.Intent
@@ -10,8 +10,8 @@ import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat.getSystemService
-import sb.yoon.kiosk.model.CartMenu
-import sb.yoon.kiosk.noPaperDlg
+import sb.yoon.kiosk2.model.CartMenu
+import sb.yoon.kiosk2.noPaperDlg
 import java.lang.Exception
 import java.lang.StringBuilder
 import java.nio.charset.Charset

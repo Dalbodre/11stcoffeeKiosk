@@ -1,4 +1,4 @@
-package sb.yoon.kiosk;
+package sb.yoon.kiosk2;
 
 import org.junit.Test;
 

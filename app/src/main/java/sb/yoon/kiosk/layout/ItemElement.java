@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.layout;
+package sb.yoon.kiosk2.layout;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import sb.yoon.kiosk.R;
+import sb.yoon.kiosk2.R;
 
 public class ItemElement extends LinearLayout{
     private Drawable image;

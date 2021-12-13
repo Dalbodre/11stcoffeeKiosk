@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.model;
+package sb.yoon.kiosk2.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

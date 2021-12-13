@@ -1,9 +1,9 @@
-package sb.yoon.kiosk.libs;
+package sb.yoon.kiosk2.libs;
 
 import android.app.Activity;
 import android.os.CountDownTimer;
 
-import sb.yoon.kiosk.KioskListActivity;
+import sb.yoon.kiosk2.KioskListActivity;
 
 public class IdleTimer extends CountDownTimer
 {

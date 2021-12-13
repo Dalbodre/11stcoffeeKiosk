@@ -1,4 +1,4 @@
-package sb.yoon.kiosk;
+package sb.yoon.kiosk2;
 
 
 import android.app.Activity;
@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import sb.yoon.kiosk.controller.AdminGridLayoutAdapter;
-import sb.yoon.kiosk.model.Menu;
+import sb.yoon.kiosk2.controller.AdminGridLayoutAdapter;
+import sb.yoon.kiosk2.model.Menu;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

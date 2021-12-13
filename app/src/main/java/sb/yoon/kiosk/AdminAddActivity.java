@@ -1,4 +1,4 @@
-package sb.yoon.kiosk;
+package sb.yoon.kiosk2;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -32,11 +32,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import sb.yoon.kiosk.controller.DbQueryController;
-import sb.yoon.kiosk.model.Category;
-import sb.yoon.kiosk.model.Menu;
-import sb.yoon.kiosk.model.Option;
-import sb.yoon.kiosk.model.OptionsAndMenuJoiner;
+import sb.yoon.kiosk2.controller.DbQueryController;
+import sb.yoon.kiosk2.model.Category;
+import sb.yoon.kiosk2.model.Menu;
+import sb.yoon.kiosk2.model.Option;
+import sb.yoon.kiosk2.model.OptionsAndMenuJoiner;
 
 public class AdminAddActivity extends AppCompatActivity {
 

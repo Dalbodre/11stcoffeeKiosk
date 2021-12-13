@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.layout;
+package sb.yoon.kiosk2.layout;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import sb.yoon.kiosk.R;
+import sb.yoon.kiosk2.R;
 
 public class IngredientItem extends RelativeLayout {
     private Drawable image;

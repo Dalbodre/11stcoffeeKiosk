@@ -1,4 +1,4 @@
-package sb.yoon.kiosk;
+package sb.yoon.kiosk2;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -7,10 +7,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 
-import sb.yoon.kiosk.controller.OptionListAdapter;
-import sb.yoon.kiosk.libs.IdleTimer;
-import sb.yoon.kiosk.model.CartMenu;
-import sb.yoon.kiosk.model.CartOption;
+import sb.yoon.kiosk2.controller.OptionListAdapter;
+import sb.yoon.kiosk2.libs.IdleTimer;
+import sb.yoon.kiosk2.model.CartMenu;
+import sb.yoon.kiosk2.model.CartOption;
 
 import android.util.Log;
 import android.view.Gravity;

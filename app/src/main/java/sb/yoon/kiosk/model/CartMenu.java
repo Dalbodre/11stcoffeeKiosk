@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.model;
+package sb.yoon.kiosk2.model;
 
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;

@@ -1,4 +1,4 @@
-package sb.yoon.kiosk.controller;
+package sb.yoon.kiosk2.controller;
 
 import android.util.Log;
 
@@ -7,19 +7,19 @@ import org.greenrobot.greendao.AbstractDao;
 import java.util.ArrayList;
 import java.util.List;
 
-import sb.yoon.kiosk.model.Category;
-import sb.yoon.kiosk.model.CategoryDao;
-import sb.yoon.kiosk.model.DaoSession;
-import sb.yoon.kiosk.model.Ingredient;
-import sb.yoon.kiosk.model.IngredientDao;
-import sb.yoon.kiosk.model.IngredientsAndMenuJoiner;
-import sb.yoon.kiosk.model.IngredientsAndMenuJoinerDao;
-import sb.yoon.kiosk.model.Menu;
-import sb.yoon.kiosk.model.MenuDao;
-import sb.yoon.kiosk.model.Option;
-import sb.yoon.kiosk.model.OptionDao;
-import sb.yoon.kiosk.model.OptionsAndMenuJoiner;
-import sb.yoon.kiosk.model.OptionsAndMenuJoinerDao;
+import sb.yoon.kiosk2.model.Category;
+import sb.yoon.kiosk2.model.CategoryDao;
+import sb.yoon.kiosk2.model.DaoSession;
+import sb.yoon.kiosk2.model.Ingredient;
+import sb.yoon.kiosk2.model.IngredientDao;
+import sb.yoon.kiosk2.model.IngredientsAndMenuJoiner;
+import sb.yoon.kiosk2.model.IngredientsAndMenuJoinerDao;
+import sb.yoon.kiosk2.model.Menu;
+import sb.yoon.kiosk2.model.MenuDao;
+import sb.yoon.kiosk2.model.Option;
+import sb.yoon.kiosk2.model.OptionDao;
+import sb.yoon.kiosk2.model.OptionsAndMenuJoiner;
+import sb.yoon.kiosk2.model.OptionsAndMenuJoinerDao;
 
 public class DbQueryController {
     private DaoSession daoSession;
