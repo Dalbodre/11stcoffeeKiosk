@@ -28,12 +28,9 @@ public class noPaperDlg {
         // 커스텀 다이얼로그를 노출한다.
         dlg.show();
         final Button noPaper = (Button)dlg.findViewById(R.id.noPaperButton);
-        noPaper.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                KioskListActivity.statusloop = true;
-                dlg.dismiss();
-            }
+        noPaper.setOnClickListener(view -> {
+            KioskListActivity.statusloop = true;
+            dlg.dismiss();
         });
     }
 }

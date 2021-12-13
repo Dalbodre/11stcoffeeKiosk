@@ -25,18 +25,18 @@ import java.net.Socket
 import java.net.SocketAddress
 
 class EnterMain : AppCompatActivity() {
-    var progressBar: ProgressBar
-    var t: TextView
-    var b: Button
+    val progressBar: ProgressBar by lazy {
+        findViewById(R.id.progressBar)
+    }
+    val t: TextView by lazy {
+        findViewById(R.id.splash_title)
+    }
+    val b: Button by lazy {
+        findViewById(R.id.enter_main_button)
+    }
     private var easterCount = 0
     private var employeeCount = 0
     private val W_STORAGE_PER_CODE = 333
-
-    init {
-        progressBar = findViewById(R.id.progressBar)
-        t = findViewById(R.id.splash_title)
-        b = findViewById(R.id.enter_main_button)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -154,14 +154,14 @@ class EnterMain : AppCompatActivity() {
         override fun onClick(v: View) {
             run()
             if (easterCount == 3) {
-                if (b!!.text.toString() != "작업중") {
+                if (b.text.toString() != "작업중") {
                     Toast.makeText(this@EnterMain.applicationContext, "작업모드로 전환합니다.", Toast.LENGTH_SHORT).show()
-                    t!!.text = "키오스크 작업중입니다.\n카운터에서 주문 도와드리겠습니다."
-                    b!!.text = "작업중"
+                    t.text = "키오스크 작업중입니다.\n카운터에서 주문 도와드리겠습니다."
+                    b.text = "작업중"
                 } else {
                     Toast.makeText(this@EnterMain.applicationContext, "주문모드로 전환합니다.", Toast.LENGTH_SHORT).show()
-                    t!!.text = "카운터에서도\n주문 가능합니다."
-                    b!!.text = "주문하기"
+                    t.text = "카운터에서도\n주문 가능합니다."
+                    b.text = "주문하기"
                 }
             }
             if (easterCount == 4) {
@@ -192,11 +192,12 @@ class EnterMain : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             W_STORAGE_PER_CODE -> {
 
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.size > 0
+                if (grantResults.isNotEmpty()
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "승인이 허가되어 있습니다.", Toast.LENGTH_LONG).show()
                 } else {
