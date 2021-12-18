@@ -505,6 +505,7 @@ class KioskListActivity : AppCompatActivity() {
                 }
             }
         }
+
         if (requestCode == 1) {
             if (resultCode == RESULT_OK) {
                 //데이터 받기
@@ -515,6 +516,7 @@ class KioskListActivity : AppCompatActivity() {
             }
             menuOptionPopupButtonClicked = false
         }
+
         if (requestCode == 2) {
             if (resultCode == RESULT_OK) {
                 val searchedMenuIdList = data!!.getIntegerArrayListExtra("searchedMenuIdList")
