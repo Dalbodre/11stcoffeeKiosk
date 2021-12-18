@@ -1,86 +1,67 @@
-package sb.yoon.kiosk2;
+package sb.yoon.kiosk2
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.util.Log
+import android.view.Window
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import java.lang.Exception
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.Window;
-import android.widget.TextView;
-
-import java.util.Set;
-
-public class OrderNumberPopupActivity extends Activity {
-    public String msg = "";
-    public Intent i;
-    private Bundle extras;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_order_number_popup);
-
-        i = getIntent();
-        extras = i.getExtras();
-        String card = (String) extras.get("ACQUIRER_NAME");
-        String result_code = (String) extras.get("RESULT_CODE");
-        String total_amount = (String) extras.get("TOTAL_AMOUNT");
-        printInent(i);
-
-        TextView text3 = findViewById(R.id.text3);
-
-        if (result_code.equals("0000")) {
-            Log.d("결제완료", card + "로 " + total_amount + "만큼 " + "결제되었습니다.");
-
-            TextView orderNumTextView = findViewById(R.id.text1);
-            Intent intent = getIntent();
-            int orderNumber = intent.getIntExtra("orderNumber", 0);
-            orderNumTextView.setText("주문번호\n\n" + orderNumber);
-
-            text3 = findViewById(R.id.text3);
-            text3.setText("메뉴가 준비되면 모니터에서\n안내해드리겠습니다.");
+class OrderNumberPopupActivity : Activity() {
+    var msg: String? = ""
+    private var extras: Bundle? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        setContentView(R.layout.activity_order_number_popup)
+        extras = intent.extras
+        val card = extras!!["ACQUIRER_NAME"] as String?
+        val resultCode = extras!!["RESULT_CODE"] as String?
+        val totalAmount = extras!!["TOTAL_AMOUNT"] as String?
+        printInent(intent)
+        var text3 = findViewById<TextView>(R.id.text3)
+        if (resultCode == "0000") {
+            Log.d("결제완료", card + "로 " + totalAmount + "만큼 " + "결제되었습니다.")
+            val orderNumTextView = findViewById<TextView>(R.id.text1)
+            val orderNumber = intent.getIntExtra("orderNumber", 0)
+            orderNumTextView.text = "주문번호\n\n$orderNumber"
+            text3 = findViewById(R.id.text3)
+            text3.text = "메뉴가 준비되면 모니터에서\n안내해드리겠습니다."
         } else {
-            TextView text2 = findViewById(R.id.text2);
-            TextView banner = findViewById(R.id.result_banner);
-            TextView text1 = findViewById(R.id.text1);
-            banner.setText("결제 오류");
-            text2.setText("결제 오류가 발생했습니다.\n에러코드:" + result_code);
-            text3.setText("에러로 인해 카드 결제가 불가능합니다. \n 카운터에서 결제 안내해드리겠습니다.");
-            text1.setText(getResources().getIdentifier("card_err_" + result_code,"string",getPackageName()));
-            text1.setTextSize(30f);
-            text3.setTextColor(ContextCompat.getColor(this, R.color.hotRed));
+            val text2 = findViewById<TextView>(R.id.text2)
+            val banner = findViewById<TextView>(R.id.result_banner)
+            val text1 = findViewById<TextView>(R.id.text1)
+            banner.text = "결제 오류"
+            text2.text = "결제 오류가 발생했습니다.\n에러코드:$resultCode"
+            text3.text = "에러로 인해 카드 결제가 불가능합니다. \n 카운터에서 결제 안내해드리겠습니다."
+            text1.setText(resources.getIdentifier("card_err_$resultCode", "string", packageName))
+            text1.textSize = 30f
+            text3.setTextColor(ContextCompat.getColor(this, R.color.hotRed))
         }
-
-        (new Handler()).postDelayed(this::finish, 8000);
+        Handler().postDelayed({ finish() }, 8000)
     }
 
-    public void printInent(Intent i) {
+    private fun printInent(i: Intent?) {
         try {
-            //Log.e("KTC","-------------------------------------------------------");
-            //util.saveLog("-------------------------------------------------------");
             if (i != null) {
                 if (extras != null) {
-                    Set keys = extras.keySet();
-
-                    for (String _key : extras.keySet()) {
-                        Log.e("RESULTACT","key=" + _key + " : " + extras.get(_key));
-                        msg += "\n" + _key + "=";
-                        msg += extras.get(_key);
+                    for (_key in extras!!.keySet()) {
+                        Log.e("RESULTACT", "key=" + _key + " : " + extras!![_key])
+                        msg += "\n$_key="
+                        msg += extras!![_key]
                     }
                 }
-                // result.setText(msg);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (e: Exception) {
+            e.printStackTrace()
         } finally {
         }
     }
 
-    public void onBackPressed() {
-        finish();
+    override fun onBackPressed() {
+        finish()
     }
 }

@@ -97,6 +97,31 @@ class KioskListActivity : AppCompatActivity() {
         var statusloop = true
     }
 
+    //Printer ---------------------------------------------------
+    private val usbReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            val action = intent.action
+            if (ACTION_USB_PERMISSION == action) {
+                synchronized(this) {
+                    val device = intent.getParcelableExtra<Parcelable>(UsbManager.EXTRA_DEVICE) as UsbDevice?
+                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
+                        if (device != null) {
+                            //status_thread();
+                        } else {
+                            Log.d(TAG, "permission denied for device$device")
+                        }
+                    }
+                }
+            }
+            if (UsbManager.ACTION_USB_ACCESSORY_DETACHED == action) {
+                val device = intent.getParcelableExtra<Parcelable>(UsbManager.EXTRA_DEVICE) as UsbDevice?
+                if (device != null) {
+                    Log.e("error", "디바이스가 없습니다")
+                }
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kiosk_main)
@@ -112,7 +137,7 @@ class KioskListActivity : AppCompatActivity() {
         // dbQueryController.initDB();
 
         // 카테고리 리스트 불러오기
-        categories = dbQueryController!!.getCategoriesList()
+        categories = dbQueryController!!.categoriesList
 
         //버튼 객체 미리 생성
         tagNum = 0
@@ -142,8 +167,14 @@ class KioskListActivity : AppCompatActivity() {
         cartRecyclerView.adapter = cartListAdapter
 
         // 계산버튼 리스너
-        var purchaseButton = findViewById<Button>(R.id.purchase_button)
-        purchaseButton.setOnClickListener(purchaseButtonClickListener())
+        val purchaseButton = findViewById<Button>(R.id.purchase_button)
+        purchaseButton.setOnClickListener {
+            if (cartMenuList.isEmpty())
+                return@setOnClickListener
+            println("결제버튼: 클릭함")
+            HttpCheckThread().start()
+            it.isEnabled = false
+        }
         updateCategoryTab(categoryPage)
         totalPriceView = findViewById(R.id.total_price)
         idleTimer = IdleTimer(this, 150000, 1000) //잠깐만 115초로 변경좀 해놓겠습니다. -jojo
@@ -158,31 +189,6 @@ class KioskListActivity : AppCompatActivity() {
             mUsbManager!!.requestPermission(mDevice, permissionIntent)
         } catch (e: Exception) {
             e.printStackTrace()
-        }
-    }
-
-    //Printer ---------------------------------------------------
-    private val usbReceiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            val action = intent.action
-            if (ACTION_USB_PERMISSION == action) {
-                synchronized(this) {
-                    val device = intent.getParcelableExtra<Parcelable>(UsbManager.EXTRA_DEVICE) as UsbDevice?
-                    if (intent.getBooleanExtra(UsbManager.EXTRA_PERMISSION_GRANTED, false)) {
-                        if (device != null) {
-                            //status_thread();
-                        } else {
-                            Log.d(TAG, "permission denied for device$device")
-                        }
-                    }
-                }
-            }
-            if (UsbManager.ACTION_USB_ACCESSORY_DETACHED == action) {
-                val device = intent.getParcelableExtra<Parcelable>(UsbManager.EXTRA_DEVICE) as UsbDevice?
-                if (device != null) {
-                    Log.e("error", "디바이스가 없습니다")
-                }
-            }
         }
     }
 
@@ -300,7 +306,7 @@ class KioskListActivity : AppCompatActivity() {
     internal inner class categoryTabClickListener : OnTabSelectedListener {
         override fun onTabSelected(tab: TabLayout.Tab) {
             val tagNo = tab.position
-            itemListFragment = ItemListFragment(dbQueryController!!.getMenuList(categories!![tagNo + eleSize * categoryPage]))
+            itemListFragment = ItemListFragment(dbQueryController!!.getMenuList(categories[tagNo + eleSize * categoryPage]))
             fragmentTransaction = fragmentManager!!.beginTransaction()
             fragmentTransaction!!.replace(R.id.list_fragment, itemListFragment!!).commitAllowingStateLoss()
             for (i in toggleButtons.indices) {
@@ -308,25 +314,16 @@ class KioskListActivity : AppCompatActivity() {
                 toggleButtons[i].isChecked = false
                 toggleButtons[i].setBackgroundColor(Color.parseColor("#ffffff"))
                 toggleButtons[i].setTextColor(Color.parseColor("#081832"))
-                toggleButtons[i].text = categories!![index].name
+                toggleButtons[i].text = categories[index].name
             }
             toggleButtons[tagNo].isChecked = true
             toggleButtons[tagNo].setBackgroundResource(R.drawable.togglebutton_on)
             toggleButtons[tagNo].setTextColor(Color.parseColor("#ffffff"))
-            toggleButtons[tagNo].text = categories!![tagNo + eleSize * categoryPage].name
+            toggleButtons[tagNo].text = categories[tagNo + eleSize * categoryPage].name
         }
 
         override fun onTabUnselected(tab: TabLayout.Tab) {}
         override fun onTabReselected(tab: TabLayout.Tab) {}
-    }
-
-    internal inner class purchaseButtonClickListener : View.OnClickListener {
-        override fun onClick(view: View) {
-            if (cartMenuList.isEmpty()) return
-            println("결제버튼: 클릭함")
-            HttpCheckThread().start()
-            view.isEnabled = false
-        }
     }
 
     internal inner class HttpCheckThread : Thread() {
