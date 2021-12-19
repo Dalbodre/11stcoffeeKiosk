@@ -27,19 +27,19 @@
         app:layout_constraintEnd_toEndOf="@id/cart_item_take_out"
         app:layout_constraintTop_toBottomOf="@id/cart_item_take_out">
 
-        <sb.yoon.kiosk.layout.IngredientItem
-            android:id="@+id/menu_element"
+        <sb.yoon.kiosk.layout.SearchIngredientItem
+            android:id="@+id/m_element"
             android:layout_width="match_parent"
             android:layout_height="200px"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-        </sb.yoon.kiosk.layout.IngredientItem>
+        </sb.yoon.kiosk.layout.SearchIngredientItem>
 
         <ImageButton
             android:id="@+id/cart_cancel_button"
-            app:layout_constraintTop_toTopOf="@+id/menu_element"
-            app:layout_constraintEnd_toEndOf="@+id/menu_element"
+            app:layout_constraintTop_toTopOf="@+id/m_element"
+            app:layout_constraintEnd_toEndOf="@+id/m_element"
             android:layout_width="50px"
             android:layout_height="50px"
             android:background="#ffffff"

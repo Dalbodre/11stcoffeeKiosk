@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <sb.yoon.kiosk.layout.IngredientItem
-        android:id="@+id/menu_element"
+    <sb.yoon.kiosk.layout.SearchIngredientItem
+        android:id="@+id/m_element"
         android:layout_width="200px"
         android:layout_height="200px"
         android:background="#FFFFFF"
@@ -14,5 +14,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </sb.yoon.kiosk.layout.IngredientItem>
+    </sb.yoon.kiosk.layout.SearchIngredientItem>
 </androidx.constraintlayout.widget.ConstraintLayout>

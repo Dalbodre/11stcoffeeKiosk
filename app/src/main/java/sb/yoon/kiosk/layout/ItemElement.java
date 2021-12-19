@@ -3,12 +3,15 @@ package sb.yoon.kiosk.layout;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import sb.yoon.kiosk.R;
 
@@ -66,7 +69,9 @@ public class ItemElement extends LinearLayout{
 
 
     private void replaceBgColor(int bgColor){
-        GradientDrawable bg = (GradientDrawable) view.getBackground();
+        Drawable drawable = ContextCompat.getDrawable(getContext(), R.drawable.list_fragment_corner);
+        LayerDrawable bubble = (LayerDrawable) drawable;
+        GradientDrawable bg = (GradientDrawable) bubble.findDrawableByLayerId(R.id.menu_bg);
         bg.setColor(bgColor);
     }
 

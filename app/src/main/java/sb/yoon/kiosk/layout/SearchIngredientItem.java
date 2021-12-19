@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import sb.yoon.kiosk.R;
 
-public class IngredientItem extends RelativeLayout {
+public class SearchIngredientItem extends RelativeLayout {
     private Drawable image;
     private String name;
     private View view;
@@ -31,25 +31,25 @@ public class IngredientItem extends RelativeLayout {
     }
 
     private void replaceName(String text) {
-        TextView elementText = view.findViewById(R.id.s_name);
+        TextView elementText = view.findViewById(R.id.search_name);
         elementText.setText(text);
     }
 
 
-    public IngredientItem(Context context, AttributeSet attrs) {
+    public SearchIngredientItem(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.for_ingredient_item,this,true);
+        view = inflater.inflate(R.layout.for_search_item,this,true);
     }
 
     private void replaceImageDrawable(Drawable image) {
-        ImageView elementImage = view.findViewById(R.id.s_image);
+        ImageView elementImage = view.findViewById(R.id.search_image);
         elementImage.setImageDrawable(image);
     }
 
     public ImageView getImageView() {
-        return view.findViewById(R.id.s_image);
+        return view.findViewById(R.id.search_image);
     }
 
 }

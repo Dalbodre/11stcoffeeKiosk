@@ -20,6 +20,7 @@ import java.util.List;
 import sb.yoon.kiosk.KioskListActivity;
 import sb.yoon.kiosk.R;
 import sb.yoon.kiosk.layout.IngredientItem;
+import sb.yoon.kiosk.layout.SearchIngredientItem;
 import sb.yoon.kiosk.model.CartMenu;
 import sb.yoon.kiosk.model.CartOption;
 
@@ -29,7 +30,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
 
     // 뷰 홀더
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected IngredientItem itemElement;
+        protected SearchIngredientItem itemElement;
         protected TextView price;
         protected KioskListActivity context;
         protected TextView tempText;
@@ -39,7 +40,7 @@ public class CartListAdapter extends RecyclerView.Adapter<CartListAdapter.Custom
 
         public CustomViewHolder(View v){
             super(v);
-            this.itemElement = (IngredientItem)v.findViewById(R.id.menu_element);
+            this.itemElement = (SearchIngredientItem)v.findViewById(R.id.m_element);
             this.cancel_button = (ImageButton)v.findViewById(R.id.cart_cancel_button);
             this.price = (TextView)v.findViewById(R.id.cart_item_price_tag);
             this.tempText = v.findViewById(R.id.temp);

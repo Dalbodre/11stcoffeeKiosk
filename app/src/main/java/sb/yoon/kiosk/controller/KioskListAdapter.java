@@ -86,6 +86,8 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         TextView menuName = (TextView)convertView.findViewById(R.id.menu_name);
         TextView hotPrice = (TextView)convertView.findViewById(R.id.menu_hot_price);
         TextView icePrice = (TextView)convertView.findViewById(R.id.menu_ice_price);
+        ImageView hotIcon = (ImageView)convertView.findViewById(R.id.menu_hot_icon);
+        ImageView iceIcon = (ImageView)convertView.findViewById(R.id.menu_ice_icon);
         // View의 각 Widget에 데이터 저장
         // 메뉴 사진, 이름 추가
         ItemElement menuItem = convertView.findViewById(R.id.menu_element);
@@ -98,17 +100,24 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
 
         //menu 가격설정
         if(menu.getIsCold() && menu.getIsHot()){
-            icePrice.setText(menu.getPrice());
-            hotPrice.setText(menu.getPrice());
+            icePrice.setText(String.valueOf(menu.getPrice()));
+            hotPrice.setText(String.valueOf(menu.getPrice()));
         }
         else if(menu.getIsHot()){
-            hotPrice.setText(menu.getPrice());
+            hotPrice.setText(String.valueOf(menu.getPrice()));
+            icePrice.setVisibility(View.GONE);
+            iceIcon.setVisibility(View.GONE);
         }
         else if(menu.getIsCold()){
-            icePrice.setText(menu.getPrice());
+            icePrice.setText(String.valueOf(menu.getPrice()));
+            hotPrice.setVisibility(View.GONE);
+            hotIcon.setVisibility(View.GONE);
         }
         else{
-            hotPrice.setText(menu.getPrice());
+            hotPrice.setText(String.valueOf(menu.getPrice()));
+            icePrice.setVisibility(View.GONE);
+            iceIcon.setVisibility(View.GONE);
+            hotIcon.setVisibility(View.GONE);
         }
         menuName.setText(menu.getName());
 

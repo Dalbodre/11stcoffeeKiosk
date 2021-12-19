@@ -92,7 +92,6 @@ public class EnterMain extends AppCompatActivity {
         savebmp("close_kicc.png",R.drawable.close_kicc);
         savebmp("card_kicc.png",R.drawable.card_kicc);
 
-        //takeoutButton.setOnClickListener(buttonClicked());
     }
 
 
@@ -150,10 +149,10 @@ public class EnterMain extends AppCompatActivity {
     }
 
     public void buttonClicked(View view) {
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(ProgressBar.VISIBLE);
-
-        (new HttpCheckThread()).start();
+//        progressBar = findViewById(R.id.progressBar);
+//        progressBar.setVisibility(ProgressBar.VISIBLE);
+        enterListActivity();
+        //(new HttpCheckThread()).start();
     }
 
     class HttpCheckThread extends Thread {

@@ -75,7 +75,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:paddingVertical="180dp"
             android:elevation="2dp"
-
+            android:onClick="buttonClicked"
             >
             <!--            <LinearLayout-->
             <!--                android:orientation="vertical"-->
