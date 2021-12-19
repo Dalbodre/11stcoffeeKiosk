@@ -15,7 +15,6 @@
             android:id="@+id/element_image"
             android:layout_width="280dp"
             android:layout_height="180dp"
-            android:layout_alignParentTop="true"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/apollo1" />
         <TextView

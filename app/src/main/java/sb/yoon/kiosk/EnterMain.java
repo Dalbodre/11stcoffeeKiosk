@@ -85,11 +85,14 @@ public class EnterMain extends AppCompatActivity {
 //        employee_easter = findViewById(R.id.employee_easter);
 //        employee_easter.setOnClickListener(new employeeClickListener());
 
+        Button takeoutButton = findViewById(R.id.btnTakeout);
+        Button inCoffeeButton = findViewById(R.id.btnInCoffee);
+
         savebmp("background_kicc.png",R.drawable.background_kicc);
         savebmp("close_kicc.png",R.drawable.close_kicc);
         savebmp("card_kicc.png",R.drawable.card_kicc);
 
-
+        //takeoutButton.setOnClickListener(buttonClicked());
     }
 
 

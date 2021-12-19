@@ -83,15 +83,38 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = layoutInflater.inflate(R.layout.list_item, parent, false);
         }
-
+        TextView menuName = (TextView)convertView.findViewById(R.id.menu_name);
+        TextView hotPrice = (TextView)convertView.findViewById(R.id.menu_hot_price);
+        TextView icePrice = (TextView)convertView.findViewById(R.id.menu_ice_price);
         // View의 각 Widget에 데이터 저장
         // 메뉴 사진, 이름 추가
         ItemElement menuItem = convertView.findViewById(R.id.menu_element);
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
                 .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
         menuItem.setImageDrawable(drawable);
+
+        //todo 백그라운드 컬러변경
+        menuItem.setBgColor(0xff000000);
+
+        //menu 가격설정
+        if(menu.getIsCold() && menu.getIsHot()){
+            icePrice.setText(menu.getPrice());
+            hotPrice.setText(menu.getPrice());
+        }
+        else if(menu.getIsHot()){
+            hotPrice.setText(menu.getPrice());
+        }
+        else if(menu.getIsCold()){
+            icePrice.setText(menu.getPrice());
+        }
+        else{
+            hotPrice.setText(menu.getPrice());
+        }
+        menuName.setText(menu.getName());
+
+        //menuItem.setBgColor(menu.getBgColor());
         //menuItem.setName(menu.getName());
-        menuItem.setPrice(menu.getPrice());
+        //menuItem.setPrice(menu.getPrice());
         menuItem.setTag(position);
 
         // ItemElement에 OnClickListener 달아주기

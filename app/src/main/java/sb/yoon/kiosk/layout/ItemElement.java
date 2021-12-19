@@ -2,6 +2,7 @@ package sb.yoon.kiosk.layout;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,20 +42,20 @@ public class ItemElement extends LinearLayout{
 //        this.name = name;
 //    }
 
-    public void setPrice(int price) {
-        replacePrice(price);
-        this.price = price;
-    }
+//    public void setPrice(int price) {
+//        replacePrice(price);
+//        this.price = price;
+//    }
 
     public ItemElement(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(R.layout.element_item_layout,this,true);
+        view = inflater.inflate(R.layout.menu_image_layout,this,true);
     }
 
     private void replaceImageDrawable(Drawable image) {
-        ImageView elementImage = view.findViewById(R.id.element_image);
+        ImageView elementImage = view.findViewById(R.id.menu_item_image);
         elementImage.setImageDrawable(image);
     }
 
@@ -63,14 +64,10 @@ public class ItemElement extends LinearLayout{
 //        elementText.setText(text);
 //    }
 
-    private void replacePrice(int price) {
-        TextView elementText = view.findViewById(R.id.element_price);
-        elementText.setVisibility(View.VISIBLE);
-        elementText.setText(Integer.toString(price));
-    }
 
     private void replaceBgColor(int bgColor){
-
+        GradientDrawable bg = (GradientDrawable) view.getBackground();
+        bg.setColor(bgColor);
     }
 
     public ImageView getImageView() {
