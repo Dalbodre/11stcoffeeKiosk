@@ -4,14 +4,28 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.33054626532887404" />
+        <entry key="app/src/main/res/drawable/enter_main_bottomstyle.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/enter_main_buttonstyle.xml" value="0.16510416666666666" />
+        <entry key="app/src/main/res/drawable/enter_main_no_takeoff_size.xml" value="0.16510416666666666" />
+        <entry key="app/src/main/res/drawable/enter_main_no_takeout_size.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/drawable/enter_main_takeout_size.xml" value="0.16510416666666666" />
+        <entry key="app/src/main/res/drawable/hot_only_on.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/hot_toggle_off.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/hot_toggle_on.xml" value="0.16510416666666666" />
+        <entry key="app/src/main/res/drawable/ice_only_on.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/ice_toggle_off.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/ice_toggle_on.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/ingredient_wrapper.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/drawable/list_fragment_corenr.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/drawable/list_fragment_corner.xml" value="0.2984375" />
         <entry key="app/src/main/res/drawable/orderbutton.xml" value="0.16510416666666666" />
+        <entry key="app/src/main/res/drawable/togglebutton_off.xml" value="0.2984375" />
+        <entry key="app/src/main/res/drawable/togglebutton_on.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/layout/activity_enter_main.xml" value="0.3587934259653457" />
-        <entry key="app/src/main/res/layout/activity_kiosk_main.xml" value="0.47429519071310117" />
+        <entry key="app/src/main/res/layout/activity_kiosk_main.xml" value="0.3935454053040975" />
+        <entry key="app/src/main/res/layout/activity_order_number_popup.xml" value="0.37001231659518863" />
+        <entry key="app/src/main/res/layout/activity_popup.xml" value="0.3051147216323108" />
+        <entry key="app/src/main/res/layout/activity_result.xml" value="0.4508197845178903" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.1" />
         <entry key="app/src/main/res/layout/cart_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/custom_tab.xml" value="0.13728470111448834" />
@@ -25,7 +39,7 @@
         <entry key="app/src/main/res/layout/menu_image_layout.xml" value="0.1259259259259259" />
         <entry key="app/src/main/res/layout/new_for_elements_items.xml" value="0.1" />
         <entry key="app/src/main/res/layout/new_list_fragment.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/option_list_item.xml" value="0.13728470111448834" />
+        <entry key="app/src/main/res/layout/option_list_item.xml" value="0.2774401259464754" />
         <entry key="app/src/main/res/layout/search_ingredients_list_element.xml" value="0.14895833333333333" />
       </map>
     </option>

@@ -5,6 +5,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -42,7 +43,10 @@ public class OrderNumberPopupActivity extends Activity {
             orderNumTextView.setText("주문번호\n\n" + orderNumber);
 
             text3 = findViewById(R.id.text3);
-            text3.setText("메뉴가 준비되면 모니터에서\n안내해드리겠습니다.");
+            text3.setText("매장에서 드실 경우");
+            text3.setTextColor(Color.parseColor("#ff0000"));
+            TextView text4 = findViewById(R.id.text4);
+            text4.setText("반드시 2차접종증명(2주경과)을 하셔야합니다.");
         } else {
             TextView text2 = findViewById(R.id.text2);
             TextView banner = findViewById(R.id.result_banner);

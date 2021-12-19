@@ -32,6 +32,8 @@ public class Menu implements Parcelable {
     private int price;
     @NotNull
     private String iconPath;
+    @NotNull
+    private int bgColor;
 
     @ToMany
     @JoinEntity(
@@ -61,14 +63,15 @@ private transient DaoSession daoSession;
 @Generated(hash = 1372547067)
 private transient MenuDao myDao;
 
-@Generated(hash = 1473854174)
+@Generated(hash = 1079563137)
 public Menu(Long id, @NotNull String name, @NotNull Long categoryId, int price,
-        @NotNull String iconPath, Boolean isHot, Boolean isCold) {
+        @NotNull String iconPath, int bgColor, Boolean isHot, Boolean isCold) {
     this.id = id;
     this.name = name;
     this.categoryId = categoryId;
     this.price = price;
     this.iconPath = iconPath;
+    this.bgColor = bgColor;
     this.isHot = isHot;
     this.isCold = isCold;
 }
@@ -91,33 +94,11 @@ public Menu() {
         }
         price = in.readInt();
         iconPath = in.readString();
+        bgColor = in.readInt();
         byte tmpIsHot = in.readByte();
         isHot = tmpIsHot == 0 ? null : tmpIsHot == 1;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        if (id == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeLong(id);
-        }
-        dest.writeString(name);
-        if (categoryId == null) {
-            dest.writeByte((byte) 0);
-        } else {
-            dest.writeByte((byte) 1);
-            dest.writeLong(categoryId);
-        }
-        dest.writeInt(price);
-        dest.writeString(iconPath);
-        dest.writeByte((byte) (isHot == null ? 0 : isHot ? 1 : 2));
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
+        byte tmpIsCold = in.readByte();
+        isCold = tmpIsCold == 0 ? null : tmpIsCold == 1;
     }
 
     public static final Creator<Menu> CREATOR = new Creator<Menu>() {
@@ -148,6 +129,14 @@ public void setName(String name) {
     this.name = name;
 }
 
+public Long getCategoryId() {
+    return this.categoryId;
+}
+
+public void setCategoryId(Long categoryId) {
+    this.categoryId = categoryId;
+}
+
 public int getPrice() {
     return this.price;
 }
@@ -164,12 +153,28 @@ public void setIconPath(String iconPath) {
     this.iconPath = iconPath;
 }
 
+public int getBgColor() {
+    return this.bgColor;
+}
+
+public void setBgColor(int bgColor) {
+    this.bgColor = bgColor;
+}
+
 public Boolean getIsHot() {
     return this.isHot;
 }
 
 public void setIsHot(Boolean isHot) {
     this.isHot = isHot;
+}
+
+public Boolean getIsCold() {
+    return this.isCold;
+}
+
+public void setIsCold(Boolean isCold) {
+    this.isCold = isCold;
 }
 
 /**
@@ -199,6 +204,34 @@ public List<Ingredient> getIngredientList() {
 @Generated(hash = 29217069)
 public synchronized void resetIngredientList() {
     ingredientList = null;
+}
+
+/**
+ * To-many relationship, resolved on first access (and after reset).
+ * Changes to to-many relations are not persisted, make changes to the target entity.
+ */
+@Generated(hash = 1446926842)
+public List<Option> getOptionList() {
+    if (optionList == null) {
+        final DaoSession daoSession = this.daoSession;
+        if (daoSession == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        OptionDao targetDao = daoSession.getOptionDao();
+        List<Option> optionListNew = targetDao._queryMenu_OptionList(id);
+        synchronized (this) {
+            if (optionList == null) {
+                optionList = optionListNew;
+            }
+        }
+    }
+    return optionList;
+}
+
+/** Resets a to-many relationship, making the next get call to query for a fresh result. */
+@Generated(hash = 1801972530)
+public synchronized void resetOptionList() {
+    optionList = null;
 }
 
 /**
@@ -237,55 +270,37 @@ public void update() {
     myDao.update(this);
 }
 
-public Long getCategoryId() {
-    return this.categoryId;
-}
-
-public void setCategoryId(Long categoryId) {
-    this.categoryId = categoryId;
-}
-
-/**
- * To-many relationship, resolved on first access (and after reset).
- * Changes to to-many relations are not persisted, make changes to the target entity.
- */
-@Generated(hash = 1446926842)
-public List<Option> getOptionList() {
-    if (optionList == null) {
-        final DaoSession daoSession = this.daoSession;
-        if (daoSession == null) {
-            throw new DaoException("Entity is detached from DAO context");
-        }
-        OptionDao targetDao = daoSession.getOptionDao();
-        List<Option> optionListNew = targetDao._queryMenu_OptionList(id);
-        synchronized (this) {
-            if (optionList == null) {
-                optionList = optionListNew;
-            }
-        }
+@Override
+    public int describeContents() {
+        return 0;
     }
-    return optionList;
-}
 
-/** Resets a to-many relationship, making the next get call to query for a fresh result. */
-@Generated(hash = 1801972530)
-public synchronized void resetOptionList() {
-    optionList = null;
-}
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(id);
+        }
+        parcel.writeString(name);
+        if (categoryId == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeLong(categoryId);
+        }
+        parcel.writeInt(price);
+        parcel.writeString(iconPath);
+        parcel.writeInt(bgColor);
+        parcel.writeByte((byte) (isHot == null ? 0 : isHot ? 1 : 2));
+        parcel.writeByte((byte) (isCold == null ? 0 : isCold ? 1 : 2));
+    }
 
-public Boolean getIsCold() {
-    return this.isCold;
-}
-
-public void setIsCold(Boolean isCold) {
-    this.isCold = isCold;
-}
-
-/** called by internal mechanisms, do not call yourself. */
-@Generated(hash = 557085301)
-public void __setDaoSession(DaoSession daoSession) {
-    this.daoSession = daoSession;
-    myDao = daoSession != null ? daoSession.getMenuDao() : null;
-}
-
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 557085301)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getMenuDao() : null;
+    }
 }

@@ -53,7 +53,7 @@ public class EnterMain extends AppCompatActivity {
     ImageView SettingButton;
     TextView t;
     Button b;
-
+    public static int takeoutVal = 0;
     private int easterCount = 0;
     private int employeeCount = 0;
 
@@ -149,10 +149,16 @@ public class EnterMain extends AppCompatActivity {
     }
 
     public void buttonClicked(View view) {
-//        progressBar = findViewById(R.id.progressBar);
-//        progressBar.setVisibility(ProgressBar.VISIBLE);
-        enterListActivity();
-        //(new HttpCheckThread()).start();
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(ProgressBar.VISIBLE);
+        if(view.equals(findViewById(R.id.btnTakeout))){
+            takeoutVal = 1;
+        }
+        else{
+            takeoutVal = 2;
+        }
+
+        (new HttpCheckThread()).start();
     }
 
     class HttpCheckThread extends Thread {

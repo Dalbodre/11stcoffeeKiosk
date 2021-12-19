@@ -3,6 +3,7 @@ package sb.yoon.kiosk.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import sb.yoon.kiosk.model.Ingredient;
 import sb.yoon.kiosk.model.Menu;
 import sb.yoon.kiosk.model.Option;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,25 +98,26 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         menuItem.setImageDrawable(drawable);
 
         //todo 백그라운드 컬러변경
-        menuItem.setBgColor(0xff000000);
+        //Log.d("pos", String.valueOf(menu.getBgColor())+"pos"+String.valueOf(position));
+        menuItem.setBgColor(0xffffffff);
 
         //menu 가격설정
         if(menu.getIsCold() && menu.getIsHot()){
-            icePrice.setText(String.valueOf(menu.getPrice()));
-            hotPrice.setText(String.valueOf(menu.getPrice()));
+            icePrice.setText(moneyFormatToWon(menu.getPrice()));
+            hotPrice.setText(moneyFormatToWon(menu.getPrice()));
         }
         else if(menu.getIsHot()){
-            hotPrice.setText(String.valueOf(menu.getPrice()));
+            hotPrice.setText(moneyFormatToWon(menu.getPrice()));
             icePrice.setVisibility(View.GONE);
             iceIcon.setVisibility(View.GONE);
         }
         else if(menu.getIsCold()){
-            icePrice.setText(String.valueOf(menu.getPrice()));
+            icePrice.setText(moneyFormatToWon(menu.getPrice()));
             hotPrice.setVisibility(View.GONE);
             hotIcon.setVisibility(View.GONE);
         }
         else{
-            hotPrice.setText(String.valueOf(menu.getPrice()));
+            hotPrice.setText(moneyFormatToWon(menu.getPrice()));
             icePrice.setVisibility(View.GONE);
             iceIcon.setVisibility(View.GONE);
             hotIcon.setVisibility(View.GONE);
@@ -162,6 +165,11 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         }
 
         return convertView;
+    }
+
+    public static String moneyFormatToWon(int inputMoney) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###,##0");
+        return decimalFormat.format(inputMoney);
     }
 
     // 메뉴 아이콘 눌렸을 때

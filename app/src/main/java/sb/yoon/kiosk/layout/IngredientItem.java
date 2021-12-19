@@ -3,11 +3,14 @@ package sb.yoon.kiosk.layout;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.widget.TextViewCompat;
 
 import sb.yoon.kiosk.R;
 

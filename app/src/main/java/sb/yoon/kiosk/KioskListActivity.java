@@ -61,6 +61,7 @@ import org.json.JSONObject;
 import sb.yoon.kiosk.controller.CartListAdapter;
 import sb.yoon.kiosk.controller.DbQueryController;
 import sb.yoon.kiosk.controller.HttpNetworkController;
+import sb.yoon.kiosk.controller.KioskListAdapter;
 import sb.yoon.kiosk.layout.CategoryButton;
 import sb.yoon.kiosk.libs.IdleTimer;
 import sb.yoon.kiosk.libs.Util;
@@ -92,6 +93,8 @@ public class KioskListActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private ItemListFragment itemListFragment;
     private List<Category> categories;
+
+    private TextView nowTakeout;
 
     private List<CartMenu> cartMenuList = new ArrayList<>();
     private CartListAdapter cartListAdapter;
@@ -173,6 +176,17 @@ public class KioskListActivity extends AppCompatActivity {
 
         KioskApplication kioskApplication = (KioskApplication) getApplication();
         kioskApplication.setKioskListActivity(this);
+        nowTakeout = (TextView)findViewById(R.id.now_takeout);
+
+        if(EnterMain.takeoutVal==1){
+            nowTakeout.setText("포장");
+        }
+        else if(EnterMain.takeoutVal==2){
+            nowTakeout.setText("매장");
+        }
+        else{
+            nowTakeout.setText("오류 발생");
+        }
 
         httpController = new HttpNetworkController(
                 KioskListActivity.this, getResources().getString(R.string.server_ip));
@@ -539,6 +553,7 @@ public class KioskListActivity extends AppCompatActivity {
 
     public void clickReturnButton(View view) {
         finish();
+        EnterMain.takeoutVal = 0;
     }
 
     class onClickToggleButton implements View.OnClickListener {
@@ -557,7 +572,7 @@ public class KioskListActivity extends AppCompatActivity {
             uTotalPrice += cartMenu.getTotalPrice();
         }
         totalPriceView.setTag(uTotalPrice);
-        String text = Integer.toString(uTotalPrice) + " 원";
+        String text = KioskListAdapter.moneyFormatToWon(uTotalPrice) + " 원";
         totalPriceView.setText(text);
         totalPriceView.setTextSize(70f);
         totalPrice = uTotalPrice;
@@ -668,6 +683,7 @@ public class KioskListActivity extends AppCompatActivity {
     public void connectionFailed() {
         Toast.makeText(this.getApplicationContext(), "서버와 연결이 불가능합니다. 직원에게 문의하세요/", Toast.LENGTH_SHORT).show();
         finish();
+        EnterMain.takeoutVal = 0;
     }
 
     public void doPurchase() {
@@ -836,6 +852,7 @@ public class KioskListActivity extends AppCompatActivity {
             onClick_usb_text2(orderNumber);
         }
         finish();
+        EnterMain.takeoutVal = 0;
     }
 
     //프린트 내용-------------------------

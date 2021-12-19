@@ -86,25 +86,32 @@
             android:id="@+id/option_hot_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="200dp"
             android:textColor="#ffffff"
-            android:textOff="HOT"
-            android:textOn="HOT"
+            android:textOff="따뜻한"
+            android:textOn="따뜻한"
             android:textSize="60sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:drawableLeft="@drawable/ic_hot_on"
+            android:background="@drawable/hot_only_on"
+            />
 
         <ToggleButton
             android:id="@+id/option_ice_toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
-            android:padding="10dp"
-            android:textOff="ICE"
-            android:textOn="ICE"
+            android:paddingVertical="15dp"
+            android:paddingHorizontal="200dp"
+            android:textOff="시원한"
+            android:textOn="시원한"
             android:textSize="60sp"
+            android:drawableLeft="@drawable/ic_ice_on"
+            android:background="@drawable/ice_only_on"
             android:visibility="gone" />
     </LinearLayout>
 
@@ -116,44 +123,32 @@
         android:padding="10dp"
         app:layout_constraintTop_toBottomOf="@id/option_hot_ice_wrapper">
 
-        <ToggleButton
-            android:id="@+id/option_store_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
+<!--        <ToggleButton-->
+<!--            android:id="@+id/option_store_toggle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:layout_weight="1"-->
 
-            android:background="@drawable/togglebutton_off"
-            android:padding="10dp"
-            android:textColor="#081832"
-            android:textOff="매장"
-            android:textOn="매장"
-            android:textSize="45sp" />
+<!--            android:background="@drawable/togglebutton_off"-->
+<!--            android:padding="10dp"-->
+<!--            android:textColor="#081832"-->
+<!--            android:textOff="매장"-->
+<!--            android:textOn="매장"-->
+<!--            android:textSize="45sp" />-->
 
-        <ToggleButton
-            android:id="@+id/option_takeout_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/togglebutton_off"
-            android:padding="10dp"
-            android:textColor="#081832"
-            android:textOff="포장"
-            android:textOn="포장"
-            android:textSize="45sp" />
-
-        <ToggleButton
-            android:id="@+id/option_tumblr_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/togglebutton_off"
-            android:padding="10dp"
-            android:textColor="#081832"
-            android:textOff="텀블러"
-            android:textOn="텀블러"
-            android:textSize="45sp" />
+<!--        <ToggleButton-->
+<!--            android:id="@+id/option_takeout_toggle"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginRight="10dp"-->
+<!--            android:layout_weight="1"-->
+<!--            android:background="@drawable/togglebutton_off"-->
+<!--            android:padding="10dp"-->
+<!--            android:textColor="#081832"-->
+<!--            android:textOff="포장"-->
+<!--            android:textOn="포장"-->
+<!--            android:textSize="45sp" />-->
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -224,7 +219,16 @@
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@id/count_wrapper"
         app:layout_constraintStart_toStartOf="parent" />
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/warning_text"
+        android:text="수량이 적용된 경우 옵션도 모두 같이 적용됩니다.\n예)아메리카노 2잔을 선택하고 샷 추가 1을 하면 2잔 모두 샷 추가가 적용됩니다."
+        app:layout_constraintBottom_toTopOf="@id/option_buttons_container"
+        android:textColor="#00276b"
+        android:textAlignment="center"
+        android:textSize="25px"
+        />
     <LinearLayout
         android:id="@+id/option_buttons_container"
         android:layout_width="match_parent"

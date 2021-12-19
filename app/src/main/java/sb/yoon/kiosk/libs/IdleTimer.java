@@ -1,8 +1,10 @@
 package sb.yoon.kiosk.libs;
 
+import sb.yoon.kiosk.EnterMain;
 import android.app.Activity;
 import android.os.CountDownTimer;
 
+import sb.yoon.kiosk.EnterMain;
 import sb.yoon.kiosk.KioskListActivity;
 
 public class IdleTimer extends CountDownTimer
@@ -27,5 +29,6 @@ public class IdleTimer extends CountDownTimer
     @Override
     public void onFinish() {
         activity.finish();
+        EnterMain.takeoutVal = 0;
     }
 }

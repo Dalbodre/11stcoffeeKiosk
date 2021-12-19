@@ -48,11 +48,20 @@
         android:gravity="center"
         android:textColor="#FF0000"
         android:textSize="40px" />
+    <TextView
+        android:layout_marginTop="30px"
+        android:id="@+id/text4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text3"
+        android:gravity="center"
+        android:textColor="#FF0000"
+        android:textSize="40px" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/text3"
+        android:layout_below="@id/text4"
         android:layout_margin="40px"
         android:background="@drawable/last_order_background">
 

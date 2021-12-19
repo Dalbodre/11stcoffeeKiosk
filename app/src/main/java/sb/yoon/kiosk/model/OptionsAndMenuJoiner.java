@@ -9,6 +9,7 @@ public class OptionsAndMenuJoiner {
     @Id private Long id;
     private Long menuId;
     private Long optionId;
+
     @Generated(hash = 1631115094)
     public OptionsAndMenuJoiner(Long id, Long menuId, Long optionId) {
         this.id = id;
@@ -18,6 +19,7 @@ public class OptionsAndMenuJoiner {
     @Generated(hash = 1504334399)
     public OptionsAndMenuJoiner() {
     }
+    
     public Long getId() {
         return this.id;
     }

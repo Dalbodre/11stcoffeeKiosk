@@ -327,6 +327,7 @@ public class AdminAddActivity extends AppCompatActivity {
                                                 categoryId,
                                                 Integer.parseInt(price.getText().toString()),
                                                 iconPath,
+                                                0xffffffff,
                                                 isHot.isChecked(),
                                                 isCold.isChecked()));
                                         controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), tumblerFlag.isChecked()));
@@ -382,6 +383,7 @@ public class AdminAddActivity extends AppCompatActivity {
                                                 categoryId,
                                                 Integer.parseInt(price.getText().toString()),
                                                 iconPath,
+                                                0xffffffff,
                                                 isHot.isChecked(),
                                                 isCold.isChecked()));
                                         //옵션
@@ -442,6 +444,7 @@ public class AdminAddActivity extends AppCompatActivity {
                                                 categoryId,
                                                 Integer.parseInt(price.getText().toString()),
                                                 iconPath,
+                                                0xffffffff,
                                                 isHot.isChecked(),
                                                 isCold.isChecked()));
                                         controller.categoryDao.insertOrReplace(new Category(categoryId, categoryText.getText().toString(), tumblerFlag.isChecked()));
@@ -511,6 +514,7 @@ public class AdminAddActivity extends AppCompatActivity {
                                                 categoryId,
                                                 Integer.parseInt(price.getText().toString()),
                                                 iconPath,
+                                                0xffffffff,
                                                 isHot.isChecked(),
                                                 isCold.isChecked()));
                                         Log.d("categoryId", String.valueOf(categoryId));

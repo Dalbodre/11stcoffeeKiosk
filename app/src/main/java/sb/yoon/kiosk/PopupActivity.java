@@ -1,5 +1,7 @@
 package sb.yoon.kiosk;
 
+import static sb.yoon.kiosk.EnterMain.takeoutVal;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -18,6 +20,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -40,8 +43,8 @@ public class PopupActivity extends Activity {
 
     private ToggleButton hotButton;
     private ToggleButton iceButton;
-    private ToggleButton takeout;
-    private ToggleButton no_takeout;
+//    private ToggleButton takeout;
+//    private ToggleButton no_takeout;
 
     private ToggleButton tumbler;
 
@@ -52,7 +55,11 @@ public class PopupActivity extends Activity {
 
     private Drawable packageIcon;
     private Drawable tableIcon;
-    private Drawable thumblerIcon;
+
+    private Drawable hotOnIcon;
+    private Drawable iceOnIcon;
+    private Drawable hotOffIcon;
+    private Drawable iceOffIcon;
 
     private IdleTimer idleTimer;
 
@@ -87,22 +94,32 @@ public class PopupActivity extends Activity {
 
         hotButton = findViewById(R.id.option_hot_toggle);
         iceButton = findViewById(R.id.option_ice_toggle);
-        takeout = findViewById(R.id.option_takeout_toggle);
-        no_takeout = findViewById(R.id.option_store_toggle);
+//        takeout = findViewById(R.id.option_takeout_toggle);
+//        no_takeout = findViewById(R.id.option_store_toggle);
         confirm = findViewById(R.id.option_confirm_button);
-        tumbler = findViewById(R.id.option_tumblr_toggle);
+        //tumbler = findViewById(R.id.option_tumblr_toggle);
+
+        hotOnIcon = ContextCompat.getDrawable(PopupActivity.this, R.drawable.ic_hot_on);
+        hotOffIcon = ContextCompat.getDrawable(PopupActivity.this, R.drawable.ic_hot_off);
+        iceOnIcon = ContextCompat.getDrawable(PopupActivity.this, R.drawable.ic_ice_on);
+        iceOffIcon = ContextCompat.getDrawable(PopupActivity.this, R.drawable.ic_ice_off);
+
+        hotOnIcon.setBounds(0,0,48,48);
+        iceOnIcon.setBounds(0,0,48,48);
+        hotOffIcon.setBounds(0,0,48,48);
+        iceOffIcon.setBounds(0,0,48,48);
 
         hotButton.setOnClickListener(new OnTempToggleChanged());
         iceButton.setOnClickListener(new OnTempToggleChanged());
-        takeout.setOnClickListener(new OnTakeoutToggleChanged());
-        no_takeout.setOnClickListener(new OnTakeoutToggleChanged());
-        tumbler.setOnClickListener(new OnTumblerToggleChanged());
+//        takeout.setOnClickListener(new OnTakeoutToggleChanged());
+//        no_takeout.setOnClickListener(new OnTakeoutToggleChanged());
+        //tumbler.setOnClickListener(new OnTumblerToggleChanged());
 
         hotButton.setTypeface(typeface);
         iceButton.setTypeface(typeface);
-        takeout.setTypeface(typeface);
-        no_takeout.setTypeface(typeface);
-        tumbler.setTypeface(typeface);
+//        takeout.setTypeface(typeface);
+//        no_takeout.setTypeface(typeface);
+        //tumbler.setTypeface(typeface);
 
         init();
         ImageView imageView = findViewById(R.id.pop_up_option_pic);
@@ -173,46 +190,74 @@ public class PopupActivity extends Activity {
         iceButton.setChecked(false);
         hotButton.setChecked(true);
 
-        iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
-        hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
-        takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
-        no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+        //iceOnIcon.setBounds(0,0,iceOnIcon.getIntrinsicWidth(), iceOnIcon.getIntrinsicHeight());
+
+        iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.ice_toggle_off));
+        iceButton.setCompoundDrawables(iceOffIcon, null, null, null);
+        hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.hot_toggle_on));
+        hotButton.setCompoundDrawables(hotOnIcon, null, null, null);
+//        takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+//        no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
 
         //to. JoRim: 나중에 시연해보고 나서 아이콘 크기 별로면 여기를 건드려서 해결하길 바람
-        Drawable iceIcon = ContextCompat.getDrawable(this, R.drawable.ice_cubes);
-        iceIcon.setBounds(0,0,110,110);
-        //iceButton.setCompoundDrawables(iceIcon,null,null,null);
-        iceButton.setTextColor(Color.parseColor("#081832"));
+//        Drawable iceIcon = ContextCompat.getDrawable(this, R.drawable.ice_cubes);
+//        iceIcon.setBounds(0,0,110,110);
+//        //iceButton.setCompoundDrawables(iceIcon,null,null,null);
+        iceButton.setTextColor(Color.parseColor("#666666"));
 
-        Drawable hotIcon = ContextCompat.getDrawable(this, R.drawable.burn);
-        hotIcon.setBounds(0,0,110,110);
-        //hotButton.setCompoundDrawables(hotIcon,null,null,null);
+//        Drawable hotIcon = ContextCompat.getDrawable(this, R.drawable.burn);
+//        hotIcon.setBounds(0,0,110,110);
+//        //hotButton.setCompoundDrawables(hotIcon,null,null,null);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(10,0,10,0);
 
-        if (cartMenu.isCold()) {
+        if (cartMenu.isCold() && cartMenu.isHot()) {
             iceButton.setVisibility(ToggleButton.VISIBLE);
-        }
-        if (cartMenu.isHot()) {
+            iceButton.setPadding(30,10,30,10);
             hotButton.setVisibility(ToggleButton.VISIBLE);
+            hotButton.setPadding(30,10,30,10);
+        }
+        else if (cartMenu.isHot() && !cartMenu.isCold()) {
+            hotButton.setVisibility(ToggleButton.VISIBLE);
+            iceButton.setVisibility(ToggleButton.GONE);
+            hotButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.hot_only_on));
+            hotButton.setLayoutParams(params);
+            hotButton.setTextColor(Color.parseColor("#ffffff"));
+            iceButton.setTextColor(Color.parseColor("#666666"));
+            hotButton.setChecked(true);
+            iceButton.setChecked(false);
+            hotButton.setCompoundDrawables(hotOnIcon, null, null, null);
+        }
+        else if (cartMenu.isCold() && !cartMenu.isHot()){
+            iceButton.setVisibility(ToggleButton.VISIBLE);
+            hotButton.setVisibility(ToggleButton.GONE);
+            iceButton.setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.ice_only_on));
+            iceButton.setLayoutParams(params);
+            iceButton.setTextColor(Color.parseColor("#ffffff"));
+            hotButton.setTextColor(Color.parseColor("#666666"));
+            hotButton.setChecked(false);
+            iceButton.setChecked(true);
+            iceButton.setCompoundDrawablesWithIntrinsicBounds(iceOnIcon, null, null, null);
         }
 
-        if (!cartMenu.isHot() && cartMenu.isCold()) {
-            iceButton.setChecked(true);
-            iceButton.setTextColor(Color.parseColor("#ffffff"));
-            hotButton.setChecked(false);
-            iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
-            hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
-        }
+//        if (!cartMenu.isHot() && cartMenu.isCold()) {
+//            iceButton.setChecked(true);
+//            iceButton.setTextColor(Color.parseColor("#ffffff"));
+//            hotButton.setChecked(false);
+//            iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+//            hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+//        }
 
         icons(); // 아이콘 너무 많아서 아이콘 별로 따로 메서드 팠습니다
 
-        tumbler.setChecked(false);
-        tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
-        if (cartMenu.getCategoryId() == (Long)9L) {tumbler.setText("선택불가"); tumbler.setEnabled(false);}
-
-        // 텀블러 가능한 카테고리 아니면 비활성화
-        if (!tumblerFlag) {
-            tumbler.setVisibility(View.GONE);
-        }
+//        tumbler.setChecked(false);
+//        tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+//        if (cartMenu.getCategoryId() == (Long)9L) {tumbler.setText("선택불가"); tumbler.setEnabled(false);}
+//
+//        // 텀블러 가능한 카테고리 아니면 비활성화
+//        if (!tumblerFlag) {
+//            tumbler.setVisibility(View.GONE);
+//        }
     }
 
     @Override
@@ -234,9 +279,9 @@ public class PopupActivity extends Activity {
         DrawableCompat.setTint(packageIcon, Color.BLACK);
         //takeout.setCompoundDrawables(null, packageIcon,null,null);
 
-        thumblerIcon = ContextCompat.getDrawable(this, R.drawable.thermos_xxxhdpi);
-        thumblerIcon.setBounds(0,0,80,80);
-        DrawableCompat.setTint(thumblerIcon, Color.BLACK);
+//        thumblerIcon = ContextCompat.getDrawable(this, R.drawable.thermos_xxxhdpi);
+//        thumblerIcon.setBounds(0,0,80,80);
+//        DrawableCompat.setTint(thumblerIcon, Color.BLACK);
         //tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
 
     }
@@ -247,78 +292,82 @@ public class PopupActivity extends Activity {
             ToggleButton tButton = (ToggleButton) view;
             if(tButton.equals(iceButton)){
                 iceButton.setChecked(true);
-                iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+                iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.ice_toggle_on));
                 iceButton.setTextColor(Color.parseColor(com_white));
+                iceButton.setCompoundDrawables(iceOnIcon, null, null, null);
                 hotButton.setChecked(false);
-                hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
-                hotButton.setTextColor(Color.parseColor(com_blue));
+                hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.hot_toggle_off));
+                hotButton.setTextColor(Color.parseColor("#666666"));
+                hotButton.setCompoundDrawables(hotOffIcon, null, null, null);
             }
             else if(tButton.equals(hotButton)){
                 iceButton.setChecked(false);
-                iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
-                iceButton.setTextColor(Color.parseColor("#081832"));
+                iceButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.ice_toggle_off));
+                iceButton.setTextColor(Color.parseColor("#666666"));
+                iceButton.setCompoundDrawables(iceOffIcon, null, null, null);
                 hotButton.setChecked(true);
-                hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+                hotButton.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.hot_toggle_on));
                 hotButton.setTextColor(Color.parseColor("#ffffff"));
+                hotButton.setCompoundDrawables(hotOnIcon, null, null, null);
             }
         }
     }
 
-    private class OnTumblerToggleChanged implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            if(!tumbler.isChecked()){
-                tumbler.setChecked(false);
-                tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
-                tumbler.setTextColor(Color.parseColor(com_blue));
+//    private class OnTumblerToggleChanged implements View.OnClickListener {
+//        @Override
+//        public void onClick(View view) {
+//            if(!tumbler.isChecked()){
+//                tumbler.setChecked(false);
+//                tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+//                tumbler.setTextColor(Color.parseColor(com_blue));
+//
+//                DrawableCompat.setTint(thumblerIcon, Color.BLACK);
+//                //tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
+//            }
+//            else{
+//                tumbler.setChecked(true);
+//                tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+//                //no_takeout.setCompoundDrawables(null, tableIcon,null,null);
+//                tumbler.setTextColor(Color.parseColor(com_white));
+//
+//                DrawableCompat.setTint(thumblerIcon, Color.WHITE);
+//                //tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
+//            }
+//        }
+//    }
 
-                DrawableCompat.setTint(thumblerIcon, Color.BLACK);
-                //tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
-            }
-            else{
-                tumbler.setChecked(true);
-                tumbler.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
-                //no_takeout.setCompoundDrawables(null, tableIcon,null,null);
-                tumbler.setTextColor(Color.parseColor(com_white));
-
-                DrawableCompat.setTint(thumblerIcon, Color.WHITE);
-                //tumbler.setCompoundDrawables(null, thumblerIcon,null,null);
-            }
-        }
-    }
-
-    private class OnTakeoutToggleChanged implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            ToggleButton tButton = (ToggleButton) view;
-            if(tButton.equals(takeout)){
-                takeout.setChecked(true);
-                takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
-                takeout.setTextColor(Color.parseColor(com_white));
-                no_takeout.setChecked(false);
-                no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
-                no_takeout.setTextColor(Color.parseColor(com_blue));
-
-                DrawableCompat.setTint(packageIcon, Color.WHITE);
-                //takeout.setCompoundDrawables(null, packageIcon,null,null);
-                DrawableCompat.setTint(tableIcon, Color.BLACK);
-                //no_takeout.setCompoundDrawables(null, tableIcon,null,null);
-            }
-            else if(tButton.equals(no_takeout)){
-                takeout.setChecked(false);
-                takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
-                takeout.setTextColor(Color.parseColor(com_blue));
-                no_takeout.setChecked(true);
-                no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
-                no_takeout.setTextColor(Color.parseColor(com_white));
-
-                DrawableCompat.setTint(packageIcon, Color.BLACK);
-                //takeout.setCompoundDrawables(null, packageIcon,null,null);
-                DrawableCompat.setTint(tableIcon, Color.WHITE);
-                //no_takeout.setCompoundDrawables(null, tableIcon,null,null);
-            }
-        }
-    }
+//    private class OnTakeoutToggleChanged implements View.OnClickListener {
+//        @Override
+//        public void onClick(View view) {
+//            ToggleButton tButton = (ToggleButton) view;
+//            if(tButton.equals(takeout)){
+//                takeout.setChecked(true);
+//                takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+//                takeout.setTextColor(Color.parseColor(com_white));
+//                no_takeout.setChecked(false);
+//                no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+//                no_takeout.setTextColor(Color.parseColor(com_blue));
+//
+//                DrawableCompat.setTint(packageIcon, Color.WHITE);
+//                //takeout.setCompoundDrawables(null, packageIcon,null,null);
+//                DrawableCompat.setTint(tableIcon, Color.BLACK);
+//                //no_takeout.setCompoundDrawables(null, tableIcon,null,null);
+//            }
+//            else if(tButton.equals(no_takeout)){
+//                takeout.setChecked(false);
+//                takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_off));
+//                takeout.setTextColor(Color.parseColor(com_blue));
+//                no_takeout.setChecked(true);
+//                no_takeout.setBackgroundDrawable(ContextCompat.getDrawable(PopupActivity.this, R.drawable.togglebutton_on));
+//                no_takeout.setTextColor(Color.parseColor(com_white));
+//
+//                DrawableCompat.setTint(packageIcon, Color.BLACK);
+//                //takeout.setCompoundDrawables(null, packageIcon,null,null);
+//                DrawableCompat.setTint(tableIcon, Color.WHITE);
+//                //no_takeout.setCompoundDrawables(null, tableIcon,null,null);
+//            }
+//        }
+//    }
 
     public void onClickPopUpCloseButtons(View view) {
         finish();
@@ -339,24 +388,16 @@ public class PopupActivity extends Activity {
             cartMenu.setTemp("아이스");
         }
 
-        if (tumbler.isChecked()) {
-            cartMenu.setTumbler(true);
-            cartMenu.setTotalPrice(cartMenu.getTotalPrice() -200);
-        }
+//        if (tumbler.isChecked()) {
+//            cartMenu.setTumbler(true);
+//            cartMenu.setTotalPrice(cartMenu.getTotalPrice() -200);
+//        }
 
-        if(!takeout.isChecked() && !no_takeout.isChecked()){
-            // https://hydok.tistory.com/24 (토스트 메세지 글씨크기)
-            Toast toast = Toast.makeText(this, "포장 혹은 매장 버튼을 선택해주세요.", Toast.LENGTH_LONG);
-            toast.setGravity(Gravity.CENTER_VERTICAL,0,0);
-            toast.show();
-        }
-        else{
-            cartMenu.setTakeOut(takeout.isChecked());
+            cartMenu.setTakeOut(takeoutVal == 1? true : false);
             for (int i=0; i<this.itemCount; i++) {
                 kioskListActivity.addCartMenuList(cartMenu);
             }
             finish();
-        }
     }
 }
 
