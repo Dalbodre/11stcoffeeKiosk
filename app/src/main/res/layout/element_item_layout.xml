@@ -18,7 +18,6 @@
             android:layout_alignParentTop="true"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/apollo1" />
-
         <TextView
             android:id="@+id/element_name"
             android:layout_width="match_parent"

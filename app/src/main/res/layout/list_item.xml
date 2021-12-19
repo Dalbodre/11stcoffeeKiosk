@@ -9,6 +9,7 @@
     android:descendantFocusability="blocksDescendants"
     android:padding="10dp">
 
+
     <sb.yoon.kiosk.layout.ItemElement
         android:id="@+id/menu_element"
         android:layout_width="wrap_content"
@@ -16,7 +17,6 @@
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <HorizontalScrollView
         android:layout_width="wrap_content"

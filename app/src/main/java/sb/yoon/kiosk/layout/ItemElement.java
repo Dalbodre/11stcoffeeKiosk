@@ -13,9 +13,10 @@ import sb.yoon.kiosk.R;
 
 public class ItemElement extends LinearLayout{
     private Drawable image;
-    private String name;
+//    private String name;
     private int price;
     private View view;
+    private int bgColor;
 
     public Drawable getImage() {
         return image;
@@ -26,14 +27,19 @@ public class ItemElement extends LinearLayout{
         this.image = image;
     }
 
-    public String getName() {
-        return name;
+    public void setBgColor(int bgColor){
+        replaceBgColor(bgColor);
+        this.bgColor = bgColor;
     }
 
-    public void setName(String name) {
-        replaceName(name);
-        this.name = name;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        replaceName(name);
+//        this.name = name;
+//    }
 
     public void setPrice(int price) {
         replacePrice(price);
@@ -52,15 +58,19 @@ public class ItemElement extends LinearLayout{
         elementImage.setImageDrawable(image);
     }
 
-    private void replaceName(String text) {
-        TextView elementText = view.findViewById(R.id.element_name);
-        elementText.setText(text);
-    }
+//    private void replaceName(String text) {
+//        TextView elementText = view.findViewById(R.id.element_name);
+//        elementText.setText(text);
+//    }
 
     private void replacePrice(int price) {
         TextView elementText = view.findViewById(R.id.element_price);
         elementText.setVisibility(View.VISIBLE);
         elementText.setText(Integer.toString(price));
+    }
+
+    private void replaceBgColor(int bgColor){
+
     }
 
     public ImageView getImageView() {

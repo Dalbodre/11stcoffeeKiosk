@@ -90,7 +90,7 @@ public class KioskListAdapter extends BaseAdapter implements View.OnClickListene
         Drawable drawable = ContextCompat.getDrawable(context, context.getResources()
                 .getIdentifier(menu.getIconPath(), "drawable", context.getPackageName()));
         menuItem.setImageDrawable(drawable);
-        menuItem.setName(menu.getName());
+        //menuItem.setName(menu.getName());
         menuItem.setPrice(menu.getPrice());
         menuItem.setTag(position);
 

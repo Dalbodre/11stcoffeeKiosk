@@ -65,7 +65,7 @@ public class EnterMain extends AppCompatActivity {
         setContentView(R.layout.activity_enter_main);
 
         t = findViewById(R.id.splash_title);
-        b = findViewById(R.id.enter_main_button);
+        //b = findViewById(R.id.enter_main_button);
         progressBar = findViewById(R.id.progressBar);
         ImageView EASTER = findViewById(R.id.enter_easter);
         EASTER.setOnClickListener(new easterClickListener());
@@ -82,8 +82,8 @@ public class EnterMain extends AppCompatActivity {
         } else {
             // Toast.makeText(this.getApplicationContext(), "이미 허가되었습니다", Toast.LENGTH_LONG).show();
         }
-        employee_easter = findViewById(R.id.employee_easter);
-        employee_easter.setOnClickListener(new employeeClickListener());
+//        employee_easter = findViewById(R.id.employee_easter);
+//        employee_easter.setOnClickListener(new employeeClickListener());
 
         savebmp("background_kicc.png",R.drawable.background_kicc);
         savebmp("close_kicc.png",R.drawable.close_kicc);

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,43 +14,113 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="300px"
-        android:src="@drawable/coffee_in_main_enterance" />
-
-
+        android:src="@drawable/coffee_in_main_enterance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <Button
-        android:id="@+id/enter_main_button"
-        android:layout_width="550dp"
-        android:layout_height="220dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="200px"
-        android:background="@drawable/orderbutton"
-        android:onClick="buttonClicked"
-        android:text="주문하기"
-        android:textColor="#0a1527"
-        android:textSize="130px"
-        android:textStyle="bold" />
-
-
+        android:id="@+id/credit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:paddingTop="25dp"
+        android:text="제작자"
+        android:textColor="#ffffff"
+        android:gravity="right"
+        android:textSize="45sp"
+        />
     <TextView
         android:id="@+id/splash_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/enter_easter"
-        android:layout_marginTop="100px"
+        android:layout_marginTop="20dp"
         android:text="카운터에서도\n주문 가능합니다."
         android:textAlignment="center"
         android:textColor="#fec93d"
         android:textSize="90px"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/enter_easter"/>
 
-    <View
-        android:id="@+id/employee_easter"
-        android:layout_width="200px"
-        android:layout_height="300px"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:background="#0a1527" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/enter_main_bottomstyle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/splash_title">
+
+        <Button
+            android:id="@+id/btnTakeout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="50pt"
+            android:layout_marginEnd="35pt"
+            android:layout_marginVertical="80dp"
+            android:background="@drawable/orderbutton"
+            android:drawableTop="@drawable/enter_main_takeout_size"
+            android:text="포장"
+            android:textSize="100sp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnInCoffee"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingVertical="180dp"
+            android:elevation="2dp"
+            >
+            <!--            <LinearLayout-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:gravity="center_horizontal"-->
+            <!--                >-->
+            <!--                <View-->
+            <!--                    android:layout_width="60pt"-->
+            <!--                    android:layout_height="54.9pt"-->
+            <!--                    android:background="#000000"-->
+            <!--                    />-->
+            <!--            </LinearLayout>-->
+        </Button>
+
+        <Button
+            android:id="@+id/btnInCoffee"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:background="@drawable/orderbutton"
+            android:drawableTop="@drawable/enter_main_takeout_size"
+            android:text="매장"
+            android:textSize="100sp"
+            android:layout_marginEnd="50pt"
+            android:layout_marginVertical="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnTakeout"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingVertical="180dp"
+            android:elevation="2dp"
+            />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+<!--    <View-->
+<!--        android:id="@+id/employee_easter"-->
+<!--        android:layout_width="200px"-->
+<!--        android:layout_height="300px"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:background="#ffffff"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,7 +129,9 @@
         android:layout_alignParentBottom="true"
         android:text="정상 운영중입니다."
         android:textColor="#ffffff"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -69,6 +141,12 @@
         android:layout_below="@+id/enter_easter"
         android:layout_centerHorizontal="true"
         android:alpha="0.8"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
