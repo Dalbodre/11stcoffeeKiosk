@@ -24,7 +24,8 @@
             android:text="이름"
             android:textAlignment="center"
             android:textColor="@color/coffeeBrown"
-            android:textSize="30sp"
+            android:textSize="25sp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

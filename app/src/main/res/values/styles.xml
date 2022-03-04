@@ -20,8 +20,8 @@
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
         <item name="android:buttonStyleToggle">@style/customToggleButtonFontStyle</item>
 
-        <item name="android:fontFamily">@font/gmarket_medium</item>
-        <item name="fontFamily">@font/gmarket_medium</item>
+        <item name="android:fontFamily">@font/default_font</item>
+        <item name="fontFamily">@font/default_font</item>
 
         <!-- <item name="android:windowTranslucentNavigation">true</item> -->
     </style>

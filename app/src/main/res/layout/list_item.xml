@@ -36,12 +36,14 @@
             android:layout_height="wrap_content"
             android:text="메뉴이름"
             android:textSize="35sp"
-            android:textColor="#151515"/>
+            android:textColor="#151515"
+            android:layout_marginBottom="10dp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
 
             <ImageView
                 android:id="@+id/menu_hot_icon"

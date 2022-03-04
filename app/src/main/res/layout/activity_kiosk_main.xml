@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="11호관 커피숍"
+
             android:textColor="@color/colorWhite"
             android:textSize="100sp"
             app:layout_constraintStart_toStartOf="parent"

@@ -20,4 +20,8 @@
         android:fontStyle = "normal"
         android:fontWeight = "400"
         android:font = "@font/gmarket_medium"/>
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/default_font"/>
 </font-family>

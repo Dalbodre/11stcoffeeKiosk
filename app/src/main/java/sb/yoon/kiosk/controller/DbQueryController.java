@@ -190,8 +190,8 @@ public class DbQueryController {
         private void initMenus() {
             //커피 1L
             menuDao.insertOrReplace(new Menu(1L, "에소프레소", 1L, 2000, "espresso", 0xffdea654,true, false));
-            menuDao.insertOrReplace(new Menu(2L, "아메리카노", 1L, 2200, "americano", 0xff8e492b,true, true));
-            menuDao.insertOrReplace(new Menu(3L, "아메리카노 큰 사이즈(차가운 음료)", 1L, 2700, "americano", 0xff8e492b,false, true));
+            menuDao.insertOrReplace(new Menu(2L, "아메리카노(이벤트)", 1L, 1000, "americano", 0xff8e492b,true, true));
+            menuDao.insertOrReplace(new Menu(3L, "아메리카노 큰 사이즈(차가운 음료, 이벤트)", 1L, 1500, "americano", 0xff8e492b,false, true));
             menuDao.insertOrReplace(new Menu(4L, "카페라떼", 1L, 2800, "caffe_latte",0xffcfab7a, true, true));
             menuDao.insertOrReplace(new Menu(5L, "카푸치노", 1L, 2800, "capuccino", 0xffa14933,true, false));
             menuDao.insertOrReplace(new Menu(6L, "바닐라라떼", 1L, 3200, "vanila", 0xffd6a03a,true, true));
@@ -201,9 +201,9 @@ public class DbQueryController {
 
 
             //라떼 2L
-            menuDao.insertOrReplace(new Menu(47L, "토피넛라떼", 2L, 3200, "nut_latte", 0xffffffff, false, true));
-            menuDao.insertOrReplace(new Menu(46L, "곡물라떼", 2L, 3200, "grain_latte", 0xffffffff, false, true));
-            menuDao.insertOrReplace(new Menu(45L, "흑임자라떼", 2L, 3200, "black_latte_1", 0xffffffff, false, true));
+            menuDao.insertOrReplace(new Menu(47L, "토피넛라떼", 2L, 3200, "nut_latte", 0xffffffff, true, true));
+            menuDao.insertOrReplace(new Menu(46L, "곡물라떼", 2L, 3200, "grain_latte", 0xffffffff, true, true));
+            menuDao.insertOrReplace(new Menu(45L, "흑임자라떼", 2L, 3200, "black_latte_1", 0xffffffff, true, true));
             menuDao.insertOrReplace(new Menu(44L, "딸기라떼", 2L, 3500, "berry_latte", 0xffffffff, false, true));
             menuDao.insertOrReplace(new Menu(16L, "말차라떼", 2L,3200, "greentea", 0xff87b138, true, true));
             menuDao.insertOrReplace(new Menu(17L, "고구마라떼", 2L, 3200, "spotato", 0xffc9a211, true, true));
@@ -262,7 +262,7 @@ public class DbQueryController {
             ingredientDao.insertOrReplace(new Ingredient(3L, "우유",  "milk"));
             ingredientDao.insertOrReplace(new Ingredient(4L, "시나몬가루",  "cynamon"));
             ingredientDao.insertOrReplace(new Ingredient(5L, "바닐라시럽",  "vanila_syrup"));
-            ingredientDao.insertOrReplace(new Ingredient(6L, "헤이즐넛넛\n시럽",  "hazelnut_syrup"));
+            ingredientDao.insertOrReplace(new Ingredient(6L, "헤이즐넛\n시럽",  "hazelnut_syrup"));
             ingredientDao.insertOrReplace(new Ingredient(7L, "카라멜소스",  "caramel_syrup"));
             ingredientDao.insertOrReplace(new Ingredient(8L, "초코소스", "choco_syrup"));
             ingredientDao.insertOrReplace(new Ingredient(9L, "민트시럽", "chiyak_syrup"));
@@ -300,7 +300,7 @@ public class DbQueryController {
 
             ingredientDao.insertOrReplace(new Ingredient(35L, "흑임자가루", "blank_image"));
             ingredientDao.insertOrReplace(new Ingredient(36L, "곡물가루", "blank_image"));
-            ingredientDao.insertOrReplace(new Ingredient(37L, "토피가루", "blank_image"));
+            ingredientDao.insertOrReplace(new Ingredient(37L, "토피넛가루", "blank_image"));
         }
 
         private void initIngredAndMenuJoiners() {
